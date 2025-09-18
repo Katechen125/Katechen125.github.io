@@ -342,6 +342,65 @@
             background: #ff8000;
             color: #fff
         }
+
+        body::before {
+            content: none !important;
+        }
+
+        html::before {
+            content: "";
+            position: fixed;
+            inset: -25%;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(1200px 800px at 12% 0%, color-mix(in oklab, var(--sky) 55%, transparent), transparent 60%),
+                radial-gradient(1200px 800px at 90% 8%, color-mix(in oklab, var(--pink) 55%, transparent), transparent 60%),
+                radial-gradient(1100px 780px at 0% 100%, color-mix(in oklab, var(--sage) 60%, transparent), transparent 60%),
+                radial-gradient(1000px 720px at 100% 100%, color-mix(in oklab, white 35%, transparent), transparent 60%),
+                linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
+        }
+
+        :root[data-theme="carlos"] html::before {
+            background:
+                radial-gradient(1100px 720px at 15% 0%, #e6eeff 40%, transparent 62%),
+                radial-gradient(1100px 720px at 95% 10%, #dbe6ff 42%, transparent 64%),
+                radial-gradient(1100px 760px at -5% 100%, #e0e9ff 38%, transparent 60%),
+                linear-gradient(180deg, #f7f9ff 0%, #dbe6ff 100%);
+        }
+
+        :root[data-theme="lando"] html::before {
+            background:
+                radial-gradient(900px 520px at 12% -6%, #ffe27a 36%, transparent 60%),
+                radial-gradient(900px 520px at 110% -4%, #ff9a3c 42%, transparent 62%),
+                radial-gradient(1100px 560px at -8% 102%, #ffffff 26%, transparent 60%),
+                radial-gradient(1600px 1200px at 50% 50%, rgba(0, 0, 0, .35) 0%, rgba(0, 0, 0, .08) 60%, transparent 75%),
+                linear-gradient(180deg, #141414 0%, #0f0f10 55%, #111113 100%);
+        }
+
+        :root[data-theme="lando"] .card {
+            background: #1b1b1d;
+            border: 1px solid rgba(255, 128, 0, .22);
+            box-shadow:
+                0 18px 44px rgba(0, 0, 0, .55),
+                0 2px 0 rgba(255, 128, 0, .08) inset;
+        }
+
+        :root[data-theme="lando"] h2 {
+            color: #ff943d;
+        }
+
+        :root[data-theme="lando"] .tag {
+            background: color-mix(in oklab, #ff8a22 46%, #1a1a1a);
+            border-color: #ff8a22;
+            color: #fff8f1;
+        }
+
+        :root[data-theme="lando"] .chip {
+            color: #f3f3f3;
+            border-color: #3a3a3a;
+            background: color-mix(in oklab, #ff8a22 18%, #1b1b1e);
+        }
     </style>
 </head>
 
