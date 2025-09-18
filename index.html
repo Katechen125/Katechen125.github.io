@@ -418,36 +418,32 @@
 
         .avatar-badge {
             position: absolute;
-            bottom: -4px;
-            right: -4px;
+            bottom: 4px;
+            right: 4px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
             background: var(--surface);
             border: 2px solid var(--ring);
-            border-radius: 50%;
             font-family: "Playfair Display", Georgia, serif;
             font-weight: 700;
-            font-size: 18px;
-            padding: 4px 8px;
-            color: var(--text);
+            font-size: 16px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             box-shadow: 0 3px 6px rgba(0, 0, 0, .2);
         }
 
         :root[data-theme="carlos"] .avatar-badge {
-            content: "";
-            background: url("https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp") center/contain no-repeat;
-            border: none;
-            width: 28px;
-            height: 28px;
-            padding: 0;
+            background: #fff url("https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp") center/70% no-repeat;
+            border: 2px solid #0f3d91;
             font-size: 0;
         }
 
         :root[data-theme="lando"] .avatar-badge {
-            content: "";
-            background: url("https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png") center/contain no-repeat;
-            border: none;
-            width: 28px;
-            height: 28px;
-            padding: 0;
+            background: #fff url("https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png") center/70% no-repeat;
+            border: 2px solid #ff8000;
             font-size: 0;
         }
     </style>
