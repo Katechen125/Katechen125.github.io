@@ -20,9 +20,9 @@
       --maxw:1080px;
     }
     :root[data-theme="carlos"]{
-      --bg:#f2f6ff; --surface:#ffffff; --surface-2:#eef3ff;
-      --text:#0b1220; --muted:#51607d; --ring:rgba(0,0,0,.1);
-      --accent:#0057ff;
+      --bg:#eef3ff; --surface:#ffffff; --surface-2:#e8f0ff;
+      --text:#0b1220; --muted:#4a5d84; --ring:rgba(0,0,0,.1);
+      --accent:#0f3d91;
     }
     :root[data-theme="lando"]{
       --bg:#0c0c0d; --surface:#141417; --surface-2:#101012;
@@ -95,8 +95,8 @@
       </div>
       <div class="driver-bar">
         <span>Favorite drivers:</span>
-        <button class="btn" data-theme="carlos">Carlos</button>
-        <button class="btn" data-theme="lando">Lando</button>
+        <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
+        <button class="btn" data-theme="lando">Lando Norris</button>
         <button class="btn" id="resetTheme">Reset theme</button>
         <span class="subtle">(click for themed confetti)</span>
       </div>
@@ -132,6 +132,18 @@
       <!-- PLACEHOLDER for future video demo -->
       <p class="subtle">[Placeholder] Video demo coming soon.</p>
     </article>
+
+    <article class="proj card">
+    <h3>TCP Server — Spaghetti Relay</h3>
+    <p>Lightweight TCP server that accepts client connections and relays messages across clients (“spaghetti relay”). Includes simple logging and graceful shutdown.</p>
+    <div class="tags">
+        <span class="tag">TCP</span>
+        <span class="tag">Sockets</span>
+        <span class="tag">Networking</span>
+    </div>
+    <!-- PLACEHOLDER: add your repo link when ready -->
+    <p><a href="#">Code (coming soon)</a></p>
+    </article>
   </section>
 
   <section id="about" class="container">
@@ -151,14 +163,14 @@
   </footer>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+     document.getElementById('year').textContent = new Date().getFullYear();
 
-    const root = document.documentElement;
-    const canvas = document.getElementById('confetti');
-    const ctx = canvas.getContext('2d');
-    let W,H,DPR=Math.max(1,window.devicePixelRatio||1), raf;
-    function size(){ W=canvas.width=innerWidth*DPR; H=canvas.height=innerHeight*DPR; }
-    size(); addEventListener('resize', size);
+  const root = document.documentElement;
+  const canvas = document.getElementById('confetti');
+  const ctx = canvas.getContext('2d');
+  let W, H, DPR = Math.max(1, window.devicePixelRatio || 1), rafId = null;
+  function size(){ W = canvas.width = innerWidth * DPR; H = canvas.height = innerHeight * DPR; }
+  size(); addEventListener('resize', size);
 
     const logos={};
     const logoFiles={
@@ -169,57 +181,99 @@
     };
     for(const key in logoFiles){ logos[key]=new Image(); logos[key].src=logoFiles[key]; }
 
-    function confettiFall(colors, labels, useImages=false){
-      cancelAnimationFrame(raf);
-      const N=300;
-      const parts=[];
-      for(let i=0;i<N;i++){
-        parts.push({
-          x: Math.random()*W,
-          y: -Math.random()*H*0.6,
-          vx: (Math.random()*2-1)*0.8*DPR,
-          vy: (2+Math.random()*2)*DPR,
-          rot: Math.random()*Math.PI,
-          vr: (Math.random()*0.2-0.1),
-          color: colors[Math.floor(Math.random()*colors.length)],
-          label: labels[Math.floor(Math.random()*labels.length)],
-          useImage: useImages
-        });
-      }
-      function tick(){
+ function confettiFall(options){
+    const {
+      colors = ['#ddd'],
+      labels = [],
+      useImages = false,
+      durationMs = 2600,
+      imgSize = 24,    
+      textPx = 16       
+    } = options;
+
+    if (rafId) cancelAnimationFrame(rafId);
+    const N = 300;
+    const parts = [];
+    const start = performance.now();
+
+    for (let i = 0; i < N; i++) {
+      parts.push({
+        x: Math.random() * W,
+        y: -Math.random() * H * 0.6,             
+        vx: (Math.random() * 2 - 1) * 0.8 * DPR,
+        vy: (2 + Math.random() * 2) * DPR,
+        rot: Math.random() * Math.PI,
+        vr: (Math.random() * 0.2 - 0.1),
+        color: colors[Math.floor(Math.random() * colors.length)],
+        label: labels.length ? labels[Math.floor(Math.random() * labels.length)] : null,
+        useImage: useImages
+      });
+    }
+
+    function tick(t){
+      const elapsed = t - start;
+      ctx.clearRect(0,0,W,H);
+
+      parts.forEach(p => { p.vy += 0.01 * DPR; p.x += p.vx; p.y += p.vy; p.rot += p.vr; });
+
+      parts.forEach(p => {
+        if (p.y > H + 40 * DPR) { p.y = -20 * DPR; p.x = Math.random() * W; } 
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+
+        if (p.useImage && p.label && logos[p.label] && logos[p.label].complete) {
+          const s = imgSize * DPR;
+          ctx.drawImage(logos[p.label], -s/2, -s/2, s, s);
+        } else if (!p.useImage && p.label) {
+          ctx.font = (textPx * DPR) + "px Playfair Display, serif";
+          ctx.fillStyle = p.color;
+          ctx.fillText(p.label, -ctx.measureText(p.label).width / 2, 0);
+        } else {
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-4, -4, 8, 8);
+        }
+
+        ctx.restore();
+      });
+
+      if (elapsed < durationMs) {
+        rafId = requestAnimationFrame(tick);
+      } else {
         ctx.clearRect(0,0,W,H);
-        parts.forEach(p=>{ p.vy+=0.01*DPR; p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr; });
-        parts.forEach(p=>{
-          if(p.y>H+40*DPR){ p.y=-20*DPR; p.x=Math.random()*W; }
-          ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
-          if(p.useImage && logos[p.label] && logos[p.label].complete){
-            ctx.drawImage(logos[p.label],-12,-12,24,24);
-          } else if(!p.useImage) {
-            ctx.font=16*DPR+"px Playfair Display, serif"; ctx.fillStyle=p.color; ctx.fillText(p.label, -ctx.measureText(p.label).width/2, 0);
-          } else {
-            ctx.fillStyle=p.color; ctx.fillRect(-4,-4,8,8);
-          }
-          ctx.restore();
-        });
-        raf=requestAnimationFrame(tick);
-      }
-      raf=requestAnimationFrame(tick);
-    }
-
-    function setTheme(name){
-      if(name==='carlos'){
-        root.setAttribute('data-theme','carlos');
-        confettiFall(['#0057ff','#ffffff'], ['williams','chili'], true);
-      } else if(name==='lando'){
-        root.setAttribute('data-theme','lando');
-        confettiFall(['#ff8000','#111111'], ['mclaren','ln4'], true);
+        rafId = null;
       }
     }
 
-    document.querySelectorAll('[data-theme]').forEach(b=> b.addEventListener('click',()=> setTheme(b.dataset.theme)));
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function setTheme(name){
+    if (name === 'carlos') {
+      root.setAttribute('data-theme','carlos');
+      confettiFall({
+        colors:['#0f3d91','#ffffff'],
+        labels:['williams','chili'],
+        useImages:true,
+        durationMs:2800,
+        imgSize:22 
+      });
+    } else if (name === 'lando') {
+      root.setAttribute('data-theme','lando');
+      confettiFall({
+        colors:['#ff8000','#0c0c0d','#ffffff'],
+        labels:['mclaren','ln4'],
+        useImages:true,
+        durationMs:2800,
+        imgSize:22
+      });
+    }
+  }
+
+  document.querySelectorAll('[data-theme]').forEach(b => 
+    b.addEventListener('click', () => setTheme(b.dataset.theme))
+  );
     document.getElementById('resetTheme').addEventListener('click',()=>{
       root.removeAttribute('data-theme');
-      confettiFall(['#e07b97','#6fa387','#6aa9d8'], ['🫀','🏎️','💻'], false);
+      confettiFall(['#e07b97','#6fa387','#6aa9d8'], ['🫀','🏎️','💻'],false,2200,12 );
     });
   </script>
 </body>
