@@ -197,7 +197,9 @@
         }
 
         :root[data-theme="lando"] .chip {
-            background: color-mix(in oklab, var(--accent) 12%, #1b1b1e)
+            background: color-mix(in oklab, var(--accent) 12%, #1b1b1e);
+            color: #f1f1f1;
+            border-color: #333
         }
 
         .driver-bar {
@@ -217,7 +219,8 @@
             border-radius: 12px;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 1px 0 rgba(0, 0, 0, .04)
+            box-shadow: 0 1px 0 rgba(0, 0, 0, .04);
+            transition: background .2s, color .2s
         }
 
         .btn.primary {
@@ -281,21 +284,63 @@
 
         .coming-soon {
             color: var(--muted);
-            font-weight: 600;
+            font-weight: 600
         }
 
         :root[data-theme="lando"] .card {
-            background: rgba(34, 34, 34, 0.85);
+            background: rgba(34, 34, 34, .85);
             border: 1px solid #333;
-            color: #f5f5f5;
+            color: #f5f5f5
         }
+
         :root[data-theme="lando"] h2 {
-            color: #ff914d;
+            color: #ff914d
         }
+
         :root[data-theme="lando"] .tag {
             background: color-mix(in oklab, #ff8000 40%, #1a1a1a);
             color: #fff7f0;
-            border-color: #ff8000;
+            border-color: #ff8000
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(1200px 500px at 10% -10%, color-mix(in oklab, var(--sky) 55%, transparent), transparent 60%),
+                radial-gradient(900px 420px at 110% 0%, color-mix(in oklab, var(--pink) 55%, transparent), transparent 60%),
+                radial-gradient(800px 400px at -10% 100%, color-mix(in oklab, var(--sage) 60%, transparent), transparent 60%),
+                linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
+        }
+
+        :root[data-theme="lando"] body::before {
+            background:
+                radial-gradient(950px 450px at 12% -8%, #ffe27a 35%, transparent 60%),
+                radial-gradient(900px 420px at 110% -5%, #ff9a3c 40%, transparent 60%),
+                radial-gradient(1000px 520px at -10% 100%, #ffffff 25%, transparent 60%),
+                linear-gradient(180deg, #141414 0%, #0f0f10 55%, #111113 100%);
+        }
+
+        :root[data-theme="lando"] .hero h1 {
+            color: #f5f7fa
+        }
+
+        :root[data-theme="lando"] .hero .subtle {
+            color: #cfd5df
+        }
+
+        :root[data-theme="lando"] .btn {
+            background: #2a2a2a;
+            color: #f1f1f1;
+            border-color: #444
+        }
+
+        :root[data-theme="lando"] .btn:hover {
+            background: #ff8000;
+            color: #fff
         }
     </style>
 </head>
@@ -331,9 +376,10 @@
 
     <section id="projects" class="container">
         <h2>Projects</h2>
+
         <article class="proj card">
             <h3>Calculator — Shunting-Yard</h3>
-            <p>C++ expression evaluator using shunting-yard for precedence/associativity. UI buttons are
+            <p>C++ expression evaluator using Dijkstra’s shunting-yard for precedence/associativity. UI buttons are
                 produced via a <strong>factory pattern</strong>; evaluation runs on a dedicated <strong>processor
                     instance</strong> to keep concerns clean.</p>
             <div class="tags">
@@ -385,15 +431,17 @@
 
         <article class="proj card">
             <h3>TCP Server — Spaghetti Relay</h3>
-            <p>Lightweight TCP server that accepts client connections and relays messages across clients (“spaghetti
-                relay”). Includes simple logging and graceful shutdown.</p>
+            <p><strong>C++</strong> TCP server that accepts client connections and relays messages across clients
+                (“spaghetti relay”). Includes simple logging and graceful shutdown.</p>
             <div class="tags">
+                <span class="tag">C++</span>
                 <span class="tag">TCP</span>
                 <span class="tag">Sockets</span>
                 <span class="tag">Networking</span>
             </div>
             <p class="subtle">[Placeholder] Video demo coming soon.</p> <!-- PLACEHOLDER for future video demo -->
         </article>
+
     </section>
 
     <section id="about" class="container">
@@ -473,6 +521,7 @@
                 const remaining = Math.max(0, durationMs - elapsed);
                 const fadeProgress = 1 - clamp01(remaining / fadeMs);
                 const alpha = 1 - easeOutCubic(fadeProgress);
+
                 ctx.clearRect(0, 0, W, H);
 
                 parts.forEach(p => {
@@ -481,8 +530,7 @@
                     p.vx *= damp;
                     p.vy *= damp;
                     p.rot += p.vr * damp;
-                    p.x += p.vx;
-                    p.y += p.vy;
+                    p.x += p.vx; p.y += p.vy;
                 });
 
                 parts.forEach(p => {
@@ -500,8 +548,7 @@
                         ctx.fillStyle = p.color;
                         ctx.fillText(p.label, -ctx.measureText(p.label).width / 2, 0);
                     } else {
-                        ctx.fillStyle = p.color;
-                        ctx.fillRect(-4, -4, 8, 8);
+                        ctx.fillStyle = p.color; ctx.fillRect(-4, -4, 8, 8);
                     }
                     ctx.restore();
                 });
@@ -540,9 +587,7 @@
             }
         }
 
-        document.querySelectorAll('[data-theme]').forEach(b =>
-            b.addEventListener('click', () => setTheme(b.dataset.theme))
-        );
+        document.querySelectorAll('[data-theme]').forEach(b => b.addEventListener('click', () => setTheme(b.dataset.theme)));
         document.getElementById('resetTheme').addEventListener('click', () => {
             root.removeAttribute('data-theme');
             confettiFall({
