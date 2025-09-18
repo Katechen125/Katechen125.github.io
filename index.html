@@ -1,280 +1,523 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Katherine Isabela Hsiung Chen 🏁 — Pole Position</title>
-  <meta name="description" content="Katherine's pastel portfolio with classy headings, F1 theme toggles, and project showcases." />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg:#f7faf9; --surface:#ffffff; --surface-2:#fbfdff;
-      --text:#1b1e22; --muted:#5b6471; --ring:rgba(0,0,0,.08);
-      --sage:#bcd6c5; --sage-600:#6fa387; --sky:#cfe9fb; --pink:#f9c9d4;
-      --accent:#6fa387;
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Katherine Isabela Hsiung Chen — Pole Position 🏁 </title>
+    <meta name="description"
+        content="Katherine's pastel portfolio with classy headings, F1 theme toggles, and project showcases." />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f7faf9;
+            --surface: #ffffff;
+            --surface-2: #fbfdff;
+            --text: #1b1e22;
+            --muted: #5b6471;
+            --ring: rgba(0, 0, 0, .08);
+            --sage: #bcd6c5;
+            --sage-600: #6fa387;
+            --sky: #cfe9fb;
+            --pink: #f9c9d4;
+            --accent: #6fa387;
 
-      --btn-bg:#ffffff; --btn-border:#d7dde5; --btn-text:#111318;
-      --btn-primary-bg:#111318; --btn-primary-text:#ffffff;
+            --btn-bg: #ffffff;
+            --btn-border: #d7dde5;
+            --btn-text: #111318;
+            --btn-primary-bg: #111318;
+            --btn-primary-text: #ffffff;
 
-      --rad:16px; --pad:16px; --shadow:0 10px 24px rgba(12,21,33,.08),0 2px 6px rgba(12,21,33,.05);
-      --maxw:1080px;
-    }
-    :root[data-theme="carlos"]{
-      --bg:#eef3ff; --surface:#ffffff; --surface-2:#e8f0ff;
-      --text:#0b1220; --muted:#4a5d84; --ring:rgba(0,0,0,.1);
-      --accent:#0f3d91;
-    }
-    :root[data-theme="lando"]{
-      --bg:#0c0c0d; --surface:#141417; --surface-2:#101012;
-      --text:#f6f7f9; --muted:#b8bdc7; --ring:rgba(255,255,255,.14);
-      --accent:#ff8000;
-    }
-
-    *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-    h1,h2,h3{font-family:"Playfair Display",Georgia,"Times New Roman",serif;letter-spacing:.2px}
-    h1{font-weight:700}
-    h2,h3{font-weight:600}
-    a{color:var(--accent);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .container{max-width:var(--maxw);margin:0 auto;padding:0 18px}
-    header.site{position:sticky;top:0;z-index:10;background:color-mix(in oklab,var(--bg) 86%,transparent);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--ring)}
-    .site-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
-    .brand{display:flex;gap:10px;align-items:center;font-weight:800}
-    .brand .badge{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--sage),var(--sky))}
-    nav a{margin-left:14px;font-weight:600}
-
-    section{padding:48px 0}
-    h2{margin:0 0 12px;font-size:clamp(22px,3vw,32px)}
-    .subtle{color:var(--muted)}
-    .card{background:var(--surface);border:1px solid var(--ring);border-radius:var(--rad);padding:var(--pad);box-shadow:var(--shadow)}
-
-    .hero{padding:64px 0;background:
-      radial-gradient(1200px 500px at 10% -10%, color-mix(in oklab, var(--sky) 55%, transparent), transparent 60%),
-      radial-gradient(900px 420px at 110% 0%, color-mix(in oklab, var(--pink) 55%, transparent), transparent 60%),
-      radial-gradient(800px 400px at -10% 100%, color-mix(in oklab, var(--sage) 60%, transparent), transparent 60%)}
-    :root[data-theme="lando"] .hero{background:linear-gradient(180deg,#111 0%,#0c0c0d 100%)}
-    .hero h1{margin:0 0 8px;font-size:clamp(28px,5vw,48px)}
-    .chips{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 16px}
-    .chip{--c:var(--sage);padding:8px 12px;border:1px solid var(--ring);border-radius:999px;background:color-mix(in oklab,var(--c) 28%,white);font-weight:700}
-    :root[data-theme="lando"] .chip{background:color-mix(in oklab,var(--accent) 12%,#1b1b1e)}
-
-    .driver-bar{display:flex;align-items:center;gap:10px;color:var(--muted);flex-wrap:wrap}
-    .btn{appearance:none;border:1px solid var(--btn-border);background:var(--btn-bg);color:var(--btn-text);padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 1px 0 rgba(0,0,0,.04)}
-    .btn.primary{background:var(--btn-primary-bg);color:var(--btn-primary-text);border-color:#000000}
-
-    .proj{margin-bottom:16px}
-    .proj h3{margin:.3rem 0}
-    .tags{display:flex;gap:8px;flex-wrap:wrap;margin:.25rem 0 .5rem}
-    .tag{font-size:12px;padding:6px 10px;border-radius:999px;background:color-mix(in oklab,var(--sky) 35%,white);border:1px solid var(--ring);font-weight:700}
-    .tag.f1{background:color-mix(in oklab,var(--pink) 35%,white)}
-    .tag.health{background:color-mix(in oklab,var(--sage) 35%,white)}
-
-    #confetti{position:fixed;inset:0;pointer-events:none}
-
-    footer{border-top:1px solid var(--ring);padding:18px 0;color:var(--muted);text-align:center}
-  </style>
-</head>
-<body>
-  <canvas id="confetti"></canvas>
-  <header class="site">
-    <div class="site-inner container">
-      <div class="brand"><span class="badge"></span><span>Katherine Isabela Hsiung Chen — Pole Position🏁</span></div>
-      <nav><a href="#projects">Projects</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="container">
-      <h1>Hi, I’m Katherine — I build playful-aesthetic, human‑centered apps.</h1>
-      <p class="subtle">F1 energy • Health & travel features • Clean, accessible UI</p>
-      <div class="chips">
-        <span class="chip" style="--c:var(--sage)">🩺 Health</span>
-        <span class="chip" style="--c:var(--sky)">✈️ Travel</span>
-        <span class="chip" style="--c:var(--pink)">🏎️ F1</span>
-      </div>
-      <div class="driver-bar">
-        <span>Favorite drivers:</span>
-        <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
-        <button class="btn" data-theme="lando">Lando Norris</button>
-        <button class="btn" id="resetTheme">Reset theme</button>
-        <span class="subtle">(click for themed confetti)</span>
-      </div>
-    </div>
-  </section>
-
-  <section id="projects" class="container">
-    <h2>Projects</h2>
-    <article class="proj card">
-      <h3>Calculator — Shunting‑Yard</h3>
-      <p>Expression evaluator using Shunting‑Yard algorithm to handle precedence and associativity.</p>
-            <!-- PLACEHOLDER for future video demo -->
-      <p class="subtle">[Placeholder] Video demo coming soon.</p>
-    </article>
-
-    <article class="proj card">
-      <h3>Conway’s Game of Life</h3>
-      <p>Interactive cellular automaton with pause/step and preset patterns.</p>
-            <!-- PLACEHOLDER for future video demo -->
-      <p class="subtle">[Placeholder] Video demo coming soon.</p>
-    </article>
-
-    <article class="proj card">
-      <h3>Proximity Video Panel (Collab)</h3>
-      <p>I built the <em>proximity trigger</em>: when someone comes close, a video panel pops in; it hides when they move away.</p>
-            <!-- PLACEHOLDER for future video demo -->
-      <p class="subtle">[Placeholder] Video demo coming soon.</p>
-    </article>
-
-    <article class="proj card">
-      <h3>Pathfinder — Travel & Health</h3>
-      <p>Attractions, hotel booking helpers, activities & flights, calendar, expense tracker, currency converter, local storage, and saved‑places map. Built as a native app; below is a placeholder.</p>
-      <!-- PLACEHOLDER for future video demo -->
-      <p class="subtle">[Placeholder] Video demo coming soon.</p>
-    </article>
-
-    <article class="proj card">
-    <h3>TCP Server — Spaghetti Relay</h3>
-    <p>Lightweight TCP server that accepts client connections and relays messages across clients (“spaghetti relay”). Includes simple logging and graceful shutdown.</p>
-    <div class="tags">
-        <span class="tag">TCP</span>
-        <span class="tag">Sockets</span>
-        <span class="tag">Networking</span>
-    </div>
-    <!-- PLACEHOLDER: add your repo link when ready -->
-    <p><a href="#">Code (coming soon)</a></p>
-    </article>
-  </section>
-
-  <section id="about" class="container">
-    <h2>About</h2>
-    <p>I’m a CS student who blends health and travel features into friendly, accessible apps. I love pastel palettes, clean and tiny interactions that make interfaces feel intentional.</p>
-  </section>
-
-  <section id="contact" class="container">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:katisabela125@gmail.com">katisabela125@gmail.com</a></p>
-    <p>GitHub: <a href="https://github.com/Katechen125" target="_blank" rel="noopener">@Katechen125</a></p>
-    <p>LinkedIn: <a href="https://www.linkedin.com/in/katherine-hsiung-chen-22972830b" target="_blank" rel="noopener">/in/katherine-hsiung-chen-22972830b</a></p>
-  </section>
-
-  <footer>
-    <div class="container">© <span id="year"></span> Katherine • Built with HTML/CSS/JS • Deployed on GitHub Pages</div>
-  </footer>
-
-  <script>
-     document.getElementById('year').textContent = new Date().getFullYear();
-
-  const root = document.documentElement;
-  const canvas = document.getElementById('confetti');
-  const ctx = canvas.getContext('2d');
-  let W, H, DPR = Math.max(1, window.devicePixelRatio || 1), rafId = null;
-  function size(){ W = canvas.width = innerWidth * DPR; H = canvas.height = innerHeight * DPR; }
-  size(); addEventListener('resize', size);
-
-    const logos={};
-    const logoFiles={
-      williams:"https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp",
-      chili:"https://cdn.inspireuplift.com/uploads/images/seller_products/29868/1702918490_SmoothOperatorCarlosSainzChillionly.png",
-      mclaren:"https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png",
-      ln4:"https://images.seeklogo.com/logo-png/44/2/lando-norris-logo-png_seeklogo-445536.png"
-    };
-    for(const key in logoFiles){ logos[key]=new Image(); logos[key].src=logoFiles[key]; }
-
- function confettiFall(options){
-    const {
-      colors = ['#ddd'],
-      labels = [],
-      useImages = false,
-      durationMs = 2600,
-      imgSize = 24,    
-      textPx = 16       
-    } = options;
-
-    if (rafId) cancelAnimationFrame(rafId);
-    const N = 300;
-    const parts = [];
-    const start = performance.now();
-
-    for (let i = 0; i < N; i++) {
-      parts.push({
-        x: Math.random() * W,
-        y: -Math.random() * H * 0.6,             
-        vx: (Math.random() * 2 - 1) * 0.8 * DPR,
-        vy: (2 + Math.random() * 2) * DPR,
-        rot: Math.random() * Math.PI,
-        vr: (Math.random() * 0.2 - 0.1),
-        color: colors[Math.floor(Math.random() * colors.length)],
-        label: labels.length ? labels[Math.floor(Math.random() * labels.length)] : null,
-        useImage: useImages
-      });
-    }
-
-    function tick(t){
-      const elapsed = t - start;
-      ctx.clearRect(0,0,W,H);
-
-      parts.forEach(p => { p.vy += 0.01 * DPR; p.x += p.vx; p.y += p.vy; p.rot += p.vr; });
-
-      parts.forEach(p => {
-        if (p.y > H + 40 * DPR) { p.y = -20 * DPR; p.x = Math.random() * W; } 
-        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
-
-        if (p.useImage && p.label && logos[p.label] && logos[p.label].complete) {
-          const s = imgSize * DPR;
-          ctx.drawImage(logos[p.label], -s/2, -s/2, s, s);
-        } else if (!p.useImage && p.label) {
-          ctx.font = (textPx * DPR) + "px Playfair Display, serif";
-          ctx.fillStyle = p.color;
-          ctx.fillText(p.label, -ctx.measureText(p.label).width / 2, 0);
-        } else {
-          ctx.fillStyle = p.color;
-          ctx.fillRect(-4, -4, 8, 8);
+            --rad: 16px;
+            --pad: 16px;
+            --shadow: 0 10px 24px rgba(12, 21, 33, .08), 0 2px 6px rgba(12, 21, 33, .05);
+            --maxw: 1080px;
         }
 
-        ctx.restore();
-      });
+        :root[data-theme="carlos"] {
+            --bg: #eef3ff;
+            --surface: #ffffff;
+            --surface-2: #e8f0ff;
+            --text: #0b1220;
+            --muted: #4a5d84;
+            --ring: rgba(0, 0, 0, .1);
+            --accent: #0f3d91;
+        }
 
-      if (elapsed < durationMs) {
-        rafId = requestAnimationFrame(tick);
-      } else {
-        ctx.clearRect(0,0,W,H);
-        rafId = null;
-      }
-    }
+        :root[data-theme="lando"] {
+            --bg: #0c0c0d;
+            --surface: #141417;
+            --surface-2: #101012;
+            --text: #f6f7f9;
+            --muted: #b8bdc7;
+            --ring: rgba(255, 255, 255, .14);
+            --accent: #ff8000;
+        }
 
-    rafId = requestAnimationFrame(tick);
-  }
+        * {
+            box-sizing: border-box
+        }
 
-  function setTheme(name){
-    if (name === 'carlos') {
-      root.setAttribute('data-theme','carlos');
-      confettiFall({
-        colors:['#0f3d91','#ffffff'],
-        labels:['williams','chili'],
-        useImages:true,
-        durationMs:2800,
-        imgSize:22 
-      });
-    } else if (name === 'lando') {
-      root.setAttribute('data-theme','lando');
-      confettiFall({
-        colors:['#ff8000','#0c0c0d','#ffffff'],
-        labels:['mclaren','ln4'],
-        useImages:true,
-        durationMs:2800,
-        imgSize:22
-      });
-    }
-  }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif
+        }
 
-  document.querySelectorAll('[data-theme]').forEach(b => 
-    b.addEventListener('click', () => setTheme(b.dataset.theme))
-  );
-    document.getElementById('resetTheme').addEventListener('click',()=>{
-      root.removeAttribute('data-theme');
-      confettiFall(['#e07b97','#6fa387','#6aa9d8'], ['🫀','🏎️','💻'],false,2200,12 );
-    });
-  </script>
+        h1,
+        h2,
+        h3 {
+            font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+            letter-spacing: .2px
+        }
+
+        h1 {
+            font-weight: 700
+        }
+
+        h2,
+        h3 {
+            font-weight: 600
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none
+        }
+
+        a:hover {
+            text-decoration: underline
+        }
+
+        .container {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 0 18px
+        }
+
+        header.site {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: color-mix(in oklab, var(--bg) 86%, transparent);
+            backdrop-filter: saturate(180%) blur(8px);
+            border-bottom: 1px solid var(--ring)
+        }
+
+        .site-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px
+        }
+
+        .brand {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-weight: 800
+        }
+
+        .brand .badge {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--sage), var(--sky))
+        }
+
+        nav a {
+            margin-left: 14px;
+            font-weight: 600
+        }
+
+        section {
+            padding: 48px 0
+        }
+
+        h2 {
+            margin: 0 0 12px;
+            font-size: clamp(22px, 3vw, 32px)
+        }
+
+        .subtle {
+            color: var(--muted)
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--ring);
+            border-radius: var(--rad);
+            padding: var(--pad);
+            box-shadow: var(--shadow)
+        }
+
+        .hero {
+            padding: 64px 0;
+            background:
+                radial-gradient(1200px 500px at 10% -10%, color-mix(in oklab, var(--sky) 55%, transparent), transparent 60%),
+                radial-gradient(900px 420px at 110% 0%, color-mix(in oklab, var(--pink) 55%, transparent), transparent 60%),
+                radial-gradient(800px 400px at -10% 100%, color-mix(in oklab, var(--sage) 60%, transparent), transparent 60%)
+        }
+
+        :root[data-theme="lando"] .hero {
+            background: linear-gradient(180deg, #111 0%, #0c0c0d 100%)
+        }
+
+        .hero h1 {
+            margin: 0 0 8px;
+            font-size: clamp(28px, 5vw, 48px)
+        }
+
+        .chips {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 12px 0 16px
+        }
+
+        .chip {
+            --c: var(--sage);
+            padding: 8px 12px;
+            border: 1px solid var(--ring);
+            border-radius: 999px;
+            background: color-mix(in oklab, var(--c) 28%, white);
+            font-weight: 700
+        }
+
+        :root[data-theme="lando"] .chip {
+            background: color-mix(in oklab, var(--accent) 12%, #1b1b1e)
+        }
+
+        .driver-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--muted);
+            flex-wrap: wrap
+        }
+
+        .btn {
+            appearance: none;
+            border: 1px solid var(--btn-border);
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, .04)
+        }
+
+        .btn.primary {
+            background: var(--btn-primary-bg);
+            color: var(--btn-primary-text);
+            border-color: #000000
+        }
+
+        .proj {
+            margin-bottom: 16px
+        }
+
+        .proj h3 {
+            margin: .3rem 0
+        }
+
+        .tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: .25rem 0 .5rem
+        }
+
+        .tag {
+            font-size: 12px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: color-mix(in oklab, var(--sky) 35%, white);
+            border: 1px solid var(--ring);
+            font-weight: 700
+        }
+
+        .tag.f1 {
+            background: color-mix(in oklab, var(--pink) 35%, white)
+        }
+
+        .tag.health {
+            background: color-mix(in oklab, var(--sage) 35%, white)
+        }
+
+        #confetti {
+            position: fixed;
+            inset: 0;
+            pointer-events: none
+        }
+
+        footer {
+            border-top: 1px solid var(--ring);
+            padding: 18px 0;
+            color: var(--muted);
+            text-align: center
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="confetti"></canvas>
+    <header class="site">
+        <div class="site-inner container">
+            <div class="brand"><span class="badge"></span><span>Katherine Isabela Hsiung Chen — Pole Position🏁</span>
+            </div>
+            <nav><a href="#projects">Projects</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Hi, I’m Katherine — I build playful-aesthetic, human‑centered apps.</h1>
+            <p class="subtle">F1 energy • Health & travel features • Clean, accessible UI</p>
+            <div class="chips">
+                <span class="chip" style="--c:var(--sage)">🩺 Health</span>
+                <span class="chip" style="--c:var(--sky)">✈️ Travel</span>
+                <span class="chip" style="--c:var(--pink)">🏎️ F1</span>
+            </div>
+            <div class="driver-bar">
+                <span>Favorite drivers:</span>
+                <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
+                <button class="btn" data-theme="lando">Lando Norris</button>
+                <button class="btn" id="resetTheme">Reset theme</button>
+                <span class="subtle">(click for themed confetti)</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="container">
+        <h2>Projects</h2>
+        <article class="proj card">
+            <h3>Calculator — Shunting-Yard</h3>
+            <p>C++ expression evaluator using Dijkstra’s shunting-yard for precedence/associativity. UI buttons are
+                produced via a <strong>factory pattern</strong>; evaluation runs on a dedicated <strong>processor
+                    instance</strong> to keep concerns clean.</p>
+            <div class="tags">
+                <span class="tag">C++</span>
+                <span class="tag">Factory Pattern</span>
+                <span class="tag">Algorithms</span>
+            </div>
+            <p><span class="coming-soon">Code (coming soon)</span></p> <!-- PLACEHOLDER for future video demo -->
+        </article>
+
+        <article class="proj card">
+            <h3>Conway’s Game of Life</h3>
+            <p>C++ implementation with an updated <strong>wxWidgets</strong> UI configured via <strong>vcpkg</strong>
+                (portable build, no global deps). Includes pause/step controls and preset patterns.</p>
+            <div class="tags">
+                <span class="tag">C++</span>
+                <span class="tag">wxWidgets</span>
+                <span class="tag">vcpkg</span>
+            </div>
+            <p><span class="coming-soon">Code (coming soon)</span></p> <!-- PLACEHOLDER for future video demo -->
+        </article>
+
+        <article class="proj card">
+            <h3>Proximity Video Panel (Collab)</h3>
+            <p><strong>Unreal Engine 5 — Blueprints</strong>. I built the proximity trigger: approaching the display
+                reveals the video panel; moving away hides it.</p>
+            <div class="tags">
+                <span class="tag">UE5</span>
+                <span class="tag">Blueprints</span>
+                <span class="tag">Prototype</span>
+            </div>
+            <p><span class="coming-soon">Notes (coming soon)</span></p> <!-- PLACEHOLDER for future video demo -->
+        </article>
+
+        <article class="proj card">
+            <h3>Pathfinder — Travel</h3>
+            <p>React Native app for attractions, bookings, activities, flights, calendar, expenses, currency conversion,
+                and saved places/maps. Built with <strong>TypeScript</strong>, <strong>Google Cloud APIs</strong>, and
+                <strong>Xcode</strong> for iOS.
+            </p>
+            <div class="tags">
+                <span class="tag">React Native</span>
+                <span class="tag">TypeScript</span>
+                <span class="tag">Google Cloud</span>
+                <span class="tag">Xcode (iOS)</span>
+            </div>
+            <p class="subtle">[Placeholder] Video demo coming soon.</p> <!-- PLACEHOLDER for future video demo -->
+        </article>
+
+        <article class="proj card">
+            <h3>TCP Server — Spaghetti Relay</h3>
+            <p>Lightweight TCP server that accepts client connections and relays messages across clients (“spaghetti
+                relay”). Includes simple logging and graceful shutdown.</p>
+            <div class="tags">
+                <span class="tag">TCP</span>
+                <span class="tag">Sockets</span>
+                <span class="tag">Networking</span>
+            </div>
+            <p class="subtle">[Placeholder] Video demo coming soon.</p> <!-- PLACEHOLDER for future video demo -->
+        </article>
+    </section>
+
+    <section id="about" class="container">
+        <h2>About</h2>
+        <p>I’m a CS student who blends health and travel features into friendly, accessible apps. I love pastel
+            palettes, clean and tiny interactions that make interfaces feel intentional.</p>
+    </section>
+
+    <section id="contact" class="container">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:katisabela125@gmail.com">katisabela125@gmail.com</a></p>
+        <p>GitHub: <a href="https://github.com/Katechen125" target="_blank" rel="noopener">@Katechen125</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/katherine-hsiung-chen-22972830b" target="_blank"
+                rel="noopener">/in/katherine-hsiung-chen-22972830b</a></p>
+    </section>
+
+    <footer>
+        <div class="container">© <span id="year"></span> Katherine • Built with HTML/CSS/JS • Deployed on GitHub Pages
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const root = document.documentElement;
+        const canvas = document.getElementById('confetti');
+        const ctx = canvas.getContext('2d');
+        let W, H, DPR = Math.max(1, window.devicePixelRatio || 1), rafId = null;
+        function size() { W = canvas.width = innerWidth * DPR; H = canvas.height = innerHeight * DPR; }
+        size(); addEventListener('resize', size);
+
+        const logos = {};
+        const logoFiles = {
+            williams: "https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp",
+            chili: "https://cdn.inspireuplift.com/uploads/images/seller_products/29868/1702918490_SmoothOperatorCarlosSainzChillionly.png",
+            mclaren: "https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png",
+            ln4: "https://images.seeklogo.com/logo-png/44/2/lando-norris-logo-png_seeklogo-445536.png"
+        };
+        for (const key in logoFiles) { logos[key] = new Image(); logos[key].src = logoFiles[key]; }
+
+        function confettiFall(options) {
+            const {
+                colors = ['#ddd'],
+                labels = [],
+                useImages = false,
+                durationMs = 2600,
+                fadeMs = 700,
+                imgSize = 24,
+                textPx = 16
+            } = options;
+
+            if (rafId) cancelAnimationFrame(rafId);
+
+            const N = 300;
+            const parts = [];
+            const start = performance.now();
+
+            for (let i = 0; i < N; i++) {
+                parts.push({
+                    x: Math.random() * W,
+                    y: -Math.random() * H * 0.6,
+                    vx: (Math.random() * 2 - 1) * 0.8 * DPR,
+                    vy: (2 + Math.random() * 2) * DPR,
+                    rot: Math.random() * Math.PI,
+                    vr: (Math.random() * 0.2 - 0.1),
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    label: labels.length ? labels[Math.floor(Math.random() * labels.length)] : null,
+                    useImage: useImages
+                });
+            }
+
+            const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+            const clamp01 = v => Math.max(0, Math.min(1, v));
+
+            function tick(t) {
+                const elapsed = t - start;
+                const remaining = Math.max(0, durationMs - elapsed);
+                const fadeProgress = 1 - clamp01(remaining / fadeMs);
+                const alpha = 1 - easeOutCubic(fadeProgress);
+                ctx.clearRect(0, 0, W, H);
+
+                parts.forEach(p => {
+                    const damp = 1 - 0.12 * fadeProgress;
+                    p.vy += 0.01 * DPR;
+                    p.vx *= damp;
+                    p.vy *= damp;
+                    p.rot += p.vr * damp;
+                    p.x += p.vx;
+                    p.y += p.vy;
+                });
+
+                parts.forEach(p => {
+                    if (p.y > H + 40 * DPR) { p.y = -20 * DPR; p.x = Math.random() * W; }
+                    ctx.save();
+                    ctx.globalAlpha = alpha;
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.rot);
+
+                    if (p.useImage && p.label && logos[p.label] && logos[p.label].complete) {
+                        const s = imgSize * DPR;
+                        ctx.drawImage(logos[p.label], -s / 2, -s / 2, s, s);
+                    } else if (!p.useImage && p.label) {
+                        ctx.font = (textPx * DPR) + "px Playfair Display, serif";
+                        ctx.fillStyle = p.color;
+                        ctx.fillText(p.label, -ctx.measureText(p.label).width / 2, 0);
+                    } else {
+                        ctx.fillStyle = p.color;
+                        ctx.fillRect(-4, -4, 8, 8);
+                    }
+                    ctx.restore();
+                });
+
+                if (elapsed < durationMs) {
+                    rafId = requestAnimationFrame(tick);
+                } else {
+                    ctx.clearRect(0, 0, W, H);
+                    ctx.globalAlpha = 1;
+                    rafId = null;
+                }
+            }
+
+            rafId = requestAnimationFrame(tick);
+        }
+
+        function setTheme(name) {
+            if (name === 'carlos') {
+                root.setAttribute('data-theme', 'carlos');
+                confettiFall({
+                    colors: ['#0f3d91', '#ffffff'],
+                    labels: ['williams', 'chili'],
+                    useImages: true,
+                    durationMs: 2800,
+                    imgSize: 22
+                });
+            } else if (name === 'lando') {
+                root.setAttribute('data-theme', 'lando');
+                confettiFall({
+                    colors: ['#ff8000', '#0c0c0d', '#ffffff'],
+                    labels: ['mclaren', 'ln4'],
+                    useImages: true,
+                    durationMs: 2800,
+                    imgSize: 22
+                });
+            }
+        }
+
+        document.querySelectorAll('[data-theme]').forEach(b =>
+            b.addEventListener('click', () => setTheme(b.dataset.theme))
+        );
+        document.getElementById('resetTheme').addEventListener('click', () => {
+            root.removeAttribute('data-theme');
+            confettiFall({
+                colors: ['#e07b97', '#6fa387', '#6aa9d8'],
+                labels: ['🫀', '🏎️', '💻'],
+                useImages: false,
+                durationMs: 2400,
+                textPx: 18
+            });
+        });
+    </script>
 </body>
+
 </html>
