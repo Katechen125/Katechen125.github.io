@@ -401,6 +401,15 @@
             border-color: #3a3a3a;
             background: color-mix(in oklab, #ff8a22 18%, #1b1b1e);
         }
+
+        .avatar {
+            width: 108px;
+            height: 108px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid color-mix(in oklab, var(--accent) 40%, #fff);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .08);
+        }
     </style>
 </head>
 
@@ -408,7 +417,7 @@
     <canvas id="confetti"></canvas>
     <header class="site">
         <div class="site-inner container">
-            <div class="brand"><span class="badge"></span><span>Katherine Isabela Hsiung Chen — Pole Position🏁</span>
+            <div class="brand"><img class="avatar" src="assets/img/me.png" alt="Katherine Isabela Hsiung Chen avatar" /></span><span>Katherine Isabela Hsiung Chen — Pole Position🏁</span>
             </div>
             <nav><a href="#projects">Projects</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
         </div>
