@@ -410,6 +410,46 @@
             border: 3px solid color-mix(in oklab, var(--accent) 40%, #fff);
             box-shadow: 0 6px 20px rgba(0, 0, 0, .08);
         }
+
+        .avatar-wrap {
+            position: relative;
+            display: inline-block;
+        }
+
+        .avatar-badge {
+            position: absolute;
+            bottom: -4px;
+            right: -4px;
+            background: var(--surface);
+            border: 2px solid var(--ring);
+            border-radius: 50%;
+            font-family: "Playfair Display", Georgia, serif;
+            font-weight: 700;
+            font-size: 18px;
+            padding: 4px 8px;
+            color: var(--text);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, .2);
+        }
+
+        :root[data-theme="carlos"] .avatar-badge {
+            content: "";
+            background: url("https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp") center/contain no-repeat;
+            border: none;
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            font-size: 0;
+        }
+
+        :root[data-theme="lando"] .avatar-badge {
+            content: "";
+            background: url("https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png") center/contain no-repeat;
+            border: none;
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            font-size: 0;
+        }
     </style>
 </head>
 
@@ -417,7 +457,11 @@
     <canvas id="confetti"></canvas>
     <header class="site">
         <div class="site-inner container">
-            <div class="brand"><img class="avatar" src="assets/img/me.png" alt="Katherine Isabela Hsiung Chen avatar" /></span><span>Katherine Isabela Hsiung Chen — Pole Position🏁</span>
+            <div class="brand">
+                <div class="avatar-wrap">
+                    <img class="avatar" src="assets/img/avatar.jpg" alt="Katherine Isabela Hsiung Chen headshot" />
+                    <span class="avatar-badge">KC</span>
+                </div><span>Katherine Isabela Hsiung Chen — Pole Position🏁</span>
             </div>
             <nav><a href="#projects">Projects</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
         </div>
