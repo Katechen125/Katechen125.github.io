@@ -37,23 +37,32 @@
         }
 
         :root[data-theme="carlos"] {
-            --bg: #eef3ff;
+            --bg: #dbe6ff;
             --surface: #ffffff;
-            --surface-2: #e8f0ff;
+            --surface-2: #e0e9ff;
             --text: #0b1220;
-            --muted: #4a5d84;
-            --ring: rgba(0, 0, 0, .1);
-            --accent: #0f3d91;
+            --muted: #3f527a;
+            --ring: rgba(0, 0, 0, .12);
+            --accent: #0d347e;
         }
 
-        :root[data-theme="lando"] {
-            --bg: #0c0c0d;
-            --surface: #141417;
-            --surface-2: #101012;
-            --text: #f6f7f9;
-            --muted: #b8bdc7;
-            --ring: rgba(255, 255, 255, .14);
-            --accent: #ff8000;
+        :root[data-theme="lando"] #projects {
+            background: rgba(20, 20, 20, 0.6);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(6px);
+        }
+
+        :root[data-theme="lando"] .card h3,
+        :root[data-theme="lando"] .card p,
+        :root[data-theme="lando"] .tag {
+            color: #f1f1f1;
+        }
+
+        :root[data-theme="lando"] .tag {
+            background: color-mix(in oklab, var(--accent) 40%, #222);
+            border-color: #444;
         }
 
         * {
@@ -260,6 +269,14 @@
             padding: 18px 0;
             color: var(--muted);
             text-align: center
+        }
+
+        #projects {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(6px);
         }
     </style>
 </head>
