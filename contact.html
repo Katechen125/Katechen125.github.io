@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact — Katherine Isabela Hsiung Chen</title>
   <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='58%25' font-family='Georgia, serif' font-size='36' font-weight='700' text-anchor='middle' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' font-family='Georgia, serif' font-size='36' font-weight='700' text-anchor='middle' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap"
     rel="stylesheet">
@@ -40,12 +40,12 @@
       --bg: #0f0f10;
       --surface: #1b1b1d;
       --text: #f3f4f6;
-      --muted: #cfd5df;
+      --muted: #e2e6ee;
       --ring: #2d2f33;
       --accent: #ff8000;
-      --btn-bg: #2a2a2a;
+      --btn-bg: #232325;
       --btn-text: #f3f3f3;
-      --btn-border: #444
+      --btn-border: #3a3a3d
     }
 
     * {
@@ -105,8 +105,8 @@
     }
 
     .avatar {
-      width: 44px;
-      height: 44px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff)
@@ -119,16 +119,16 @@
 
     .avatar-badge {
       position: absolute;
-      right: -4px;
-      bottom: -4px;
-      width: 22px;
-      height: 22px;
+      right: -5px;
+      bottom: -5px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: #fff;
       border: 2px solid var(--ring);
       display: grid;
       place-items: center;
-      font: 700 11px/1 "Playfair Display", serif;
+      font: 700 12px/1 "Playfair Display", serif;
       color: var(--accent)
     }
 
@@ -306,20 +306,29 @@
       margin-top: 8px
     }
 
-    .link-row {
+    .linkcard {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin: 12px 0
+      padding: 12px 14px;
+      border: 1px solid var(--ring);
+      border-radius: 14px;
+      background: color-mix(in oklab, var(--surface) 90%, transparent)
     }
 
-    .link-row img {
+    .linkcard img {
       width: 24px;
       height: 24px
     }
 
+    .links-stack {
+      display: grid;
+      gap: 10px;
+      margin-top: 6px
+    }
+
     .links-small {
-      margin-top: 6px;
+      margin-top: 8px;
       color: var(--muted);
       font-size: 13px
     }
@@ -367,7 +376,6 @@
       <article class="card">
         <h2>Craft a Note</h2>
         <div class="email-shell">
-
           <div class="row">
             <div class="label">To</div>
             <div class="to-chip">Katherine &lt;katisabela125@gmail.com&gt;</div>
@@ -394,7 +402,6 @@
                 <option value="1–2 weeks">1–2 weeks</option>
                 <option value="Next month">Next month</option>
               </select>
-              <input type="month" class="input" id="targetMonth" />
             </div>
           </div>
 
@@ -428,25 +435,25 @@
             <button class="btn" id="copyAll">Copy All 📋</button>
           </div>
           <div class="small">Tip: selecting a <strong>Topic</strong>, an <strong>Urgency</strong>, and a
-            <strong>Template</strong> will pre-fill the subject and message so it’s easy to start.
-          </div>
+            <strong>Template</strong> will pre-fill the subject and message so it’s easy to start.</div>
         </div>
       </article>
 
       <article class="card">
         <h2>Direct Links</h2>
-        <div class="link-row">
-          <img src="https://img.icons8.com/fluency/48/filled-message.png" alt="">
-          <a href="mailto:katisabela125@gmail.com"><strong>Email:</strong> katisabela125@gmail.com</a>
-        </div>
-        <div class="link-row">
-          <img src="https://img.icons8.com/ios-glyphs/30/github.png" alt="">
-          <a href="https://github.com/Katechen125" target="_blank"><strong>GitHub:</strong> @Katechen125</a>
-        </div>
-        <div class="link-row">
-          <img src="https://img.icons8.com/color/48/linkedin.png" alt="">
-          <a href="https://www.linkedin.com/in/katherine-hsiung-chen-22972830b"
-            target="_blank"><strong>LinkedIn:</strong> /in/katherine-hsiung-chen-22972830b</a>
+        <div class="links-stack">
+          <a class="linkcard" href="mailto:katisabela125@gmail.com">
+            <img src="https://img.icons8.com/fluency/48/filled-message.png" alt="">
+            <div><strong>Email:</strong> katisabela125@gmail.com</div>
+          </a>
+          <a class="linkcard" href="https://github.com/Katechen125" target="_blank">
+            <img src="https://img.icons8.com/ios-glyphs/30/github.png" alt="">
+            <div><strong>GitHub:</strong> @Katechen125</div>
+          </a>
+          <a class="linkcard" href="https://www.linkedin.com/in/katherine-hsiung-chen-22972830b" target="_blank">
+            <img src="https://img.icons8.com/color/48/linkedin.png" alt="">
+            <div><strong>LinkedIn:</strong> /in/katherine-hsiung-chen-22972830b</div>
+          </a>
         </div>
         <div class="links-small">Prefer X/Twitter or another platform? Mention it in your note and I’ll reply there.
         </div>
@@ -464,18 +471,17 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const root = document.documentElement;
+    const saved = localStorage.getItem('kc-theme'); if (saved) { root.setAttribute('data-theme', saved); }
     function setThemeAndConfetti(name) {
-      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); startThemedConfetti('carlos'); }
-      if (name === 'lando') { root.setAttribute('data-theme', 'lando'); startThemedConfetti('lando'); }
+      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
+      if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
     document.querySelectorAll('[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); startThemedConfetti('neutral'); });
-
+    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startVanillaConfetti(); });
 
     const topicWrap = document.getElementById('topicWrap');
     const subjectEl = document.getElementById('subject');
     const urgencyEl = document.getElementById('urgency');
-    const monthEl = document.getElementById('targetMonth');
     const msgEl = document.getElementById('message');
     let topic = "";
 
@@ -483,15 +489,9 @@
       const b = e.target.closest('.chip'); if (!b) return;
       [...topicWrap.querySelectorAll('.chip')].forEach(c => c.classList.remove('active'));
       b.classList.add('active'); topic = b.dataset.topic;
-      if (!subjectEl.value) {
-        const urg = urgencyEl.value ? ` — ${urgencyEl.value}` : "";
-        subjectEl.value = `${topic}${urg ? urg : ""}`;
-      }
-      if (!msgEl.value) {
-        msgEl.value = `Hi Katherine —\n\nI’m reaching out about ${topic.toLowerCase()}. My timeline is ${urgencyEl.value || "flexible"}${monthEl.value ? ` (target ${monthEl.value})` : ""}. Here’s the context…\n\nBest,\n[Your name]`;
-      }
+      if (!subjectEl.value) { const urg = urgencyEl.value ? ` — ${urgencyEl.value}` : ""; subjectEl.value = `${topic}${urg ? urg : ""}`; }
+      if (!msgEl.value) { msgEl.value = `Hi Katherine —\n\nI’m reaching out about ${topic.toLowerCase()}. My timeline is ${urgencyEl.value || "flexible"}. Here’s the context…\n\nBest,\n[Your name]`; }
     });
-
 
     function updateSubjectForUrgency() {
       const urg = urgencyEl.value;
@@ -505,7 +505,7 @@
     const templates = {
       intro: `Hi Katherine —
 
-I’m reaching out to introduce myself and say hi. I’ve been following your work and thought ${topic ? "the " + topic.toLowerCase() + " angle " : "it"} might be a good fit to connect. My timeline is ${urgencyEl.value || "flexible"}${monthEl.value ? ` (target ${monthEl.value})` : ""}.
+I’m reaching out to introduce myself and say hi. I’ve been following your work and thought ${topic ? "the " + topic.toLowerCase() + " angle " : "it"} might be a good fit to connect. My timeline is ${urgencyEl.value || "flexible"}.
 
 Quick context:
 • Who I am:
@@ -516,7 +516,7 @@ Best,
 [Your name]`,
       collab: `Hi Katherine —
 
-I’d love to explore a collaboration around ${topic || "a feature idea"} for Pathfinder / UI polish. I can share a quick demo and next steps. Timeline: ${urgencyEl.value || "flexible"}${monthEl.value ? ` (target ${monthEl.value})` : ""}.
+I’d love to explore a collaboration around ${topic || "a feature idea"} for Pathfinder / UI polish. I can share a quick demo and next steps. Timeline: ${urgencyEl.value || "flexible"}.
 
 Goals:
 • What success looks like:
@@ -552,11 +552,9 @@ Cheers,
     document.getElementById('applyTemplate').addEventListener('click', () => {
       const key = (document.getElementById('template').value || "").toLowerCase();
       if (!key) return;
-      msgEl.value = templates[key]?.replaceAll("\n", "\n") || msgEl.value;
+      msgEl.value = templates[key] || msgEl.value;
       if (!subjectEl.value) {
-        const base = (key === "collab" ? "Collaboration" :
-          key === "recruiter" ? "Recruiting" :
-            key === "feedback" ? "Feedback" : "Intro");
+        const base = (key === "collab" ? "Collaboration" : key === "recruiter" ? "Recruiting" : key === "feedback" ? "Feedback" : "Intro");
         subjectEl.value = topic ? `${base}: ${topic}` : base;
       }
     });
@@ -573,10 +571,7 @@ Cheers,
 Subject: ${subjectEl.value || "(none)"}
 
 ${msgEl.value || ""}`;
-      try {
-        await navigator.clipboard.writeText(all);
-        alert("Copied to clipboard!");
-      } catch (e) { alert("Could not copy, sorry."); }
+      try { await navigator.clipboard.writeText(all); alert("Copied to clipboard!"); } catch (e) { alert("Could not copy, sorry."); }
     });
 
     document.getElementById('year').textContent = new Date().getFullYear();

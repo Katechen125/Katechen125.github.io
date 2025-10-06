@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Katherine Isabela Hsiung Chen — Pole Position 🏁</title>
   <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='58%25' font-family='Georgia, serif' font-size='36' font-weight='700' text-anchor='middle' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' font-family='Georgia, serif' font-size='36' font-weight='700' text-anchor='middle' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap"
     rel="stylesheet">
@@ -39,12 +39,12 @@
       --bg: #0f0f10;
       --surface: #1b1b1d;
       --text: #f3f4f6;
-      --muted: #cfd5df;
+      --muted: #e2e6ee;
       --ring: #2d2f33;
       --accent: #ff8000;
-      --btn-bg: #2a2a2a;
+      --btn-bg: #232325;
       --btn-text: #f3f3f3;
-      --btn-border: #444
+      --btn-border: #3a3a3d
     }
 
     * {
@@ -55,7 +55,9 @@
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif
+      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      position: relative;
+      z-index: 1
     }
 
     h1,
@@ -147,7 +149,7 @@
       display: grid;
       place-items: center;
       text-align: center;
-      padding: 56px 0 28px
+      padding: 40px 0 28px
     }
 
     .hero h1 {
@@ -195,9 +197,8 @@
       font-size: 17px
     }
 
-
     .sequence {
-      margin: 18px auto 4px;
+      margin: 14px auto 4px;
       display: grid;
       gap: 10px;
       justify-items: center
@@ -205,17 +206,17 @@
 
     .start-lights {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       background: color-mix(in oklab, var(--bg) 86%, #fff);
-      padding: 8px 12px;
+      padding: 10px 14px;
       border-radius: 999px;
       border: 1px solid var(--ring);
       backdrop-filter: blur(6px)
     }
 
     .light {
-      width: 16px;
-      height: 16px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       background: #2b2b2b;
       border: 1px solid rgba(0, 0, 0, .2)
@@ -236,8 +237,8 @@
     }
 
     .flag-svg {
-      width: 54px;
-      height: 34px;
+      width: 60px;
+      height: 38px;
       display: none
     }
 
@@ -272,7 +273,7 @@
       position: fixed;
       right: 18px;
       bottom: 18px;
-      z-index: 1000;
+      z-index: 9;
       display: grid;
       gap: 8px;
       justify-items: center
@@ -282,7 +283,7 @@
       appearance: none;
       border: 1px solid var(--ring);
       background: #fff;
-      padding: 8px 10px;
+      padding: 10px 12px;
       border-radius: 999px;
       cursor: pointer;
       font-size: 18px
@@ -383,76 +384,54 @@
     document.getElementById('year').textContent = new Date().getFullYear();
     const root = document.documentElement;
 
+    function applySavedTheme() {
+      const t = localStorage.getItem('kc-theme');
+      if (t === 'carlos' || t === 'lando') { root.setAttribute('data-theme', t); }
+    }
+    applySavedTheme();
 
     function setThemeAndConfetti(name) {
-      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); startThemedConfetti('carlos'); }
-      if (name === 'lando') { root.setAttribute('data-theme', 'lando'); startThemedConfetti('lando'); }
+      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
+      if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
     document.querySelectorAll('[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); startThemedConfetti('neutral'); });
+    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startVanillaConfetti(); });
 
-
-    function normalConfetti() {
-
-      startThemedConfetti('neutral');
+    let sprayCanvas, sctx, DPR = Math.max(1, window.devicePixelRatio || 1), raf;
+    function ensureCanvas() {
+      if (sprayCanvas) return;
+      sprayCanvas = document.createElement('canvas');
+      sprayCanvas.style.position = 'fixed';
+      sprayCanvas.style.inset = '0';
+      sprayCanvas.style.pointerEvents = 'none';
+      sprayCanvas.style.zIndex = '0';
+      document.body.appendChild(sprayCanvas);
+      sctx = sprayCanvas.getContext('2d');
+      resize(); addEventListener('resize', resize);
     }
+    function resize() { sprayCanvas.width = innerWidth * DPR; sprayCanvas.height = innerHeight * DPR; }
+    function rand(a, b) { return a + Math.random() * (b - a); }
 
-
-    (function () {
-      let sprayCanvas, sctx, DPR = Math.max(1, window.devicePixelRatio || 1), raf;
-      function ensureCanvas() {
-        if (sprayCanvas) return;
-        sprayCanvas = document.createElement('canvas');
-        sprayCanvas.style.position = 'fixed';
-        sprayCanvas.style.inset = '0';
-        sprayCanvas.style.pointerEvents = 'none';
-        sprayCanvas.style.zIndex = '1000';
-        document.body.appendChild(sprayCanvas);
-        sctx = sprayCanvas.getContext('2d');
-        resize(); addEventListener('resize', resize);
-      }
-      function resize() { sprayCanvas.width = innerWidth * DPR; sprayCanvas.height = innerHeight * DPR; }
-      function rand(a, b) { return a + Math.random() * (b - a); }
-
-      window.champagneSpray = function () {
-        ensureCanvas();
-        if (raf) cancelAnimationFrame(raf);
-        const W = sprayCanvas.width, H = sprayCanvas.height;
-        const pops = [
-          { x: 24 * DPR, y: H - 24 * DPR, dir: 35 * Math.PI / 180 },
-          { x: W - 24 * DPR, y: H - 24 * DPR, dir: 145 * Math.PI / 180 }
-        ];
-        const parts = [];
-        pops.forEach(p => {
-          for (let i = 0; i < 80; i++) {
-            const spd = rand(4, 8) * DPR;
-            const ang = p.dir + rand(-0.35, 0.35);
-            parts.push({
-              x: p.x, y: p.y,
-              vx: Math.cos(ang) * spd, vy: -Math.sin(ang) * spd,
-              life: rand(600, 1100), born: performance.now(),
-              size: rand(2, 4) * DPR,
-              col: ['#ffd166', '#ffe29a', '#fff', '#f9c9d4', '#cfe9fb'][(Math.random() * 5) | 0]
-            });
-          }
-        });
-        const start = performance.now();
-        function tick(t) {
-          sctx.clearRect(0, 0, W, H);
-          parts.forEach(pt => {
-            pt.vy += 0.06 * DPR;
-            pt.x += pt.vx; pt.y += pt.vy;
-            const age = t - pt.born; const a = Math.max(0, 1 - age / pt.life);
-            sctx.globalAlpha = a; sctx.fillStyle = pt.col;
-            sctx.beginPath(); sctx.arc(pt.x, pt.y, pt.size, 0, Math.PI * 2); sctx.fill();
-          });
-          if (t - start < 1200) { raf = requestAnimationFrame(tick); }
-          else { sctx.clearRect(0, 0, W, H); }
+    window.champagneSpray = function () {
+      ensureCanvas();
+      if (raf) cancelAnimationFrame(raf);
+      const W = sprayCanvas.width, H = sprayCanvas.height;
+      const pops = [{ x: 24 * DPR, y: H - 24 * DPR, dir: 35 * Math.PI / 180 }, { x: W - 24 * DPR, y: H - 24 * DPR, dir: 145 * Math.PI / 180 }];
+      const parts = [];
+      pops.forEach(p => {
+        for (let i = 0; i < 80; i++) {
+          const spd = rand(4, 8) * DPR; const ang = p.dir + rand(-0.35, 0.35);
+          parts.push({ x: p.x, y: p.y, vx: Math.cos(ang) * spd, vy: -Math.sin(ang) * spd, life: rand(600, 1100), born: performance.now(), size: rand(2, 4) * DPR, col: ['#ffd166', '#ffe29a', '#fff', '#f9c9d4', '#cfe9fb'][(Math.random() * 5) | 0] });
         }
-        raf = requestAnimationFrame(tick);
+      });
+      const start = performance.now();
+      function tick(t) {
+        sctx.clearRect(0, 0, W, H);
+        parts.forEach(pt => { pt.vy += 0.06 * DPR; pt.x += pt.vx; pt.y += pt.vy; const age = t - pt.born; const a = Math.max(0, 1 - age / pt.life); sctx.globalAlpha = a; sctx.fillStyle = pt.col; sctx.beginPath(); sctx.arc(pt.x, pt.y, pt.size, 0, Math.PI * 2); sctx.fill(); });
+        if (t - start < 1200) { raf = requestAnimationFrame(tick); } else { sctx.clearRect(0, 0, W, H); }
       }
-    })();
-
+      raf = requestAnimationFrame(tick);
+    };
 
     const lights = [...document.querySelectorAll('.start-lights .light')];
     const flagSVG = document.getElementById('flagSVG');
@@ -466,9 +445,8 @@
           setTimeout(() => {
             lights.forEach(l => l.classList.remove('red'));
             lights.forEach(l => l.classList.add('on', 'green'));
-            flagSVG.classList.remove('flag-wave'); void flagSVG.offsetWidth;
-            flagSVG.classList.add('flag-wave');
-            normalConfetti();
+            flagSVG.classList.remove('flag-wave'); void flagSVG.offsetWidth; flagSVG.classList.add('flag-wave');
+            startVanillaConfetti();
             champagneSpray();
             setTimeout(() => lights.forEach(l => l.classList.remove('on', 'green')), 1100);
           }, 450);
