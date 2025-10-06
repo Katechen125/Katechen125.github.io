@@ -5,150 +5,454 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact — Katherine Isabela Hsiung Chen</title>
-  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='58%25' font-family='Georgia, serif' font-size='36' font-weight='700' text-anchor='middle' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <script src="assets/js/confetti.js" defer></script>
   <style>
-    body {
-      margin: 0;
-      font-family: "Inter", sans-serif;
-      background: var(--bg, #f7faf9);
-      color: var(--text, #1b1e22);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
+    :root {
+      --bg: #f7faf9;
+      --surface: #fff;
+      --text: #1b1e22;
+      --muted: #5b6471;
+      --ring: rgba(0, 0, 0, .08);
+      --accent: #6fa387;
+      --btn-bg: #fff;
+      --btn-text: #111;
+      --btn-border: #d7dde5;
+      --maxw: 940px
     }
 
-    h1 {
-      font-family: "Playfair Display", serif;
-      font-size: clamp(28px, 4vw, 42px);
-      text-align: center;
-      margin-bottom: 1rem;
+    :root[data-theme="carlos"] {
+      --bg: #dbe6ff;
+      --surface: #ffffff;
+      --text: #0b1220;
+      --muted: #3f527a;
+      --ring: rgba(0, 0, 0, .12);
+      --accent: #0d347e;
+      --btn-bg: #fff;
+      --btn-text: #0b1220;
+      --btn-border: #3260b3
+    }
+
+    :root[data-theme="lando"] {
+      --bg: #0f0f10;
+      --surface: #1b1b1d;
+      --text: #f3f4f6;
+      --muted: #cfd5df;
+      --ring: #2d2f33;
+      --accent: #ff8000;
+      --btn-bg: #2a2a2a;
+      --btn-text: #f3f3f3;
+      --btn-border: #444
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif
+    }
+
+    h1,
+    h2 {
+      font-family: "Playfair Display", Georgia, serif
+    }
+
+    .container {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 22px
+    }
+
+    header.site {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: color-mix(in oklab, var(--bg) 90%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--ring)
+    }
+
+    .site-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      font-weight: 800
+    }
+
+    .nav a {
+      margin-left: 14px;
+      color: var(--text);
+      font-weight: 700;
+      text-decoration: none
+    }
+
+    .nav a:hover {
+      color: var(--accent)
+    }
+
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff)
+    }
+
+    .avatar-wrap {
+      position: relative;
+      display: inline-block
+    }
+
+    .avatar-badge {
+      position: absolute;
+      right: -4px;
+      bottom: -4px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid var(--ring);
+      display: grid;
+      place-items: center;
+      font: 700 11px/1 "Playfair Display", serif;
+      color: var(--accent)
+    }
+
+    :root[data-theme="carlos"] .avatar-badge {
+      background: #fff url("https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp") center/80% no-repeat;
+      font-size: 0;
+      border-color: #0d347e
+    }
+
+    :root[data-theme="lando"] .avatar-badge {
+      background: #fff url("https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png") center/80% no-repeat;
+      font-size: 0;
+      border-color: #ff8000
+    }
+
+    .page {
+      padding: 36px 0 28px
+    }
+
+    .page h1 {
+      margin: 0 0 14px;
+      font-size: clamp(28px, 5vw, 46px);
+      text-align: center
     }
 
     .driver-bar {
+      margin: 8px 0 20px;
       display: flex;
-      align-items: center;
       gap: 10px;
-      justify-content: center;
       flex-wrap: wrap;
-      margin-bottom: 2rem;
+      justify-content: center;
+      color: var(--muted)
     }
 
     .btn {
       appearance: none;
-      border: 1px solid var(--btn-border, #d7dde5);
-      background: var(--btn-bg, #fff);
-      color: var(--btn-text, #111);
+      border: 1px solid var(--btn-border);
+      background: var(--btn-bg);
+      color: var(--btn-text);
       padding: 10px 14px;
       border-radius: 12px;
       font-weight: 700;
-      cursor: pointer;
-      transition: background .2s, color .2s;
+      cursor: pointer
     }
 
     .btn:hover {
-      background: var(--accent, #6fa387);
+      background: var(--accent);
       color: #fff;
+      border-color: transparent
     }
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2.5rem;
-      width: 90%;
-      max-width: 700px;
-      text-align: center;
+    .grid {
+      display: grid;
+      gap: 28px;
+      margin-top: 8px
     }
 
-    .contact-card {
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 18px;
-      padding: 24px 32px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      transition: transform .3s ease, box-shadow .3s ease;
+    @media (min-width:900px) {
+      .grid {
+        grid-template-columns: 1.15fr .85fr
+      }
     }
 
-    .contact-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.12);
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--ring);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 10px 24px rgba(12, 21, 33, .06)
     }
 
-    .contact-card h2 {
-      font-family: "Playfair Display", serif;
-      margin-bottom: 1rem;
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: clamp(20px, 3.4vw, 26px);
+      text-align: center
     }
 
-    .contact-links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      text-align: left;
-      margin-top: 1rem;
-    }
-
-    .contact-links a {
-      display: flex;
-      align-items: center;
+    .email-shell {
+      display: grid;
       gap: 10px;
-      font-weight: 600;
-      color: var(--accent, #6fa387);
-      text-decoration: none;
+      margin-top: 8px
     }
 
-    .contact-links a:hover {
-      color: var(--text);
+    .row {
+      display: grid;
+      gap: 10px
     }
 
-    .icon {
+    @media (min-width:560px) {
+      .row {
+        grid-template-columns: 120px 1fr;
+        align-items: center
+      }
+    }
+
+    .label {
+      font-weight: 700;
+      color: var(--muted)
+    }
+
+    .input,
+    .select,
+    .textarea {
+      width: 100%;
+      border: 1px solid var(--ring);
+      background: #fff;
+      color: #111;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font: 15px/1.4 Inter, system-ui
+    }
+
+    :root[data-theme="lando"] .input,
+    :root[data-theme="lando"] .select,
+    :root[data-theme="lando"] .textarea {
+      background: #121214;
+      color: #f1f1f1;
+      border-color: #2f3136
+    }
+
+    .to-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: color-mix(in oklab, var(--accent) 14%, #fff);
+      border: 1px solid var(--ring);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-weight: 700
+    }
+
+    .topic-wrap {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap
+    }
+
+    .chip {
+      border: 1px solid var(--btn-border);
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 700;
+      cursor: pointer
+    }
+
+    .chip.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: transparent
+    }
+
+    .inline {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    .small {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .textarea {
+      height: 180px;
+      resize: none
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      margin-top: 8px
+    }
+
+    .link-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 12px 0
+    }
+
+    .link-row img {
       width: 24px;
-      height: 24px;
-      display: inline-block;
+      height: 24px
+    }
+
+    .links-small {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    footer {
+      border-top: 1px solid var(--ring);
+      padding: 18px 0;
+      color: var(--muted);
+      text-align: center
     }
   </style>
 </head>
 
 <body>
-  <canvas id="confetti"></canvas>
-
-  <div class="driver-bar">
-    <span>Favorite drivers:</span>
-    <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
-    <button class="btn" data-theme="lando">Lando Norris</button>
-    <button class="btn" id="resetTheme">Reset Theme</button>
-  </div>
-
-  <div class="container">
-    <h1>Let's Build Something Great</h1>
-
-    <div class="contact-card">
-      <h2>Craft a Note</h2>
-      <p>Drop me a message — I’d love to hear your thoughts, collaborations, or just a friendly pit stop.</p>
-      <textarea placeholder="Write your note..."
-        style="width:100%;height:120px;padding:10px;border-radius:10px;border:1px solid #ccc;font-family:Inter, sans-serif;resize:none;"></textarea>
-      <br>
-      <button class="btn" style="margin-top:12px;">Send Message 🏁</button>
-    </div>
-
-    <div class="contact-card">
-      <h2>Direct Links</h2>
-      <div class="contact-links">
-        <a href="mailto:katisabela125@gmail.com"><img class="icon"
-            src="https://img.icons8.com/fluency/48/filled-message.png" alt=""> katisabela125@gmail.com</a>
-        <a href="https://github.com/Katechen125" target="_blank"><img class="icon"
-            src="https://img.icons8.com/ios-glyphs/30/github.png" alt=""> @Katechen125</a>
-        <a href="https://www.linkedin.com/in/katherine-hsiung-chen-22972830b" target="_blank"><img class="icon"
-            src="https://img.icons8.com/color/48/linkedin.png" alt=""> LinkedIn</a>
+  <header class="site">
+    <div class="site-inner container">
+      <div class="brand">
+        <div class="avatar-wrap">
+          <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
+          <span class="avatar-badge">KC</span>
+        </div>
+        <span>Contact — Pole Position🏁</span>
       </div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
     </div>
-  </div>
+  </header>
+
+  <main class="page container">
+    <h1>Let’s Build Something Great</h1>
+
+    <div class="driver-bar">
+      <span>Favorite drivers:</span>
+      <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
+      <button class="btn" data-theme="lando">Lando Norris</button>
+      <button class="btn" id="resetTheme">Reset theme</button>
+      <span>(themed confetti)</span>
+    </div>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Craft a Note</h2>
+        <div class="email-shell">
+
+          <div class="row">
+            <div class="label">To</div>
+            <div class="to-chip">Katherine &lt;katisabela125@gmail.com&gt;</div>
+          </div>
+
+          <div class="row">
+            <div class="label">Topic</div>
+            <div class="topic-wrap" id="topicWrap">
+              <button class="chip" data-topic="Collaboration">Collaboration</button>
+              <button class="chip" data-topic="Internship">Internship</button>
+              <button class="chip" data-topic="Feedback">Feedback</button>
+              <button class="chip" data-topic="Speaking">Speaking</button>
+              <button class="chip" data-topic="Other">Other</button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="label">Urgency</div>
+            <div class="inline">
+              <select class="select" id="urgency">
+                <option value="">No rush</option>
+                <option value="ASAP">ASAP</option>
+                <option value="This week">This week</option>
+                <option value="1–2 weeks">1–2 weeks</option>
+                <option value="Next month">Next month</option>
+              </select>
+              <input type="month" class="input" id="targetMonth" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="label">Subject</div>
+            <input class="input" id="subject" placeholder="e.g., Collaboration idea: UX for Pathfinder" />
+          </div>
+
+          <div class="row">
+            <div class="label">Template</div>
+            <div class="inline">
+              <select class="select" id="template">
+                <option value="">Choose a starter…</option>
+                <option value="intro">Quick intro</option>
+                <option value="collab">Project collaboration</option>
+                <option value="recruiter">Recruiter outreach</option>
+                <option value="feedback">Product feedback</option>
+              </select>
+              <button class="btn" id="applyTemplate">Apply</button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="label">Message</div>
+            <textarea class="textarea" id="message"
+              placeholder="Hi Katherine —&#10;&#10;I’m reaching out about [topic]. My timeline is [urgency]. Here’s the context…&#10;&#10;Best,&#10;[Your name]"></textarea>
+          </div>
+
+          <div class="actions">
+            <button class="btn" id="buildMail">Open in Email ✉️</button>
+            <button class="btn" id="copyAll">Copy All 📋</button>
+          </div>
+          <div class="small">Tip: selecting a <strong>Topic</strong>, an <strong>Urgency</strong>, and a
+            <strong>Template</strong> will pre-fill the subject and message so it’s easy to start.
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>Direct Links</h2>
+        <div class="link-row">
+          <img src="https://img.icons8.com/fluency/48/filled-message.png" alt="">
+          <a href="mailto:katisabela125@gmail.com"><strong>Email:</strong> katisabela125@gmail.com</a>
+        </div>
+        <div class="link-row">
+          <img src="https://img.icons8.com/ios-glyphs/30/github.png" alt="">
+          <a href="https://github.com/Katechen125" target="_blank"><strong>GitHub:</strong> @Katechen125</a>
+        </div>
+        <div class="link-row">
+          <img src="https://img.icons8.com/color/48/linkedin.png" alt="">
+          <a href="https://www.linkedin.com/in/katherine-hsiung-chen-22972830b"
+            target="_blank"><strong>LinkedIn:</strong> /in/katherine-hsiung-chen-22972830b</a>
+        </div>
+        <div class="links-small">Prefer X/Twitter or another platform? Mention it in your note and I’ll reply there.
+        </div>
+      </article>
+    </section>
+  </main>
 
   <footer>
     <div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages
@@ -157,24 +461,125 @@
 
   <script src="assets/js/confetti.js"></script>
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById('year').textContent = new Date().getFullYear();
 
     const root = document.documentElement;
-    function setTheme(name) {
-      if (name === 'carlos') {
-        root.setAttribute('data-theme', 'carlos');
-        triggerConfetti('carlos');
-      } else if (name === 'lando') {
-        root.setAttribute('data-theme', 'lando');
-        triggerConfetti('lando');
+    function setThemeAndConfetti(name) {
+      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); startThemedConfetti('carlos'); }
+      if (name === 'lando') { root.setAttribute('data-theme', 'lando'); startThemedConfetti('lando'); }
+    }
+    document.querySelectorAll('[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
+    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); startThemedConfetti('neutral'); });
+
+
+    const topicWrap = document.getElementById('topicWrap');
+    const subjectEl = document.getElementById('subject');
+    const urgencyEl = document.getElementById('urgency');
+    const monthEl = document.getElementById('targetMonth');
+    const msgEl = document.getElementById('message');
+    let topic = "";
+
+    topicWrap.addEventListener('click', (e) => {
+      const b = e.target.closest('.chip'); if (!b) return;
+      [...topicWrap.querySelectorAll('.chip')].forEach(c => c.classList.remove('active'));
+      b.classList.add('active'); topic = b.dataset.topic;
+      if (!subjectEl.value) {
+        const urg = urgencyEl.value ? ` — ${urgencyEl.value}` : "";
+        subjectEl.value = `${topic}${urg ? urg : ""}`;
+      }
+      if (!msgEl.value) {
+        msgEl.value = `Hi Katherine —\n\nI’m reaching out about ${topic.toLowerCase()}. My timeline is ${urgencyEl.value || "flexible"}${monthEl.value ? ` (target ${monthEl.value})` : ""}. Here’s the context…\n\nBest,\n[Your name]`;
+      }
+    });
+
+
+    function updateSubjectForUrgency() {
+      const urg = urgencyEl.value;
+      if (!subjectEl.value || /^([A-Za-z ]+)( — .+)?$/.test(subjectEl.value)) {
+        const base = topic || "Opportunity";
+        subjectEl.value = urg ? `${base} — ${urg}` : base;
       }
     }
+    urgencyEl.addEventListener('change', updateSubjectForUrgency);
 
-    document.querySelectorAll('[data-theme]').forEach(b => b.addEventListener('click', () => setTheme(b.dataset.theme)));
-    document.getElementById('resetTheme').addEventListener('click', () => {
-      root.removeAttribute('data-theme');
-      triggerConfetti('default');
+    const templates = {
+      intro: `Hi Katherine —
+
+I’m reaching out to introduce myself and say hi. I’ve been following your work and thought ${topic ? "the " + topic.toLowerCase() + " angle " : "it"} might be a good fit to connect. My timeline is ${urgencyEl.value || "flexible"}${monthEl.value ? ` (target ${monthEl.value})` : ""}.
+
+Quick context:
+• Who I am:
+• What I’m exploring:
+• How we might collaborate:
+
+Best,
+[Your name]`,
+      collab: `Hi Katherine —
+
+I’d love to explore a collaboration around ${topic || "a feature idea"} for Pathfinder / UI polish. I can share a quick demo and next steps. Timeline: ${urgencyEl.value || "flexible"}${monthEl.value ? ` (target ${monthEl.value})` : ""}.
+
+Goals:
+• What success looks like:
+• Constraints:
+• Proposed next action:
+
+Thanks!
+[Your name]`,
+      recruiter: `Hi Katherine —
+
+I’m reaching out after seeing your portfolio. I think your background in C++, Unreal, and React Native could match roles we’re hiring for. If you’re open, I’d love to set up a brief intro. Timeline: ${urgencyEl.value || "this month"}.
+
+Role highlights:
+• Team:
+• Scope:
+• Location/Remote:
+
+Best,
+[Recruiter name]`,
+      feedback: `Hi Katherine —
+
+I tried your project and wanted to share quick feedback. Overall impression: [great / promising / curious]. Timeline for a response is ${urgencyEl.value || "whenever you have time"}.
+
+Notes:
+• What worked:
+• What confused me:
+• Suggestion:
+
+Cheers,
+[Your name]`
+    };
+
+    document.getElementById('applyTemplate').addEventListener('click', () => {
+      const key = (document.getElementById('template').value || "").toLowerCase();
+      if (!key) return;
+      msgEl.value = templates[key]?.replaceAll("\n", "\n") || msgEl.value;
+      if (!subjectEl.value) {
+        const base = (key === "collab" ? "Collaboration" :
+          key === "recruiter" ? "Recruiting" :
+            key === "feedback" ? "Feedback" : "Intro");
+        subjectEl.value = topic ? `${base}: ${topic}` : base;
+      }
     });
+
+    document.getElementById('buildMail').addEventListener('click', () => {
+      const to = "katisabela125@gmail.com";
+      const subj = encodeURIComponent(subjectEl.value || "Hello from your site");
+      const body = encodeURIComponent(msgEl.value || "Hi Katherine —");
+      window.location.href = `mailto:${to}?subject=${subj}&body=${body}`;
+    });
+
+    document.getElementById('copyAll').addEventListener('click', async () => {
+      const all = `To: katisabela125@gmail.com
+Subject: ${subjectEl.value || "(none)"}
+
+${msgEl.value || ""}`;
+      try {
+        await navigator.clipboard.writeText(all);
+        alert("Copied to clipboard!");
+      } catch (e) { alert("Could not copy, sorry."); }
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 

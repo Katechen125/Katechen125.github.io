@@ -147,7 +147,7 @@
       display: grid;
       place-items: center;
       text-align: center;
-      padding: 56px 0 36px
+      padding: 56px 0 28px
     }
 
     .hero h1 {
@@ -195,18 +195,9 @@
       font-size: 17px
     }
 
-    footer {
-      border-top: 1px solid var(--ring);
-      padding: 18px 0;
-      color: var(--muted);
-      text-align: center
-    }
 
-    .flag-launch {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 1000;
+    .sequence {
+      margin: 18px auto 4px;
       display: grid;
       gap: 10px;
       justify-items: center
@@ -238,6 +229,55 @@
       background: #14b314
     }
 
+    .flag-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .flag-svg {
+      width: 54px;
+      height: 34px;
+      display: none
+    }
+
+    .flag-wave {
+      display: block;
+      animation: wave 1.8s ease-in-out 2
+    }
+
+    @keyframes wave {
+      0% {
+        transform: skewY(0deg) translateX(0)
+      }
+
+      25% {
+        transform: skewY(6deg) translateX(3px)
+      }
+
+      50% {
+        transform: skewY(-6deg) translateX(-2px)
+      }
+
+      75% {
+        transform: skewY(4deg) translateX(2px)
+      }
+
+      100% {
+        transform: skewY(0deg) translateX(0)
+      }
+    }
+
+    .flag-launch {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 1000;
+      display: grid;
+      gap: 8px;
+      justify-items: center
+    }
+
     .flag-btn {
       appearance: none;
       border: 1px solid var(--ring);
@@ -254,37 +294,11 @@
       border-color: #444
     }
 
-    .flag-svg {
-      width: 44px;
-      height: 28px;
-      display: none
-    }
-
-    .flag-wave {
-      display: block;
-      animation: wave 1.8s ease-in-out 2
-    }
-
-    @keyframes wave {
-      0% {
-        transform: skewY(0) translateX(0)
-      }
-
-      25% {
-        transform: skewY(6deg) translateX(2px)
-      }
-
-      50% {
-        transform: skewY(-6deg) translateX(-1px)
-      }
-
-      75% {
-        transform: skewY(4deg) translateX(1px)
-      }
-
-      100% {
-        transform: skewY(0) translateX(0)
-      }
+    footer {
+      border-top: 1px solid var(--ring);
+      padding: 18px 0;
+      color: var(--muted);
+      text-align: center
     }
   </style>
 </head>
@@ -310,14 +324,43 @@
 
   <section class="hero">
     <div class="container">
-      <h1>Hi, I’m Katherine — I build playful-aesthetic, human-centered software.</h1>
-      <div class="driver-bar">
+      <h1>Hi, I’m Katherine — Computer Science student (soon Simulation Engineering) building playful-aesthetic code.
+      </h1>
+
+      <div class="sequence">
+        <div class="start-lights" id="startLights">
+          <span class="light" id="L1"></span>
+          <span class="light" id="L2"></span>
+          <span class="light" id="L3"></span>
+          <span class="light" id="L4"></span>
+          <span class="light" id="L5"></span>
+        </div>
+        <div class="flag-badge">
+          <span>Lights → Go! → Flag</span>
+          <svg class="flag-svg" id="flagSVG" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="checks" width="20" height="20" patternUnits="userSpaceOnUse">
+                <rect width="10" height="10" fill="#111" />
+                <rect x="10" width="10" height="10" fill="#eee" />
+                <rect y="10" width="10" height="10" fill="#eee" />
+                <rect x="10" y="10" width="10" height="10" fill="#111" />
+              </pattern>
+            </defs>
+            <rect x="18" y="8" width="96" height="56" rx="6" fill="url(#checks)" stroke="#888" />
+            <rect x="8" y="6" width="8" height="64" rx="4" fill="#bcbcbc" />
+          </svg>
+        </div>
+        <button class="btn" id="runTopSequence">Start Sequence 🏁</button>
+      </div>
+
+      <div class="driver-bar" style="margin-top:10px">
         <span>Favorite drivers:</span>
         <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
         <button class="btn" data-theme="lando">Lando Norris</button>
         <button class="btn" id="resetTheme">Reset theme</button>
         <span>(themed confetti)</span>
       </div>
+
       <div class="hub">
         <a class="btn" href="projects.html">My Projects</a>
         <a class="btn" href="about.html">About</a>
@@ -332,29 +375,14 @@
   </footer>
 
   <div class="flag-launch" aria-live="polite">
-    <div class="start-lights" id="startLights">
-      <span class="light" id="L1"></span><span class="light" id="L2"></span><span class="light" id="L3"></span><span
-        class="light" id="L4"></span><span class="light" id="L5"></span>
-    </div>
     <button class="flag-btn" id="flagGo" title="Start lights + wave flag">🏁</button>
-    <svg class="flag-svg" id="flagSVG" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <pattern id="checks" width="20" height="20" patternUnits="userSpaceOnUse">
-          <rect width="10" height="10" fill="#111" />
-          <rect x="10" width="10" height="10" fill="#eee" />
-          <rect y="10" width="10" height="10" fill="#eee" />
-          <rect x="10" y="10" width="10" height="10" fill="#111" />
-        </pattern>
-      </defs>
-      <rect x="18" y="8" width="96" height="56" rx="6" fill="url(#checks)" stroke="#888" />
-      <rect x="8" y="6" width="8" height="64" rx="4" fill="#bcbcbc" />
-    </svg>
   </div>
 
   <script src="assets/js/confetti.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
     const root = document.documentElement;
+
 
     function setThemeAndConfetti(name) {
       if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); startThemedConfetti('carlos'); }
@@ -363,8 +391,70 @@
     document.querySelectorAll('[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
     document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); startThemedConfetti('neutral'); });
 
+
+    function normalConfetti() {
+
+      startThemedConfetti('neutral');
+    }
+
+
+    (function () {
+      let sprayCanvas, sctx, DPR = Math.max(1, window.devicePixelRatio || 1), raf;
+      function ensureCanvas() {
+        if (sprayCanvas) return;
+        sprayCanvas = document.createElement('canvas');
+        sprayCanvas.style.position = 'fixed';
+        sprayCanvas.style.inset = '0';
+        sprayCanvas.style.pointerEvents = 'none';
+        sprayCanvas.style.zIndex = '1000';
+        document.body.appendChild(sprayCanvas);
+        sctx = sprayCanvas.getContext('2d');
+        resize(); addEventListener('resize', resize);
+      }
+      function resize() { sprayCanvas.width = innerWidth * DPR; sprayCanvas.height = innerHeight * DPR; }
+      function rand(a, b) { return a + Math.random() * (b - a); }
+
+      window.champagneSpray = function () {
+        ensureCanvas();
+        if (raf) cancelAnimationFrame(raf);
+        const W = sprayCanvas.width, H = sprayCanvas.height;
+        const pops = [
+          { x: 24 * DPR, y: H - 24 * DPR, dir: 35 * Math.PI / 180 },
+          { x: W - 24 * DPR, y: H - 24 * DPR, dir: 145 * Math.PI / 180 }
+        ];
+        const parts = [];
+        pops.forEach(p => {
+          for (let i = 0; i < 80; i++) {
+            const spd = rand(4, 8) * DPR;
+            const ang = p.dir + rand(-0.35, 0.35);
+            parts.push({
+              x: p.x, y: p.y,
+              vx: Math.cos(ang) * spd, vy: -Math.sin(ang) * spd,
+              life: rand(600, 1100), born: performance.now(),
+              size: rand(2, 4) * DPR,
+              col: ['#ffd166', '#ffe29a', '#fff', '#f9c9d4', '#cfe9fb'][(Math.random() * 5) | 0]
+            });
+          }
+        });
+        const start = performance.now();
+        function tick(t) {
+          sctx.clearRect(0, 0, W, H);
+          parts.forEach(pt => {
+            pt.vy += 0.06 * DPR;
+            pt.x += pt.vx; pt.y += pt.vy;
+            const age = t - pt.born; const a = Math.max(0, 1 - age / pt.life);
+            sctx.globalAlpha = a; sctx.fillStyle = pt.col;
+            sctx.beginPath(); sctx.arc(pt.x, pt.y, pt.size, 0, Math.PI * 2); sctx.fill();
+          });
+          if (t - start < 1200) { raf = requestAnimationFrame(tick); }
+          else { sctx.clearRect(0, 0, W, H); }
+        }
+        raf = requestAnimationFrame(tick);
+      }
+    })();
+
+
     const lights = [...document.querySelectorAll('.start-lights .light')];
-    const flagBtn = document.getElementById('flagGo');
     const flagSVG = document.getElementById('flagSVG');
     function runSequence() {
       lights.forEach(l => l.classList.remove('on', 'red', 'green'));
@@ -378,13 +468,15 @@
             lights.forEach(l => l.classList.add('on', 'green'));
             flagSVG.classList.remove('flag-wave'); void flagSVG.offsetWidth;
             flagSVG.classList.add('flag-wave');
-            startThemedConfetti('neutral');
-            setTimeout(() => lights.forEach(l => l.classList.remove('on', 'green')), 1200);
-          }, 500);
+            normalConfetti();
+            champagneSpray();
+            setTimeout(() => lights.forEach(l => l.classList.remove('on', 'green')), 1100);
+          }, 450);
         }
       }, 250);
     }
-    flagBtn.addEventListener('click', runSequence);
+    document.getElementById('runTopSequence').addEventListener('click', runSequence);
+    document.getElementById('flagGo').addEventListener('click', runSequence);
   </script>
 </body>
 
