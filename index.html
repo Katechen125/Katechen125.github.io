@@ -201,20 +201,29 @@
     }
 
     .hub .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       padding: 14px 22px;
       border-radius: 14px;
       font-size: 17px;
       border: 1px solid transparent;
-      background: color-mix(in oklab, var(--accent) 18%, #fff)
+      background: color-mix(in oklab, var(--accent) 18%, #fff);
+      color: var(--text);
+      text-decoration: none
+    }
+
+    .hub .btn:link,
+    .hub .btn:visited,
+    .hub .btn:hover,
+    .hub .btn:active {
+      color: var(--text)
     }
 
     :root[data-theme="lando"] .hub .btn {
       background: #1f1f21;
-      border-color: #3a3a3d
-    }
-
-    .hub .btn:hover {
-      filter: brightness(1.03)
+      border: 1px solid #3a3a3d;
+      color: #f3f4f6
     }
 
     .sequence-overlay {
@@ -309,7 +318,7 @@
     .flag-launch {
       position: fixed;
       right: 18px;
-      bottom: 28px;
+      bottom: 36px;
       z-index: 10;
       display: flex;
       align-items: center;
@@ -420,7 +429,6 @@
   <script src="assets/js/confetti.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-
     const root = document.documentElement;
     const saved = localStorage.getItem('kc-theme'); if (saved) { root.setAttribute('data-theme', saved); }
     function setThemeAndConfetti(name) {
@@ -429,11 +437,9 @@
     }
     document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
     document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti(); });
-
     const lights = [...document.querySelectorAll('.start-lights .light')];
     const flagSVG = document.getElementById('flagSVG');
     const overlay = document.getElementById('seqOverlay');
-
     function runSequence() {
       overlay.style.display = 'flex';
       lights.forEach(l => l.classList.remove('on', 'red', 'green'));

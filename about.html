@@ -239,18 +239,19 @@
       top: -6px;
       font-size: 22px;
       line-height: 1;
-      left: -40px;
-      transform: scaleX(1);
-      animation: car-move 3.8s ease-in-out infinite
+      right: -40px;
+      left: auto;
+      transform: scaleX(-1);
+      animation: car-move 5.6s ease-in-out infinite
     }
 
     @keyframes car-move {
       0% {
-        left: -40px
+        right: -40px
       }
 
       100% {
-        left: calc(100% - 24px)
+        right: calc(100% - 24px)
       }
     }
 
@@ -340,7 +341,6 @@
     }
     document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
     document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti(); });
-
     (function () {
       const line = document.querySelector('.race-line');
       const car = document.querySelector('.race-car');
@@ -351,9 +351,9 @@
         const cr = car.getBoundingClientRect();
         const maxX = lr.width - 24;
         const carX = Math.min(Math.max(cr.left - lr.left, 0), maxX);
-        const pct = (carX / maxX) * 100;
+        const pct = (1 - (carX / maxX)) * 100;
         line.style.setProperty('--prog', pct.toFixed(2) + '%');
-        if (carX < 2) line.style.setProperty('--prog', '0%');
+        if (carX > maxX - 2) line.style.setProperty('--prog', '0%');
         raf = requestAnimationFrame(tick);
       }
       raf = requestAnimationFrame(tick);
