@@ -100,15 +100,27 @@
       color: var(--text);
       font-weight: 700;
       text-decoration: none;
-      padding: 6px 10px;
-      border-radius: 10px;
-      border: 1px solid transparent
+      padding: 6px 12px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      position: relative;
     }
 
-    .nav a:hover {
-      background: color-mix(in oklab, var(--accent) 16%, #fff);
-      border-color: color-mix(in oklab, var(--accent) 30%, var(--ring));
-      color: var(--text)
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 4px;
+      height: 2px;
+      background: color-mix(in oklab, var(--accent) 35%, transparent);
+      opacity: .0;
+      transition: opacity .2s ease;
+      border-radius: 2px
+    }
+
+    .nav a:hover::after {
+      opacity: 1
     }
 
     .avatar {
@@ -156,7 +168,7 @@
       place-items: center;
       text-align: center;
       padding: 40px 0 28px;
-      min-height: calc(100svh - 64px - 84px)
+      min-height: calc(100svh - 64px - 84px);
     }
 
     .hero h1 {
@@ -197,31 +209,76 @@
 
     .hub {
       display: flex;
-      gap: 14px;
+      gap: 16px;
       flex-wrap: wrap;
       justify-content: center;
-      margin-top: 20px
+      margin-top: 22px
     }
 
-    .hub .btn {
-      padding: 14px 22px;
-      border-radius: 16px;
+    .cta {
+      --cut: 16px;
+      appearance: none;
+      cursor: pointer;
+      font-weight: 800;
+      letter-spacing: .2px;
+      color: var(--text);
+      background:
+        linear-gradient(180deg,
+          color-mix(in oklab, var(--surface, #fff) 96%, transparent),
+          color-mix(in oklab, var(--surface, #fff) 88%, transparent));
+      border: 1px solid color-mix(in oklab, var(--accent) 30%, var(--ring));
+      padding: 14px 24px;
       font-size: 17px;
+      clip-path: polygon(0% 0%, calc(100% - var(--cut)) 0%, 100% 50%, calc(100% - var(--cut)) 100%, 0% 100%, var(--cut) 50%);
       position: relative;
-      overflow: hidden
+      overflow: hidden;
+      transition: transform .12s ease, box-shadow .2s ease, border-color .2s ease;
+      box-shadow: 0 12px 28px rgba(12, 21, 33, .10), inset 0 0 0 1px color-mix(in oklab, var(--accent) 18%, #fff);
+      text-decoration: none;
+      display: inline-block;
     }
 
-    .hub .btn::after {
+    .cta::before {
       content: "";
       position: absolute;
       inset: -2px;
-      background: radial-gradient(60% 60% at 30% 20%, color-mix(in oklab, var(--accent) 35%, transparent), transparent 60%);
+      pointer-events: none;
+      background:
+        linear-gradient(120deg, transparent 0 40%,
+          color-mix(in oklab, var(--accent) 22%, transparent) 50%,
+          transparent 60% 100%);
       opacity: 0;
-      transition: opacity .25s ease
+      transition: opacity .25s ease;
     }
 
-    .hub .btn:hover::after {
-      opacity: .9
+    .cta::after {
+      content: "➤";
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      opacity: .45;
+      transition: transform .15s ease, opacity .15s ease;
+    }
+
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px rgba(12, 21, 33, .16);
+    }
+
+    .cta:hover::before {
+      opacity: 1
+    }
+
+    .cta:hover::after {
+      transform: translate(2px, -50%);
+      opacity: .8
+    }
+
+    :root[data-theme="lando"] .cta {
+      color: #ffeede;
+      border-color: #3a3a3d;
     }
 
     .sequence-overlay {
@@ -230,32 +287,49 @@
       display: none;
       align-items: center;
       justify-content: center;
-      background: color-mix(in oklab, var(--bg) 30%, transparent);
-      backdrop-filter: blur(2px);
-      z-index: 9
+      background: rgba(0, 0, 0, .58);
+      backdrop-filter: blur(10px) saturate(0.9);
+      z-index: 50;
     }
 
     .sequence {
       display: grid;
-      gap: 12px;
+      gap: 16px;
       justify-items: center
+    }
+
+    .sequence-card {
+      background: color-mix(in oklab, var(--surface, #fff) 96%, transparent);
+      border: 1px solid color-mix(in oklab, var(--accent) 32%, var(--ring));
+      border-radius: 20px;
+      padding: 20px 24px;
+      box-shadow: 0 22px 48px rgba(12, 21, 33, .32);
+    }
+
+    .seq-title {
+      margin-top: 10px;
+      font: 700 clamp(16px, 2.6vw, 22px)/1.25 "Playfair Display", Georgia, serif;
+      color: var(--text);
+      text-align: center;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, .15);
     }
 
     .start-lights {
       display: flex;
-      gap: 12px;
+      gap: 14px;
       background: color-mix(in oklab, var(--bg) 86%, #fff);
-      padding: 12px 16px;
+      padding: 14px 18px;
       border-radius: 999px;
-      border: 1px solid var(--ring)
+      border: 1px solid var(--ring);
+      box-shadow: 0 8px 24px rgba(12, 21, 33, .18) inset;
     }
 
     .light {
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: #2b2b2b;
-      border: 1px solid rgba(0, 0, 0, .2)
+      border: 1px solid rgba(0, 0, 0, .22)
     }
 
     .light.on.red {
@@ -269,12 +343,13 @@
     .flag-badge {
       display: flex;
       align-items: center;
-      gap: 10px
+      gap: 12px;
+      justify-content: center
     }
 
     .flag-svg {
-      width: 64px;
-      height: 40px;
+      width: 72px;
+      height: 46px;
       display: none
     }
 
@@ -382,9 +457,9 @@
       </div>
 
       <div class="hub">
-        <a class="btn" href="projects.html">My Projects</a>
-        <a class="btn" href="about.html">About</a>
-        <a class="btn" href="contact.html">Contact</a>
+        <a class="cta" href="projects.html">My Projects</a>
+        <a class="cta" href="about.html">About</a>
+        <a class="cta" href="contact.html">Contact</a>
       </div>
     </div>
   </section>
@@ -399,29 +474,32 @@
     </div>
   </footer>
 
+  
   <div class="sequence-overlay" id="seqOverlay">
     <div class="sequence">
-      <div class="start-lights" id="startLights">
-        <span class="light" id="L1"></span>
-        <span class="light" id="L2"></span>
-        <span class="light" id="L3"></span>
-        <span class="light" id="L4"></span>
-        <span class="light" id="L5"></span>
-      </div>
-      <div class="flag-badge">
-        <span>Lights out and away we go!</span>
-        <svg class="flag-svg" id="flagSVG" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="checks" width="20" height="20" patternUnits="userSpaceOnUse">
-              <rect width="10" height="10" fill="#111" />
-              <rect x="10" width="10" height="10" fill="#eee" />
-              <rect y="10" width="10" height="10" fill="#eee" />
-              <rect x="10" y="10" width="10" height="10" fill="#111" />
-            </pattern>
-          </defs>
-          <rect x="18" y="8" width="96" height="56" rx="6" fill="url(#checks)" stroke="#888" />
-          <rect x="8" y="6" width="8" height="64" rx="4" fill="#bcbcbc" />
-        </svg>
+      <div class="sequence-card">
+        <div class="start-lights" id="startLights">
+          <span class="light" id="L1"></span>
+          <span class="light" id="L2"></span>
+          <span class="light" id="L3"></span>
+          <span class="light" id="L4"></span>
+          <span class="light" id="L5"></span>
+        </div>
+        <div class="flag-badge">
+          <span class="seq-title">Lights out and away we go!</span>
+          <svg class="flag-svg" id="flagSVG" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="checks" width="20" height="20" patternUnits="userSpaceOnUse">
+                <rect width="10" height="10" fill="#111" />
+                <rect x="10" width="10" height="10" fill="#eee" />
+                <rect y="10" width="10" height="10" fill="#eee" />
+                <rect x="10" y="10" width="10" height="10" fill="#111" />
+              </pattern>
+            </defs>
+            <rect x="18" y="8" width="96" height="56" rx="6" fill="url(#checks)" stroke="#888" />
+            <rect x="8" y="6" width="8" height="64" rx="4" fill="#bcbcbc" />
+          </svg>
+        </div>
       </div>
     </div>
   </div>
@@ -430,6 +508,7 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    
     const root = document.documentElement;
     const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved);
 
@@ -437,8 +516,13 @@
       if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
       if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
-    document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti(); });
+    
+    document.querySelectorAll('button[data-theme]').forEach(b => {
+      b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme));
+    });
+    document.getElementById('resetTheme').addEventListener('click', () => {
+      root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti();
+    });
 
     const overlay = document.getElementById('seqOverlay');
     const lights = [...document.querySelectorAll('.start-lights .light')];
@@ -457,10 +541,10 @@
             lights.forEach(l => l.classList.add('on', 'green'));
             flagSVG.classList.remove('flag-wave'); void flagSVG.offsetWidth; flagSVG.classList.add('flag-wave');
             startNormalConfetti();
-            setTimeout(() => { lights.forEach(l => l.classList.remove('on', 'green')); overlay.style.display = 'none'; }, 1100);
-          }, 450);
+            setTimeout(() => { lights.forEach(l => l.classList.remove('on', 'green')); overlay.style.display = 'none'; }, 1200);
+          }, 500);
         }
-      }, 250);
+      }, 280);
     }
     document.getElementById('flagGo').addEventListener('click', runSequence);
   </script>
