@@ -227,29 +227,18 @@
     .race-car {
       position: absolute;
       top: -6px;
-      font-size: 22px;
-      line-height: 1;
       right: -40px;
       left: auto;
-      transform: scaleX(-1) !important;
-      animation: car-move 8.8s cubic-bezier(.22, .7, .18, 1) infinite
+      font-size: 22px;
+      line-height: 1;
+      transform: scaleX(-1);
+      animation: car-move 10s linear infinite;
+      will-change: right;
     }
 
     @keyframes car-move {
       0% {
         right: -40px
-      }
-
-      15% {
-        right: 12%
-      }
-
-      40% {
-        right: 44%
-      }
-
-      70% {
-        right: 82%
       }
 
       100% {
@@ -263,26 +252,15 @@
       right: 0;
       height: 6px;
       width: 0%;
-      background: color-mix(in oklab, var(--accent) 50%, #243);
+      background: color-mix(in oklab, var(--accent) 55%, #243);
       border-radius: 4px;
-      animation: prog-move 8.8s cubic-bezier(.22, .7, .18, 1) infinite;
+      animation: prog-move 10s linear infinite;
+      will-change: width;
     }
 
     @keyframes prog-move {
       0% {
         width: 0%
-      }
-
-      15% {
-        width: 12%
-      }
-
-      40% {
-        width: 44%
-      }
-
-      70% {
-        width: 82%
       }
 
       100% {
@@ -376,6 +354,7 @@
       if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
       if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
+    
     document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
     document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti(); });
   </script>
