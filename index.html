@@ -106,8 +106,8 @@
     }
 
     .avatar {
-      width: 44px;
-      height: 44px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff)
@@ -120,16 +120,16 @@
 
     .avatar-badge {
       position: absolute;
-      right: -4px;
-      bottom: -4px;
-      width: 22px;
-      height: 22px;
+      right: -5px;
+      bottom: -5px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: #fff;
       border: 2px solid var(--ring);
       display: grid;
       place-items: center;
-      font: 700 11px/1 "Playfair Display", serif;
+      font: 700 12px/1 "Playfair Display", serif;
       color: var(--accent)
     }
 
@@ -197,8 +197,18 @@
       font-size: 17px
     }
 
+    .sequence-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: color-mix(in oklab, var(--bg) 40%, transparent);
+      backdrop-filter: blur(4px);
+      z-index: 9
+    }
+
     .sequence {
-      margin: 14px auto 4px;
       display: grid;
       gap: 10px;
       justify-items: center
@@ -210,8 +220,7 @@
       background: color-mix(in oklab, var(--bg) 86%, #fff);
       padding: 10px 14px;
       border-radius: 999px;
-      border: 1px solid var(--ring);
-      backdrop-filter: blur(6px)
+      border: 1px solid var(--ring)
     }
 
     .light {
@@ -249,7 +258,7 @@
 
     @keyframes wave {
       0% {
-        transform: skewY(0deg) translateX(0)
+        transform: skewY(0) translateX(0)
       }
 
       25% {
@@ -265,7 +274,7 @@
       }
 
       100% {
-        transform: skewY(0deg) translateX(0)
+        transform: skewY(0) translateX(0)
       }
     }
 
@@ -273,7 +282,7 @@
       position: fixed;
       right: 18px;
       bottom: 18px;
-      z-index: 9;
+      z-index: 10;
       display: grid;
       gap: 8px;
       justify-items: center
@@ -328,32 +337,6 @@
       <h1>Hi, I’m Katherine — Computer Science student (soon Simulation Engineering) building playful-aesthetic code.
       </h1>
 
-      <div class="sequence">
-        <div class="start-lights" id="startLights">
-          <span class="light" id="L1"></span>
-          <span class="light" id="L2"></span>
-          <span class="light" id="L3"></span>
-          <span class="light" id="L4"></span>
-          <span class="light" id="L5"></span>
-        </div>
-        <div class="flag-badge">
-          <span>Lights → Go! → Flag</span>
-          <svg class="flag-svg" id="flagSVG" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="checks" width="20" height="20" patternUnits="userSpaceOnUse">
-                <rect width="10" height="10" fill="#111" />
-                <rect x="10" width="10" height="10" fill="#eee" />
-                <rect y="10" width="10" height="10" fill="#eee" />
-                <rect x="10" y="10" width="10" height="10" fill="#111" />
-              </pattern>
-            </defs>
-            <rect x="18" y="8" width="96" height="56" rx="6" fill="url(#checks)" stroke="#888" />
-            <rect x="8" y="6" width="8" height="64" rx="4" fill="#bcbcbc" />
-          </svg>
-        </div>
-        <button class="btn" id="runTopSequence">Start Sequence 🏁</button>
-      </div>
-
       <div class="driver-bar" style="margin-top:10px">
         <span>Favorite drivers:</span>
         <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
@@ -379,63 +362,52 @@
     <button class="flag-btn" id="flagGo" title="Start lights + wave flag">🏁</button>
   </div>
 
+  <div class="sequence-overlay" id="seqOverlay">
+    <div class="sequence">
+      <div class="start-lights" id="startLights">
+        <span class="light" id="L1"></span>
+        <span class="light" id="L2"></span>
+        <span class="light" id="L3"></span>
+        <span class="light" id="L4"></span>
+        <span class="light" id="L5"></span>
+      </div>
+      <div class="flag-badge">
+        <span>Lights → Go! → Flag</span>
+        <svg class="flag-svg" id="flagSVG" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="checks" width="20" height="20" patternUnits="userSpaceOnUse">
+              <rect width="10" height="10" fill="#111" />
+              <rect x="10" width="10" height="10" fill="#eee" />
+              <rect y="10" width="10" height="10" fill="#eee" />
+              <rect x="10" y="10" width="10" height="10" fill="#111" />
+            </pattern>
+          </defs>
+          <rect x="18" y="8" width="96" height="56" rx="6" fill="url(#checks)" stroke="#888" />
+          <rect x="8" y="6" width="8" height="64" rx="4" fill="#bcbcbc" />
+        </svg>
+      </div>
+    </div>
+  </div>
+
   <script src="assets/js/confetti.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
     const root = document.documentElement;
-
-    function applySavedTheme() {
-      const t = localStorage.getItem('kc-theme');
-      if (t === 'carlos' || t === 'lando') { root.setAttribute('data-theme', t); }
-    }
-    applySavedTheme();
+    const saved = localStorage.getItem('kc-theme'); if (saved) { root.setAttribute('data-theme', saved); }
 
     function setThemeAndConfetti(name) {
       if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
       if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
     document.querySelectorAll('[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startVanillaConfetti(); });
-
-    let sprayCanvas, sctx, DPR = Math.max(1, window.devicePixelRatio || 1), raf;
-    function ensureCanvas() {
-      if (sprayCanvas) return;
-      sprayCanvas = document.createElement('canvas');
-      sprayCanvas.style.position = 'fixed';
-      sprayCanvas.style.inset = '0';
-      sprayCanvas.style.pointerEvents = 'none';
-      sprayCanvas.style.zIndex = '0';
-      document.body.appendChild(sprayCanvas);
-      sctx = sprayCanvas.getContext('2d');
-      resize(); addEventListener('resize', resize);
-    }
-    function resize() { sprayCanvas.width = innerWidth * DPR; sprayCanvas.height = innerHeight * DPR; }
-    function rand(a, b) { return a + Math.random() * (b - a); }
-
-    window.champagneSpray = function () {
-      ensureCanvas();
-      if (raf) cancelAnimationFrame(raf);
-      const W = sprayCanvas.width, H = sprayCanvas.height;
-      const pops = [{ x: 24 * DPR, y: H - 24 * DPR, dir: 35 * Math.PI / 180 }, { x: W - 24 * DPR, y: H - 24 * DPR, dir: 145 * Math.PI / 180 }];
-      const parts = [];
-      pops.forEach(p => {
-        for (let i = 0; i < 80; i++) {
-          const spd = rand(4, 8) * DPR; const ang = p.dir + rand(-0.35, 0.35);
-          parts.push({ x: p.x, y: p.y, vx: Math.cos(ang) * spd, vy: -Math.sin(ang) * spd, life: rand(600, 1100), born: performance.now(), size: rand(2, 4) * DPR, col: ['#ffd166', '#ffe29a', '#fff', '#f9c9d4', '#cfe9fb'][(Math.random() * 5) | 0] });
-        }
-      });
-      const start = performance.now();
-      function tick(t) {
-        sctx.clearRect(0, 0, W, H);
-        parts.forEach(pt => { pt.vy += 0.06 * DPR; pt.x += pt.vx; pt.y += pt.vy; const age = t - pt.born; const a = Math.max(0, 1 - age / pt.life); sctx.globalAlpha = a; sctx.fillStyle = pt.col; sctx.beginPath(); sctx.arc(pt.x, pt.y, pt.size, 0, Math.PI * 2); sctx.fill(); });
-        if (t - start < 1200) { raf = requestAnimationFrame(tick); } else { sctx.clearRect(0, 0, W, H); }
-      }
-      raf = requestAnimationFrame(tick);
-    };
+    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti(); });
 
     const lights = [...document.querySelectorAll('.start-lights .light')];
     const flagSVG = document.getElementById('flagSVG');
+    const overlay = document.getElementById('seqOverlay');
+
     function runSequence() {
+      overlay.style.display = 'flex';
       lights.forEach(l => l.classList.remove('on', 'red', 'green'));
       let i = 0;
       const rInt = setInterval(() => {
@@ -446,14 +418,15 @@
             lights.forEach(l => l.classList.remove('red'));
             lights.forEach(l => l.classList.add('on', 'green'));
             flagSVG.classList.remove('flag-wave'); void flagSVG.offsetWidth; flagSVG.classList.add('flag-wave');
-            startVanillaConfetti();
-            champagneSpray();
-            setTimeout(() => lights.forEach(l => l.classList.remove('on', 'green')), 1100);
+            startNormalConfetti();
+            setTimeout(() => {
+              lights.forEach(l => l.classList.remove('on', 'green'));
+              overlay.style.display = 'none';
+            }, 1100);
           }, 450);
         }
       }, 250);
     }
-    document.getElementById('runTopSequence').addEventListener('click', runSequence);
     document.getElementById('flagGo').addEventListener('click', runSequence);
   </script>
 </body>

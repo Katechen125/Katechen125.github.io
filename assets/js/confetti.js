@@ -64,11 +64,11 @@
     } else if (theme === 'lando') {
       burst({ colors: ['#ff8000', '#ffffff', '#0c0c0d'], labels: ['mclaren', 'ln4'], imgSize: 24, count: 260 });
     } else {
-      burst({ colors: ['#e07b97', '#6fa387', '#6aa9d8'], labels: [], imgSize: 22, count: 220 });
+      burst({ colors: ['#e07b97', '#6fa387', '#6aa9d8'], labels: ['💻', '🫀', '🏎️'], imgSize: 22, count: 240 });
     }
   }
 
-  function startVanillaConfetti() {
+  function startNormalConfetti() {
     ensureCanvas();
     if (rafId) cancelAnimationFrame(rafId);
     const start = performance.now();
@@ -88,8 +88,13 @@
     rafId = requestAnimationFrame(tick);
   }
 
+  function startEmojiConfetti() {
+    burst({ colors: ['#e07b97', '#6fa387', '#6aa9d8'], labels: ['💻', '🫀', '🏎️'], imgSize: 22, count: 240 });
+  }
+
   window.startThemedConfetti = startThemedConfetti;
-  window.startVanillaConfetti = startVanillaConfetti;
+  window.startNormalConfetti = startNormalConfetti;
+  window.startEmojiConfetti = startEmojiConfetti;
 })();
 
 

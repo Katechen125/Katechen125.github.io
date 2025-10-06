@@ -226,38 +226,35 @@
     }
 
     .race-flag {
-      right: 2px;
+      left: 2px;
       top: -10px
     }
 
     .race-car {
-      left: -40px;
-      animation: race-move 3.6s cubic-bezier(.25, .7, .3, 1) infinite
+      right: -40px;
+      transform: scaleX(-1);
+      animation: race-move 3.2s cubic-bezier(.22, .7, .18, 1) infinite
     }
 
     @keyframes race-move {
       0% {
-        transform: translateX(0)
+        transform: scaleX(-1) translateX(0)
       }
 
-      10% {
-        transform: translateX(12%)
+      15% {
+        transform: scaleX(-1) translateX(-16%)
       }
 
-      35% {
-        transform: translateX(45%)
+      40% {
+        transform: scaleX(-1) translateX(-50%)
       }
 
-      60% {
-        transform: translateX(78%)
-      }
-
-      85% {
-        transform: translateX(108%)
+      70% {
+        transform: scaleX(-1) translateX(-90%)
       }
 
       100% {
-        transform: translateX(112%)
+        transform: scaleX(-1) translateX(-112%)
       }
     }
 
@@ -346,7 +343,7 @@
       if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
     document.querySelectorAll('[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startVanillaConfetti(); });
+    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti(); });
   </script>
 </body>
 
