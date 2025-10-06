@@ -51,11 +51,19 @@
       box-sizing: border-box
     }
 
+    html,
+    body {
+      height: 100%
+    }
+
     body {
       margin: 0;
       background: var(--bg);
       color: var(--text);
       font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
       position: relative;
       z-index: 1
     }
@@ -146,6 +154,7 @@
     }
 
     .hero {
+      flex: 1;
       display: grid;
       place-items: center;
       text-align: center;
@@ -216,19 +225,19 @@
 
     .start-lights {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       background: color-mix(in oklab, var(--bg) 86%, #fff);
-      padding: 18px 22px;
+      padding: 14px 18px;
       border-radius: 999px;
       border: 1px solid var(--ring)
     }
 
     .light {
-      width: 34px;
-      height: 34px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       background: #2b2b2b;
-      border: 1px solid rgba(0, 0, 0, .25)
+      border: 1px solid rgba(0, 0, 0, .2)
     }
 
     .light.on.red {
@@ -295,7 +304,8 @@
       padding: 10px 12px;
       border-radius: 999px;
       cursor: pointer;
-      font-size: 18px
+      font-size: 18px;
+      position: relative
     }
 
     :root[data-theme="lando"] .flag-btn {
@@ -304,11 +314,24 @@
       border-color: #444
     }
 
+    .flag-btn::after {
+      content: "Start the sequence →";
+      position: absolute;
+      right: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      font: 700 13px/1 Inter, system-ui;
+      white-space: nowrap;
+      margin-right: 10px;
+      color: var(--muted)
+    }
+
     footer {
       border-top: 1px solid var(--ring);
       padding: 18px 0;
       color: var(--muted);
-      text-align: center
+      text-align: center;
+      margin-top: auto
     }
   </style>
 </head>
@@ -394,23 +417,14 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const root = document.documentElement;
-    const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved);
+    const saved = localStorage.getItem('kc-theme'); if (saved) { root.setAttribute('data-theme', saved); }
 
     function setThemeAndConfetti(name) {
       if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
       if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
-
-    document.querySelectorAll('.driver-bar button.btn[data-theme]').forEach(b =>
-      b.addEventListener('click', (e) => { e.stopPropagation(); setThemeAndConfetti(b.dataset.theme); })
-    );
-
-    document.getElementById('resetTheme').addEventListener('click', (e) => {
-      e.stopPropagation();
-      root.removeAttribute('data-theme');
-      localStorage.removeItem('kc-theme');
-      startEmojiConfetti();
-    });
+    document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
+    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti(); });
 
     const lights = [...document.querySelectorAll('.start-lights .light')];
     const flagSVG = document.getElementById('flagSVG');

@@ -492,23 +492,13 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const root = document.documentElement;
-    const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved);
-
+    const saved = localStorage.getItem('kc-theme'); if (saved) { root.setAttribute('data-theme', saved); }
     function setThemeAndConfetti(name) {
       if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
       if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
-
-    document.getElementById('resetTheme').addEventListener('click', (e) => {
-      e.stopPropagation();
-      root.removeAttribute('data-theme');
-      localStorage.removeItem('kc-theme');
-      startEmojiConfetti();
-    });
-
-    document.querySelectorAll('.driver-bar button.btn[data-theme]').forEach(b =>
-      b.addEventListener('click', (e) => { e.stopPropagation(); setThemeAndConfetti(b.dataset.theme); })
-    );
+    document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
+    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti(); });
 
     const topicWrap = document.getElementById('topicWrap');
     const subjectEl = document.getElementById('subject');
@@ -524,15 +514,65 @@
       if (!msgEl.value) { msgEl.value = `Hi Katherine —\n\nI’m reaching out about ${topic.toLowerCase()}. My timeline is ${urgencyEl.value || "flexible"}. Here’s the context…\n\nBest,\n[Your name]`; }
     });
 
+    function updateSubjectForUrgency() {
+      const urg = urgencyEl.value;
+      if (!subjectEl.value || /^([A-Za-z ]+)( — .+)?$/.test(subjectEl.value)) {
+        const base = topic || "Opportunity";
+        subjectEl.value = urg ? `${base} — ${urg}` : base;
+      }
+    }
+    urgencyEl.addEventListener('change', updateSubjectForUrgency);
+
+    const templates = {
+      intro: `Hi Katherine —
+
+I’m reaching out to introduce myself and say hi. I’ve been following your work and thought ${topic ? "the " + topic.toLowerCase() + " angle " : "it"} might be a good fit to connect. My timeline is ${urgencyEl.value || "flexible"}.
+
+Quick context:
+• Who I am:
+• What I’m exploring:
+• How we might collaborate:
+
+Best,
+[Your name]`,
+      collab: `Hi Katherine —
+
+I’d love to explore a collaboration around ${topic || "a feature idea"} for Pathfinder / UI polish. I can share a quick demo and next steps. Timeline: ${urgencyEl.value || "flexible"}.
+
+Goals:
+• What success looks like:
+• Constraints:
+• Proposed next action:
+
+Thanks!
+[Your name]`,
+      recruiter: `Hi Katherine —
+
+I’m reaching out after seeing your portfolio. I think your background in C++, Unreal, and React Native could match roles we’re hiring for. If you’re open, I’d love to set up a brief intro. Timeline: ${urgencyEl.value || "this month"}.
+
+Role highlights:
+• Team:
+• Scope:
+• Location/Remote:
+
+Best,
+[Recruiter name]`,
+      feedback: `Hi Katherine —
+
+I tried your project and wanted to share quick feedback. Overall impression: [great / promising / curious]. Timeline for a response is ${urgencyEl.value || "whenever you have time"}.
+
+Notes:
+• What worked:
+• What confused me:
+• Suggestion:
+
+Cheers,
+[Your name]`
+    };
+
     document.getElementById('applyTemplate').addEventListener('click', () => {
       const key = (document.getElementById('template').value || "").toLowerCase();
       if (!key) return;
-      const templates = {
-        intro: `Hi Katherine —\n\nI’m reaching out to introduce myself and say hi. I’ve been following your work and thought ${topic ? "the " + topic.toLowerCase() + " angle " : "it"} might be a good fit to connect. My timeline is ${urgencyEl.value || "flexible"}.\n\nQuick context:\n• Who I am:\n• What I’m exploring:\n• How we might collaborate:\n\nBest,\n[Your name]`,
-        collab: `Hi Katherine —\n\nI’d love to explore a collaboration around ${topic || "a feature idea"} for Pathfinder / UI polish. I can share a quick demo and next steps. Timeline: ${urgencyEl.value || "flexible"}.\n\nGoals:\n• What success looks like:\n• Constraints:\n• Proposed next action:\n\nThanks!\n[Your name]`,
-        recruiter: `Hi Katherine —\n\nI’m reaching out after seeing your portfolio. I think your background in C++, Unreal, and React Native could match roles we’re hiring for. If you’re open, I’d love to set up a brief intro. Timeline: ${urgencyEl.value || "this month"}.\n\nRole highlights:\n• Team:\n• Scope:\n• Location/Remote:\n\nBest,\n[Recruiter name]`,
-        feedback: `Hi Katherine —\n\nI tried your project and wanted to share quick feedback. Overall impression: [great / promising / curious]. Timeline for a response is ${urgencyEl.value || "whenever you have time"}.\n\nNotes:\n• What worked:\n• What confused me:\n• Suggestion:\n\nCheers,\n[Your name]`
-      };
       msgEl.value = templates[key] || msgEl.value;
       if (!subjectEl.value) {
         const base = (key === "collab" ? "Collaboration" : key === "recruiter" ? "Recruiting" : key === "feedback" ? "Feedback" : "Intro");
@@ -554,6 +594,8 @@ Subject: ${subjectEl.value || "(none)"}
 ${msgEl.value || ""}`;
       try { await navigator.clipboard.writeText(all); alert("Copied to clipboard!"); } catch (e) { alert("Could not copy, sorry."); }
     });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 
