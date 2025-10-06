@@ -1,48 +1,38 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>About — Katherine</title>
 <link rel="icon" type="image/svg+xml"
-  href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
+ href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f7faf9;--surface:#fff;--ring:rgba(0,0,0,.08);--text:#15181d;--muted:#5b6471;--accent:#6fa387;--maxw:980px}
+:root{--bg:#f7faf9;--text:#101418;--muted:#5b6471;--accent:#6fa387;--ring:rgba(0,0,0,.08);--maxw:980px}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-a{color:var(--accent);text-decoration:none}a:visited{color:var(--accent)}a:focus-visible{outline:3px solid color-mix(in oklab,var(--accent) 60%, #ffffff);outline-offset:2px}
 .container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
 header{position:sticky;top:0;z-index:10;background:color-mix(in oklab,var(--bg) 86%,transparent);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--ring)}
 .header-inner{height:64px;display:flex;align-items:center;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:12px;font-weight:900}
-.avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid color-mix(in oklab,var(--accent) 40%,#fff)}
-.nav a{margin-left:14px;font-weight:800}
-h1{font-family:"Playfair Display",serif;font-size:clamp(28px,4vw,44px);text-align:center;margin:26px 0 10px}
-.grid{display:grid;grid-template-columns:1fr;gap:18px;margin-bottom:64px}
-.card{background:var(--surface);border:1px solid var(--ring);border-radius:16px;padding:18px 20px;box-shadow:0 10px 24px rgba(12,21,33,.08)}
-.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-.kv .card h3{margin-top:6px}
+.brand{font-weight:900}
+nav a{margin-left:14px;font-weight:800;color:var(--accent);text-decoration:none}
+h1{font-family:"Playfair Display",serif;text-align:center;margin:22px 0 10px;font-size:clamp(26px,4.5vw,42px)}
+.subtle{color:var(--muted);text-align:center;margin:0 0 18px}
+.driver-bar{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:6px 0 22px}
+.btn{appearance:none;border:1px solid var(--ring);background:#fff;color:#111;padding:10px 14px;border-radius:12px;font-weight:800;cursor:pointer;transition:.2s}
+.btn:hover{background:var(--accent);color:#fff;border-color:transparent}
+.card{background:#fff;border:1px solid var(--ring);border-radius:16px;padding:18px 20px;box-shadow:0 10px 24px rgba(12,21,33,.08);margin-bottom:16px}
 footer{border-top:1px solid var(--ring);padding:16px 0;text-align:center;color:var(--muted)}
 #confetti{position:fixed;inset:0;pointer-events:none}
-.trigger{position:fixed;right:14px;bottom:18px;width:48px;height:48px;border-radius:12px;border:1px solid var(--ring);background:#fff;display:grid;place-items:center;font-size:22px;cursor:pointer;box-shadow:0 8px 18px rgba(0,0,0,.15)}
-.trigger:hover{transform:translateY(-1px)}
-html::before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;background:
-  radial-gradient(1200px 700px at 12% 0%, color-mix(in oklab,#cfe9fb 55%, transparent), transparent 60%),
-  radial-gradient(1200px 700px at 90% 8%, color-mix(in oklab,#f9c9d4 55%, transparent), transparent 60%),
-  radial-gradient(1100px 740px at 0% 100%, color-mix(in oklab,#bcd6c5 60%, transparent), transparent 60%),
-  linear-gradient(180deg,#fff 0%,var(--bg) 100%)}
 </style>
 </head>
 <body>
 <canvas id="confetti"></canvas>
+
 <header>
   <div class="header-inner container">
-    <div class="brand">
-      <img class="avatar" src="assets/img/me.png" alt="Avatar">
-      <span>Katherine Isabela Hsiung Chen — Pole Position 🏁</span>
-    </div>
-    <nav class="nav">
-      <a href="index.html">🏠 Home</a>
+    <div class="brand"><a href="index.html">🏠 Home</a></div>
+    <nav>
       <a href="projects.html">📁 Projects</a>
       <a href="contact.html">✉️ Contact</a>
     </nav>
@@ -52,40 +42,42 @@ html::before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none
 <main class="container">
   <h1>About</h1>
 
-  <section class="grid">
-    <article class="card">
-      <h3>Where I’m headed</h3>
-      <p>Finishing CS, moving into Simulation Engineering. I love building systems that feel alive—motion, and tiny interactions that make pixels behave like matter.</p>
-    </article>
+  <div class="driver-bar">
+    <span class="subtle">Favorite drivers:</span>
+    <button class="btn" id="btnCarlos">Carlos Sainz Jr.</button>
+    <button class="btn" id="btnLando">Lando Norris</button>
+    <button class="btn" id="btnReset">Reset theme</button>
+    <span class="subtle">(click for themed confetti)</span>
+  </div>
 
-    <section class="kv">
-      <article class="card">
-        <h3>Tech I enjoy</h3>
-        <p>C++ for speed and control, TypeScript/React Native for friendly UX, and a soft spot for graphics & tool-building.</p>
-      </article>
-      <article class="card">
-        <h3>Why F1 shows up</h3>
-        <p>Iterate fast, test everything, ship improvements every lap. That rhythm shapes how I design and code.</p>
-      </article>
-    </section>
+  <article class="card">
+    <h3>Where I’m headed</h3>
+    <p>I’m wrapping up Computer Science and stepping into Simulation Engineering. I like building systems that feel good to use—fast, tidy, and a little playful.</p>
+  </article>
 
-    <article class="card">
-      <h3>My style</h3>
-      <p>I write tidy, readable code, then polish the feel—ease curves, color timing, and small “aha”s that make an app stick in memory.</p>
-    </article>
-  </section>
+  <article class="card">
+    <h3>Tech I enjoy</h3>
+    <p>C++ for algorithms/tools, React Native for product speed, TypeScript for clarity, and a pinch of Unreal Engine 5 Blueprints when the prototype needs to pop.</p>
+  </article>
+
+  <article class="card">
+    <h3>Why F1 shows up in my UI</h3>
+    <p>F1 is precision + drama: small choices at high speed. That energy leaks into my interfaces—clear visuals, responsive feedback, and a clean race line from A to B.</p>
+  </article>
 </main>
 
-<button class="trigger" id="fxBtn" title="Confetti">🏁</button>
+<footer><div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages</div></footer>
 
-<footer> <div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages</div></footer>
-
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<script src="assets/js/confetti.js"></script>
 <script>
-document.getElementById('year').textContent=new Date().getFullYear();
-const cvs=document.getElementById('confetti'),ctx=cvs.getContext('2d');
-let W,H,DPR=Math.max(1,devicePixelRatio||1),rafId=null;function size(){W=cvs.width=innerWidth*DPR;H=cvs.height=innerHeight*DPR}size();addEventListener('resize',size);
-function confetti({colors=['#27ae60','#f39c12','#2980b9','#e74c3c','#8e44ad'],durationMs=2200}={}){if(rafId)cancelAnimationFrame(rafId);const N=240,parts=[],start=performance.now();for(let i=0;i<N;i++){parts.push({x:Math.random()*W,y:-Math.random()*H*.6,vx:(Math.random()*2-1)*.8*DPR,vy:(2+Math.random()*2)*DPR,rot:Math.random()*Math.PI,vr:(Math.random()*.2-.1),c:colors[Math.floor(Math.random()*colors.length)]});}function tick(t){const e=t-start;ctx.clearRect(0,0,W,H);parts.forEach(p=>{p.vy+=0.01*DPR;p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.fillStyle=p.c;ctx.fillRect(-4,-4,8,8);ctx.restore();});if(e<durationMs){rafId=requestAnimationFrame(tick)}else{ctx.clearRect(0,0,W,H);rafId=null}}rafId=requestAnimationFrame(tick)}
-document.getElementById('fxBtn').addEventListener('click',()=>confetti());
+  Confetti.init('confetti');
+  const bc=document.getElementById('btnCarlos');
+  const bl=document.getElementById('btnLando');
+  const br=document.getElementById('btnReset');
+  if(bc) bc.addEventListener('click', Confetti.carlos);
+  if(bl) bl.addEventListener('click', Confetti.lando);
+  if(br) br.addEventListener('click', Confetti.reset);
 </script>
 </body>
 </html>
