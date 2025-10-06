@@ -11,7 +11,8 @@
     :root{--bg:#f7faf9;--surface:#ffffff;--text:#1b1e22;--muted:#5b6471;--ring:rgba(0,0,0,.08);--accent:#6fa387;--maxw:900px}
     :root[data-theme="carlos"]{--bg:#dbe6ff;--surface:#ffffff;--text:#0b1220;--muted:#3f527a;--ring:rgba(0,0,0,.12);--accent:#0d347e}
     :root[data-theme="lando"]{--bg:#0f0f10;--surface:#1b1b1d;--text:#f5f7fa;--muted:#cfd5df;--ring:rgba(255,255,255,.14);--accent:#ff8000}
-    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
     html::before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;background:
       radial-gradient(1200px 800px at 12% 0%, rgba(207,233,251,.55), transparent 60%),
       radial-gradient(1200px 800px at 90% 8%, rgba(249,201,212,.55), transparent 60%),
@@ -31,13 +32,24 @@
 
     .wrap{max-width:var(--maxw);margin:0 auto;padding:24px 18px}
     header{display:flex;gap:12px;align-items:center;justify-content:center;padding:14px 0;border-bottom:1px solid var(--ring);position:sticky;top:0;background:color-mix(in oklab,var(--bg) 86%,transparent);backdrop-filter: blur(8px);z-index:5}
+    .nav{margin-left:auto;display:flex;gap:8px}
     .btn{appearance:none;border:1px solid rgba(0,0,0,.15);background:#fff;color:#111;padding:8px 12px;border-radius:10px;font-weight:800;cursor:pointer}
     :root[data-theme="lando"] .btn{background:#2a2a2a;color:#f1f1f1;border-color:#444}
     .btn:hover{background:var(--accent);color:#fff}
-    h1{font-family:"Playfair Display",Georgia,serif;margin:16px 0}
+
+    h1{font-family:"Playfair Display",Georgia,serif;margin:18px auto 6px;text-align:center;max-width:920px;padding:0 12px}
     p{margin:0 0 12px}
-    #confetti{position:fixed;inset:0;pointer-events:none}
-    .driver{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:10px}
+
+    .driver-top{display:flex;gap:10px;justify-content:center;align-items:center;color:var(--muted);flex-wrap:wrap;margin:10px auto 6px;padding:0 12px}
+
+    .ecg{width:100%;max-width:900px;height:80px;margin:8px auto 18px;display:block}
+    .ecg path{stroke:var(--accent);stroke-width:3;fill:none;stroke-linejoin:round;stroke-linecap:round;
+      stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 2.8s ease-out forwards}
+    @keyframes draw{to{stroke-dashoffset:0}}
+
+    .telemetry{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:10px 0 18px}
+    .chip{min-width:140px;padding:10px 14px;border-radius:12px;border:1px solid var(--ring);background:var(--surface);text-align:center;font-weight:800}
+    .chip .val{display:block;font-size:22px}
   </style>
 </head>
 <body>
@@ -45,11 +57,7 @@
 
   <header>
     <strong>About</strong>
-    <div style="margin-left:auto; display:flex; gap:8px; align-items:center;">
-      <span style="color:var(--muted)">Themes:</span>
-      <button class="btn" data-theme="carlos">Carlos</button>
-      <button class="btn" data-theme="lando">Lando</button>
-      <button class="btn" id="resetTheme">Reset</button>
+    <div class="nav">
       <a class="btn" href="index.html">Home</a>
       <a class="btn" href="projects.html">Projects</a>
       <a class="btn" href="contact.html">Contact</a>
@@ -57,16 +65,28 @@
   </header>
 
   <main class="wrap">
-    <h1>Hi! I’m Katherine.</h1>
-    <p>My path to CS wasn’t straightforward. After realizing my first direction wasn’t fulfilling, I took a leap into a hands-on program at Full Sail University. What started with uncertainty turned into a passion for the space where code meets aesthetics—first explored in a visually driven calculator I built.</p>
-    <p>I treat programming like a creative puzzle: clean structure, friendly interactions, and interfaces that feel intentional. I’m especially drawn to opportunities that connect travel, innovation, and design. I’m excited to keep learning, solve real problems, and turn ideas into software that leaves an impact.</p>
-
-    <div class="driver">
+    <div class="driver-top">
       <span>Favorite drivers:</span>
       <button class="btn" data-theme="carlos">Carlos</button>
       <button class="btn" data-theme="lando">Lando</button>
       <button class="btn" id="resetTheme">Reset</button>
+      <span class="subtle" style="color:var(--muted)">(confetti themes)</span>
     </div>
+
+    <h1>Hi! I’m Katherine.</h1>
+
+    <svg class="ecg" viewBox="0 0 600 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,60 L60,60 90,60 110,40 125,80 140,20 155,95 170,60 240,60 260,60 280,40 295,85 310,25 325,90 340,60 420,60 440,60 460,45 475,80 490,30 505,95 520,60 600,60"/>
+    </svg>
+
+    <div class="telemetry">
+      <div class="chip"><span class="val" data-target="2025">0</span>Simulation Eng. start</div>
+      <div class="chip"><span class="val" data-target="4">0</span>Core projects</div>
+      <div class="chip"><span class="val" data-target="100">0</span>% UI polish energy</div>
+    </div>
+
+    <p>My path to CS wasn’t straightforward. After realizing my first direction wasn’t fulfilling, I took a leap into a hands-on program at Full Sail University. What started with uncertainty turned into a passion for the space where code meets aesthetics—first explored in a visually driven calculator I built.</p>
+    <p>I treat programming like a creative puzzle: clean structure, friendly interactions, and interfaces that feel intentional. I’m especially drawn to opportunities that connect travel, innovation, and design. I’m excited to keep learning, solve real problems, and turn ideas into software that leaves an impact.</p>
   </main>
 
   <footer>
@@ -94,6 +114,19 @@
       else if(n==='lando'){root.setAttribute('data-theme','lando');confettiFall({colors:['#ff8000','#0c0c0d','#ffffff'],labels:['mclaren','ln4'],useImages:true,durationMs:2800,imgSize:22});}}
     document.querySelectorAll('[data-theme]').forEach(b=>b.addEventListener('click',()=>setTheme(b.dataset.theme)));
     document.getElementById('resetTheme').addEventListener('click',()=>{root.removeAttribute('data-theme');confettiFall({colors:['#e07b97','#6fa387','#6aa9d8'],labels:['🫀','🏎️','💻'],useImages:false,durationMs:2400,textPx:18});});
+
+    const chips=[...document.querySelectorAll('.val')];
+    const obs=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          const el=e.target, target=+el.dataset.target; let n=0;
+          const step=Math.max(1,Math.ceil(target/60));
+          const id=setInterval(()=>{n+=step; if(n>=target){n=target; clearInterval(id);} el.textContent=n;},20);
+          obs.unobserve(el);
+        }
+      });
+    },{threshold:.4});
+    chips.forEach(c=>obs.observe(c));
   </script>
 </body>
 </html>
