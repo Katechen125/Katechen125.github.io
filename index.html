@@ -5,11 +5,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Katherine Isabela Hsiung Chen — Pole Position 🏁</title>
+
   <link rel="icon" type="image/svg+xml"
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
+
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap"
     rel="stylesheet">
+
   <style>
     :root {
       --bg: #f7faf9;
@@ -51,21 +54,11 @@
       box-sizing: border-box
     }
 
-    html,
-    body {
-      height: 100%
-    }
-
     body {
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      z-index: 1
+      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif
     }
 
     h1,
@@ -106,11 +99,16 @@
       margin-left: 14px;
       color: var(--text);
       font-weight: 700;
-      text-decoration: none
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 10px;
+      border: 1px solid transparent
     }
 
     .nav a:hover {
-      color: var(--accent)
+      background: color-mix(in oklab, var(--accent) 16%, #fff);
+      border-color: color-mix(in oklab, var(--accent) 30%, var(--ring));
+      color: var(--text)
     }
 
     .avatar {
@@ -154,12 +152,11 @@
     }
 
     .hero {
-      flex: 1;
       display: grid;
       place-items: center;
       text-align: center;
       padding: 40px 0 28px;
-      min-height: calc(100vh - 64px - 64px)
+      min-height: calc(100svh - 64px - 84px)
     }
 
     .hero h1 {
@@ -176,17 +173,23 @@
       color: var(--muted)
     }
 
-    .driver-bar .btn {
+    .btn {
+      appearance: none;
       border: 1px solid var(--btn-border);
       background: var(--btn-bg);
       color: var(--btn-text);
       padding: 10px 14px;
       border-radius: 12px;
       font-weight: 700;
-      cursor: pointer
+      cursor: pointer;
+      transition: transform .08s ease
     }
 
-    .driver-bar .btn:hover {
+    .btn:active {
+      transform: translateY(1px)
+    }
+
+    .btn:hover {
       background: var(--accent);
       color: #fff;
       border-color: transparent
@@ -201,29 +204,24 @@
     }
 
     .hub .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
       padding: 14px 22px;
-      border-radius: 14px;
+      border-radius: 16px;
       font-size: 17px;
-      border: 1px solid transparent;
-      background: color-mix(in oklab, var(--accent) 18%, #fff);
-      color: var(--text);
-      text-decoration: none
+      position: relative;
+      overflow: hidden
     }
 
-    .hub .btn:link,
-    .hub .btn:visited,
-    .hub .btn:hover,
-    .hub .btn:active {
-      color: var(--text)
+    .hub .btn::after {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: radial-gradient(60% 60% at 30% 20%, color-mix(in oklab, var(--accent) 35%, transparent), transparent 60%);
+      opacity: 0;
+      transition: opacity .25s ease
     }
 
-    :root[data-theme="lando"] .hub .btn {
-      background: #1f1f21;
-      border: 1px solid #3a3a3d;
-      color: #f3f4f6
+    .hub .btn:hover::after {
+      opacity: .9
     }
 
     .sequence-overlay {
@@ -245,16 +243,16 @@
 
     .start-lights {
       display: flex;
-      gap: 14px;
+      gap: 12px;
       background: color-mix(in oklab, var(--bg) 86%, #fff);
-      padding: 14px 18px;
+      padding: 12px 16px;
       border-radius: 999px;
       border: 1px solid var(--ring)
     }
 
     .light {
-      width: 30px;
-      height: 30px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       background: #2b2b2b;
       border: 1px solid rgba(0, 0, 0, .2)
@@ -310,25 +308,27 @@
     footer {
       border-top: 1px solid var(--ring);
       padding: 18px 0;
-      color: var(--muted);
-      text-align: center;
-      margin-top: auto
+      color: var(--muted)
     }
 
-    .flag-launch {
-      position: fixed;
-      right: 18px;
-      bottom: 36px;
-      z-index: 10;
+    .footer-row {
       display: flex;
       align-items: center;
-      gap: 10px
+      justify-content: center;
+      gap: 16px;
+      position: relative
+    }
+
+    .footer-launch {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: absolute;
+      right: 0
     }
 
     .flag-label {
-      color: var(--muted);
-      font-weight: 700;
-      line-height: 1
+      font-weight: 700
     }
 
     .flag-btn {
@@ -390,14 +390,14 @@
   </section>
 
   <footer>
-    <div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages
+    <div class="container footer-row">
+      <div>© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages</div>
+      <div class="footer-launch">
+        <span class="flag-label">Start the sequence →</span>
+        <button class="flag-btn" id="flagGo" title="Start lights + wave flag">🏁</button>
+      </div>
     </div>
   </footer>
-
-  <div class="flag-launch" aria-live="polite">
-    <span class="flag-label">Start the sequence →</span>
-    <button class="flag-btn" id="flagGo" title="Start lights + wave flag">🏁</button>
-  </div>
 
   <div class="sequence-overlay" id="seqOverlay">
     <div class="sequence">
@@ -429,17 +429,21 @@
   <script src="assets/js/confetti.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
     const root = document.documentElement;
-    const saved = localStorage.getItem('kc-theme'); if (saved) { root.setAttribute('data-theme', saved); }
+    const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved);
+
     function setThemeAndConfetti(name) {
       if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
       if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
     document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
     document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti(); });
+
+    const overlay = document.getElementById('seqOverlay');
     const lights = [...document.querySelectorAll('.start-lights .light')];
     const flagSVG = document.getElementById('flagSVG');
-    const overlay = document.getElementById('seqOverlay');
+
     function runSequence() {
       overlay.style.display = 'flex';
       lights.forEach(l => l.classList.remove('on', 'red', 'green'));
