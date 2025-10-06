@@ -5,11 +5,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Katherine Isabela Hsiung Chen — Pole Position 🏁</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E
-%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E
-%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' 
-font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3EKC%3C/text%3E
-%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap"
     rel="stylesheet">
@@ -219,19 +216,19 @@ font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3
 
     .start-lights {
       display: flex;
-      gap: 12px;
+      gap: 16px;
       background: color-mix(in oklab, var(--bg) 86%, #fff);
-      padding: 12px 16px;
+      padding: 18px 22px;
       border-radius: 999px;
       border: 1px solid var(--ring)
     }
 
     .light {
-      width: 26px;
-      height: 26px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       background: #2b2b2b;
-      border: 1px solid rgba(0, 0, 0, .2)
+      border: 1px solid rgba(0, 0, 0, .25)
     }
 
     .light.on.red {
@@ -375,7 +372,7 @@ font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3
         <span class="light" id="L5"></span>
       </div>
       <div class="flag-badge">
-        <span>Lights → Go! → Flag</span>
+        <span>Lights out and away we go!</span>
         <svg class="flag-svg" id="flagSVG" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="checks" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -397,14 +394,23 @@ font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const root = document.documentElement;
-    const saved = localStorage.getItem('kc-theme'); if (saved) { root.setAttribute('data-theme', saved); }
+    const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved);
 
     function setThemeAndConfetti(name) {
       if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
       if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
-    document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti(); });
+
+    document.querySelectorAll('.driver-bar button.btn[data-theme]').forEach(b =>
+      b.addEventListener('click', (e) => { e.stopPropagation(); setThemeAndConfetti(b.dataset.theme); })
+    );
+
+    document.getElementById('resetTheme').addEventListener('click', (e) => {
+      e.stopPropagation();
+      root.removeAttribute('data-theme');
+      localStorage.removeItem('kc-theme');
+      startEmojiConfetti();
+    });
 
     const lights = [...document.querySelectorAll('.start-lights .light')];
     const flagSVG = document.getElementById('flagSVG');
