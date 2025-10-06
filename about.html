@@ -5,31 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>About — Katherine Isabela Hsiung Chen</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/svg+xml"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='58%25' font-family='Georgia, serif' font-size='36' font-weight='700' text-anchor='middle' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='58%25' font-family='Georgia, serif' font-size='36' font-weight='700' text-anchor='middle' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
 <style>
-:root{--bg:#f7faf9;--surface:#fff;--text:#1b1e22;--muted:#5b6471;--accent:#6fa387;--ring:rgba(0,0,0,.08);--maxw:980px}
+:root{--bg:#f7faf9;--surface:#fff;--text:#1b1e22;--muted:#5b6471;--accent:#6fa387;--ring:rgba(0,0,0,.08);--maxw:980px;--btn-bg:#fff;--btn-text:#111;--btn-border:#d7dde5}
 :root[data-theme="carlos"]{--bg:#dbe6ff;--accent:#0d347e;--text:#0b1220}
-:root[data-theme="lando"]{--accent:#ff8000}
+:root[data-theme="lando"]{--bg:#0f0f10;--surface:#1b1b1d;--text:#f3f4f6;--muted:#cfd5df;--ring:#2d2f33;--accent:#ff8000;--btn-bg:#2a2a2a;--btn-text:#f1f1f1;--btn-border:#444}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
 .container{max-width:var(--maxw);margin:0 auto;padding:0 22px}
 header.site{position:sticky;top:0;z-index:10;background:color-mix(in oklab,var(--bg) 90%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--ring)}
 .site-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
 .brand{display:flex;gap:12px;align-items:center;font-weight:800}
+.nav a{margin-left:14px;color:var(--text);font-weight:700;text-decoration:none}
+.nav a:hover{color:var(--accent)}
 .avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid color-mix(in oklab,var(--accent) 40%, #fff)}
 .avatar-wrap{position:relative;display:inline-block}
 .avatar-badge{position:absolute;right:-4px;bottom:-4px;width:22px;height:22px;border-radius:50%;background:#fff;border:2px solid var(--ring);display:grid;place-items:center;font:700 11px/1 "Playfair Display",serif;color:var(--accent)}
 :root[data-theme="carlos"] .avatar-badge{background:#fff url("https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp") center/80% no-repeat;font-size:0;border-color:#0d347e}
 :root[data-theme="lando"] .avatar-badge{background:#fff url("https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png") center/80% no-repeat;font-size:0;border-color:#ff8000}
 
-h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
-.page-title{display:grid;place-items:center;text-align:center;padding:28px 0 6px}
+.page-title{display:grid;place-items:center;text-align:center;padding:28px 0 12px}
 .page-title h1{margin:0;font-size:clamp(28px,5vw,48px)}
-.driver-bar{margin:12px 0 10px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;color:var(--muted)}
-.btn{appearance:none;border:1px solid #d7dde5;background:#fff;color:#111;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer}
+.driver-bar{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;color:var(--muted)}
+.btn{appearance:none;border:1px solid var(--btn-border);background:var(--btn-bg);color:var(--btn-text);padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer}
 .btn:hover{background:var(--accent);color:#fff;border-color:transparent}
-
 .card{background:var(--surface);border:1px solid var(--ring);border-radius:18px;padding:22px;margin:18px 0}
 .subtle{color:var(--muted)}
 footer{border-top:1px solid var(--ring);padding:18px 0;text-align:center;color:var(--muted)}
@@ -43,8 +43,14 @@ footer{border-top:1px solid var(--ring);padding:18px 0;text-align:center;color:v
         <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
         <span class="avatar-badge">KC</span>
       </div>
-      <span>Katherine — About</span>
+      <span>Katherine — Pole Position🏁</span>
     </div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
   </div>
 </header>
 
@@ -57,30 +63,26 @@ footer{border-top:1px solid var(--ring);padding:18px 0;text-align:center;color:v
     <button class="btn" id="resetTheme">Reset theme</button>
     <span>(themed confetti)</span>
   </div>
-  <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:8px 0 14px">
-    <button class="btn" id="confettiCarlos">Carlos confetti</button>
-    <button class="btn" id="confettiLando">Lando confetti</button>
-  </div>
 </section>
 
 <section class="container">
   <article class="card">
     <h2>Where I’m headed</h2>
-    <p>I’m wrapping up Computer Science and stepping into Simulation Engineering—chasing systems that feel real and responsive.</p>
+    <p>I’m wrapping up Computer Science and stepping into Simulation Engineering—building systems that react, feel real, and serve people.</p>
   </article>
 
   <article class="card">
     <h2>Tech I enjoy</h2>
-    <p class="subtle" style="max-width:65ch">
-      I use C++ when I need low-level control, React Native + TypeScript when I want polish across platforms,
-      and I’m comfortable in Xcode for iOS builds. Google Cloud helps me ship fast proofs of concept—then I refine
-      the interaction details so the UI feels intentional, accessible, and alive.
+    <p class="subtle" style="max-width:68ch">
+      I reach for C++ when I need control and speed, React Native + TypeScript when I want polished cross-platform UI,
+      and Google Cloud to get ideas live quickly. I obsess over the small interactions—motion, focus states, and readable layouts.
+      The goal: calm, intentional interfaces that feel effortless.
     </p>
   </article>
 
   <article class="card">
     <h2>Why F1</h2>
-    <p>F1 is craft under pressure. I try to bring that same mix of precision and playfulness to the software I build.</p>
+    <p>F1 blends precision, teamwork, and play. I try to bring that energy to my projects—iterate fast, measure, and make it fun.</p>
   </article>
 </section>
 
@@ -91,11 +93,14 @@ footer{border-top:1px solid var(--ring);padding:18px 0;text-align:center;color:v
 <script src="assets/js/confetti.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
-const root=document.documentElement; 
-document.querySelectorAll('[data-theme]').forEach(b=>b.addEventListener('click',()=>root.setAttribute('data-theme',b.dataset.theme)));
+const root=document.documentElement;
+function setThemeAndConfetti(name){
+  if(name==='carlos'){ root.setAttribute('data-theme','carlos'); startThemedConfetti('carlos'); }
+  if(name==='lando'){ root.setAttribute('data-theme','lando'); startThemedConfetti('lando'); }
+}
+document.querySelectorAll('[data-theme]').forEach(b=>b.addEventListener('click',()=>setThemeAndConfetti(b.dataset.theme)));
 document.getElementById('resetTheme')?.addEventListener('click',()=>root.removeAttribute('data-theme'));
-document.getElementById('confettiCarlos')?.addEventListener('click',()=> startThemedConfetti('carlos'));
-document.getElementById('confettiLando')?.addEventListener('click',()=> startThemedConfetti('lando'));
 </script>
 </body>
 </html>
+
