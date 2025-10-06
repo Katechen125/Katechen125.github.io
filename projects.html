@@ -1,132 +1,385 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Projects — Katherine Isabela Hsiung Chen</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='58%25' font-family='Georgia, serif' font-size='36' font-weight='700' text-anchor='middle' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
-<style>
-:root{--bg:#f7faf9;--surface:#ffffff;--text:#1b1e22;--muted:#5b6471;--ring:rgba(0,0,0,.08);--accent:#6fa387;--maxw:1080px;--btn-bg:#fff;--btn-text:#111;--btn-border:#d7dde5}
-:root[data-theme="carlos"]{--bg:#dbe6ff;--text:#0b1220;--muted:#3f527a;--ring:rgba(0,0,0,.12);--accent:#0d347e}
-:root[data-theme="lando"]{--bg:#0f0f10;--surface:#1b1b1d;--text:#f3f4f6;--muted:#cfd5df;--ring:#2d2f33;--accent:#ff8000;--btn-bg:#2a2a2a;--btn-text:#f1f1f1;--btn-border:#444}
-*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
-.container{max-width:var(--maxw);margin:0 auto;padding:0 22px}
-header.site{position:sticky;top:0;z-index:10;background:color-mix(in oklab,var(--bg) 90%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--ring)}
-.site-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
-.brand{display:flex;gap:12px;align-items:center;font-weight:800}
-.nav a{margin-left:14px;color:var(--text);font-weight:700;text-decoration:none}
-.nav a:hover{color:var(--accent)}
-.avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid color-mix(in oklab,var(--accent) 40%, #fff)}
-.avatar-wrap{position:relative;display:inline-block}
-.avatar-badge{position:absolute;right:-4px;bottom:-4px;width:22px;height:22px;border-radius:50%;background:#fff;border:2px solid var(--ring);display:grid;place-items:center;font:700 11px/1 "Playfair Display",serif;color:var(--accent)}
-:root[data-theme="carlos"] .avatar-badge{background:#fff url("https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp") center/80% no-repeat;font-size:0;border-color:#0d347e}
-:root[data-theme="lando"] .avatar-badge{background:#fff url("https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png") center/80% no-repeat;font-size:0;border-color:#ff8000}
-.page-title{display:grid;place-items:center;text-align:center;padding:28px 0 12px}
-.page-title h1{margin:0;font-size:clamp(28px,5vw,48px)}
-.driver-bar{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;color:var(--muted)}
-.btn{appearance:none;border:1px solid var(--btn-border);background:var(--btn-bg);color:var(--btn-text);padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer}
-.btn:hover{background:var(--accent);color:#fff;border-color:transparent}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;padding-bottom:56px}
-.card{background:var(--surface);border:1px solid var(--ring);border-radius:18px;padding:20px;box-shadow:0 10px 26px rgba(0,0,0,.10)}
-.card h3{margin:4px 0 8px}
-.tags{display:flex;gap:8px;flex-wrap:wrap;margin:.35rem 0 18px}
-.tag{font-size:12px;font-weight:700;padding:6px 10px;border-radius:999px;border:1px solid var(--ring);background:color-mix(in oklab,var(--bg) 86%, #fff)}
-.proj-actions{display:flex;align-items:center;gap:12px;margin-top:12px}
-.code-link,.video-link{font-weight:800;text-decoration:none}
-.code-link{color:var(--accent)} .video-link{color:var(--muted)}
-.dot{opacity:.6}
-footer{border-top:1px solid var(--ring);padding:18px 0;color:var(--muted);text-align:center}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projects — Katherine</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7faf9;
+      --surface: #fff;
+      --text: #1b1e22;
+      --muted: #5b6471;
+      --ring: rgba(0, 0, 0, .08);
+      --accent: #6fa387;
+      --btn-bg: #fff;
+      --btn-text: #111;
+      --btn-border: #d7dde5;
+      --maxw: 1080px
+    }
+
+    :root[data-theme="carlos"] {
+      --bg: #dbe6ff;
+      --text: #0b1220;
+      --muted: #3f527a;
+      --ring: rgba(0, 0, 0, .12);
+      --accent: #0d347e;
+      --btn-bg: #fff;
+      --btn-text: #0b1220;
+      --btn-border: #3260b3
+    }
+
+    :root[data-theme="lando"] {
+      --bg: #0f0f10;
+      --surface: #1b1b1d;
+      --text: #f3f4f6;
+      --muted: #cfd5df;
+      --ring: #2d2f33;
+      --accent: #ff8000;
+      --btn-bg: #2a2a2a;
+      --btn-text: #f3f3f3;
+      --btn-border: #444
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Playfair Display", Georgia, serif
+    }
+
+    .container {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 22px
+    }
+
+    header.site {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: color-mix(in oklab, var(--bg) 90%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--ring)
+    }
+
+    .site-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      font-weight: 800
+    }
+
+    .nav a {
+      margin-left: 14px;
+      color: var(--text);
+      font-weight: 700;
+      text-decoration: none
+    }
+
+    .nav a:hover {
+      color: var(--accent)
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff)
+    }
+
+    .avatar-wrap {
+      position: relative;
+      display: inline-block
+    }
+
+    .avatar-badge {
+      position: absolute;
+      right: -4px;
+      bottom: -4px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid var(--ring);
+      display: grid;
+      place-items: center;
+      font: 700 10px/1 "Playfair Display", serif;
+      color: var(--accent)
+    }
+
+    :root[data-theme="carlos"] .avatar-badge {
+      background: #fff url("https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp") center/80% no-repeat;
+      font-size: 0;
+      border-color: #0d347e
+    }
+
+    :root[data-theme="lando"] .avatar-badge {
+      background: #fff url("https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png") center/80% no-repeat;
+      font-size: 0;
+      border-color: #ff8000
+    }
+
+    .page-hero {
+      padding: 40px 0 18px;
+      text-align: center
+    }
+
+    .page-hero h1 {
+      margin: 0 auto 10px;
+      max-width: 820px
+    }
+
+    .driver-bar {
+      margin: 6px auto 0;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      color: var(--muted)
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid var(--btn-border);
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer
+    }
+
+    .btn:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: transparent
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--ring);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 10px 24px rgba(12, 21, 33, .06), 0 2px 6px rgba(12, 21, 33, .04)
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px
+    }
+
+    @media(min-width:780px) {
+      .grid {
+        grid-template-columns: 1fr 1fr
+      }
+    }
+
+    .tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: .35rem 0 .8rem
+    }
+
+    .tag {
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: color-mix(in oklab, #cfe9fb 35%, white);
+      border: 1px solid var(--ring);
+      font-weight: 700
+    }
+
+    .linkrow {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .sep {
+      opacity: .6
+    }
+
+    a.code-link,
+    a.video-link {
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    a.code-link {
+      color: var(--accent)
+    }
+
+    a.video-link {
+      color: var(--muted)
+    }
+
+    :root[data-theme="lando"] a.code-link {
+      color: #ff8000
+    }
+
+    :root[data-theme="lando"] a.video-link {
+      color: #ffae42
+    }
+
+    footer {
+      border-top: 1px solid var(--ring);
+      padding: 18px 0;
+      color: var(--muted);
+      text-align: center
+    }
+
+    .space-top {
+      margin-top: 12px
+    }
+  </style>
 </head>
+
 <body>
-<header class="site">
-  <div class="site-inner container">
-    <div class="brand">
-      <div class="avatar-wrap">
-        <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
-        <span class="avatar-badge">KC</span>
+  <header class="site">
+    <div class="site-inner container">
+      <div class="brand">
+        <div class="avatar-wrap">
+          <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
+          <span class="avatar-badge">KC</span>
+        </div>
+        <span>Projects</span>
       </div>
-      <span>Katherine — Pole Position🏁</span>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
     </div>
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="projects.html">Projects</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </div>
-</header>
+  </header>
 
-<section class="container page-title">
-  <h1>Projects</h1>
-  <div class="driver-bar">
-    <span>Favorite drivers:</span>
-    <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
-    <button class="btn" data-theme="lando">Lando Norris</button>
-    <button class="btn" id="resetTheme">Reset theme</button>
-    <span>(themed confetti)</span>
-  </div>
-</section>
+  <section class="page-hero container">
+    <h1>Projects</h1>
+    <div class="driver-bar">
+      <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
+      <button class="btn" data-theme="lando">Lando Norris</button>
+      <button class="btn" id="resetTheme">Reset theme</button>
+    </div>
+  </section>
 
-<section class="container">
-  <div class="grid">
-    <article class="card">
-      <h3>Calculator — Shunting-Yard</h3>
-      <div class="tags"><span class="tag">C++</span><span class="tag">Factory pattern</span><span class="tag">Algorithms</span></div>
-      <p>Expression evaluator with operator precedence & associativity via Dijkstra’s shunting-yard.</p>
-      <ul><li>Buttons via a factory; processor instance isolates evaluation.</li><li>Parentheses, powers, custom functions.</li></ul>
-      <div class="proj-actions"><a class="code-link" target="_blank" href="https://github.com/Katechen125/Calculator">Code</a><span class="dot">•</span><a class="video-link disabled" target="_blank" href="YOUR_DEMO_LINK_CALCULATOR">Demo</a></div>
-    </article>
+  <section class="container">
+    <div class="grid">
+      <article class="card">
+        <h3>Calculator — Shunting-Yard</h3>
+        <p>C++ expression evaluator using shunting-yard; buttons via <strong>factory pattern</strong>, evaluation on a
+          dedicated <strong>processor instance</strong>.</p>
+        <div class="tags">
+          <span class="tag">C++</span><span class="tag">Factory Pattern</span><span class="tag">Algorithms</span>
+        </div>
+        <div class="linkrow">
+          <a class="code-link" href="https://github.com/Katechen125/Calculator" target="_blank">💻 Code</a>
+          <span class="sep">•</span>
+          <a class="video-link" href="YOUR_DEMO_LINK_CALCULATOR" target="_blank">🎥 Demo</a>
+        </div>
+      </article>
 
-    <article class="card">
-      <h3>Conway’s Game of Life</h3>
-      <div class="tags"><span class="tag">C++</span><span class="tag">wxWidgets</span><span class="tag">vcpkg</span></div>
-      <p>Interactive cellular automaton with pause/step, presets, and portable builds via vcpkg.</p>
-      <ul><li>Optimized neighbor counting, grid up to 200×200.</li><li>Preset library: glider, pulsar, LWSS.</li></ul>
-      <div class="proj-actions"><a class="code-link" target="_blank" href="https://github.com/Katechen125/conway-s-game-of-life-05-24-Katechen125">Code</a><span class="dot">•</span><a class="video-link disabled" target="_blank" href="YOUR_DEMO_LINK_GOL">Demo</a></div>
-    </article>
+      <article class="card">
+        <h3>Conway’s Game of Life</h3>
+        <p>C++ with updated <strong>wxWidgets</strong> UI via <strong>vcpkg</strong>. Pause/step + presets.</p>
+        <div class="tags">
+          <span class="tag">C++</span><span class="tag">wxWidgets</span><span class="tag">vcpkg</span>
+        </div>
+        <div class="linkrow">
+          <a class="code-link" href="https://github.com/Katechen125/conway-s-game-of-life-05-24-Katechen125"
+            target="_blank">💻 Code</a>
+          <span class="sep">•</span>
+          <a class="video-link" href="YOUR_DEMO_LINK_GOL" target="_blank">🎥 Demo</a>
+        </div>
+      </article>
 
-    <article class="card">
-      <h3>Proximity Video Panel (Collab)</h3>
-      <div class="tags"><span class="tag">UE5</span><span class="tag">Blueprints</span><span class="tag">Prototype</span></div>
-      <p>Proximity trigger: approach to reveal the video panel; move away to hide it.</p>
-      <ul><li>Distance-based easing on opacity & scale.</li><li>Safe fallback when tracking is lost.</li></ul>
-      <div class="proj-actions"><a class="video-link" target="_blank" href="YOUR_DEMO_LINK_COLLAB">Demo</a></div>
-    </article>
+      <article class="card">
+        <h3>Pathfinder — Travel</h3>
+        <p>React Native app for attractions, bookings, flights, calendar, expenses, currency, and saved places/maps.
+          Built with <strong>TypeScript</strong>, <strong>Google Cloud</strong>, <strong>Xcode</strong> (iOS).</p>
+        <div class="tags">
+          <span class="tag">React Native</span><span class="tag">TypeScript</span><span class="tag">Google
+            Cloud</span><span class="tag">Xcode (iOS)</span>
+        </div>
+        <div class="linkrow">
+          <a class="code-link" href="https://github.com/Katechen125/Pathfinder" target="_blank">💻 Code</a>
+          <span class="sep">•</span>
+          <a class="video-link" href="YOUR_DEMO_LINK_PATHFINDER" target="_blank">🎥 Demo</a>
+        </div>
+      </article>
 
-    <article class="card">
-      <h3>Pathfinder — Travel</h3>
-      <div class="tags"><span class="tag">React Native</span><span class="tag">TypeScript</span><span class="tag">Google Cloud</span><span class="tag">Xcode (iOS)</span></div>
-      <p>Attractions, bookings, activities, flights, calendar, expenses, currency, saved places.</p>
-      <div class="proj-actions"><a class="code-link" target="_blank" href="https://github.com/Katechen125/Pathfinder">Code</a><span class="dot">•</span><a class="video-link disabled" target="_blank" href="YOUR_DEMO_LINK_PATHFINDER">Demo</a></div>
-    </article>
+      <article class="card">
+        <h3>TCP Server — Spaghetti Relay</h3>
+        <p><strong>C++</strong> TCP server that relays messages across clients with simple logging and graceful
+          shutdown.</p>
+        <div class="tags">
+          <span class="tag">C++</span><span class="tag">TCP</span><span class="tag">Sockets</span><span
+            class="tag">Networking</span>
+        </div>
+        <div class="linkrow">
+          <a class="code-link" href="https://github.com/Katechen125/TCP-server" target="_blank">💻 Code</a>
+          <span class="sep">•</span>
+          <a class="video-link" href="YOUR_DEMO_LINK_TCP" target="_blank">🎥 Demo</a>
+        </div>
+      </article>
 
-    <article class="card">
-      <h3>TCP Server — Spaghetti Relay</h3>
-      <div class="tags"><span class="tag">C++</span><span class="tag">TCP / Sockets</span><span class="tag">Networking</span></div>
-      <p>Lightweight server relaying messages between clients with simple logging & graceful shutdown.</p>
-      <div class="proj-actions"><a class="code-link" target="_blank" href="https://github.com/Katechen125/TCP-server">Code</a><span class="dot">•</span><a class="video-link disabled" target="_blank" href="YOUR_DEMO_LINK_TCP">Demo</a></div>
-    </article>
-  </div>
-</section>
+      <article class="card">
+        <h3>Proximity Video Panel (Collab)</h3>
+        <p><strong>UE5 — Blueprints.</strong> I built the proximity trigger: approach → panel reveals; step away → panel
+          hides.</p>
+        <div class="tags">
+          <span class="tag">UE5</span><span class="tag">Blueprints</span><span class="tag">Prototype</span>
+        </div>
+        <div class="linkrow">
+          <a class="video-link" href="YOUR_DEMO_LINK_COLLAB" target="_blank">🎥 Demo</a>
+        </div>
+      </article>
+    </div>
+  </section>
 
-<footer><div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages</div></footer>
+  <footer>
+    <div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages
+    </div>
+  </footer>
 
-<script src="assets/js/confetti.js"></script>
-<script>
-document.getElementById('year').textContent = new Date().getFullYear();
-const root=document.documentElement;
-function setThemeAndConfetti(name){
-  if(name==='carlos'){ root.setAttribute('data-theme','carlos'); startThemedConfetti('carlos'); }
-  if(name==='lando'){ root.setAttribute('data-theme','lando'); startThemedConfetti('lando'); }
-}
-document.querySelectorAll('[data-theme]').forEach(b=>b.addEventListener('click',()=>setThemeAndConfetti(b.dataset.theme)));
-document.getElementById('resetTheme')?.addEventListener('click',()=>root.removeAttribute('data-theme'));
-</script>
+  <script src="assets/js/confetti.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const root = document.documentElement;
+    function setThemeAndConfetti(name) {
+      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); startThemedConfetti('carlos'); }
+      if (name === 'lando') { root.setAttribute('data-theme', 'lando'); startThemedConfetti('lando'); }
+    }
+    document.querySelectorAll('[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
+    document.getElementById('resetTheme')?.addEventListener('click', () => { root.removeAttribute('data-theme'); startThemedConfetti('neutral'); });
+  </script>
 </body>
+
 </html>
-
-
-
