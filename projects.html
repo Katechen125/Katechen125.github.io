@@ -375,13 +375,19 @@
     document.getElementById('year').textContent = new Date().getFullYear();
     const root = document.documentElement;
     const saved = localStorage.getItem('kc-theme'); if (saved) { root.setAttribute('data-theme', saved); }
+
     function setThemeAndConfetti(name) {
       if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
       if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
-    document.querySelectorAll('[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme')?.addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti(); });
+    document.querySelectorAll('button[data-theme]').forEach(b => {
+      b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme));
+    });
+    document.getElementById('resetTheme')?.addEventListener('click', () => {
+      root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti();
+    });
   </script>
+
 </body>
 
 </html>
