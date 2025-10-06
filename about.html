@@ -220,7 +220,7 @@
       height: 3px;
       width: 0;
       background: var(--accent);
-      animation: track-grow 2.6s linear infinite
+      animation: track-grow 3.2s linear infinite;
     }
 
     .race-flag {
@@ -236,18 +236,18 @@
       top: -6px;
       font-size: 22px;
       line-height: 1;
-      left: calc(100% - 24px);
-      transform: scaleX(-1);
-      animation: car-move 2.6s linear infinite
+      left: -40px;
+      transform: scaleX(1);
+      animation: car-move 3.2s linear infinite;
     }
 
     @keyframes car-move {
       0% {
-        left: calc(100% - 24px)
+        left: -40px
       }
 
       100% {
-        left: -40px
+        left: calc(100% - 24px)
       }
     }
 
