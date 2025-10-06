@@ -210,16 +210,16 @@
       width: 100%;
       border-bottom: 3px dashed color-mix(in oklab, var(--text) 35%, transparent);
       overflow: hidden;
-      --prog: 0%
+      --progW: 0%
     }
 
     .race-line::after {
       content: "";
       position: absolute;
-      left: 0;
+      right: 0;
       bottom: -1.5px;
       height: 3px;
-      width: var(--prog);
+      width: var(--progW);
       background: var(--accent);
       border-radius: 2px;
       pointer-events: none;
@@ -242,7 +242,7 @@
       right: -40px;
       left: auto;
       transform: scaleX(-1);
-      animation: car-move 5.6s ease-in-out infinite
+      animation: car-move 7.2s ease-in-out infinite
     }
 
     @keyframes car-move {
@@ -333,31 +333,43 @@
   <script src="assets/js/confetti.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
     const root = document.documentElement;
     const saved = localStorage.getItem('kc-theme'); if (saved) { root.setAttribute('data-theme', saved); }
+
     function setThemeAndConfetti(name) {
       if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
       if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
     document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
     document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti(); });
+
     (function () {
       const line = document.querySelector('.race-line');
       const car = document.querySelector('.race-car');
       if (!line || !car) return;
+
       let raf;
       function tick() {
         const lr = line.getBoundingClientRect();
         const cr = car.getBoundingClientRect();
-        const maxX = lr.width - 24;
-        const carX = Math.min(Math.max(cr.left - lr.left, 0), maxX);
-        const pct = (1 - (carX / maxX)) * 100;
-        line.style.setProperty('--prog', pct.toFixed(2) + '%');
-        if (carX > maxX - 2) line.style.setProperty('--prog', '0%');
+
+        const startRight = lr.right;              
+        const endRight = lr.left + 24;          
+        const current = cr.right;              
+
+        const total = startRight - endRight;
+        const traveled = Math.min(Math.max(startRight - current, 0), total);
+        const pct = (traveled / total) * 100;
+
+        line.style.setProperty('--progW', pct.toFixed(2) + '%');
+
+        if (pct > 98) line.style.setProperty('--progW', '0%');
+
         raf = requestAnimationFrame(tick);
       }
       raf = requestAnimationFrame(tick);
-      window.addEventListener('visibilitychange', () => { if (document.hidden) { cancelAnimationFrame(raf); } else { raf = requestAnimationFrame(tick); } });
+      addEventListener('visibilitychange', () => { if (document.hidden) { cancelAnimationFrame(raf); } else { raf = requestAnimationFrame(tick); } });
     })();
   </script>
 </body>
