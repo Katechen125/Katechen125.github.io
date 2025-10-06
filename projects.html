@@ -8,10 +8,11 @@
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='58%25' font-family='Georgia, serif' font-size='36' font-weight='700' text-anchor='middle' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#f7faf9;--surface:#ffffff;--text:#1b1e22;--muted:#5b6471;--ring:rgba(0,0,0,.08);--accent:#6fa387;--rad:16px;--pad:16px;--maxw:1080px}
+    :root{--bg:#f7faf9;--surface:#ffffff;--text:#1b1e22;--muted:#5b6471;--ring:rgba(0,0,0,.08);--accent:#6fa387;--maxw:1040px}
     :root[data-theme="carlos"]{--bg:#dbe6ff;--surface:#ffffff;--text:#0b1220;--muted:#3f527a;--ring:rgba(0,0,0,.12);--accent:#0d347e}
     :root[data-theme="lando"]{--bg:#0f0f10;--surface:#1b1b1d;--text:#f5f7fa;--muted:#cfd5df;--ring:rgba(255,255,255,.14);--accent:#ff8000}
-    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
     html::before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;background:
       radial-gradient(1200px 800px at 12% 0%, rgba(207,233,251,.55), transparent 60%),
       radial-gradient(1200px 800px at 90% 8%, rgba(249,201,212,.55), transparent 60%),
@@ -29,99 +30,236 @@
       radial-gradient(1600px 1200px at 50% 50%, rgba(0,0,0,.35) 0%, rgba(0,0,0,.08) 60%, transparent 75%),
       linear-gradient(180deg,#141414 0%,#0f0f10 55%,#111113 100%)}
 
-    .container{max-width:var(--maxw);margin:0 auto;padding:0 18px}
-    header.site{position:sticky;top:0;z-index:5;background:color-mix(in oklab,var(--bg) 86%,transparent);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--ring)}
-    .site-inner{display:flex;align-items:center;justify-content:center;gap:16px;height:64px}
-    .btn{appearance:none;border:1px solid rgba(0,0,0,.15);background:#fff;color:#111;padding:10px 14px;border-radius:12px;font-weight:800;cursor:pointer}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:24px 18px}
+    header{display:flex;gap:10px;align-items:center;justify-content:center;padding:14px 0;border-bottom:1px solid var(--ring);position:sticky;top:0;background:color-mix(in oklab,var(--bg) 86%,transparent);backdrop-filter: blur(8px);z-index:5}
+    .nav{margin-left:auto;display:flex;gap:8px}
+    .btn{appearance:none;border:1px solid rgba(0,0,0,.15);background:#fff;color:#111;padding:8px 12px;border-radius:10px;font-weight:800;cursor:pointer;display:inline-flex;gap:8px;align-items:center;text-decoration:none}
+    .btn svg{width:18px;height:18px}
     :root[data-theme="lando"] .btn{background:#2a2a2a;color:#f1f1f1;border-color:#444}
     .btn:hover{background:var(--accent);color:#fff}
-    h1,h2,h3{font-family:"Playfair Display",Georgia,serif}
-    .chips{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 16px}
-    .chip{padding:8px 12px;border:1px solid var(--ring);border-radius:999px;background:color-mix(in oklab, var(--accent) 16%, #fff);font-weight:700}
-    :root[data-theme="lando"] .chip{background:color-mix(in oklab, var(--accent) 18%, #1b1b1e);color:#f1f1f1;border-color:#333}
 
-    main{padding:32px 0}
-    .card{background:var(--surface);border:1px solid var(--ring);border-radius:16px;padding:16px;margin-bottom:16px}
-    .tags{display:flex;gap:8px;flex-wrap:wrap;margin:.25rem 0 .5rem}
-    .tag{font-size:12px;padding:6px 10px;border-radius:999px;background:color-mix(in oklab,#cfe9fb 35%,white);border:1px solid var(--ring);font-weight:700}
-    .code-link,.video-link{font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
-    .code-link{color:var(--accent)} .video-link{color:#888}
+    h1{font-family:"Playfair Display",Georgia,serif;margin:20px auto 10px;text-align:center;max-width:920px;padding:0 12px}
+    .theme-row{display:flex;gap:10px;justify-content:center;align-items:center;color:var(--muted);flex-wrap:wrap;margin:6px auto 20px}
+    .theme-row .btn{padding:8px 12px;border-radius:999px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+
+    .card{background:var(--surface);border:1px solid var(--ring);border-radius:16px;padding:16px;box-shadow:0 10px 24px rgba(12,21,33,.06)}
+    :root[data-theme="lando"] .card{background:#1b1b1d;border-color:#333}
+    .card h3{margin:.2rem 0 .5rem;font-family:"Playfair Display",Georgia,serif}
+    .meta{display:flex;gap:10px;flex-wrap:wrap;margin:.2rem 0 .5rem}
+    .pill{display:inline-flex;gap:6px;align-items:center;border:1px solid var(--ring);border-radius:999px;padding:6px 10px;font-weight:700;background:color-mix(in oklab, #cfe9fb 35%, white)}
+    .pill svg{width:14px;height:14px}
+    .pill.gray{background:color-mix(in oklab, #e6e9ef 35%, white)}
+    :root[data-theme="lando"] .pill{background:color-mix(in oklab, var(--accent) 18%, #202022);border-color:#444}
+    .links{margin-top:8px;display:flex;gap:12px;flex-wrap:wrap}
+    .code-link,.video-link{font-weight:800;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+    .code-link{color:var(--accent)} .video-link{color:var(--muted)}
     :root[data-theme="lando"] .code-link{color:#ff8000} :root[data-theme="lando"] .video-link{color:#ffae42}
+    .bullets{margin:8px 0 0 0;padding-left:18px}
+    .bullets li{margin:4px 0}
     #confetti{position:fixed;inset:0;pointer-events:none}
-    footer{border-top:1px solid var(--ring);padding:18px 0;color:var(--muted);text-align:center}
   </style>
 </head>
 <body>
   <canvas id="confetti"></canvas>
 
-  <header class="site">
-    <div class="site-inner container">
-      <strong>Projects</strong>
-      <div style="margin-left:auto; display:flex; gap:8px; align-items:center;">
-        <span style="color:var(--muted)">Themes:</span>
-        <button class="btn" data-theme="carlos">Carlos</button>
-        <button class="btn" data-theme="lando">Lando</button>
-        <button class="btn" id="resetTheme">Reset</button>
-        <a class="btn" href="index.html">Home</a>
-        <a class="btn" href="about.html">About</a>
-        <a class="btn" href="contact.html">Contact</a>
-      </div>
+  <header>
+    <strong>Projects</strong>
+    <div class="nav">
+      <a class="btn" href="index.html" aria-label="Home">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z" stroke="currentColor" stroke-width="2"/></svg>
+        Home
+      </a>
+      <a class="btn" href="about.html" aria-label="About">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4.418 0-8 2.015-8 4.5V20h16v-1.5C20 16.015 16.418 14 12 14Z" stroke="currentColor" stroke-width="2"/></svg>
+        About
+      </a>
+      <a class="btn" href="contact.html" aria-label="Contact">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="2"/><path d="m4 6 8 6 8-6" stroke="currentColor" stroke-width="2"/></svg>
+        Contact
+      </a>
     </div>
   </header>
 
-  <main class="container">
+  <main class="wrap">
+    <h1>Builds I’m proud of</h1>
 
-    <article class="card">
-      <h3>Calculator — Shunting-Yard</h3>
-      <p>C++ expression evaluator using shunting-yard. UI via factory pattern; dedicated processor instance.</p>
-      <div class="tags"><span class="tag">C++</span><span class="tag">Factory Pattern</span><span class="tag">Algorithms</span></div>
-      <p><a href="https://github.com/Katechen125/Calculator" target="_blank" class="code-link">💻 Code</a> •
-         <a href="#" class="video-link" style="opacity:.5;pointer-events:none">🎥 Demo</a></p>
-    </article>
+    <div class="theme-row">
+      <span>Favorite drivers:</span>
+      <button class="btn" data-theme="carlos">Carlos</button>
+      <button class="btn" data-theme="lando">Lando</button>
+      <button class="btn" id="resetTheme">Reset</button>
+      <span style="color:var(--muted)">(confetti themes)</span>
+    </div>
 
-    <article class="card">
-      <h3>Conway’s Game of Life</h3>
-      <p>C++ with updated wxWidgets via vcpkg. Pause/step and presets.</p>
-      <div class="tags"><span class="tag">C++</span><span class="tag">wxWidgets</span><span class="tag">vcpkg</span></div>
-      <p><a href="https://github.com/Katechen125/conway-s-game-of-life-05-24-Katechen125" target="_blank" class="code-link">💻 Code</a> •
-         <a href="#" class="video-link" style="opacity:.5;pointer-events:none">🎥 Demo</a></p>
-    </article>
+    <section class="grid">
+      <article class="card">
+        <h3>Calculator — Shunting-Yard</h3>
+        <div class="meta">
+          <span class="pill">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M6 4h12v16H6z" stroke="currentColor" stroke-width="2"/><path d="M9 8h6M9 12h6M9 16h6" stroke="currentColor" stroke-width="2"/></svg>
+            C++
+          </span>
+          <span class="pill gray">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16v6H4zM4 14h16v6H4z" stroke="currentColor" stroke-width="2"/></svg>
+            Factory pattern
+          </span>
+        </div>
+        <p>Expression evaluator with operator precedence & associativity via Dijkstra’s Shunting-Yard.</p>
+        <ul class="bullets">
+          <li>Buttons generated by a factory; processor instance isolates evaluation.</li>
+          <li>Supports parentheses, powers, and custom functions.</li>
+        </ul>
+        <div class="links">
+          <a class="code-link" target="_blank" href="https://github.com/Katechen125/Calculator">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 19 2.77 5.07 5.07 0 0 0 18.91 0S17.73.35 15 2.33a13.38 13.38 0 0 0-6 0C6.27.35 5.09 0 5.09 0A5.07 5.07 0 0 0 5 2.77 5.44 5.44 0 0 0 3.5 7.5c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 21.13V24" stroke="currentColor" stroke-width="2"/></svg>
+            Code
+          </a>
+          <a class="video-link disabled" target="_blank" href="#">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h12v14H4z" stroke="currentColor" stroke-width="2"/><path d="m16 12 4-3v6z" stroke="currentColor" stroke-width="2"/></svg>
+            Demo
+          </a>
+        </div>
+      </article>
 
-    <article class="card">
-      <h3>Proximity Video Panel (Collab)</h3>
-      <p>UE5 Blueprints proximity trigger: approach shows the video panel; moving away hides it.</p>
-      <div class="tags"><span class="tag">UE5</span><span class="tag">Blueprints</span><span class="tag">Prototype</span></div>
-      <p><a href="YOUR_DEMO_LINK_COLLAB" target="_blank" class="video-link">🎥 Demo</a></p>
-    </article>
+      <article class="card">
+        <h3>Conway’s Game of Life</h3>
+        <div class="meta">
+          <span class="pill">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M6 4h12v16H6z" stroke="currentColor" stroke-width="2"/><path d="M9 8h6M9 12h6M9 16h6" stroke="currentColor" stroke-width="2"/></svg>
+            C++
+          </span>
+          <span class="pill gray">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 5h18v14H3z" stroke="currentColor" stroke-width="2"/></svg>
+            wxWidgets
+          </span>
+          <span class="pill gray">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2"/></svg>
+            vcpkg
+          </span>
+        </div>
+        <p>Interactive cellular automaton with pause/step, presets, and portable builds via vcpkg.</p>
+        <ul class="bullets">
+          <li>Optimized neighbor counting; grid up to 200×200.</li>
+          <li>Preset library: glider, pulsar, LWSS.</li>
+        </ul>
+        <div class="links">
+          <a class="code-link" target="_blank" href="https://github.com/Katechen125/conway-s-game-of-life-05-24-Katechen125">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 19 2.77 5.07 5.07 0 0 0 18.91 0S17.73.35 15 2.33a13.38 13.38 0 0 0-6 0C6.27.35 5.09 0 5.09 0A5.07 5.07 0 0 0 5 2.77 5.44 5.44 0 0 0 3.5 7.5c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 21.13V24" stroke="currentColor" stroke-width="2"/></svg>
+            Code
+          </a>
+          <a class="video-link disabled" target="_blank" href="#">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h12v14H4z" stroke="currentColor" stroke-width="2"/><path d="m16 12 4-3v6z" stroke="currentColor" stroke-width="2"/></svg>
+            Demo
+          </a>
+        </div>
+      </article>
 
-    <article class="card">
-      <h3>Pathfinder — Travel</h3>
-      <p>Attractions, bookings, activities, flights, calendar, expenses, currency conversion, and saved places/maps. TypeScript + Google Cloud APIs + Xcode (iOS).</p>
-      <div class="tags"><span class="tag">React Native</span><span class="tag">TypeScript</span><span class="tag">Google Cloud</span><span class="tag">Xcode (iOS)</span></div>
-      <p><a href="https://github.com/Katechen125/Pathfinder" target="_blank" class="code-link">💻 Code</a> •
-         <a href="#" class="video-link" style="opacity:.5;pointer-events:none">🎥 Demo</a></p>
-    </article>
+      <article class="card">
+        <h3>Proximity Video Panel (Collab)</h3>
+        <div class="meta">
+          <span class="pill gray">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 5h18v14H3z" stroke="currentColor" stroke-width="2"/></svg>
+            UE5 Blueprints
+          </span>
+          <span class="pill gray">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="2"/></svg>
+            Prototype
+          </span>
+        </div>
+        <p>Proximity trigger: approach to reveal video panel, move away to hide. I owned the trigger logic.</p>
+        <ul class="bullets">
+          <li>Distance-based easing on opacity & scale.</li>
+          <li>Safe fallback when tracking is lost.</li>
+        </ul>
+        <div class="links">
+          <a class="video-link" target="_blank" href="#">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h12v14H4z" stroke="currentColor" stroke-width="2"/><path d="m16 12 4-3v6z" stroke="currentColor" stroke-width="2"/></svg>
+            Demo
+          </a>
+        </div>
+      </article>
 
-    <article class="card">
-      <h3>TCP Server — Spaghetti Relay</h3>
-      <p><strong>C++</strong> TCP server that relays messages across clients; simple logging and graceful shutdown.</p>
-      <div class="tags"><span class="tag">C++</span><span class="tag">TCP</span><span class="tag">Sockets</span><span class="tag">Networking</span></div>
-      <p><a href="https://github.com/Katechen125/TCP-server" target="_blank" class="code-link">💻 Code</a> •
-         <a href="#" class="video-link" style="opacity:.5;pointer-events:none">🎥 Demo</a></p>
-    </article>
+      <article class="card">
+        <h3>Pathfinder — Travel</h3>
+        <div class="meta">
+          <span class="pill">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M6 4h12v16H6z" stroke="currentColor" stroke-width="2"/></svg>
+            React Native
+          </span>
+          <span class="pill gray">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2"/></svg>
+            TypeScript
+          </span>
+          <span class="pill gray">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l4 9h9l-7 5 3 9-9-6-9 6 3-9-7-5h9z" stroke="currentColor" stroke-width="2"/></svg>
+            Google Cloud APIs
+          </span>
+          <span class="pill gray">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 4h10l3 4v12H4V4z" stroke="currentColor" stroke-width="2"/></svg>
+            Xcode (iOS)
+          </span>
+        </div>
+        <p>Attractions, bookings, activities, flights, calendar, expenses, currency, and saved places on a map.</p>
+        <ul class="bullets">
+          <li>Local storage for user sessions & saved searches.</li>
+          <li>Type-ahead with recent searches & suggestions.</li>
+        </ul>
+        <div class="links">
+          <a class="code-link" target="_blank" href="https://github.com/Katechen125/Pathfinder">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 19 2.77 5.07 5.07 0 0 0 18.91 0S17.73.35 15 2.33a13.38 13.38 0 0 0-6 0C6.27.35 5.09 0 5.09 0A5.07 5.07 0 0 0 5 2.77 5.44 5.44 0 0 0 3.5 7.5c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 21.13V24" stroke="currentColor" stroke-width="2"/></svg>
+            Code
+          </a>
+          <a class="video-link disabled" target="_blank" href="#">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h12v14H4z" stroke="currentColor" stroke-width="2"/><path d="m16 12 4-3v6z" stroke="currentColor" stroke-width="2"/></svg>
+            Demo
+          </a>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>TCP Server — Spaghetti Relay</h3>
+        <div class="meta">
+          <span class="pill">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M6 4h12v16H6z" stroke="currentColor" stroke-width="2"/></svg>
+            C++
+          </span>
+          <span class="pill gray">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 12h18M12 3v18" stroke="currentColor" stroke-width="2"/></svg>
+            TCP / Sockets
+          </span>
+        </div>
+        <p>Lightweight server relaying messages between clients with simple logging & graceful shutdown.</p>
+        <ul class="bullets">
+          <li>Non-blocking I/O loop and connection registry.</li>
+          <li>Plain-text protocol; easy to extend.</li>
+        </ul>
+        <div class="links">
+          <a class="code-link" target="_blank" href="https://github.com/Katechen125/TCP-server">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 19 2.77 5.07 5.07 0 0 0 18.91 0S17.73.35 15 2.33a13.38 13.38 0 0 0-6 0C6.27.35 5.09 0 5.09 0A5.07 5.07 0 0 0 5 2.77 5.44 5.44 0 0 0 3.5 7.5c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 21.13V24" stroke="currentColor" stroke-width="2"/></svg>
+            Code
+          </a>
+          <a class="video-link disabled" target="_blank" href="#">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h12v14H4z" stroke="currentColor" stroke-width="2"/><path d="m16 12 4-3v6z" stroke="currentColor" stroke-width="2"/></svg>
+            Demo
+          </a>
+        </div>
+      </article>
+    </section>
   </main>
 
   <footer>
-    <div class="container">© <span id="year"></span> Katherine • Built with HTML/CSS/JS • Deployed on GitHub Pages</div>
+    <div class="wrap" style="text-align:center;color:var(--muted);padding:18px 0;border-top:1px solid var(--ring)">© <span id="year"></span> Katherine • Built with HTML/CSS/JS • Deployed on GitHub Pages</div>
   </footer>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('year').textContent=new Date().getFullYear();
     const root=document.documentElement, canvas=document.getElementById('confetti'), ctx=canvas.getContext('2d');
     let W,H,DPR=Math.max(1,window.devicePixelRatio||1),rafId=null; function size(){W=canvas.width=innerWidth*DPR;H=canvas.height=innerHeight*DPR;} size(); addEventListener('resize',size);
     const logos={},logoFiles={williams:"https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp",chili:"https://cdn.inspireuplift.com/uploads/images/seller_products/29868/1702918490_SmoothOperatorCarlosSainzChillionly.png",mclaren:"https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png",ln4:"https://images.seeklogo.com/logo-png/44/2/lando-norris-logo-png_seeklogo-445536.png"};
     for(const k in logoFiles){logos[k]=new Image();logos[k].src=logoFiles[k];}
-    function confettiFall(o){const{colors=['#ddd'],labels=[],useImages=false,durationMs=2600,fadeMs=700,imgSize=24,textPx=16}=o; if(rafId)cancelAnimationFrame(rafId); const N=300,parts=[],start=performance.now(); for(let i=0;i<N;i++){parts.push({x:Math.random()*W,y:-Math.random()*H*0.6,vx:(Math.random()*2-1)*0.8*DPR,vy:(2+Math.random()*2)*DPR,rot:Math.random()*Math.PI,vr:(Math.random()*0.2-0.1),color:colors[Math.floor(Math.random()*colors.length)],label:labels.length?labels[Math.floor(Math.random()*labels.length)]:null,useImage:useImages});}
+    function confettiFall(o){const{colors=['#ddd'],labels=[],useImages=false,durationMs=2600,fadeMs=700,imgSize=24,textPx=16}=o; if(rafId)cancelAnimationFrame(rafId); const N=300,parts=[],start=performance.now();
+      for(let i=0;i<N;i++){parts.push({x:Math.random()*W,y:-Math.random()*H*0.6,vx:(Math.random()*2-1)*0.8*DPR,vy:(2+Math.random()*2)*DPR,rot:Math.random()*Math.PI,vr:(Math.random()*0.2-0.1),color:colors[Math.floor(Math.random()*colors.length)],label:labels.length?labels[Math.floor(Math.random()*labels.length)]:null,useImage:useImages});}
       const ease=t=>1-Math.pow(1-t,3),clamp=v=>Math.max(0,Math.min(1,v));
       function tick(t){const el=t-start,rem=Math.max(0,durationMs-el),fp=1-clamp(rem/fadeMs),a=1-ease(fp); ctx.clearRect(0,0,W,H);
         parts.forEach(p=>{const d=1-0.12*fp;p.vy+=0.01*DPR;p.vx*=d;p.vy*=d;p.rot+=p.vr*d;p.x+=p.vx;p.y+=p.vy;});
@@ -130,7 +268,8 @@
           else if(!p.useImage && p.label){ctx.font=(textPx*DPR)+"px Playfair Display, serif"; ctx.fillStyle=p.color; ctx.fillText(p.label,-ctx.measureText(p.label).width/2,0);}
           else {ctx.fillStyle=p.color; ctx.fillRect(-4,-4,8,8);} ctx.restore();});
         if(el<durationMs){rafId=requestAnimationFrame(tick);} else {ctx.clearRect(0,0,W,H);ctx.globalAlpha=1;rafId=null;}}
-      rafId=requestAnimationFrame(tick);}
+      rafId=requestAnimationFrame(tick);
+    }
     function setTheme(n){if(n==='carlos'){root.setAttribute('data-theme','carlos');confettiFall({colors:['#0f3d91','#ffffff'],labels:['williams','chili'],useImages:true,durationMs:2800,imgSize:22});}
       else if(n==='lando'){root.setAttribute('data-theme','lando');confettiFall({colors:['#ff8000','#0c0c0d','#ffffff'],labels:['mclaren','ln4'],useImages:true,durationMs:2800,imgSize:22});}}
     document.querySelectorAll('[data-theme]').forEach(b=>b.addEventListener('click',()=>setTheme(b.dataset.theme)));

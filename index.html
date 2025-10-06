@@ -8,125 +8,105 @@
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='58%25' font-family='Georgia, serif' font-size='36' font-weight='700' text-anchor='middle' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#f7faf9; --surface:#ffffff; --surface-2:#fbfdff;
-      --text:#1b1e22; --muted:#5b6471; --ring:rgba(0,0,0,.08);
-      --sage:#bcd6c5; --sage-600:#6fa387; --sky:#cfe9fb; --pink:#f9c9d4;
-      --accent:#6fa387;
-      --btn-bg:#ffffff; --btn-border:#d7dde5; --btn-text:#111318;
-      --btn-primary-bg:#111318; --btn-primary-text:#ffffff;
-      --rad:16px; --pad:16px; --shadow:0 10px 24px rgba(12,21,33,.08),0 2px 6px rgba(12,21,33,.05);
-      --maxw:1080px;
-    }
-    :root[data-theme="carlos"]{
-      --bg:#dbe6ff; --surface:#ffffff; --surface-2:#e0e9ff;
-      --text:#0b1220; --muted:#3f527a; --ring:rgba(0,0,0,.12);
-      --accent:#0d347e;
-    }
-    :root[data-theme="lando"]{
-      --bg:#0f0f10; --surface:#1b1b1d; --surface-2:#141417;
-      --text:#f5f7fa; --muted:#cfd5df; --ring:rgba(255,255,255,.14);
-      --accent:#ff8000;
-    }
-
+    :root{--bg:#f7faf9;--text:#1b1e22;--muted:#5b6471;--ring:rgba(0,0,0,.08);--accent:#6fa387;--maxw:1040px}
+    :root[data-theme="carlos"]{--bg:#dbe6ff;--text:#0b1220;--muted:#3f527a;--ring:rgba(0,0,0,.12);--accent:#0d347e}
+    :root[data-theme="lando"]{--bg:#0f0f10;--text:#f5f7fa;--muted:#cfd5df;--ring:rgba(255,255,255,.14);--accent:#ff8000}
     *{box-sizing:border-box}
-    html,body{height:100%}
     body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    html::before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;background:
+      radial-gradient(1200px 800px at 12% 0%, rgba(207,233,251,.55), transparent 60%),
+      radial-gradient(1200px 800px at 90% 8%, rgba(249,201,212,.55), transparent 60%),
+      radial-gradient(1100px 780px at 0% 100%, rgba(188,214,197,.60), transparent 60%),
+      linear-gradient(180deg, #ffffff 0%, var(--bg) 100%)}
+    :root[data-theme="carlos"] html::before{background:
+      radial-gradient(1100px 720px at 15% 0%, #e6eeff 40%, transparent 62%),
+      radial-gradient(1100px 720px at 95% 10%, #dbe6ff 42%, transparent 64%),
+      radial-gradient(1100px 760px at -5% 100%, #e0e9ff 38%, transparent 60%),
+      linear-gradient(180deg,#f7f9ff 0%,#dbe6ff 100%)}
+    :root[data-theme="lando"] html::before{background:
+      radial-gradient(900px 520px at 12% -6%, #ffe27a 36%, transparent 60%),
+      radial-gradient(900px 520px at 110% -4%, #ff9a3c 42%, transparent 62%),
+      radial-gradient(1100px 560px at -8% 102%, #ffffff 26%, transparent 60%),
+      radial-gradient(1600px 1200px at 50% 50%, rgba(0,0,0,.35) 0%, rgba(0,0,0,.08) 60%, transparent 75%),
+      linear-gradient(180deg,#141414 0%,#0f0f10 55%,#111113 100%)}
 
-    html::before{
-      content:""; position:fixed; inset:-25%; z-index:-1; pointer-events:none;
-      background:
-        radial-gradient(1200px 800px at 12% 0%, color-mix(in oklab, var(--sky) 55%, transparent), transparent 60%),
-        radial-gradient(1200px 800px at 90% 8%, color-mix(in oklab, var(--pink) 55%, transparent), transparent 60%),
-        radial-gradient(1100px 780px at 0% 100%, color-mix(in oklab, var(--sage) 60%, transparent), transparent 60%),
-        radial-gradient(1000px 720px at 100% 100%, color-mix(in oklab, white 35%, transparent), transparent 60%),
-        linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
-    }
-    :root[data-theme="carlos"] html::before{
-      background:
-        radial-gradient(1100px 720px at 15% 0%, #e6eeff 40%, transparent 62%),
-        radial-gradient(1100px 720px at 95% 10%, #dbe6ff 42%, transparent 64%),
-        radial-gradient(1100px 760px at -5% 100%, #e0e9ff 38%, transparent 60%),
-        linear-gradient(180deg,#f7f9ff 0%,#dbe6ff 100%);
-    }
-    :root[data-theme="lando"] html::before{
-      background:
-        radial-gradient(900px 520px at 12% -6%, #ffe27a 36%, transparent 60%),
-        radial-gradient(900px 520px at 110% -4%, #ff9a3c 42%, transparent 62%),
-        radial-gradient(1100px 560px at -8% 102%, #ffffff 26%, transparent 60%),
-        radial-gradient(1600px 1200px at 50% 50%, rgba(0,0,0,.35) 0%, rgba(0,0,0,.08) 60%, transparent 75%),
-        linear-gradient(180deg,#141414 0%,#0f0f10 55%,#111113 100%);
-    }
-
-    .container{max-width:var(--maxw);margin:0 auto;padding:0 18px}
-    header.site{position:sticky;top:0;z-index:5;background:color-mix(in oklab,var(--bg) 86%,transparent);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--ring)}
-    .site-inner{display:flex;align-items:center;justify-content:center;height:64px}
-    .brand{display:flex;gap:14px;align-items:center;font-weight:800}
-    .avatar{width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid color-mix(in oklab,var(--accent) 40%, #fff);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+    header{display:flex;align-items:center;justify-content:center;height:68px;border-bottom:1px solid var(--ring);background:color-mix(in oklab,var(--bg) 86%,transparent);backdrop-filter:blur(8px);position:sticky;top:0;z-index:5}
+    header .brand{display:flex;gap:10px;align-items:center;font-weight:800}
+    .avatar{width:56px;height:56px;border-radius:50%;object-fit:cover;border:3px solid color-mix(in oklab,var(--accent) 40%, #fff)}
     .avatar-wrap{position:relative;display:inline-block}
-    .avatar-badge{position:absolute;bottom:2px;right:2px;width:26px;height:26px;border-radius:50%;background:var(--surface);border:2px solid var(--ring);font-family:"Playfair Display", Georgia, serif;font-weight:700;font-size:13px;color:var(--accent);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 6px rgba(0,0,0,.2)}
-    :root[data-theme="carlos"] .avatar-badge{background:#fff url("https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp") center/70% no-repeat;border:2px solid #0f3d91;font-size:0}
-    :root[data-theme="lando"] .avatar-badge{background:#fff url("https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png") center/70% no-repeat;border:2px solid #ff8000;font-size:0}
+    .avatar-badge{position:absolute;bottom:-2px;right:-2px;width:22px;height:22px;border-radius:50%;background:#fff;border:2px solid var(--ring);font:700 12px/22px "Playfair Display",Georgia,serif;color:var(--accent);text-align:center}
+    :root[data-theme="carlos"] .avatar-badge{background:#fff url("https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp") center/80% no-repeat;font-size:0;border-color:#0f3d91}
+    :root[data-theme="lando"] .avatar-badge{background:#fff url("https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png") center/80% no-repeat;font-size:0;border-color:#ff8000}
 
-    .hero{min-height:calc(100dvh - 64px); display:grid; place-items:center; text-align:center; padding:32px 0}
-    .hero h1{margin:0 0 12px; font:700 clamp(26px,5vw,44px)/1.15 "Playfair Display",Georgia,serif; max-width:900px}
-    .chips{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px; justify-content:center}
-    .chip{--c:var(--sage);padding:10px 14px;border:1px solid var(--ring);border-radius:999px;background:color-mix(in oklab,var(--c) 28%,white);font-weight:700}
-    :root[data-theme="lando"] .chip{background:color-mix(in oklab,var(--accent) 12%,#1b1b1e);color:#f1f1f1;border-color:#333}
+    .hero{min-height:calc(100dvh - 68px);display:grid;place-items:center}
+    .hero-inner{text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px}
+    h1{font-family:"Playfair Display",Georgia,serif;font-size:clamp(28px,5vw,48px);margin:0;max-width:920px}
 
-    .driver-bar{display:flex;align-items:center;gap:10px;color:var(--muted);flex-wrap:wrap; justify-content:center}
-    .btn{appearance:none;border:1px solid var(--btn-border);background:var(--btn-bg);color:var(--btn-text);padding:12px 18px;border-radius:14px;font-weight:800;cursor:pointer;box-shadow:0 1px 0 rgba(0,0,0,.04);transition:background .2s, color .2s, transform .06s}
-    .btn:active{transform:translateY(1px)}
-    .btn.primary{background:var(--btn-primary-bg);color:var(--btn-primary-text);border-color:#000}
-    .btn:hover{background:var(--accent);color:#fff;border-color:transparent}
-    :root[data-theme="carlos"] .btn:hover{background:#0d347e;color:#fff;border-color:#0d347e}
-    :root[data-theme="lando"] .btn{background:#2a2a2a;color:#f1f1f1;border-color:#444}
-    :root[data-theme="lando"] .btn:hover{background:#ff8000;color:#fff;border-color:#ff8000}
+    .driver-bar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center;color:var(--muted)}
+    .btn-theme{appearance:none;border:1px solid rgba(0,0,0,.15);background:#fff;color:#111;padding:8px 12px;border-radius:999px;font-weight:800;cursor:pointer;box-shadow:0 1px 0 rgba(0,0,0,.05)}
+    :root[data-theme="lando"] .btn-theme{background:#2a2a2a;color:#f1f1f1;border-color:#444}
+    .btn-theme:hover{background:var(--accent);color:#fff;border-color:transparent}
+    :root[data-theme="carlos"] .btn-theme:hover{background:#0d347e}
 
-    .hub{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:22px}
-    .hub a{display:inline-block}
+    .hub{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+    .cta{appearance:none;border:none;border-radius:16px;padding:16px 22px;font-weight:800;cursor:pointer;box-shadow:0 10px 24px rgba(12,21,33,.08),0 2px 6px rgba(12,21,33,.05);letter-spacing:.2px;display:inline-flex;gap:10px;align-items:center;text-decoration:none;color:#0b1220}
+    .cta svg{width:20px;height:20px}
+    .cta.primary{background:linear-gradient(135deg,#6fa387,#bcd6c5)}
+    .cta.alt{background:linear-gradient(135deg,#cfe9fb,#ffffff)}
+    .cta.dark{background:linear-gradient(135deg,#f9c9d4,#ffffff)}
+    :root[data-theme="lando"] .cta{box-shadow:0 12px 28px rgba(0,0,0,.35)}
 
-    #confetti{position:fixed;inset:0;pointer-events:none}
+    .lights{display:flex;gap:10px;justify-content:center;align-items:center;margin-top:8px}
+    .light{width:18px;height:18px;border-radius:50%;background:#b6b8be;box-shadow:inset 0 0 0 2px rgba(0,0,0,.08)}
+    .light.on{background:#ff2a2a;box-shadow:0 0 18px rgba(255,42,42,.7), inset 0 0 0 2px rgba(0,0,0,.2)}
+    .light.go{background:#39d353;box-shadow:0 0 18px rgba(57,211,83,.7), inset 0 0 0 2px rgba(0,0,0,.2)}
     footer{border-top:1px solid var(--ring);padding:18px 0;color:var(--muted);text-align:center}
+    #confetti{position:fixed;inset:0;pointer-events:none}
   </style>
 </head>
 <body>
   <canvas id="confetti"></canvas>
 
-  <header class="site">
-    <div class="site-inner container">
-      <div class="brand">
-        <div class="avatar-wrap">
-          <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar" />
-          <span class="avatar-badge">KC</span>
-        </div>
-        <span>Katherine Isabela Hsiung Chen — Pole Position🏁</span>
+  <header>
+    <div class="container brand">
+      <div class="avatar-wrap">
+        <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
+        <span class="avatar-badge">KC</span>
       </div>
+      <span>Katherine Isabela Hsiung Chen — Pole Position🏁</span>
     </div>
   </header>
 
   <section class="hero">
-    <div class="container">
-      <h1>Hi, I’m Katherine, Computer Science student, soon to be Simulation Engineer — I build playful-aesthetic code.</h1>
-
-      <div class="chips">
-        <span class="chip" style="--c:var(--sage)">🩺 Health</span>
-        <span class="chip" style="--c:var(--sky)">✈️ Travel</span>
-        <span class="chip" style="--c:var(--pink)">🏎️ F1</span>
-      </div>
+    <div class="container hero-inner">
+      <h1>Hi, I’m Katherine — CS student (soon: Simulation Engineering). I build playful-aesthetic, human-centered software.</h1>
 
       <div class="driver-bar">
         <span>Favorite drivers:</span>
-        <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
-        <button class="btn" data-theme="lando">Lando Norris</button>
-        <button class="btn" id="resetTheme">Reset theme</button>
-        <span class="subtle">(click for themed confetti)</span>
+        <button class="btn-theme" data-theme="carlos">Carlos</button>
+        <button class="btn-theme" data-theme="lando">Lando</button>
+        <button class="btn-theme" id="resetTheme">Reset</button>
+        <span style="color:var(--muted)">(confetti themes)</span>
+      </div>
+
+      <div class="lights" id="lights">
+        <span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span>
       </div>
 
       <div class="hub">
-        <a class="btn primary" href="projects.html">My Projects</a>
-        <a class="btn" href="about.html">About</a>
-        <a class="btn" href="contact.html">Contact</a>
+        <a class="cta primary" href="projects.html" aria-label="My Projects">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          My Projects
+        </a>
+        <a class="cta alt" href="about.html" aria-label="About">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4.418 0-8 2.015-8 4.5V20h16v-1.5C20 16.015 16.418 14 12 14Z" stroke="currentColor" stroke-width="2"/></svg>
+          About
+        </a>
+        <a class="cta dark" href="contact.html" aria-label="Contact">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="2"/><path d="m4 6 8 6 8-6" stroke="currentColor" stroke-width="2"/></svg>
+          Contact
+        </a>
       </div>
     </div>
   </section>
@@ -136,67 +116,31 @@
   </footer>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    const root = document.documentElement;
-    const canvas = document.getElementById('confetti');
-    const ctx = canvas.getContext('2d');
-    let W, H, DPR = Math.max(1, window.devicePixelRatio || 1), rafId = null;
-    function size(){ W = canvas.width = innerWidth * DPR; H = canvas.height = innerHeight * DPR; }
-    size(); addEventListener('resize', size);
-
-    const logos={}, logoFiles={
-      williams:"https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp",
-      chili:"https://cdn.inspireuplift.com/uploads/images/seller_products/29868/1702918490_SmoothOperatorCarlosSainzChillionly.png",
-      mclaren:"https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png",
-      ln4:"https://images.seeklogo.com/logo-png/44/2/lando-norris-logo-png_seeklogo-445536.png"
-    };
-    for(const k in logoFiles){ logos[k]=new Image(); logos[k].src=logoFiles[k]; }
-
-    function confettiFall(options){
-      const {colors=['#ddd'],labels=[],useImages=false,durationMs=2600,fadeMs=700,imgSize=24,textPx=16}=options;
-      if(rafId) cancelAnimationFrame(rafId);
-      const N=300, parts=[], start=performance.now();
-      for(let i=0;i<N;i++){
-        parts.push({x:Math.random()*W,y:-Math.random()*H*0.6,vx:(Math.random()*2-1)*0.8*DPR,vy:(2+Math.random()*2)*DPR,rot:Math.random()*Math.PI,vr:(Math.random()*0.2-0.1),color:colors[Math.floor(Math.random()*colors.length)],label:labels.length?labels[Math.floor(Math.random()*labels.length)]:null,useImage:useImages});
-      }
-      const easeOutCubic=t=>1-Math.pow(1-t,3), clamp01=v=>Math.max(0,Math.min(1,v));
-      function tick(t){
-        const elapsed=t-start, remaining=Math.max(0,durationMs-elapsed), fadeProgress=1-clamp01(remaining/fadeMs), alpha=1-easeOutCubic(fadeProgress);
-        ctx.clearRect(0,0,W,H);
-        parts.forEach(p=>{const damp=1-0.12*fadeProgress;p.vy+=0.01*DPR;p.vx*=damp;p.vy*=damp;p.rot+=p.vr*damp;p.x+=p.vx;p.y+=p.vy;});
-        parts.forEach(p=>{
-          if(p.y>H+40*DPR){p.y=-20*DPR;p.x=Math.random()*W;}
-          ctx.save(); ctx.globalAlpha=alpha; ctx.translate(p.x,p.y); ctx.rotate(p.rot);
-          if(p.useImage && p.label && logos[p.label] && logos[p.label].complete){
-            const s=imgSize*DPR; ctx.drawImage(logos[p.label], -s/2, -s/2, s, s);
-          }else if(!p.useImage && p.label){
-            ctx.font=(textPx*DPR)+"px Playfair Display, serif"; ctx.fillStyle=p.color; ctx.fillText(p.label, -ctx.measureText(p.label).width/2, 0);
-          }else{
-            ctx.fillStyle=p.color; ctx.fillRect(-4,-4,8,8);
-          }
-          ctx.restore();
-        });
-        if(elapsed<durationMs){ rafId=requestAnimationFrame(tick); } else { ctx.clearRect(0,0,W,H); ctx.globalAlpha=1; rafId=null; }
-      }
+    document.getElementById('year').textContent=new Date().getFullYear();
+    const root=document.documentElement, canvas=document.getElementById('confetti'), ctx=canvas.getContext('2d');
+    let W,H,DPR=Math.max(1,window.devicePixelRatio||1),rafId=null; function size(){W=canvas.width=innerWidth*DPR;H=canvas.height=innerHeight*DPR;} size(); addEventListener('resize',size);
+    const logos={},logoFiles={williams:"https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp",chili:"https://cdn.inspireuplift.com/uploads/images/seller_products/29868/1702918490_SmoothOperatorCarlosSainzChillionly.png",mclaren:"https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png",ln4:"https://images.seeklogo.com/logo-png/44/2/lando-norris-logo-png_seeklogo-445536.png"};
+    for(const k in logoFiles){logos[k]=new Image();logos[k].src=logoFiles[k];}
+    function confettiFall(o){const{colors=['#ddd'],labels=[],useImages=false,durationMs=2600,fadeMs=700,imgSize=24,textPx=16}=o; if(rafId)cancelAnimationFrame(rafId); const N=300,parts=[],start=performance.now();
+      for(let i=0;i<N;i++){parts.push({x:Math.random()*W,y:-Math.random()*H*0.6,vx:(Math.random()*2-1)*0.8*DPR,vy:(2+Math.random()*2)*DPR,rot:Math.random()*Math.PI,vr:(Math.random()*0.2-0.1),color:colors[Math.floor(Math.random()*colors.length)],label:labels.length?labels[Math.floor(Math.random()*labels.length)]:null,useImage:useImages});}
+      const ease=t=>1-Math.pow(1-t,3),clamp=v=>Math.max(0,Math.min(1,v));
+      function tick(t){const el=t-start,rem=Math.max(0,durationMs-el),fp=1-clamp(rem/fadeMs),a=1-ease(fp); ctx.clearRect(0,0,W,H);
+        parts.forEach(p=>{const d=1-0.12*fp;p.vy+=0.01*DPR;p.vx*=d;p.vy*=d;p.rot+=p.vr*d;p.x+=p.vx;p.y+=p.vy;});
+        parts.forEach(p=>{if(p.y>H+40*DPR){p.y=-20*DPR;p.x=Math.random()*W;} ctx.save(); ctx.globalAlpha=a; ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+          if(p.useImage && p.label && logos[p.label] && logos[p.label].complete){const s=imgSize*DPR; ctx.drawImage(logos[p.label],-s/2,-s/2,s,s);}
+          else if(!p.useImage && p.label){ctx.font=(textPx*DPR)+"px Playfair Display, serif"; ctx.fillStyle=p.color; ctx.fillText(p.label,-ctx.measureText(p.label).width/2,0);}
+          else {ctx.fillStyle=p.color; ctx.fillRect(-4,-4,8,8);} ctx.restore();});
+        if(el<durationMs){rafId=requestAnimationFrame(tick);} else {ctx.clearRect(0,0,W,H);ctx.globalAlpha=1;rafId=null;}}
       rafId=requestAnimationFrame(tick);
     }
-
-    function setTheme(name){
-      if(name==='carlos'){
-        root.setAttribute('data-theme','carlos');
-        confettiFall({colors:['#0f3d91','#ffffff'],labels:['williams','chili'],useImages:true,durationMs:2800,imgSize:22});
-      }else if(name==='lando'){
-        root.setAttribute('data-theme','lando');
-        confettiFall({colors:['#ff8000','#0c0c0d','#ffffff'],labels:['mclaren','ln4'],useImages:true,durationMs:2800,imgSize:22});
-      }
-    }
-
+    function setTheme(n){if(n==='carlos'){root.setAttribute('data-theme','carlos');confettiFall({colors:['#0f3d91','#ffffff'],labels:['williams','chili'],useImages:true,durationMs:2800,imgSize:22});}
+      else if(n==='lando'){root.setAttribute('data-theme','lando');confettiFall({colors:['#ff8000','#0c0c0d','#ffffff'],labels:['mclaren','ln4'],useImages:true,durationMs:2800,imgSize:22});}}
     document.querySelectorAll('[data-theme]').forEach(b=>b.addEventListener('click',()=>setTheme(b.dataset.theme)));
-    document.getElementById('resetTheme').addEventListener('click',()=>{
-      root.removeAttribute('data-theme');
-      confettiFall({colors:['#e07b97','#6fa387','#6aa9d8'],labels:['🫀','🏎️','💻'],useImages:false,durationMs:2400,textPx:18});
-    });
+    document.getElementById('resetTheme').addEventListener('click',()=>{root.removeAttribute('data-theme');confettiFall({colors:['#e07b97','#6fa387','#6aa9d8'],labels:['🫀','🏎️','💻'],useImages:false,durationMs:2400,textPx:18});});
+
+    const lights=document.querySelectorAll('#lights .light');
+    let i=0; const tick=setInterval(()=>{ if(i<lights.length){lights[i].classList.add('on'); i++;} else {clearInterval(tick); lights.forEach(el=>el.classList.remove('on')); lights.forEach(el=>el.classList.add('go')); setTimeout(()=>lights.forEach(el=>el.classList.remove('go')),900); confettiFall({colors:['#6fa387','#cfe9fb','#f9c9d4'],useImages:false,durationMs:1800}); } },450);
   </script>
 </body>
 </html>
+
