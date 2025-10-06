@@ -4,7 +4,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About — Katherine</title>
+  <title>About — Katherine Isabela Hsiung Chen</title>
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='58%25' font-family='Georgia, serif' font-size='36' font-weight='700' text-anchor='middle' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap"
     rel="stylesheet">
@@ -19,7 +21,7 @@
       --btn-bg: #fff;
       --btn-text: #111;
       --btn-border: #d7dde5;
-      --maxw: 1080px
+      --maxw: 980px
     }
 
     :root[data-theme="carlos"] {
@@ -102,8 +104,8 @@
     }
 
     .avatar {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff)
@@ -118,14 +120,14 @@
       position: absolute;
       right: -4px;
       bottom: -4px;
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       background: #fff;
       border: 2px solid var(--ring);
       display: grid;
       place-items: center;
-      font: 700 10px/1 "Playfair Display", serif;
+      font: 700 11px/1 "Playfair Display", serif;
       color: var(--accent)
     }
 
@@ -141,18 +143,23 @@
       border-color: #ff8000
     }
 
-    .page-hero {
-      padding: 40px 0 10px;
+    .page {
+      padding: 36px 0 28px
+    }
+
+    .page h1 {
+      margin: 0 0 12px;
+      font-size: clamp(28px, 5vw, 46px);
       text-align: center
     }
 
-    .page-hero h1 {
-      margin: 0 auto 12px;
-      max-width: 820px
+    .center {
+      display: grid;
+      place-items: center
     }
 
     .driver-bar {
-      margin: 4px auto 0;
+      margin: 8px 0 18px;
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
@@ -177,25 +184,36 @@
       border-color: transparent
     }
 
-    .section {
-      max-width: 900px;
-      margin: 0 auto 22px;
+    .card {
       background: var(--surface);
       border: 1px solid var(--ring);
       border-radius: 16px;
-      padding: 18px
+      padding: 18px 20px;
+      box-shadow: 0 10px 24px rgba(12, 21, 33, .06)
     }
 
-    h2.section-title {
-      margin: 0 0 6px;
-      text-align: center
+    .grid {
+      display: grid;
+      gap: 16px
+    }
+
+    @media (min-width:860px) {
+      .grid {
+        grid-template-columns: 1fr 1fr
+      }
+    }
+
+    /* Race line animation */
+    .race-wrap {
+      margin: 4px auto 18px;
+      width: min(760px, 92%)
     }
 
     .race-line {
       position: relative;
       height: 28px;
       margin: 10px auto 0;
-      width: min(760px, 90%);
+      width: 100%;
       border-bottom: 3px dashed color-mix(in oklab, var(--text) 35%, transparent);
       overflow: hidden
     }
@@ -262,45 +280,58 @@
           <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
           <span class="avatar-badge">KC</span>
         </div>
-        <span>About</span>
+        <span>About — Pole Position🏁</span>
       </div>
       <nav class="nav">
-        <a href="index.html">Home</a><a href="projects.html">Projects</a><a href="about.html">About</a><a
-          href="contact.html">Contact</a>
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
       </nav>
     </div>
   </header>
 
-  <section class="page-hero container">
-    <h1>About</h1>
+  <main class="page container">
+    <h1>About Me</h1>
+
+    <div class="race-wrap">
+      <div class="race-line">
+        <span class="race-car">🏎️</span>
+        <span class="race-flag">🏁</span>
+      </div>
+    </div>
+
     <div class="driver-bar">
+      <span>Favorite drivers:</span>
       <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
       <button class="btn" data-theme="lando">Lando Norris</button>
       <button class="btn" id="resetTheme">Reset theme</button>
+      <span>(themed confetti)</span>
     </div>
-    <div class="race-line" aria-hidden="true">
-      <span class="race-car">🏎️</span>
-      <span class="race-flag">🏁</span>
-    </div>
-  </section>
 
-  <section class="section container">
-    <h2 class="section-title">Where I’m headed</h2>
-    <p>CS almost wrapped, Simulation Engineering next. I like building things that feel good to use—clean, readable UIs
-      with little sparks of personality.</p>
-  </section>
-
-  <section class="section container">
-    <h2 class="section-title">Tech I enjoy</h2>
-    <p>TypeScript + React Native, C++ for core logic and systems, UE5 Blueprints for fast prototyping, and a soft spot
-      for tidy patterns (hello, factories) and simple animations that guide attention.</p>
-  </section>
-
-  <section class="section container">
-    <h2 class="section-title">Why F1?</h2>
-    <p>Strategy, timing, and iteration. I love translating that energy into products—small tweaks, faster laps, cleaner
-      code.</p>
-  </section>
+    <section class="grid">
+      <article class="card">
+        <h2>Where I’m headed</h2>
+        <p>Finishing Computer Science and starting Simulation Engineering. I love turning ideas into working systems
+          with polish.</p>
+      </article>
+      <article class="card">
+        <h2>Tech I enjoy</h2>
+        <p>Clean C++ builds, Unreal blueprints for fast experiments, React Native + TypeScript for app UX, and little UI
+          details that make everything feel intentional.</p>
+      </article>
+      <article class="card">
+        <h2>Why F1</h2>
+        <p>Strategy, timing, teamwork—and that moment when everything clicks. I like shipping software with the same
+          energy.</p>
+      </article>
+      <article class="card">
+        <h2>How I work</h2>
+        <p>Sketch the flow, build the core, add fit-and-finish. I care about accessibility, performance, and joyful
+          details.</p>
+      </article>
+    </section>
+  </main>
 
   <footer>
     <div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages
