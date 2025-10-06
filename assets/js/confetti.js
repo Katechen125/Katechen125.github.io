@@ -13,7 +13,7 @@
     if (cvs) return;
     cvs = document.createElement('canvas');
     cvs.id = 'kc-confetti';
-    Object.assign(cvs.style, { position: 'fixed', inset: '0', pointerEvents: 'none', zIndex: '0' });
+    Object.assign(cvs.style, { position: 'fixed', inset: '0', pointerEvents: 'none', zIndex: '1000' });
     document.body.appendChild(cvs);
     ctx = cvs.getContext('2d');
     resize(); addEventListener('resize', resize);
@@ -25,12 +25,9 @@
     if (rafId) cancelAnimationFrame(rafId);
     const start = performance.now();
     const parts = Array.from({ length: count }, () => ({
-      x: Math.random() * W,
-      y: -Math.random() * H * 0.5,
-      vx: (Math.random() * 2 - 1) * 0.8 * DPR,
-      vy: (2 + Math.random() * 2) * DPR,
-      rot: Math.random() * Math.PI,
-      vr: (Math.random() * 0.2 - 0.1),
+      x: Math.random() * W, y: -Math.random() * H * 0.5,
+      vx: (Math.random() * 2 - 1) * 0.8 * DPR, vy: (2 + Math.random() * 2) * DPR,
+      rot: Math.random() * Math.PI, vr: (Math.random() * 0.2 - 0.1),
       color: colors[(Math.random() * colors.length) | 0],
       label: labels.length ? labels[(Math.random() * labels.length) | 0] : null
     }));
@@ -52,9 +49,7 @@
           const s = imgSize * DPR; ctx.drawImage(IMAGES[p.label], -s / 2, -s / 2, s, s);
         } else if (p.label && typeof p.label === 'string' && p.label.length <= 3) {
           ctx.font = (textPx * DPR) + "px Playfair Display,serif"; ctx.fillStyle = p.color; ctx.fillText(p.label, -ctx.measureText(p.label).width / 2, 0);
-        } else {
-          ctx.fillStyle = p.color; ctx.fillRect(-4, -4, 8, 8);
-        }
+        } else { ctx.fillStyle = p.color; ctx.fillRect(-4, -4, 8, 8); }
         ctx.restore();
       });
       if (elapsed < durationMs) rafId = requestAnimationFrame(tick); else { ctx.clearRect(0, 0, W, H); rafId = null; }
@@ -92,9 +87,7 @@
     rafId = requestAnimationFrame(tick);
   }
 
-  function startEmojiConfetti() {
-    burst({ colors: ['#e07b97', '#6fa387', '#6aa9d8'], labels: ['💻', '🫀', '🏎️'], imgSize: 22, count: 240 });
-  }
+  function startEmojiConfetti() { burst({ colors: ['#e07b97', '#6fa387', '#6aa9d8'], labels: ['💻', '🫀', '🏎️'], imgSize: 22, count: 240 }); }
 
   window.startThemedConfetti = startThemedConfetti;
   window.startNormalConfetti = startNormalConfetti;
