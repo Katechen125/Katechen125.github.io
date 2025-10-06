@@ -193,11 +193,11 @@
     }
 
     .card {
-      background: var(--surface);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 88%, transparent), color-mix(in oklab, var(--surface) 96%, transparent));
       border: 1px solid var(--ring);
-      border-radius: 16px;
-      padding: 18px 20px;
-      box-shadow: 0 10px 24px rgba(12, 21, 33, .06)
+      border-radius: 18px;
+      padding: 20px 22px;
+      box-shadow: 0 18px 38px rgba(12, 21, 33, .08), 0 2px 6px rgba(12, 21, 33, .05)
     }
 
     .card h2 {
@@ -208,7 +208,7 @@
 
     .email-shell {
       display: grid;
-      gap: 10px;
+      gap: 12px;
       margin-top: 8px
     }
 
@@ -236,9 +236,10 @@
       border: 1px solid var(--ring);
       background: #fff;
       color: #111;
-      border-radius: 10px;
-      padding: 10px 12px;
-      font: 15px/1.4 Inter, system-ui
+      border-radius: 12px;
+      padding: 12px 14px;
+      font: 15px/1.4 Inter, system-ui;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, .03) inset
     }
 
     :root[data-theme="lando"] .input,
@@ -253,11 +254,17 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: color-mix(in oklab, var(--accent) 14%, #fff);
+      background: color-mix(in oklab, var(--accent) 18%, #fff);
       border: 1px solid var(--ring);
       border-radius: 999px;
-      padding: 6px 10px;
+      padding: 8px 12px;
       font-weight: 700
+    }
+
+    :root[data-theme="lando"] .to-chip {
+      background: #232325;
+      color: #ffedd9;
+      border-color: #3a3a3d
     }
 
     .topic-wrap {
@@ -270,7 +277,7 @@
       border: 1px solid var(--btn-border);
       background: var(--btn-bg);
       color: var(--btn-text);
-      padding: 8px 12px;
+      padding: 9px 13px;
       border-radius: 999px;
       font-weight: 700;
       cursor: pointer
@@ -310,21 +317,35 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 12px 14px;
+      padding: 14px 16px;
       border: 1px solid var(--ring);
-      border-radius: 14px;
-      background: color-mix(in oklab, var(--surface) 90%, transparent)
+      border-radius: 16px;
+      background: color-mix(in oklab, var(--surface) 92%, transparent);
+      text-decoration: none;
+      color: inherit
+    }
+
+    .links-stack {
+      display: grid;
+      gap: 12px;
+      margin-top: 8px
+    }
+
+    .linkcard:link,
+    .linkcard:visited,
+    .linkcard:hover,
+    .linkcard:active {
+      color: inherit
+    }
+
+    .linkcard:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(12, 21, 33, .06)
     }
 
     .linkcard img {
       width: 24px;
       height: 24px
-    }
-
-    .links-stack {
-      display: grid;
-      gap: 10px;
-      margin-top: 6px
     }
 
     .links-small {
@@ -477,7 +498,7 @@
       if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
     document.querySelectorAll('[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startVanillaConfetti(); });
+    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti(); });
 
     const topicWrap = document.getElementById('topicWrap');
     const subjectEl = document.getElementById('subject');
