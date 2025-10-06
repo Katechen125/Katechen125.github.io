@@ -5,11 +5,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Projects — Katherine</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E
-%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E
-%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' 
-font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3EKC%3C/text%3E
-%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap"
     rel="stylesheet">
@@ -154,8 +151,11 @@ font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3
 
     .page-hero h1 {
       margin: 0 auto 10px;
-      max-width: 820px
+      max-width: 820px;
+      font-size: clamp(40px, 7.5vw, 80px);
+      line-height: 1.05;
     }
+
 
     .driver-bar {
       margin: 6px auto 0;
@@ -191,6 +191,11 @@ font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3
       box-shadow: 0 10px 24px rgba(12, 21, 33, .06), 0 2px 6px rgba(12, 21, 33, .04)
     }
 
+    .card h3 {
+      font-size: clamp(20px, 2.4vw, 28px);
+      margin: 0 0 6px
+    }
+
     .grid {
       display: grid;
       gap: 16px
@@ -213,16 +218,9 @@ font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3
       font-size: 12px;
       padding: 6px 10px;
       border-radius: 999px;
-      border: 1px solid var(--ring);
-      font-weight: 700;
       background: color-mix(in oklab, #cfe9fb 35%, white);
-      color: #0b2033
-    }
-
-    :root[data-theme="lando"] .tag {
-      background: #262628;
-      border-color: #3a3a3d;
-      color: #ffedd9
+      border: 1px solid var(--ring);
+      font-weight: 700
     }
 
     .linkrow {
@@ -375,14 +373,25 @@ font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3
   <script src="assets/js/confetti.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
     const root = document.documentElement;
-    const saved = localStorage.getItem('kc-theme'); if (saved) { root.setAttribute('data-theme', saved); }
+    const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved);
+
     function setThemeAndConfetti(name) {
       if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
       if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
-    document.querySelectorAll('[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme')?.addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti(); });
+
+    document.querySelectorAll('.driver-bar button.btn[data-theme]').forEach(b =>
+      b.addEventListener('click', (e) => { e.stopPropagation(); setThemeAndConfetti(b.dataset.theme); })
+    );
+
+    document.getElementById('resetTheme')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      root.removeAttribute('data-theme');
+      localStorage.removeItem('kc-theme');
+      startEmojiConfetti();
+    });
   </script>
 </body>
 
