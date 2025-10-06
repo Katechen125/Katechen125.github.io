@@ -192,7 +192,7 @@
       gap: 16px
     }
 
-    @media (min-width:860px) {
+    @media(min-width:860px) {
       .grid {
         grid-template-columns: 1fr 1fr
       }
@@ -209,18 +209,21 @@
       margin: 10px auto 0;
       width: 100%;
       border-bottom: 3px dashed color-mix(in oklab, var(--text) 35%, transparent);
-      overflow: hidden
+      overflow: hidden;
+      --prog: 0%
     }
 
     .race-line::after {
       content: "";
       position: absolute;
       left: 0;
-      bottom: -3px;
+      bottom: -1.5px;
       height: 3px;
-      width: 0;
+      width: var(--prog);
       background: var(--accent);
-      animation: track-grow 3.2s linear infinite;
+      border-radius: 2px;
+      pointer-events: none;
+      z-index: 1
     }
 
     .race-flag {
@@ -238,7 +241,7 @@
       line-height: 1;
       left: -40px;
       transform: scaleX(1);
-      animation: car-move 3.2s linear infinite;
+      animation: car-move 3.8s ease-in-out infinite
     }
 
     @keyframes car-move {
@@ -248,16 +251,6 @@
 
       100% {
         left: calc(100% - 24px)
-      }
-    }
-
-    @keyframes track-grow {
-      0% {
-        width: 0
-      }
-
-      100% {
-        width: 100%
       }
     }
 
@@ -347,6 +340,25 @@
     }
     document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
     document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti(); });
+
+    (function () {
+      const line = document.querySelector('.race-line');
+      const car = document.querySelector('.race-car');
+      if (!line || !car) return;
+      let raf;
+      function tick() {
+        const lr = line.getBoundingClientRect();
+        const cr = car.getBoundingClientRect();
+        const maxX = lr.width - 24;
+        const carX = Math.min(Math.max(cr.left - lr.left, 0), maxX);
+        const pct = (carX / maxX) * 100;
+        line.style.setProperty('--prog', pct.toFixed(2) + '%');
+        if (carX < 2) line.style.setProperty('--prog', '0%');
+        raf = requestAnimationFrame(tick);
+      }
+      raf = requestAnimationFrame(tick);
+      window.addEventListener('visibilitychange', () => { if (document.hidden) { cancelAnimationFrame(raf); } else { raf = requestAnimationFrame(tick); } });
+    })();
   </script>
 </body>
 

@@ -176,8 +176,7 @@
       color: var(--muted)
     }
 
-    .btn {
-      appearance: none;
+    .driver-bar .btn {
       border: 1px solid var(--btn-border);
       background: var(--btn-bg);
       color: var(--btn-text);
@@ -187,7 +186,7 @@
       cursor: pointer
     }
 
-    .btn:hover {
+    .driver-bar .btn:hover {
       background: var(--accent);
       color: #fff;
       border-color: transparent
@@ -204,7 +203,18 @@
     .hub .btn {
       padding: 14px 22px;
       border-radius: 14px;
-      font-size: 17px
+      font-size: 17px;
+      border: 1px solid transparent;
+      background: color-mix(in oklab, var(--accent) 18%, #fff)
+    }
+
+    :root[data-theme="lando"] .hub .btn {
+      background: #1f1f21;
+      border-color: #3a3a3d
+    }
+
+    .hub .btn:hover {
+      filter: brightness(1.03)
     }
 
     .sequence-overlay {
@@ -288,7 +298,6 @@
       }
     }
 
-
     footer {
       border-top: 1px solid var(--ring);
       padding: 18px 0;
@@ -300,7 +309,7 @@
     .flag-launch {
       position: fixed;
       right: 18px;
-      bottom: 18px;
+      bottom: 28px;
       z-index: 10;
       display: flex;
       align-items: center;
