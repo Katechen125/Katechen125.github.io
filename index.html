@@ -1,145 +1,199 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Katherine Isabela Hsiung Chen — Pole Position 🏁</title>
   <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='58%25' font-family='Georgia, serif' font-size='36' font-weight='700' text-anchor='middle' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='58%25' font-family='Georgia, serif' font-size='36' font-weight='700' text-anchor='middle' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#f7faf9;--text:#1b1e22;--muted:#5b6471;--ring:rgba(0,0,0,.08);--accent:#6fa387;--maxw:1040px}
-    :root[data-theme="carlos"]{--bg:#dbe6ff;--text:#0b1220;--muted:#3f527a;--ring:rgba(0,0,0,.12);--accent:#0d347e}
-    :root[data-theme="lando"]{--bg:#0f0f10;--text:#f5f7fa;--muted:#cfd5df;--ring:rgba(255,255,255,.14);--accent:#ff8000}
-    *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    :root{
+      --bg:#f7faf9;--surface:#fff;--ring:rgba(0,0,0,.08);--text:#121418;--muted:#5b6471;--accent:#6fa387;
+      --maxw:1080px;
+    }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;overflow-x:hidden}
+    h1{font-family:"Playfair Display",serif;font-weight:700}
+    a{color:var(--accent);text-decoration:none}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+    header{position:sticky;top:0;z-index:10;background:color-mix(in oklab,var(--bg) 86%,transparent);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--ring)}
+    .header-inner{height:64px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:900}
+    .avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid color-mix(in oklab,var(--accent) 40%,#fff)}
+
+    main{min-height:calc(100vh - 64px);display:grid;place-items:center}
+    .hero{width:100%;display:grid;place-items:center;padding:56px 0 40px;position:relative}
+    .intro{text-align:center;max-width:880px}
+    .intro h1{font-size:clamp(28px,4.5vw,52px);margin:0 0 10px}
+    .driver-bar{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;color:var(--muted);margin-top:8px}
+    .btn{appearance:none;border:1px solid var(--ring);background:#fff;color:#111;padding:10px 14px;border-radius:12px;font-weight:800;cursor:pointer}
+    .btn:hover{background:var(--accent);color:#fff;border-color:transparent}
+
+    .hub{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;justify-content:center}
+    .hub .cta{font-size:18px;padding:14px 20px;border-radius:16px;border:2px solid color-mix(in oklab,var(--accent) 45%,#89b9a5);background:#fff;font-weight:900}
+    .hub .cta:hover{transform:translateY(-1px)}
+
+    footer{border-top:1px solid var(--ring);padding:16px 0;text-align:center;color:var(--muted)}
+
     html::before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;background:
-      radial-gradient(1200px 800px at 12% 0%, rgba(207,233,251,.55), transparent 60%),
-      radial-gradient(1200px 800px at 90% 8%, rgba(249,201,212,.55), transparent 60%),
-      radial-gradient(1100px 780px at 0% 100%, rgba(188,214,197,.60), transparent 60%),
-      linear-gradient(180deg, #ffffff 0%, var(--bg) 100%)}
-    :root[data-theme="carlos"] html::before{background:
-      radial-gradient(1100px 720px at 15% 0%, #e6eeff 40%, transparent 62%),
-      radial-gradient(1100px 720px at 95% 10%, #dbe6ff 42%, transparent 64%),
-      radial-gradient(1100px 760px at -5% 100%, #e0e9ff 38%, transparent 60%),
-      linear-gradient(180deg,#f7f9ff 0%,#dbe6ff 100%)}
-    :root[data-theme="lando"] html::before{background:
-      radial-gradient(900px 520px at 12% -6%, #ffe27a 36%, transparent 60%),
-      radial-gradient(900px 520px at 110% -4%, #ff9a3c 42%, transparent 62%),
-      radial-gradient(1100px 560px at -8% 102%, #ffffff 26%, transparent 60%),
-      radial-gradient(1600px 1200px at 50% 50%, rgba(0,0,0,.35) 0%, rgba(0,0,0,.08) 60%, transparent 75%),
-      linear-gradient(180deg,#141414 0%,#0f0f10 55%,#111113 100%)}
+      radial-gradient(1200px 700px at 12% 0%, color-mix(in oklab, #cfe9fb 55%, transparent), transparent 60%),
+      radial-gradient(1200px 700px at 90% 8%, color-mix(in oklab,#f9c9d4 55%, transparent), transparent 60%),
+      radial-gradient(1100px 740px at 0% 100%, color-mix(in oklab,#bcd6c5 60%, transparent), transparent 60%),
+      linear-gradient(180deg,#fff 0%,var(--bg) 100%)}
 
-    .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
-    header{display:flex;align-items:center;justify-content:center;height:68px;border-bottom:1px solid var(--ring);background:color-mix(in oklab,var(--bg) 86%,transparent);backdrop-filter:blur(8px);position:sticky;top:0;z-index:5}
-    header .brand{display:flex;gap:10px;align-items:center;font-weight:800}
-    .avatar{width:56px;height:56px;border-radius:50%;object-fit:cover;border:3px solid color-mix(in oklab,var(--accent) 40%, #fff)}
-    .avatar-wrap{position:relative;display:inline-block}
-    .avatar-badge{position:absolute;bottom:-2px;right:-2px;width:22px;height:22px;border-radius:50%;background:#fff;border:2px solid var(--ring);font:700 12px/22px "Playfair Display",Georgia,serif;color:var(--accent);text-align:center}
-    :root[data-theme="carlos"] .avatar-badge{background:#fff url("https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp") center/80% no-repeat;font-size:0;border-color:#0f3d91}
-    :root[data-theme="lando"] .avatar-badge{background:#fff url("https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png") center/80% no-repeat;font-size:0;border-color:#ff8000}
-
-    .hero{min-height:calc(100dvh - 68px);display:grid;place-items:center}
-    .hero-inner{text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px}
-    h1{font-family:"Playfair Display",Georgia,serif;font-size:clamp(28px,5vw,48px);margin:0;max-width:920px}
-
-    .driver-bar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center;color:var(--muted)}
-    .btn-theme{appearance:none;border:1px solid rgba(0,0,0,.15);background:#fff;color:#111;padding:8px 12px;border-radius:999px;font-weight:800;cursor:pointer;box-shadow:0 1px 0 rgba(0,0,0,.05)}
-    :root[data-theme="lando"] .btn-theme{background:#2a2a2a;color:#f1f1f1;border-color:#444}
-    .btn-theme:hover{background:var(--accent);color:#fff;border-color:transparent}
-    :root[data-theme="carlos"] .btn-theme:hover{background:#0d347e}
-
-    .hub{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:10px}
-    .cta{appearance:none;border:none;border-radius:16px;padding:16px 22px;font-weight:800;cursor:pointer;box-shadow:0 10px 24px rgba(12,21,33,.08),0 2px 6px rgba(12,21,33,.05);letter-spacing:.2px;display:inline-flex;gap:10px;align-items:center;text-decoration:none;color:#0b1220}
-    .cta svg{width:20px;height:20px}
-    .cta.primary{background:linear-gradient(135deg,#6fa387,#bcd6c5)}
-    .cta.alt{background:linear-gradient(135deg,#cfe9fb,#ffffff)}
-    .cta.dark{background:linear-gradient(135deg,#f9c9d4,#ffffff)}
-    :root[data-theme="lando"] .cta{box-shadow:0 12px 28px rgba(0,0,0,.35)}
-
-    .lights{display:flex;gap:10px;justify-content:center;align-items:center;margin-top:8px}
-    .light{width:18px;height:18px;border-radius:50%;background:#b6b8be;box-shadow:inset 0 0 0 2px rgba(0,0,0,.08)}
-    .light.on{background:#ff2a2a;box-shadow:0 0 18px rgba(255,42,42,.7), inset 0 0 0 2px rgba(0,0,0,.2)}
-    .light.go{background:#39d353;box-shadow:0 0 18px rgba(57,211,83,.7), inset 0 0 0 2px rgba(0,0,0,.2)}
-    footer{border-top:1px solid var(--ring);padding:18px 0;color:var(--muted);text-align:center}
     #confetti{position:fixed;inset:0;pointer-events:none}
+
+    .overlay{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+    .sequence{position:relative;width:min(760px,92vw);height:200px;display:grid;place-items:center}
+
+    .startlights{display:flex;gap:18px;align-items:center;justify-content:center;opacity:0;transform:translateY(8px);transition:opacity .25s ease, transform .25s ease}
+    .startlights .light{width:72px;height:72px;border-radius:50%;background:#2b2b2b;box-shadow:inset 0 -6px 14px rgba(0,0,0,.35), 0 6px 18px rgba(0,0,0,.12)}
+    .startlights .light.on{background:#d80000;box-shadow:0 0 18px rgba(216,0,0,.65), inset 0 -6px 14px rgba(0,0,0,.35)}
+    .flagwrap{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transform:translateY(10px);transition:opacity .25s ease, transform .25s ease}
+    .flag{position:relative;width:280px;height:160px;transform-origin:left center;animation:wave 1.2s ease-in-out infinite}
+    .pole{position:absolute;left:-10px;top:-14px;width:10px;height:190px;background:#555;border-radius:6px}
+    .check{width:100%;height:100%;
+      background:
+        linear-gradient(90deg, #000 25%, #fff 25%, #fff 50%, #000 50%, #000 75%, #fff 75%) 0 0/40px 40px,
+        linear-gradient(#000 25%, #fff 25%, #fff 50%, #000 50%, #000 75%, #fff 75%) 0 0/40px 40px;
+      filter:contrast(1.05);
+      border:2px solid #111;border-radius:6px;
+    }
+    @keyframes wave{
+      0%{transform:skewY(0) rotate(0deg)}
+      25%{transform:skewY(4deg) rotate(-2deg)}
+      50%{transform:skewY(0) rotate(0deg)}
+      75%{transform:skewY(-4deg) rotate(2deg)}
+      100%{transform:skewY(0) rotate(0deg)}
+    }
+
+    .sequence.show-lights .startlights{opacity:1;transform:translateY(0)}
+    .sequence.show-flag .startlights{opacity:0}
+    .sequence.show-flag .flagwrap{opacity:1;transform:translateY(0)}
+
+    @media (max-width:520px){
+      .startlights .light{width:56px;height:56px}
+      .flag{width:220px;height:126px}
+    }
   </style>
 </head>
 <body>
   <canvas id="confetti"></canvas>
 
   <header>
-    <div class="container brand">
-      <div class="avatar-wrap">
-        <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
-        <span class="avatar-badge">KC</span>
+    <div class="header-inner container">
+      <div class="brand">
+        <img class="avatar" src="assets/img/me.png" alt="Avatar">
+        <span>Katherine Isabela Hsiung Chen — Pole Position 🏁</span>
       </div>
-      <span>Katherine Isabela Hsiung Chen — Pole Position🏁</span>
+      <nav class="nav">
+        <a href="projects.html">📁 Projects</a>
+        <a href="about.html">👤 About</a>
+        <a href="contact.html">✉️ Contact</a>
+      </nav>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="container hero-inner">
-      <h1>Hi, I’m Katherine — CS student (soon: Simulation Engineering). I build playful-aesthetic, human-centered software.</h1>
-
-      <div class="driver-bar">
-        <span>Favorite drivers:</span>
-        <button class="btn-theme" data-theme="carlos">Carlos</button>
-        <button class="btn-theme" data-theme="lando">Lando</button>
-        <button class="btn-theme" id="resetTheme">Reset</button>
-        <span style="color:var(--muted)">(confetti themes)</span>
+  <main>
+    <section class="hero container">
+      <div class="overlay" aria-hidden="true">
+        <div class="sequence" id="sequence">
+          <div class="startlights" id="lights">
+            <div class="light" data-i="0"></div>
+            <div class="light" data-i="1"></div>
+            <div class="light" data-i="2"></div>
+            <div class="light" data-i="3"></div>
+            <div class="light" data-i="4"></div>
+          </div>
+          <div class="flagwrap" id="flag">
+            <div class="flag">
+              <div class="pole"></div>
+              <div class="check"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="lights" id="lights">
-        <span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span>
-      </div>
+      <div class="intro">
+        <h1>Hi, I’m Katherine — CS now, Simulation Engineering next. I build playful-aesthetic, human-centered apps.</h1>
+        <div class="driver-bar">
+          <span class="subtle">Favorite drivers:</span>
+          <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
+          <button class="btn" data-theme="lando">Lando Norris</button>
+          <button class="btn" id="resetTheme">Reset theme</button>
+        </div>
 
-      <div class="hub">
-        <a class="cta primary" href="projects.html" aria-label="My Projects">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          My Projects
-        </a>
-        <a class="cta alt" href="about.html" aria-label="About">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4.418 0-8 2.015-8 4.5V20h16v-1.5C20 16.015 16.418 14 12 14Z" stroke="currentColor" stroke-width="2"/></svg>
-          About
-        </a>
-        <a class="cta dark" href="contact.html" aria-label="Contact">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="2"/><path d="m4 6 8 6 8-6" stroke="currentColor" stroke-width="2"/></svg>
-          Contact
-        </a>
+        <div class="hub">
+          <a class="cta" href="projects.html">My Projects</a>
+          <a class="cta" href="about.html">About</a>
+          <a class="cta" href="contact.html">Contact</a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <footer>
     <div class="container">© <span id="year"></span> Katherine • Built with HTML/CSS/JS • Deployed on GitHub Pages</div>
   </footer>
 
   <script>
-    document.getElementById('year').textContent=new Date().getFullYear();
-    const root=document.documentElement, canvas=document.getElementById('confetti'), ctx=canvas.getContext('2d');
-    let W,H,DPR=Math.max(1,window.devicePixelRatio||1),rafId=null; function size(){W=canvas.width=innerWidth*DPR;H=canvas.height=innerHeight*DPR;} size(); addEventListener('resize',size);
-    const logos={},logoFiles={williams:"https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp",chili:"https://cdn.inspireuplift.com/uploads/images/seller_products/29868/1702918490_SmoothOperatorCarlosSainzChillionly.png",mclaren:"https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png",ln4:"https://images.seeklogo.com/logo-png/44/2/lando-norris-logo-png_seeklogo-445536.png"};
-    for(const k in logoFiles){logos[k]=new Image();logos[k].src=logoFiles[k];}
-    function confettiFall(o){const{colors=['#ddd'],labels=[],useImages=false,durationMs=2600,fadeMs=700,imgSize=24,textPx=16}=o; if(rafId)cancelAnimationFrame(rafId); const N=300,parts=[],start=performance.now();
-      for(let i=0;i<N;i++){parts.push({x:Math.random()*W,y:-Math.random()*H*0.6,vx:(Math.random()*2-1)*0.8*DPR,vy:(2+Math.random()*2)*DPR,rot:Math.random()*Math.PI,vr:(Math.random()*0.2-0.1),color:colors[Math.floor(Math.random()*colors.length)],label:labels.length?labels[Math.floor(Math.random()*labels.length)]:null,useImage:useImages});}
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const root=document.documentElement,cvs=document.getElementById('confetti'),ctx=cvs.getContext('2d');
+    let W,H,DPR=Math.max(1,devicePixelRatio||1),rafId=null; function size(){W=cvs.width=innerWidth*DPR;H=cvs.height=innerHeight*DPR} size(); addEventListener('resize',size);
+    const logos={},files={williams:"https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp",chili:"https://cdn.inspireuplift.com/uploads/images/seller_products/29868/1702918490_SmoothOperatorCarlosSainzChillionly.png",mclaren:"https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png",ln4:"https://images.seeklogo.com/logo-png/44/2/lando-norris-logo-png_seeklogo-445536.png"}; for(const k in files){logos[k]=new Image(); logos[k].src=files[k];}
+    function confetti({colors=['#ddd'],labels=[],useImages=false,durationMs=2400,fadeMs=700,imgSize=22,textPx=16}={}){
+      if(rafId) cancelAnimationFrame(rafId); const N=260,parts=[],start=performance.now();
+      for(let i=0;i<N;i++){parts.push({x:Math.random()*W,y:-Math.random()*H*.6,vx:(Math.random()*2-1)*.8*DPR,vy:(2+Math.random()*2)*DPR,rot:Math.random()*Math.PI,vr:(Math.random()*.2-.1),color:colors[Math.floor(Math.random()*colors.length)],label:labels.length?labels[Math.floor(Math.random()*labels.length)]:null,img:useImages});}
       const ease=t=>1-Math.pow(1-t,3),clamp=v=>Math.max(0,Math.min(1,v));
-      function tick(t){const el=t-start,rem=Math.max(0,durationMs-el),fp=1-clamp(rem/fadeMs),a=1-ease(fp); ctx.clearRect(0,0,W,H);
-        parts.forEach(p=>{const d=1-0.12*fp;p.vy+=0.01*DPR;p.vx*=d;p.vy*=d;p.rot+=p.vr*d;p.x+=p.vx;p.y+=p.vy;});
+      function tick(t){
+        const e=t-start,rem=Math.max(0,durationMs-e),fp=1-clamp(rem/fadeMs),a=1-ease(fp);
+        ctx.clearRect(0,0,W,H);
+        parts.forEach(p=>{const d=1-.12*fp;p.vy+=0.01*DPR;p.vx*=d;p.vy*=d;p.rot+=p.vr*d;p.x+=p.vx;p.y+=p.vy;});
         parts.forEach(p=>{if(p.y>H+40*DPR){p.y=-20*DPR;p.x=Math.random()*W;} ctx.save(); ctx.globalAlpha=a; ctx.translate(p.x,p.y); ctx.rotate(p.rot);
-          if(p.useImage && p.label && logos[p.label] && logos[p.label].complete){const s=imgSize*DPR; ctx.drawImage(logos[p.label],-s/2,-s/2,s,s);}
-          else if(!p.useImage && p.label){ctx.font=(textPx*DPR)+"px Playfair Display, serif"; ctx.fillStyle=p.color; ctx.fillText(p.label,-ctx.measureText(p.label).width/2,0);}
-          else {ctx.fillStyle=p.color; ctx.fillRect(-4,-4,8,8);} ctx.restore();});
-        if(el<durationMs){rafId=requestAnimationFrame(tick);} else {ctx.clearRect(0,0,W,H);ctx.globalAlpha=1;rafId=null;}}
+          if(p.img && p.label && logos[p.label] && logos[p.label].complete){const s=imgSize*DPR; ctx.drawImage(logos[p.label],-s/2,-s/2,s,s);}
+          else if(!p.img && p.label){ctx.font=(textPx*DPR)+"px Playfair Display,serif"; ctx.fillStyle=p.color; ctx.fillText(p.label,-ctx.measureText(p.label).width/2,0);}
+          else{ctx.fillStyle=p.color; ctx.fillRect(-4,-4,8,8);} ctx.restore();});
+        if(e<durationMs){rafId=requestAnimationFrame(tick);} else {ctx.clearRect(0,0,W,H); ctx.globalAlpha=1; rafId=null;}
+      }
       rafId=requestAnimationFrame(tick);
     }
-    function setTheme(n){if(n==='carlos'){root.setAttribute('data-theme','carlos');confettiFall({colors:['#0f3d91','#ffffff'],labels:['williams','chili'],useImages:true,durationMs:2800,imgSize:22});}
-      else if(n==='lando'){root.setAttribute('data-theme','lando');confettiFall({colors:['#ff8000','#0c0c0d','#ffffff'],labels:['mclaren','ln4'],useImages:true,durationMs:2800,imgSize:22});}}
+    function setTheme(n){
+      if(n==='carlos'){root.setAttribute('data-theme','carlos'); confetti({colors:['#0f3d91','#ffffff'],labels:['williams','chili'],useImages:true});}
+      if(n==='lando'){root.setAttribute('data-theme','lando'); confetti({colors:['#ff8000','#0c0c0d','#ffffff'],labels:['mclaren','ln4'],useImages:true});}
+    }
     document.querySelectorAll('[data-theme]').forEach(b=>b.addEventListener('click',()=>setTheme(b.dataset.theme)));
-    document.getElementById('resetTheme').addEventListener('click',()=>{root.removeAttribute('data-theme');confettiFall({colors:['#e07b97','#6fa387','#6aa9d8'],labels:['🫀','🏎️','💻'],useImages:false,durationMs:2400,textPx:18});});
+    document.getElementById('resetTheme').addEventListener('click',()=>{root.removeAttribute('data-theme'); confetti({colors:['#e07b97','#6fa387','#6aa9d8'],labels:['🫀','🏎️','💻'],useImages:false});});
 
-    const lights=document.querySelectorAll('#lights .light');
-    let i=0; const tick=setInterval(()=>{ if(i<lights.length){lights[i].classList.add('on'); i++;} else {clearInterval(tick); lights.forEach(el=>el.classList.remove('on')); lights.forEach(el=>el.classList.add('go')); setTimeout(()=>lights.forEach(el=>el.classList.remove('go')),900); confettiFall({colors:['#6fa387','#cfe9fb','#f9c9d4'],useImages:false,durationMs:1800}); } },450);
+    const seq = document.getElementById('sequence');
+    const lightsWrap = document.getElementById('lights');
+    const flagWrap = document.getElementById('flag');
+    const bulbs = [...lightsWrap.querySelectorAll('.light')];
+
+    function playSequence(){
+      seq.classList.remove('show-flag'); seq.classList.add('show-lights');
+      bulbs.forEach(b=>b.classList.remove('on'));
+      let i=0;
+      const tick = setInterval(()=>{
+        if(i<bulbs.length){ bulbs[i].classList.add('on'); i++; }
+        else{
+          clearInterval(tick);
+          setTimeout(()=>{
+            bulbs.forEach(b=>b.classList.remove('on'));
+            seq.classList.remove('show-lights');
+            seq.classList.add('show-flag');
+            confetti({colors:['#27ae60','#f39c12','#2980b9','#e74c3c','#8e44ad']});
+            setTimeout(()=>{
+              seq.classList.remove('show-flag');
+              setTimeout(playSequence, 4500);
+            }, 2600);
+          }, 450);
+        }
+      }, 350);
+    }
+    playSequence();
   </script>
 </body>
 </html>
