@@ -1,76 +1,133 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Katherine Isabela Hsiung Chen — Pole Position 🏁</title>
-<link rel="icon" type="image/svg+xml"
- href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#f7faf9;--text:#101418;--muted:#5b6471;--accent:#6fa387;--ring:rgba(0,0,0,.08);--maxw:980px}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-.container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-header{position:sticky;top:0;z-index:10;background:color-mix(in oklab,var(--bg) 86%,transparent);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--ring)}
-.header-inner{height:64px;display:flex;align-items:center;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:12px;font-weight:900}
-nav a{margin-left:14px;font-weight:800;color:var(--accent);text-decoration:none}
-.hero{min-height:calc(100dvh - 64px);display:grid;place-items:center;padding:24px 0;background:
-  radial-gradient(1100px 600px at 12% 0%, color-mix(in oklab,#cfe9fb 55%, transparent), transparent 60%),
-  radial-gradient(1100px 600px at 90% 8%, color-mix(in oklab,#f9c9d4 55%, transparent), transparent 60%),
-  radial-gradient(1000px 640px at 0% 100%, color-mix(in oklab,#bcd6c5 60%, transparent), transparent 60%),
-  linear-gradient(180deg,#fff 0%,var(--bg) 100%)}
-h1{font-family:"Playfair Display",serif;text-align:center;margin:0 0 14px;font-size:clamp(28px,5vw,48px)}
-.subtle{color:var(--muted);text-align:center;margin:4px 0 18px}
-.driver-bar,.hub{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-.btn{appearance:none;border:1px solid var(--ring);background:#fff;color:#111;padding:12px 16px;border-radius:14px;font-weight:800;cursor:pointer;transition:.2s}
-.btn:hover{background:var(--accent);color:#fff;border-color:transparent}
-footer{border-top:1px solid var(--ring);padding:16px 0;text-align:center;color:var(--muted)}
-#confetti{position:fixed;inset:0;pointer-events:none}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Katherine Isabela Hsiung Chen — Pole Position 🏁</title>
+
+  <link rel="icon" type="image/svg+xml"
+    href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect fill="%23ffffff" x="0" y="0" width="64" height="64" rx="12"/><text x="50%" y="50%" font-family="Georgia, serif" font-size="34" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="%230d347e">KC</text></svg>'>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f7faf9; --text:#101418; --accent:#6fa387; --muted:#5b6471; --ring:rgba(0,0,0,.08);
+      --sage:#bcd6c5; --sky:#cfe9fb; --pink:#f9c9d4;
+      --rad:16px; --pad:16px; --maxw:1080px;
+    }
+    :root[data-theme="carlos"]{ --bg:#dbe6ff; --text:#0b1220; --accent:#0d347e; --ring:rgba(0,0,0,.12);}
+    :root[data-theme="lando"]{ --bg:#0c0c0d; --text:#f6f7f9; --accent:#ff8000; --ring:rgba(255,255,255,.14);}
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    h1,h2{font-family:"Playfair Display",Georgia,"Times New Roman",serif;letter-spacing:.2px;text-align:center;max-width:900px;margin:0 auto 10px;padding:0 12px}
+    a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 18px}
+
+    header.site{position:sticky;top:0;z-index:10;background:color-mix(in oklab,var(--bg) 86%,transparent);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--ring)}
+    .site-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;gap:14px;align-items:center;font-weight:800}
+    .avatar{width:108px;height:108px;border-radius:50%;object-fit:cover;border:3px solid color-mix(in oklab,var(--accent) 40%, #fff);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+    .avatar-wrap{position:relative;display:inline-block}
+    .avatar-badge{position:absolute;bottom:4px;right:4px;width:32px;height:32px;border-radius:50%;background:#fff;border:2px solid var(--ring);display:flex;align-items:center;justify-content:center;font-family:"Playfair Display",Georgia,serif;font-weight:700;font-size:16px;color:var(--accent);box-shadow:0 3px 6px rgba(0,0,0,.2)}
+    :root[data-theme="carlos"] .avatar-badge{background:#fff url("https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp") center/70% no-repeat;border-color:#0f3d91;font-size:0}
+    :root[data-theme="lando"] .avatar-badge{background:#fff url("https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png") center/70% no-repeat;border-color:#ff8000;font-size:0}
+
+    .hero{min-height:calc(100dvh - 64px);display:grid;place-items:center;position:relative}
+    .hero .inner{display:grid;gap:16px;justify-items:center;text-align:center}
+    .driver-bar{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
+    .subtle{color:var(--muted)}
+    .btn{appearance:none;border:1px solid var(--ring);background:#fff;color:#111;padding:10px 14px;border-radius:12px;font-weight:800;cursor:pointer;transition:.2s}
+    .btn:hover{background:var(--accent);color:#fff;border-color:transparent}
+
+    .hub{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+    .btn.big{font-size:18px;padding:14px 18px;border-radius:14px}
+
+    #confetti{position:fixed;inset:0;pointer-events:none;z-index:5}
+    .flag-btn{position:fixed;right:20px;bottom:20px;z-index:20;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--ring);background:#fff;font-size:22px;cursor:pointer;box-shadow:0 10px 24px rgba(0,0,0,.12)}
+    .flag-btn:hover{background:var(--accent);color:#fff}
+
+    footer{border-top:1px solid var(--ring);padding:18px 0;color:var(--muted);text-align:center}
+
+    html::before{
+      content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;background:
+        radial-gradient(1200px 800px at 12% 0%, color-mix(in oklab, var(--sky) 55%, transparent), transparent 60%),
+        radial-gradient(1200px 800px at 90% 8%, color-mix(in oklab, var(--pink) 55%, transparent), transparent 60%),
+        radial-gradient(1100px 780px at 0% 100%, color-mix(in oklab, var(--sage) 60%, transparent), transparent 60%),
+        radial-gradient(1000px 720px at 100% 100%, color-mix(in oklab, white 35%, transparent), transparent 60%),
+        linear-gradient(180deg,#ffffff 0%,var(--bg) 100%)
+    }
+    :root[data-theme="carlos"] html::before{
+      background:
+        radial-gradient(1100px 720px at 15% 0%, #e6eeff 40%, transparent 62%),
+        radial-gradient(1100px 720px at 95% 10%, #dbe6ff 42%, transparent 64%),
+        radial-gradient(1100px 760px at -5% 100%, #e0e9ff 38%, transparent 60%),
+        linear-gradient(180deg,#f7f9ff 0%,#dbe6ff 100%);
+    }
+    :root[data-theme="lando"] html::before{
+      background:
+        radial-gradient(900px 520px at 12% -6%, #ffe27a 36%, transparent 60%),
+        radial-gradient(900px 520px at 110% -4%, #ff9a3c 42%, transparent 62%),
+        radial-gradient(1100px 560px at -8% 102%, #ffffff 26%, transparent 60%),
+        radial-gradient(1600px 1200px at 50% 50%, rgba(0,0,0,.35) 0%, rgba(0,0,0,.08) 60%, transparent 75%),
+        linear-gradient(180deg,#141414 0%,#0f0f10 55%,#111113 100%);
+    }
+  </style>
 </head>
+
 <body>
-<canvas id="confetti"></canvas>
+  <canvas id="confetti"></canvas>
 
-<header>
-  <div class="header-inner container">
-    <div class="brand">Katherine Isabela Hsiung Chen — Pole Position 🏁</div>
-    <nav>
-      <a href="projects.html">📁 Projects</a>
-      <a href="about.html">👤 About</a>
-      <a href="contact.html">✉️ Contact</a>
-    </nav>
-  </div>
-</header>
-
-<main class="hero">
-  <div class="container" style="text-align:center">
-    <h1>Hi, I’m Katherine — Computer Science student (soon Simulation Engineering). I build playful-aesthetic code.</h1>
-
-    <div class="driver-bar" style="margin-top:8px">
-      <button class="btn" id="raceStart">🏁 Start Sequence</button>
+  <header class="site">
+    <div class="site-inner container">
+      <div class="brand">
+        <div class="avatar-wrap">
+          <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
+          <span class="avatar-badge">KC</span>
+        </div>
+        <span>Katherine Isabela Hsiung Chen — Pole Position 🏁</span>
+      </div>
     </div>
+  </header>
 
-    <div class="hub" style="margin-top:18px">
-      <a class="btn" href="projects.html">My Projects</a>
-      <a class="btn" href="about.html">About</a>
-      <a class="btn" href="contact.html">Contact</a>
+  <main class="hero">
+    <div class="inner container">
+      <h1>Hi, I’m Katherine — Computer Science student (soon Simulation Engineering) building playful-aesthetic code.</h1>
+
+      <div class="driver-bar">
+        <span class="subtle">Favorite drivers:</span>
+        <button class="btn" id="btnCarlos">Carlos Sainz Jr.</button>
+        <button class="btn" id="btnLando">Lando Norris</button>
+        <button class="btn" id="btnReset">Reset theme</button>
+        <span class="subtle">(themed confetti)</span>
+      </div>
+
+      <div class="hub">
+        <a class="btn big" href="projects.html">📦 My Projects</a>
+        <a class="btn big" href="about.html">👋 About</a>
+        <a class="btn big" href="contact.html">✉️ Contact</a>
+      </div>
     </div>
-  </div>
-</main>
+  </main>
 
-<footer><div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages</div></footer>
+  <button class="flag-btn" id="flagBtn" title="Start lights + flag">🏁</button>
 
-<script>
-document.getElementById('year').textContent=new Date().getFullYear();
-</script>
-<script src="assets/js/confetti.js"></script>
-<script>
-  Confetti.init('confetti');
-  document.getElementById('raceStart').addEventListener('click', Confetti.sequence);
-</script>
+  <footer>
+    <div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages</div>
+  </footer>
+
+  <script src="assets/js/confetti.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    Confetti.init('confetti');
+
+    document.getElementById('btnCarlos').addEventListener('click', Confetti.carlos);
+    document.getElementById('btnLando').addEventListener('click', Confetti.lando);
+    document.getElementById('btnReset').addEventListener('click', Confetti.reset);
+
+    document.getElementById('flagBtn').addEventListener('click', Confetti.sequence);
+  </script>
 </body>
 </html>
-

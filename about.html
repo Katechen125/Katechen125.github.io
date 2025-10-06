@@ -1,83 +1,137 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>About — Katherine</title>
-<link rel="icon" type="image/svg+xml"
- href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#f7faf9;--text:#101418;--muted:#5b6471;--accent:#6fa387;--ring:rgba(0,0,0,.08);--maxw:980px}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-.container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-header{position:sticky;top:0;z-index:10;background:color-mix(in oklab,var(--bg) 86%,transparent);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--ring)}
-.header-inner{height:64px;display:flex;align-items:center;justify-content:space-between}
-.brand{font-weight:900}
-nav a{margin-left:14px;font-weight:800;color:var(--accent);text-decoration:none}
-h1{font-family:"Playfair Display",serif;text-align:center;margin:22px 0 10px;font-size:clamp(26px,4.5vw,42px)}
-.subtle{color:var(--muted);text-align:center;margin:0 0 18px}
-.driver-bar{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:6px 0 22px}
-.btn{appearance:none;border:1px solid var(--ring);background:#fff;color:#111;padding:10px 14px;border-radius:12px;font-weight:800;cursor:pointer;transition:.2s}
-.btn:hover{background:var(--accent);color:#fff;border-color:transparent}
-.card{background:#fff;border:1px solid var(--ring);border-radius:16px;padding:18px 20px;box-shadow:0 10px 24px rgba(12,21,33,.08);margin-bottom:16px}
-footer{border-top:1px solid var(--ring);padding:16px 0;text-align:center;color:var(--muted)}
-#confetti{position:fixed;inset:0;pointer-events:none}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About — Katherine Hsiung Chen</title>
+  <link rel="icon" type="image/svg+xml"
+    href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect fill="%23ffffff" x="0" y="0" width="64" height="64" rx="12"/><text x="50%" y="50%" font-family="Georgia, serif" font-size="34" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="%230d347e">KC</text></svg>'>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#f7faf9; --text:#101418; --accent:#6fa387; --muted:#5b6471; --ring:rgba(0,0,0,.08); --rad:16px; --pad:16px; --maxw:1000px; }
+    :root[data-theme="carlos"]{ --bg:#dbe6ff; --text:#0b1220; --accent:#0d347e; --ring:rgba(0,0,0,.12);}
+    :root[data-theme="lando"]{ --bg:#0c0c0d; --text:#f6f7f9; --accent:#ff8000; --ring:rgba(255,255,255,.14);}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    h1,h2{font-family:"Playfair Display",Georgia,serif;letter-spacing:.2px;text-align:center;max-width:900px;margin:0 auto 10px;padding:0 12px}
+    a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 18px}
+    header.site{position:sticky;top:0;z-index:10;background:color-mix(in oklab,var(--bg) 86%,transparent);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--ring)}
+    .site-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;gap:14px;align-items:center;font-weight:800}
+    .avatar{width:108px;height:108px;border-radius:50%;object-fit:cover;border:3px solid color-mix(in oklab,var(--accent) 40%, #fff);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+    .avatar-wrap{position:relative;display:inline-block}
+    .avatar-badge{position:absolute;bottom:4px;right:4px;width:32px;height:32px;border-radius:50%;background:#fff;border:2px solid var(--ring);display:flex;align-items:center;justify-content:center;font-family:"Playfair Display",Georgia,serif;font-weight:700;font-size:16px;color:var(--accent);box-shadow:0 3px 6px rgba(0,0,0,.2)}
+    :root[data-theme="carlos"] .avatar-badge{background:#fff url("https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp") center/70% no-repeat;border-color:#0f3d91;font-size:0}
+    :root[data-theme="lando"] .avatar-badge{background:#fff url("https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png") center/70% no-repeat;border-color:#ff8000;font-size:0}
+    .btn{appearance:none;border:1px solid var(--ring);background:#fff;color:#111;padding:10px 14px;border-radius:12px;font-weight:800;cursor:pointer;transition:.2s}
+    .btn:hover{background:var(--accent);color:#fff;border-color:transparent}
+    .driver-bar{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;margin:10px 0 18px}
+    .subtle{color:var(--muted)}
+
+    .about-wrap{display:grid;gap:18px;margin:22px 0 36px}
+    .card{background:#fff;border:1px solid var(--ring);border-radius:var(--rad);padding:var(--pad);box-shadow:0 10px 24px rgba(12,21,33,.06)}
+    :root[data-theme="lando"] .card{background:#1b1b1d;border:1px solid rgba(255,128,0,.22);color:#f5f5f5;box-shadow:0 18px 44px rgba(0,0,0,.55),0 2px 0 rgba(255,128,0,.08) inset}
+
+    .pill-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+    .pill{padding:8px 12px;border-radius:999px;border:1px solid var(--ring);background:color-mix(in oklab,#cfe9fb 28%, #fff);font-weight:700}
+
+    footer{border-top:1px solid var(--ring);padding:18px 0;color:var(--muted);text-align:center;margin-top:24px}
+
+    html::before{
+      content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;background:
+        radial-gradient(1200px 800px at 12% 0%, color-mix(in oklab, #cfe9fb 55%, transparent), transparent 60%),
+        radial-gradient(1200px 800px at 90% 8%, color-mix(in oklab, #f9c9d4 55%, transparent), transparent 60%),
+        radial-gradient(1100px 780px at 0% 100%, color-mix(in oklab, #bcd6c5 60%, transparent), transparent 60%),
+        linear-gradient(180deg,#ffffff 0%,var(--bg) 100%)
+    }
+    :root[data-theme="carlos"] html::before{
+      background:
+        radial-gradient(1100px 720px at 15% 0%, #e6eeff 40%, transparent 62%),
+        radial-gradient(1100px 720px at 95% 10%, #dbe6ff 42%, transparent 64%),
+        radial-gradient(1100px 760px at -5% 100%, #e0e9ff 38%, transparent 60%),
+        linear-gradient(180deg,#f7f9ff 0%,#dbe6ff 100%);
+    }
+    :root[data-theme="lando"] html::before{
+      background:
+        radial-gradient(900px 520px at 12% -6%, #ffe27a 36%, transparent 60%),
+        radial-gradient(900px 520px at 110% -4%, #ff9a3c 42%, transparent 62%),
+        radial-gradient(1100px 560px at -8% 102%, #ffffff 26%, transparent 60%),
+        radial-gradient(1600px 1200px at 50% 50%, rgba(0,0,0,.35) 0%, rgba(0,0,0,.08) 60%, transparent 75%),
+        linear-gradient(180deg,#141414 0%,#0f0f10 55%,#111113 100%);
+    }
+
+    #confetti{position:fixed;inset:0;pointer-events:none;z-index:5}
+  </style>
 </head>
 <body>
-<canvas id="confetti"></canvas>
+  <canvas id="confetti"></canvas>
 
-<header>
-  <div class="header-inner container">
-    <div class="brand"><a href="index.html">🏠 Home</a></div>
-    <nav>
-      <a href="projects.html">📁 Projects</a>
-      <a href="contact.html">✉️ Contact</a>
-    </nav>
-  </div>
-</header>
+  <header class="site">
+    <div class="site-inner container">
+      <div class="brand">
+        <div class="avatar-wrap">
+          <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
+          <span class="avatar-badge">KC</span>
+        </div>
+        <span>About — Katherine Hsiung Chen</span>
+      </div>
+      <a class="btn" href="index.html">🏠 Home</a>
+    </div>
+  </header>
 
-<main class="container">
-  <h1>About</h1>
+  <main class="container">
+    <h1>About</h1>
 
-  <div class="driver-bar">
-    <span class="subtle">Favorite drivers:</span>
-    <button class="btn" id="btnCarlos">Carlos Sainz Jr.</button>
-    <button class="btn" id="btnLando">Lando Norris</button>
-    <button class="btn" id="btnReset">Reset theme</button>
-    <span class="subtle">(click for themed confetti)</span>
-  </div>
+    <div class="driver-bar">
+      <span class="subtle">Favorite drivers:</span>
+      <button class="btn" id="btnCarlos">Carlos Sainz Jr.</button>
+      <button class="btn" id="btnLando">Lando Norris</button>
+      <button class="btn" id="btnReset">Reset theme</button>
+      <span class="subtle">(themed confetti)</span>
+    </div>
 
-  <article class="card">
-    <h3>Where I’m headed</h3>
-    <p>I’m wrapping up Computer Science and stepping into Simulation Engineering. I like building systems that feel good to use—fast, tidy, and a little playful.</p>
-  </article>
+    <section class="about-wrap">
+      <article class="card">
+        <h2>Where I’m headed</h2>
+        <p>Finishing Computer Science and heading into Simulation Engineering. I like problems with moving parts:
+          state, timing, and interaction—systems you can feel.</p>
+      </article>
 
-  <article class="card">
-    <h3>Tech I enjoy</h3>
-    <p>C++ for algorithms/tools, React Native for product speed, TypeScript for clarity, and a pinch of Unreal Engine 5 Blueprints when the prototype needs to pop.</p>
-  </article>
+      <article class="card">
+        <h2>Tech I enjoy</h2>
+        <div class="pill-row">
+          <span class="pill">C++</span><span class="pill">Algorithms</span><span class="pill">React Native</span>
+          <span class="pill">TypeScript</span><span class="pill">UE5 Blueprints</span><span class="pill">Networking</span>
+          <span class="pill">UI Motion</span>
+        </div>
+      </article>
 
-  <article class="card">
-    <h3>Why F1 shows up in my UI</h3>
-    <p>F1 is precision + drama: small choices at high speed. That energy leaks into my interfaces—clear visuals, responsive feedback, and a clean race line from A to B.</p>
-  </article>
-</main>
+      <article class="card">
+        <h2>Why F1</h2>
+        <p>Precision under pressure and tiny optimizations that compound—that’s my design energy. A clean line, a good
+          setup, and the confidence to push when it matters.</p>
+      </article>
 
-<footer><div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages</div></footer>
+      <article class="card">
+        <h2>Notes from the garage</h2>
+        <p>I like shipping things that look simple but feel alive—small details, planned color, and interactions that
+          respect the user’s attention.</p>
+      </article>
+    </section>
+  </main>
 
-<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
-<script src="assets/js/confetti.js"></script>
-<script>
-  Confetti.init('confetti');
-  const bc=document.getElementById('btnCarlos');
-  const bl=document.getElementById('btnLando');
-  const br=document.getElementById('btnReset');
-  if(bc) bc.addEventListener('click', Confetti.carlos);
-  if(bl) bl.addEventListener('click', Confetti.lando);
-  if(br) br.addEventListener('click', Confetti.reset);
-</script>
+  <footer>
+    <div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages</div>
+  </footer>
+
+  <script src="assets/js/confetti.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    Confetti.init('confetti');
+    document.getElementById('btnCarlos').addEventListener('click', Confetti.carlos);
+    document.getElementById('btnLando').addEventListener('click', Confetti.lando);
+    document.getElementById('btnReset').addEventListener('click', Confetti.reset);
+  </script>
 </body>
 </html>
