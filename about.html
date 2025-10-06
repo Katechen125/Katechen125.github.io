@@ -25,8 +25,30 @@ header.site{position:sticky;top:0;z-index:10;background:color-mix(in oklab,var(-
 :root[data-theme="carlos"] .avatar-badge{background:#fff url("https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp") center/80% no-repeat;font-size:0;border-color:#0d347e}
 :root[data-theme="lando"] .avatar-badge{background:#fff url("https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png") center/80% no-repeat;font-size:0;border-color:#ff8000}
 
-.page-title{display:grid;place-items:center;text-align:center;padding:28px 0 12px}
+.page-title{display:grid;place-items:center;text-align:center;padding:28px 0 10px}
 .page-title h1{margin:0;font-size:clamp(28px,5vw,48px)}
+
+/* Race line animation under the title */
+.race-line{
+  position:relative;
+  height:28px;
+  margin:10px auto 0;
+  width:min(760px,90%);
+  border-bottom:3px dashed color-mix(in oklab, var(--text) 35%, transparent);
+  overflow:hidden;
+}
+.race-car, .race-flag{position:absolute;top:-6px;font-size:22px;line-height:1}
+.race-flag{right:2px;top:-10px}
+.race-car{left:-40px; animation: race-move 6.5s ease-in-out infinite; }
+@keyframes race-move{
+  0%   { transform: translateX(0) }
+  12%  { transform: translateX(10%) }
+  35%  { transform: translateX(36%) }
+  55%  { transform: translateX(58%) }
+  80%  { transform: translateX(82%) }
+  100% { transform: translateX(102%) }
+}
+
 .driver-bar{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;color:var(--muted)}
 .btn{appearance:none;border:1px solid var(--btn-border);background:var(--btn-bg);color:var(--btn-text);padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer}
 .btn:hover{background:var(--accent);color:#fff;border-color:transparent}
@@ -56,7 +78,11 @@ footer{border-top:1px solid var(--ring);padding:18px 0;text-align:center;color:v
 
 <section class="container page-title">
   <h1>About</h1>
-  <div class="driver-bar">
+  <div class="race-line" aria-hidden="true">
+    <span class="race-car">🏎️</span>
+    <span class="race-flag">🏁</span>
+  </div>
+  <div class="driver-bar" style="margin-top:16px">
     <span>Favorite drivers:</span>
     <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
     <button class="btn" data-theme="lando">Lando Norris</button>
@@ -86,9 +112,7 @@ footer{border-top:1px solid var(--ring);padding:18px 0;text-align:center;color:v
   </article>
 </section>
 
-<footer>
-  <div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages</div>
-</footer>
+<footer><div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages</div></footer>
 
 <script src="assets/js/confetti.js"></script>
 <script>
@@ -103,4 +127,5 @@ document.getElementById('resetTheme')?.addEventListener('click',()=>root.removeA
 </script>
 </body>
 </html>
+
 
