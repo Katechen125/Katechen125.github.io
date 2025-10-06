@@ -1,241 +1,98 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Katherine Isabela Hsiung Chen — Pole Position 🏁</title>
   <link rel="icon" type="image/svg+xml"
-        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='58%25' font-family='Georgia, serif' font-size='36' font-weight='700' text-anchor='middle' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
-  <link rel="alternate icon" href="data:image/png;base64,iVBORw0KGgo=">
-  <meta name="description" content="Katherine's pastel portfolio with classy headings, F1 theme toggles, and project showcases." />
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='58%25' font-family='Georgia, serif' font-size='36' font-weight='700' text-anchor='middle' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
+    :root{
       --bg:#f7faf9; --surface:#ffffff; --surface-2:#fbfdff;
       --text:#1b1e22; --muted:#5b6471; --ring:rgba(0,0,0,.08);
       --sage:#bcd6c5; --sage-600:#6fa387; --sky:#cfe9fb; --pink:#f9c9d4;
       --accent:#6fa387;
-
       --btn-bg:#ffffff; --btn-border:#d7dde5; --btn-text:#111318;
       --btn-primary-bg:#111318; --btn-primary-text:#ffffff;
-
       --rad:16px; --pad:16px; --shadow:0 10px 24px rgba(12,21,33,.08),0 2px 6px rgba(12,21,33,.05);
       --maxw:1080px;
-
-      --footer-h:64px;
     }
     :root[data-theme="carlos"]{
       --bg:#dbe6ff; --surface:#ffffff; --surface-2:#e0e9ff;
       --text:#0b1220; --muted:#3f527a; --ring:rgba(0,0,0,.12);
       --accent:#0d347e;
     }
-    :root[data-theme="lando"] #projects {
-      background: rgba(20,20,20,0.6);
-      border-radius: 20px;
-      padding: 32px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-      backdrop-filter: blur(6px);
-    }
-    :root[data-theme="lando"] .card h3,
-    :root[data-theme="lando"] .card p,
-    :root[data-theme="lando"] .tag { color:#f1f1f1; }
-    :root[data-theme="lando"] .tag {
-      background: color-mix(in oklab, var(--accent) 40%, #222);
-      border-color:#444;
+    :root[data-theme="lando"]{
+      --bg:#0f0f10; --surface:#1b1b1d; --surface-2:#141417;
+      --text:#f5f7fa; --muted:#cfd5df; --ring:rgba(255,255,255,.14);
+      --accent:#ff8000;
     }
 
     *{box-sizing:border-box}
-    html, body { height:100%; }
+    html,body{height:100%}
     body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 
-    h1,h2,h3{font-family:"Playfair Display",Georgia,"Times New Roman",serif;letter-spacing:.2px}
-    h1{font-weight:700}
-    h2,h3{font-weight:600}
-
-    a{color:var(--accent);text-decoration:none}
-    a:hover{text-decoration:underline}
+    html::before{
+      content:""; position:fixed; inset:-25%; z-index:-1; pointer-events:none;
+      background:
+        radial-gradient(1200px 800px at 12% 0%, color-mix(in oklab, var(--sky) 55%, transparent), transparent 60%),
+        radial-gradient(1200px 800px at 90% 8%, color-mix(in oklab, var(--pink) 55%, transparent), transparent 60%),
+        radial-gradient(1100px 780px at 0% 100%, color-mix(in oklab, var(--sage) 60%, transparent), transparent 60%),
+        radial-gradient(1000px 720px at 100% 100%, color-mix(in oklab, white 35%, transparent), transparent 60%),
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
+    }
+    :root[data-theme="carlos"] html::before{
+      background:
+        radial-gradient(1100px 720px at 15% 0%, #e6eeff 40%, transparent 62%),
+        radial-gradient(1100px 720px at 95% 10%, #dbe6ff 42%, transparent 64%),
+        radial-gradient(1100px 760px at -5% 100%, #e0e9ff 38%, transparent 60%),
+        linear-gradient(180deg,#f7f9ff 0%,#dbe6ff 100%);
+    }
+    :root[data-theme="lando"] html::before{
+      background:
+        radial-gradient(900px 520px at 12% -6%, #ffe27a 36%, transparent 60%),
+        radial-gradient(900px 520px at 110% -4%, #ff9a3c 42%, transparent 62%),
+        radial-gradient(1100px 560px at -8% 102%, #ffffff 26%, transparent 60%),
+        radial-gradient(1600px 1200px at 50% 50%, rgba(0,0,0,.35) 0%, rgba(0,0,0,.08) 60%, transparent 75%),
+        linear-gradient(180deg,#141414 0%,#0f0f10 55%,#111113 100%);
+    }
 
     .container{max-width:var(--maxw);margin:0 auto;padding:0 18px}
-
-    header.site{position:sticky;top:0;z-index:10;background:color-mix(in oklab,var(--bg) 86%,transparent);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--ring)}
-    .site-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+    header.site{position:sticky;top:0;z-index:5;background:color-mix(in oklab,var(--bg) 86%,transparent);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--ring)}
+    .site-inner{display:flex;align-items:center;justify-content:center;height:64px}
     .brand{display:flex;gap:14px;align-items:center;font-weight:800}
-    .brand .badge{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--sage),var(--sky))}
-    nav a{margin-left:14px;font-weight:600}
-
-    section{padding:48px 0}
-    h2{margin:0 0 12px;font-size:clamp(22px,3vw,32px)}
-    .subtle{color:var(--muted)}
-
-    .card{background:var(--surface);border:1px solid var(--ring);border-radius:var(--rad);padding:var(--pad);box-shadow:var(--shadow)}
-
-    .hero{padding:64px 0;background:
-      radial-gradient(1200px 500px at 10% -10%, color-mix(in oklab, var(--sky) 55%, transparent), transparent 60%),
-      radial-gradient(900px 420px at 110% 0%, color-mix(in oklab, var(--pink) 55%, transparent), transparent 60%),
-      radial-gradient(800px 400px at -10% 100%, color-mix(in oklab, var(--sage) 60%, transparent), transparent 60%)}
-
-    :root[data-theme="lando"] .hero{background:linear-gradient(180deg,#111 0%,#0c0c0d 100%)}
-
-    .hero .container{ text-align:center; display:grid; place-items:center; }
-    .hero h1{margin:0 0 8px;font-size:clamp(28px,5vw,48px); max-width:940px; margin-left:auto; margin-right:auto;}
-
-    .chips{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 16px; justify-content:center}
-    .chip{--c:var(--sage);padding:8px 12px;border:1px solid var(--ring);border-radius:999px;background:color-mix(in oklab,var(--c) 28%,white);font-weight:700}
-    :root[data-theme="lando"] .chip{background:color-mix(in oklab,var(--accent) 12%,#1b1b1e);color:#f1f1f1;border-color:#333}
-
-    .driver-bar{display:flex;align-items:center;gap:10px;color:var(--muted);flex-wrap:wrap; justify-content:center}
-
-    .btn{appearance:none;border:1px solid var(--btn-border);background:var(--btn-bg);color:var(--btn-text);padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 1px 0 rgba(0,0,0,.04);transition:background .2s, color .2s}
-    .btn.primary{background:var(--btn-primary-bg);color:var(--btn-primary-text);border-color:#000}
-    .btn:hover{background:var(--accent);color:#fff;border-color:transparent}
-    :root[data-theme="carlos"] .btn:hover{background:#0d347e;color:#fff;border-color:#0d347e}
-
-    .proj{margin-bottom:16px}
-    .proj h3{margin:.3rem 0}
-
-    .tags{display:flex;gap:8px;flex-wrap:wrap;margin:.25rem 0 .5rem}
-    .tag{font-size:12px;padding:6px 10px;border-radius:999px;background:color-mix(in oklab,var(--sky) 35%,white);border:1px solid var(--ring);font-weight:700}
-    .tag.f1{background:color-mix(in oklab,var(--pink) 35%,white)}
-    .tag.health{background:color-mix(in oklab,var(--sage) 35%,white)}
-
-    #confetti{position:fixed;inset:0;pointer-events:none}
-
-    footer{border-top:1px solid var(--ring);padding:18px 0;color:var(--muted);text-align:center;position:fixed;left:0;right:0;bottom:0;background:color-mix(in oklab,var(--bg) 86%, transparent);backdrop-filter:saturate(160%) blur(6px)}
-
-    #projects{background:rgba(255,255,255,0.7);border-radius:20px;padding:32px;box-shadow:0 10px 30px rgba(0,0,0,0.05);backdrop-filter: blur(6px)}
-
-    .coming-soon{color:var(--muted);font-weight:600}
-
-    :root[data-theme="lando"] .card{background:rgba(34,34,34,.85);border:1px solid #333;color:#f5f5f5}
-    :root[data-theme="lando"] h2{color:#ff914d}
-    :root[data-theme="lando"] .tag{background:color-mix(in oklab,#ff8000 40%,#1a1a1a);color:#fff7f0;border-color:#ff8000}
-
-    body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:
-      radial-gradient(1200px 500px at 10% -10%, color-mix(in oklab, var(--sky) 55%, transparent), transparent 60%),
-      radial-gradient(900px 420px at 110% 0%, color-mix(in oklab, var(--pink) 55%, transparent), transparent 60%),
-      radial-gradient(800px 400px at -10% 100%, color-mix(in oklab, var(--sage) 60%, transparent), transparent 60%),
-      linear-gradient(180deg,#ffffff 0%,var(--bg) 100%)}
-
-    :root[data-theme="lando"] body::before{background:
-      radial-gradient(950px 450px at 12% -8%, #ffe27a 35%, transparent 60%),
-      radial-gradient(900px 420px at 110% -5%, #ff9a3c 40%, transparent 60%),
-      radial-gradient(1000px 520px at -10% 100%, #ffffff 25%, transparent 60%),
-      linear-gradient(180deg,#141414 0%,#0f0f10 55%,#111113 100%)}
-
-    body::before{content:none !important}
-
-    html::before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;background:
-      radial-gradient(1200px 800px at 12% 0%, color-mix(in oklab, var(--sky) 55%, transparent), transparent 60%),
-      radial-gradient(1200px 800px at 90% 8%, color-mix(in oklab, var(--pink) 55%, transparent), transparent 60%),
-      radial-gradient(1100px 780px at 0% 100%, color-mix(in oklab, var(--sage) 60%, transparent), transparent 60%),
-      radial-gradient(1000px 720px at 100% 100%, color-mix(in oklab, white 35%, transparent), transparent 60%),
-      linear-gradient(180deg,#ffffff 0%,var(--bg) 100%)}
-
-    :root[data-theme="carlos"] html::before{background:
-      radial-gradient(1100px 720px at 15% 0%, #e6eeff 40%, transparent 62%),
-      radial-gradient(1100px 720px at 95% 10%, #dbe6ff 42%, transparent 64%),
-      radial-gradient(1100px 760px at -5% 100%, #e0e9ff 38%, transparent 60%),
-      linear-gradient(180deg,#f7f9ff 0%,#dbe6ff 100%)}
-
-    :root[data-theme="lando"] html::before{background:
-      radial-gradient(900px 520px at 12% -6%, #ffe27a 36%, transparent 60%),
-      radial-gradient(900px 520px at 110% -4%, #ff9a3c 42%, transparent 62%),
-      radial-gradient(1100px 560px at -8% 102%, #ffffff 26%, transparent 60%),
-      radial-gradient(1600px 1200px at 50% 50%, rgba(0,0,0,.35) 0%, rgba(0,0,0,.08) 60%, transparent 75%),
-      linear-gradient(180deg,#141414 0%,#0f0f10 55%,#111113 100%)}
-
-    :root[data-theme="lando"] .card{background:#1b1b1d;border:1px solid rgba(255,128,0,.22);box-shadow:0 18px 44px rgba(0,0,0,.55),0 2px 0 rgba(255,128,0,.08) inset}
-    :root[data-theme="lando"] h2{color:#ff943d}
-    :root[data-theme="lando"] .tag{background:color-mix(in oklab,#ff8a22 46%,#1a1a1a);border-color:#ff8a22;color:#fff8f1}
-    :root[data-theme="lando"] .chip{color:#f3f3f3;border-color:#3a3a3a;background:color-mix(in oklab,#ff8a22 18%,#1b1b1e)}
-
-    .avatar{width:108px;height:108px;border-radius:50%;object-fit:cover;border:3px solid color-mix(in oklab,var(--accent) 40%, #fff);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+    .avatar{width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid color-mix(in oklab,var(--accent) 40%, #fff);box-shadow:0 6px 20px rgba(0,0,0,.08)}
     .avatar-wrap{position:relative;display:inline-block}
-    .avatar-badge{position:absolute;bottom:4px;right:4px;width:32px;height:32px;border-radius:50%;background:var(--surface);border:2px solid var(--ring);font-family:"Playfair Display", Georgia, serif;font-weight:700;font-size:16px;color:var(--accent);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 6px rgba(0,0,0,.2)}
+    .avatar-badge{position:absolute;bottom:2px;right:2px;width:26px;height:26px;border-radius:50%;background:var(--surface);border:2px solid var(--ring);font-family:"Playfair Display", Georgia, serif;font-weight:700;font-size:13px;color:var(--accent);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 6px rgba(0,0,0,.2)}
     :root[data-theme="carlos"] .avatar-badge{background:#fff url("https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp") center/70% no-repeat;border:2px solid #0f3d91;font-size:0}
     :root[data-theme="lando"] .avatar-badge{background:#fff url("https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png") center/70% no-repeat;border:2px solid #ff8000;font-size:0}
 
-    :root[data-theme="lando"]{--accent:#ff8000}
-    :root[data-theme="lando"] h2{color:#ff914d}
-    :root[data-theme="lando"] a,
-    :root[data-theme="lando"] nav a,
-    :root[data-theme="lando"] #contact a{color:#ff8000}
-    .driver-bar .btn:hover{background:var(--accent);color:#fff;border-color:transparent}
-    :root[data-theme="carlos"] .driver-bar .btn:hover{background:#0d347e;color:#fff;border-color:#0d347e}
-    :root[data-theme="lando"] .driver-bar .btn:hover{background:#ff8000;color:#fff;border-color:#ff8000}
+    .hero{min-height:calc(100dvh - 64px); display:grid; place-items:center; text-align:center; padding:32px 0}
+    .hero h1{margin:0 0 12px; font:700 clamp(26px,5vw,44px)/1.15 "Playfair Display",Georgia,serif; max-width:900px}
+    .chips{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px; justify-content:center}
+    .chip{--c:var(--sage);padding:10px 14px;border:1px solid var(--ring);border-radius:999px;background:color-mix(in oklab,var(--c) 28%,white);font-weight:700}
+    :root[data-theme="lando"] .chip{background:color-mix(in oklab,var(--accent) 12%,#1b1b1e);color:#f1f1f1;border-color:#333}
 
-    .code-link,.video-link{font-weight:700;text-decoration:none;transition:color .25s ease, text-shadow .25s ease, opacity .25s ease, transform .12s ease;display:inline-flex;align-items:center;gap:6px}
-    .code-link{color:var(--accent)}
-    .video-link{color:var(--muted)}
-    .code-link:hover{color:#2a6d4d;text-shadow:0 0 8px rgba(111,163,135,.4)}
-    .video-link:hover{color:#e07b97;text-shadow:0 0 8px rgba(224,123,151,.4)}
-    :root[data-theme="lando"] .code-link{color:#ff8000}
-    :root[data-theme="lando"] .video-link{color:#ffae42}
-    :root[data-theme="lando"] .code-link:hover,
-    :root[data-theme="lando"] .video-link:hover{ text-shadow:0 0 10px rgba(255,128,0,.6)}
-    :root[data-theme="carlos"] .code-link{color:#0f3d91}
-    :root[data-theme="carlos"] .video-link{color:#5b74c5}
-    :root[data-theme="carlos"] .code-link:hover,
-    :root[data-theme="carlos"] .video-link:hover{ text-shadow:0 0 10px rgba(15,61,145,.6)}
-    .disabled{opacity:.45;pointer-events:none;filter:grayscale(30%)}
+    .driver-bar{display:flex;align-items:center;gap:10px;color:var(--muted);flex-wrap:wrap; justify-content:center}
+    .btn{appearance:none;border:1px solid var(--btn-border);background:var(--btn-bg);color:var(--btn-text);padding:12px 18px;border-radius:14px;font-weight:800;cursor:pointer;box-shadow:0 1px 0 rgba(0,0,0,.04);transition:background .2s, color .2s, transform .06s}
+    .btn:active{transform:translateY(1px)}
+    .btn.primary{background:var(--btn-primary-bg);color:var(--btn-primary-text);border-color:#000}
+    .btn:hover{background:var(--accent);color:#fff;border-color:transparent}
+    :root[data-theme="carlos"] .btn:hover{background:#0d347e;color:#fff;border-color:#0d347e}
+    :root[data-theme="lando"] .btn{background:#2a2a2a;color:#f1f1f1;border-color:#444}
+    :root[data-theme="lando"] .btn:hover{background:#ff8000;color:#fff;border-color:#ff8000}
 
-    /* Views */
-    body[data-view="home"] #projects,
-    body[data-view="home"] #about,
-    body[data-view="home"] #contact{
-      opacity:0; transform:translateY(12px) scale(.995);
-      pointer-events:none; height:0; overflow:hidden; margin:0;
-      padding-top:0; padding-bottom:0;
-      transition:opacity .35s ease, transform .35s ease, height .35s ease, margin .35s ease, padding .35s ease;
-    }
-    body[data-view="projects"] #projects,
-    body[data-view="about"] #about,
-    body[data-view="contact"] #contact{
-      opacity:1; transform:translateY(0) scale(1);
-      pointer-events:auto; height:auto; margin:initial;
-      padding-top:48px; padding-bottom:calc(48px + var(--footer-h));
-    }
-    body[data-view="projects"] .hero,
-    body[data-view="about"] .hero,
-    body[data-view="contact"] .hero{ opacity:.96; filter:saturate(.95); transition:opacity .3s ease, filter .3s ease }
+    .hub{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:22px}
+    .hub a{display:inline-block}
 
-    .hub{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px; justify-content:center}
-
-    .viewbar{display:flex;align-items:center;gap:10px;margin:-8px 0 24px}
-    .viewbar .back-home{appearance:none;border:1px solid var(--btn-border);background:var(--btn-bg);color:var(--btn-text);padding:8px 12px;border-radius:10px;font-weight:700;cursor:pointer}
-
-    /* Slider container */
-    .proj-slider{position:relative;overflow:hidden;border-radius:var(--rad)}
-    .proj-track{display:grid;grid-auto-flow:column;grid-auto-columns:100%;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
-    .proj.card{margin:0}
-
-    /* Arrow-only overlay controls */
-    .slider-nav{position:relative;margin:0;height:0}
-    .slider-btn{
-      position:absolute; top:50%; transform:translateY(-50%);
-      width:42px; height:42px; border-radius:50%;
-      display:grid; place-items:center; font-size:22px; line-height:1;
-      appearance:none; border:1px solid var(--btn-border); background:var(--btn-bg); color:var(--btn-text);
-      font-weight:700; cursor:pointer; opacity:.9; backdrop-filter: blur(6px);
-    }
-    .slider-btn:hover{opacity:1}
-    .slider-btn.prev{left:8px}
-    .slider-btn.next{right:8px}
-
-    /* Dots under slider */
-    .slider-dots{display:flex;gap:6px;align-items:center;justify-content:center;margin-top:12px}
-    .slider-dot{width:8px;height:8px;border-radius:50%;background:var(--ring)}
-    .slider-dot.active{background:color-mix(in oklab,var(--accent) 60%, white)}
-
-    :root[data-theme="lando"] .slider-btn{background:#2a2a2a;color:#f3f3f3;border-color:#444}
-    :root[data-theme="lando"] .slider-dot{background:#333}
-    :root[data-theme="lando"] .slider-dot.active{background:#ff8000}
+    #confetti{position:fixed;inset:0;pointer-events:none}
+    footer{border-top:1px solid var(--ring);padding:18px 0;color:var(--muted);text-align:center}
   </style>
 </head>
-
-<body data-view="home">
+<body>
   <canvas id="confetti"></canvas>
+
   <header class="site">
     <div class="site-inner container">
       <div class="brand">
@@ -245,18 +102,19 @@
         </div>
         <span>Katherine Isabela Hsiung Chen — Pole Position🏁</span>
       </div>
-      <nav><a href="#projects">Projects</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
     </div>
   </header>
 
   <section class="hero">
     <div class="container">
-      <h1>Hi, I’m Katherine, Computer Science student, soon to be Simulation Engineer student — I build playful-aesthetic code.</h1>
+      <h1>Hi, I’m Katherine, Computer Science student, soon to be Simulation Engineer — I build playful-aesthetic code.</h1>
+
       <div class="chips">
         <span class="chip" style="--c:var(--sage)">🩺 Health</span>
         <span class="chip" style="--c:var(--sky)">✈️ Travel</span>
         <span class="chip" style="--c:var(--pink)">🏎️ F1</span>
       </div>
+
       <div class="driver-bar">
         <span>Favorite drivers:</span>
         <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
@@ -266,103 +124,11 @@
       </div>
 
       <div class="hub">
-        <button class="btn primary hub-btn" data-view="projects">My Projects</button>
-        <button class="btn hub-btn" data-view="about">About</button>
-        <button class="btn hub-btn" data-view="contact">Contact</button>
+        <a class="btn primary" href="projects.html">My Projects</a>
+        <a class="btn" href="about.html">About</a>
+        <a class="btn" href="contact.html">Contact</a>
       </div>
     </div>
-  </section>
-
-  <section id="projects" class="container">
-    <h2>Projects</h2>
-
-    <article class="proj card">
-      <h3>Calculator — Shunting-Yard</h3>
-      <p>C++ expression evaluator using shunting-yard for precedence/associativity. UI buttons are produced via a <strong>factory pattern</strong>; evaluation runs on a dedicated <strong>processor instance</strong> to keep concerns clean.</p>
-      <div class="tags">
-        <span class="tag">C++</span>
-        <span class="tag">Factory Pattern</span>
-        <span class="tag">Algorithms</span>
-      </div>
-      <p>
-        <a href="https://github.com/Katechen125/Calculator" target="_blank" class="code-link">💻 Code</a>
-        &nbsp;•&nbsp;
-        <a href="YOUR_DEMO_LINK_CALCULATOR" target="_blank" class="video-link disabled">🎥 Demo</a>
-      </p>
-    </article>
-
-    <article class="proj card">
-      <h3>Conway’s Game of Life</h3>
-      <p>C++ implementation with an updated <strong>wxWidgets</strong> UI configured via <strong>vcpkg</strong> (portable build, no global deps). Includes pause/step controls and preset patterns.</p>
-      <div class="tags">
-        <span class="tag">C++</span>
-        <span class="tag">wxWidgets</span>
-        <span class="tag">vcpkg</span>
-      </div>
-      <p>
-        <a href="https://github.com/Katechen125/conway-s-game-of-life-05-24-Katechen125" target="_blank" class="code-link">💻 Code</a>
-        &nbsp;•&nbsp;
-        <a href="YOUR_DEMO_LINK_GOL" target="_blank" class="video-link disabled">🎥 Demo</a>
-      </p>
-    </article>
-
-    <article class="proj card">
-      <h3>Proximity Video Panel (Collab)</h3>
-      <p><strong>Unreal Engine 5 — Blueprints</strong>. I built the proximity trigger: approaching the display reveals the video panel; moving away hides it.</p>
-      <div class="tags">
-        <span class="tag">UE5</span>
-        <span class="tag">Blueprints</span>
-        <span class="tag">Prototype</span>
-      </div>
-      <p>
-        &nbsp;•&nbsp;
-        <a href="YOUR_DEMO_LINK_COLLAB" target="_blank" class="video-link">🎥 Demo</a>
-      </p>
-    </article>
-
-    <article class="proj card">
-      <h3>Pathfinder — Travel</h3>
-      <p>React Native app for attractions, bookings, activities, flights, calendar, expenses, currency conversion, and saved places/maps. Built with <strong>TypeScript</strong>, <strong>Google Cloud APIs</strong>, and <strong>Xcode</strong> for iOS.</p>
-      <div class="tags">
-        <span class="tag">React Native</span>
-        <span class="tag">TypeScript</span>
-        <span class="tag">Google Cloud</span>
-        <span class="tag">Xcode (iOS)</span>
-      </div>
-      <p>
-        <a href="https://github.com/Katechen125/Pathfinder" target="_blank" class="code-link">💻 Code</a>
-        &nbsp;•&nbsp;
-        <a href="YOUR_DEMO_LINK_PATHFINDER" target="_blank" class="video-link disabled">🎥 Demo</a>
-      </p>
-    </article>
-
-    <article class="proj card">
-      <h3>TCP Server — Spaghetti Relay</h3>
-      <p><strong>C++</strong> TCP server that accepts client connections and relays messages across clients (“spaghetti relay”). Includes simple logging and graceful shutdown.</p>
-      <div class="tags">
-        <span class="tag">C++</span>
-        <span class="tag">TCP</span>
-        <span class="tag">Sockets</span>
-        <span class="tag">Networking</span>
-      </div>
-      <p>
-        <a href="https://github.com/Katechen125/TCP-server" target="_blank" class="code-link">💻 Code</a>
-        &nbsp;•&nbsp;
-        <a href="YOUR_DEMO_LINK_TCP" target="_blank" class="video-link disabled">🎥 Demo</a>
-      </p>
-    </article>
-  </section>
-
-  <section id="about" class="container">
-    <h2>About</h2>
-    <p>My journey into computer science wasn’t straightforward. After realizing my first path wasn’t fulfilling, I decided to take a leap and pursue a hands-on education at Full Sail University. What began with uncertainty and self-doubt grew into a passion for the meeting point of code and aesthetics—something I first explored in my visually-focused calculator project. I’ve come to see programming as both a creative puzzle and a tool for building meaningful, well-designed experiences. As I explore my career path, I’m especially drawn to opportunities that connect travel, innovation, and design. I’m excited to grow within a company where I can keep learning, solving problems, and turning ideas into software that leaves an impact.</p>
-  </section>
-
-  <section id="contact" class="container">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:katisabela125@gmail.com">katisabela125@gmail.com</a></p>
-    <p>GitHub: <a href="https://github.com/Katechen125" target="_blank" rel="noopener">@Katechen125</a></p>
-    <p>LinkedIn: <a href="https://www.linkedin.com/in/katherine-hsiung-chen-22972830b" target="_blank" rel="noopener">/in/katherine-hsiung-chen-22972830b</a></p>
   </section>
 
   <footer>
@@ -385,14 +151,14 @@
       mclaren:"https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png",
       ln4:"https://images.seeklogo.com/logo-png/44/2/lando-norris-logo-png_seeklogo-445536.png"
     };
-    for(const k in logoFiles){logos[k]=new Image();logos[k].src=logoFiles[k];}
+    for(const k in logoFiles){ logos[k]=new Image(); logos[k].src=logoFiles[k]; }
 
     function confettiFall(options){
       const {colors=['#ddd'],labels=[],useImages=false,durationMs=2600,fadeMs=700,imgSize=24,textPx=16}=options;
       if(rafId) cancelAnimationFrame(rafId);
       const N=300, parts=[], start=performance.now();
       for(let i=0;i<N;i++){
-        parts.push({x:Math.random()*W,y:-Math.random()*H*0.6,vx:(Math.random()*2-1)*0.8*DPR,vy:(2+Math.random()*2)*DPR,rot:Math.random()*Math.PI,vr:(Math.random()*0.2-0.1),color:colors[Math.floor(Math.random()*colors.length)],label:labels.length?labels[Math.floor(Math.random() * labels.length)]:null,useImage:useImages});
+        parts.push({x:Math.random()*W,y:-Math.random()*H*0.6,vx:(Math.random()*2-1)*0.8*DPR,vy:(2+Math.random()*2)*DPR,rot:Math.random()*Math.PI,vr:(Math.random()*0.2-0.1),color:colors[Math.floor(Math.random()*colors.length)],label:labels.length?labels[Math.floor(Math.random()*labels.length)]:null,useImage:useImages});
       }
       const easeOutCubic=t=>1-Math.pow(1-t,3), clamp01=v=>Math.max(0,Math.min(1,v));
       function tick(t){
@@ -431,87 +197,6 @@
       root.removeAttribute('data-theme');
       confettiFall({colors:['#e07b97','#6fa387','#6aa9d8'],labels:['🫀','🏎️','💻'],useImages:false,durationMs:2400,textPx:18});
     });
-
-    (function(){
-      const body=document.body;
-      if(!body.hasAttribute('data-view')) body.setAttribute('data-view','home');
-
-      document.querySelectorAll('.hub-btn').forEach(btn=>{
-        btn.addEventListener('click',()=>showView(btn.dataset.view));
-      });
-      document.querySelectorAll('nav a[href^="#"]').forEach(a=>{
-        const v=a.getAttribute('href').replace('#','');
-        a.addEventListener('click',e=>{e.preventDefault();showView(v);});
-      });
-
-      function ensureBackBar(sectionEl){
-        if(sectionEl.querySelector('.viewbar')) return;
-        const bar=document.createElement('div'); bar.className='viewbar';
-        const back=document.createElement('button'); back.className='back-home'; back.textContent='← Home'; back.addEventListener('click',()=>showView('home'));
-        const toP=document.createElement('button'); toP.className='back-home'; toP.textContent='Projects'; toP.addEventListener('click',()=>showView('projects'));
-        const toA=document.createElement('button'); toA.className='back-home'; toA.textContent='About'; toA.addEventListener('click',()=>showView('about'));
-        const toC=document.createElement('button'); toC.className='back-home'; toC.textContent='Contact'; toC.addEventListener('click',()=>showView('contact'));
-        bar.append(back);
-        if(sectionEl.id!=='projects') bar.append(toP);
-        if(sectionEl.id!=='about') bar.append(toA);
-        if(sectionEl.id!=='contact') bar.append(toC);
-        sectionEl.insertBefore(bar, sectionEl.firstElementChild);
-      }
-
-      function showView(name){
-        body.setAttribute('data-view',name);
-        ['projects','about','contact'].forEach(id=>{
-          const sec=document.getElementById(id);
-          if(sec) ensureBackBar(sec);
-        });
-        window.scrollTo({top:0,behavior:'smooth'});
-        history.pushState({view:name},"","#"+name);
-      }
-
-      window.addEventListener('popstate', (e)=>{
-        const v=(e.state && e.state.view) || (location.hash.replace('#','')||'home');
-        body.setAttribute('data-view', v);
-      });
-
-      const initial = (location.hash.replace('#','')||'home');
-      body.setAttribute('data-view', initial);
-    })();
-
-    (function(){
-      const projSec=document.getElementById('projects'); if(!projSec) return;
-      const cards=Array.from(projSec.querySelectorAll('.proj.card')); if(cards.length<=1) return;
-
-      const slider=document.createElement('div'); slider.className='proj-slider card';
-      const track=document.createElement('div'); track.className='proj-track';
-      cards.forEach(c=>track.appendChild(c)); slider.appendChild(track);
-
-      const nav=document.createElement('div'); nav.className='slider-nav';
-      const prev=document.createElement('button'); prev.className='slider-btn prev'; prev.setAttribute('aria-label','Previous project'); prev.textContent='‹';
-      const dots=document.createElement('div'); dots.className='slider-dots';
-      const next=document.createElement('button'); next.className='slider-btn next'; next.setAttribute('aria-label','Next project'); next.textContent='›';
-      nav.append(prev,dots,next);
-
-      const h2=projSec.querySelector('h2');
-      projSec.insertBefore(slider, h2.nextElementSibling);
-      projSec.insertBefore(nav, slider.nextElementSibling);
-
-      const dotEls=cards.map((_,i)=>{const d=document.createElement('span'); d.className='slider-dot'+(i===0?' active':''); d.addEventListener('click',()=>go(i)); dots.appendChild(d); return d;});
-
-      let index=0;
-      function go(i){
-        index=(i+cards.length)%cards.length;
-        track.style.transform=`translateX(-${index*100}%)`;
-        dotEls.forEach((d,j)=>d.classList.toggle('active', j===index));
-      }
-      prev.addEventListener('click',()=>go(index-1));
-      next.addEventListener('click',()=>go(index+1));
-      window.addEventListener('keydown',e=>{
-        if(document.body.getAttribute('data-view')!=='projects') return;
-        if(e.key==='ArrowRight') go(index+1);
-        if(e.key==='ArrowLeft') go(index-1);
-      });
-      go(0);
-    })();
   </script>
 </body>
 </html>
