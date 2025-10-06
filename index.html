@@ -158,7 +158,8 @@
       display: grid;
       place-items: center;
       text-align: center;
-      padding: 40px 0 28px
+      padding: 40px 0 28px;
+      min-height: calc(100vh - 64px - 64px);
     }
 
     .hero h1 {
@@ -204,6 +205,16 @@
       padding: 14px 22px;
       border-radius: 14px;
       font-size: 17px
+    }
+
+    .flag-hint {
+      margin-top: 18px;
+      color: var(--muted);
+      font-weight: 700;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      align-items: center
     }
 
     .sequence-overlay {
@@ -304,26 +315,13 @@
       padding: 10px 12px;
       border-radius: 999px;
       cursor: pointer;
-      font-size: 18px;
-      position: relative
+      font-size: 18px
     }
 
     :root[data-theme="lando"] .flag-btn {
       background: #2a2a2a;
       color: #fff;
       border-color: #444
-    }
-
-    .flag-btn::after {
-      content: "Start the sequence →";
-      position: absolute;
-      right: 100%;
-      top: 50%;
-      transform: translateY(-50%);
-      font: 700 13px/1 Inter, system-ui;
-      white-space: nowrap;
-      margin-right: 10px;
-      color: var(--muted)
     }
 
     footer {
@@ -373,6 +371,10 @@
         <a class="btn" href="about.html">About</a>
         <a class="btn" href="contact.html">Contact</a>
       </div>
+
+      <div class="flag-hint">
+        <span>Press the checkered flag for the start lights</span> <span aria-hidden="true">⬇️</span>
+      </div>
     </div>
   </section>
 
@@ -418,7 +420,6 @@
 
     const root = document.documentElement;
     const saved = localStorage.getItem('kc-theme'); if (saved) { root.setAttribute('data-theme', saved); }
-
     function setThemeAndConfetti(name) {
       if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
       if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
