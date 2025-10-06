@@ -41,7 +41,11 @@
       const fade = 1 - (Math.max(0, Math.min(1, remaining / fadeMs)));
       const alpha = 1 - easeOutCubic(fade);
       ctx.clearRect(0, 0, W, H);
-      parts.forEach(p => { const d = 1 - 0.12 * fade; p.vy += 0.01 * DPR; p.x += p.vx; p.y += p.vy; p.rot += p.vr * d; if (p.y > H + 40 * DPR) { p.y = -20 * DPR; p.x = Math.random() * W; } });
+      parts.forEach(p => {
+        const d = 1 - 0.12 * fade;
+        p.vy += 0.01 * DPR; p.x += p.vx; p.y += p.vy; p.rot += p.vr * d;
+        if (p.y > H + 40 * DPR) { p.y = -20 * DPR; p.x = Math.random() * W; }
+      });
       parts.forEach(p => {
         ctx.save(); ctx.globalAlpha = alpha; ctx.translate(p.x, p.y); ctx.rotate(p.rot);
         if (p.label && IMAGES[p.label] && IMAGES[p.label].complete) {
@@ -96,5 +100,3 @@
   window.startNormalConfetti = startNormalConfetti;
   window.startEmojiConfetti = startEmojiConfetti;
 })();
-
-
