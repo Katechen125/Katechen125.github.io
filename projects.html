@@ -5,6 +5,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Projects — Katherine</title>
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' font-family='Georgia, serif' font-size='36' font-weight='700' text-anchor='middle' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap"
     rel="stylesheet">
@@ -37,12 +39,12 @@
       --bg: #0f0f10;
       --surface: #1b1b1d;
       --text: #f3f4f6;
-      --muted: #cfd5df;
+      --muted: #e2e6ee;
       --ring: #2d2f33;
       --accent: #ff8000;
-      --btn-bg: #2a2a2a;
+      --btn-bg: #232325;
       --btn-text: #f3f3f3;
-      --btn-border: #444
+      --btn-border: #3a3a3d
     }
 
     * {
@@ -103,8 +105,8 @@
     }
 
     .avatar {
-      width: 40px;
-      height: 40px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff)
@@ -117,16 +119,16 @@
 
     .avatar-badge {
       position: absolute;
-      right: -4px;
-      bottom: -4px;
-      width: 20px;
-      height: 20px;
+      right: -5px;
+      bottom: -5px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: #fff;
       border: 2px solid var(--ring);
       display: grid;
       place-items: center;
-      font: 700 10px/1 "Playfair Display", serif;
+      font: 700 12px/1 "Playfair Display", serif;
       color: var(--accent)
     }
 
@@ -208,9 +210,16 @@
       font-size: 12px;
       padding: 6px 10px;
       border-radius: 999px;
-      background: color-mix(in oklab, #cfe9fb 35%, white);
       border: 1px solid var(--ring);
-      font-weight: 700
+      font-weight: 700;
+      background: color-mix(in oklab, #cfe9fb 35%, white);
+      color: #0b2033
+    }
+
+    :root[data-theme="lando"] .tag {
+      background: #262628;
+      border-color: #3a3a3d;
+      color: #ffedd9
     }
 
     .linkrow {
@@ -296,9 +305,8 @@
         <h3>Calculator — Shunting-Yard</h3>
         <p>C++ expression evaluator using shunting-yard; buttons via <strong>factory pattern</strong>, evaluation on a
           dedicated <strong>processor instance</strong>.</p>
-        <div class="tags">
-          <span class="tag">C++</span><span class="tag">Factory Pattern</span><span class="tag">Algorithms</span>
-        </div>
+        <div class="tags"><span class="tag">C++</span><span class="tag">Factory Pattern</span><span
+            class="tag">Algorithms</span></div>
         <div class="linkrow">
           <a class="code-link" href="https://github.com/Katechen125/Calculator" target="_blank">💻 Code</a>
           <span class="sep">•</span>
@@ -309,8 +317,7 @@
       <article class="card">
         <h3>Conway’s Game of Life</h3>
         <p>C++ with updated <strong>wxWidgets</strong> UI via <strong>vcpkg</strong>. Pause/step + presets.</p>
-        <div class="tags">
-          <span class="tag">C++</span><span class="tag">wxWidgets</span><span class="tag">vcpkg</span>
+        <div class="tags"><span class="tag">C++</span><span class="tag">wxWidgets</span><span class="tag">vcpkg</span>
         </div>
         <div class="linkrow">
           <a class="code-link" href="https://github.com/Katechen125/conway-s-game-of-life-05-24-Katechen125"
@@ -324,10 +331,8 @@
         <h3>Pathfinder — Travel</h3>
         <p>React Native app for attractions, bookings, flights, calendar, expenses, currency, and saved places/maps.
           Built with <strong>TypeScript</strong>, <strong>Google Cloud</strong>, <strong>Xcode</strong> (iOS).</p>
-        <div class="tags">
-          <span class="tag">React Native</span><span class="tag">TypeScript</span><span class="tag">Google
-            Cloud</span><span class="tag">Xcode (iOS)</span>
-        </div>
+        <div class="tags"><span class="tag">React Native</span><span class="tag">TypeScript</span><span
+            class="tag">Google Cloud</span><span class="tag">Xcode (iOS)</span></div>
         <div class="linkrow">
           <a class="code-link" href="https://github.com/Katechen125/Pathfinder" target="_blank">💻 Code</a>
           <span class="sep">•</span>
@@ -339,10 +344,8 @@
         <h3>TCP Server — Spaghetti Relay</h3>
         <p><strong>C++</strong> TCP server that relays messages across clients with simple logging and graceful
           shutdown.</p>
-        <div class="tags">
-          <span class="tag">C++</span><span class="tag">TCP</span><span class="tag">Sockets</span><span
-            class="tag">Networking</span>
-        </div>
+        <div class="tags"><span class="tag">C++</span><span class="tag">TCP</span><span class="tag">Sockets</span><span
+            class="tag">Networking</span></div>
         <div class="linkrow">
           <a class="code-link" href="https://github.com/Katechen125/TCP-server" target="_blank">💻 Code</a>
           <span class="sep">•</span>
@@ -354,12 +357,9 @@
         <h3>Proximity Video Panel (Collab)</h3>
         <p><strong>UE5 — Blueprints.</strong> I built the proximity trigger: approach → panel reveals; step away → panel
           hides.</p>
-        <div class="tags">
-          <span class="tag">UE5</span><span class="tag">Blueprints</span><span class="tag">Prototype</span>
-        </div>
-        <div class="linkrow">
-          <a class="video-link" href="YOUR_DEMO_LINK_COLLAB" target="_blank">🎥 Demo</a>
-        </div>
+        <div class="tags"><span class="tag">UE5</span><span class="tag">Blueprints</span><span
+            class="tag">Prototype</span></div>
+        <div class="linkrow"><a class="video-link" href="YOUR_DEMO_LINK_COLLAB" target="_blank">🎥 Demo</a></div>
       </article>
     </div>
   </section>
@@ -373,12 +373,13 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
     const root = document.documentElement;
+    const saved = localStorage.getItem('kc-theme'); if (saved) { root.setAttribute('data-theme', saved); }
     function setThemeAndConfetti(name) {
-      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); startThemedConfetti('carlos'); }
-      if (name === 'lando') { root.setAttribute('data-theme', 'lando'); startThemedConfetti('lando'); }
+      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
+      if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
     document.querySelectorAll('[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme')?.addEventListener('click', () => { root.removeAttribute('data-theme'); startThemedConfetti('neutral'); });
+    document.getElementById('resetTheme')?.addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startVanillaConfetti(); });
   </script>
 </body>
 

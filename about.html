@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About — Katherine Isabela Hsiung Chen</title>
   <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='58%25' font-family='Georgia, serif' font-size='36' font-weight='700' text-anchor='middle' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' font-family='Georgia, serif' font-size='36' font-weight='700' text-anchor='middle' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap"
     rel="stylesheet">
@@ -39,12 +39,12 @@
       --bg: #0f0f10;
       --surface: #1b1b1d;
       --text: #f3f4f6;
-      --muted: #cfd5df;
+      --muted: #e2e6ee;
       --ring: #2d2f33;
       --accent: #ff8000;
-      --btn-bg: #2a2a2a;
+      --btn-bg: #232325;
       --btn-text: #f3f3f3;
-      --btn-border: #444
+      --btn-border: #3a3a3d
     }
 
     * {
@@ -104,8 +104,8 @@
     }
 
     .avatar {
-      width: 44px;
-      height: 44px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff)
@@ -118,16 +118,16 @@
 
     .avatar-badge {
       position: absolute;
-      right: -4px;
-      bottom: -4px;
-      width: 22px;
-      height: 22px;
+      right: -5px;
+      bottom: -5px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: #fff;
       border: 2px solid var(--ring);
       display: grid;
       place-items: center;
-      font: 700 11px/1 "Playfair Display", serif;
+      font: 700 12px/1 "Playfair Display", serif;
       color: var(--accent)
     }
 
@@ -203,7 +203,6 @@
       }
     }
 
-    /* Race line animation */
     .race-wrap {
       margin: 4px auto 18px;
       width: min(760px, 92%)
@@ -233,33 +232,32 @@
 
     .race-car {
       left: -40px;
-      transform: scaleX(-1);
       animation: race-move 3.6s cubic-bezier(.25, .7, .3, 1) infinite
     }
 
     @keyframes race-move {
       0% {
-        transform: scaleX(-1) translateX(0)
+        transform: translateX(0)
       }
 
       10% {
-        transform: scaleX(-1) translateX(12%)
+        transform: translateX(12%)
       }
 
       35% {
-        transform: scaleX(-1) translateX(45%)
+        transform: translateX(45%)
       }
 
       60% {
-        transform: scaleX(-1) translateX(78%)
+        transform: translateX(78%)
       }
 
       85% {
-        transform: scaleX(-1) translateX(108%)
+        transform: translateX(108%)
       }
 
       100% {
-        transform: scaleX(-1) translateX(112%)
+        transform: translateX(112%)
       }
     }
 
@@ -342,12 +340,13 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
     const root = document.documentElement;
+    const saved = localStorage.getItem('kc-theme'); if (saved) { root.setAttribute('data-theme', saved); }
     function setThemeAndConfetti(name) {
-      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); startThemedConfetti('carlos'); }
-      if (name === 'lando') { root.setAttribute('data-theme', 'lando'); startThemedConfetti('lando'); }
+      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
+      if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
     document.querySelectorAll('[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); startThemedConfetti('neutral'); });
+    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startVanillaConfetti(); });
   </script>
 </body>
 
