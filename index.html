@@ -12,38 +12,28 @@
     rel="stylesheet">
   <style>
     :root {
-      --bg: #f7faf9;
-      --surface: #fff;
-      --text: #1b1e22;
-      --muted: #5b6471;
-      --ring: rgba(0, 0, 0, .08);
-      --accent: #6fa387;
-      --btn-bg: #fff;
-      --btn-text: #111;
-      --btn-border: #d7dde5;
+      --bg: #0f0f10;
+      --surface: #1b1b1d;
+      --text: #f3f4f6;
+      --muted: #e2e6ee;
+      --ring: #2d2f33;
+      --accent: #ff8000;
+      --btn-bg: #232325;
+      --btn-text: #f3f3f3;
+      --btn-border: #3a3a3d;
       --maxw: 1080px
     }
 
     :root[data-theme="carlos"] {
       --bg: #dbe6ff;
-      --surface: #ffffff;
+      --surface: #fff;
       --text: #0b1220;
       --muted: #3f527a;
+      --ring: rgba(0, 0, 0, .12);
       --accent: #0d347e;
       --btn-bg: #fff;
       --btn-text: #0b1220;
       --btn-border: #3260b3
-    }
-
-    :root[data-theme="lando"] {
-      --bg: #0f0f10;
-      --surface: #1b1b1d;
-      --text: #f3f4f6;
-      --muted: #e2e6ee;
-      --accent: #ff8000;
-      --btn-bg: #232325;
-      --btn-text: #ffeede;
-      --btn-border: #ff9d3a
     }
 
     * {
@@ -95,13 +85,11 @@
       margin-left: 14px;
       color: var(--text);
       font-weight: 700;
-      text-decoration: none;
-      padding: 6px 12px;
-      border-radius: 12px
+      text-decoration: none
     }
 
     .nav a:hover {
-      background: color-mix(in oklab, var(--accent) 16%, #fff)
+      color: var(--accent)
     }
 
     .avatar {
@@ -125,6 +113,7 @@
       height: 28px;
       border-radius: 50%;
       background: #fff;
+      border: 2px solid var(--ring);
       display: grid;
       place-items: center;
       font: 700 12px/1 "Playfair Display", serif;
@@ -133,20 +122,15 @@
 
     :root[data-theme="carlos"] .avatar-badge {
       background: #fff url("https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp") center/80% no-repeat;
-      font-size: 0
-    }
-
-    :root[data-theme="lando"] .avatar-badge {
-      background: #fff url("https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png") center/80% no-repeat;
-      font-size: 0
+      font-size: 0;
+      border-color: #0d347e
     }
 
     .hero {
       display: grid;
       place-items: center;
       text-align: center;
-      padding: 40px 0 28px;
-      min-height: calc(100svh - 64px - 96px)
+      padding: 40px 0 28px
     }
 
     .hero h1 {
@@ -171,8 +155,7 @@
       padding: 10px 14px;
       border-radius: 12px;
       font-weight: 700;
-      cursor: pointer;
-      transition: transform .08s ease
+      cursor: pointer
     }
 
     .btn:hover {
@@ -183,65 +166,44 @@
 
     .hub {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       flex-wrap: wrap;
       justify-content: center;
-      margin-top: 22px
+      margin-top: 20px
     }
 
-    .cta {
-      appearance: none;
-      text-decoration: none;
-      display: inline-block;
-      cursor: pointer;
-      color: #111;
-      font-weight: 800;
+    .hub .btn {
+      padding: 14px 22px;
+      border-radius: 999px;
       font-size: 17px;
-      padding: 14px 26px;
-      border-radius: 18px;
-      background: linear-gradient(180deg, #fff, #f6f6f6);
-      border: 1px solid color-mix(in oklab, var(--accent) 30%, var(--ring));
-      transition: transform .12s ease, box-shadow .2s ease
+      box-shadow: 0 4px 0 rgba(0, 0, 0, .18);
+      transition: transform .08s
     }
 
-    .cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 36px rgba(12, 21, 33, .16)
-    }
-
-    :root[data-theme="lando"] .cta {
-      color: #0d0d0e;
-      background: linear-gradient(180deg, #ffe3c6, #ffc388);
-      border-color: #ff9d3a
+    .hub .btn:active {
+      transform: translateY(2px)
     }
 
     footer {
       border-top: 1px solid var(--ring);
       padding: 18px 0;
-      color: var(--muted)
+      color: var(--muted);
+      text-align: center
     }
 
-    .footer-row {
+    .flag-launch {
+      position: fixed;
+      right: 10px;
+      bottom: 16px;
+      z-index: 12;
       display: flex;
       align-items: center;
       gap: 10px
     }
 
-    .footer-row .grow {
-      flex: 1;
-      text-align: center
-    }
-
-    .footer-right {
-      margin-left: auto;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding-right: 2px
-    }
-
-    .flag-label {
-      font-weight: 800
+    .flag-tip {
+      color: var(--muted);
+      font-weight: 700
     }
 
     .flag-btn {
@@ -251,14 +213,7 @@
       padding: 10px 12px;
       border-radius: 999px;
       cursor: pointer;
-      font-size: 18px;
-      margin-right: -6px
-    }
-
-    :root[data-theme="lando"] .flag-btn {
-      background: #1f1f21;
-      color: #fff;
-      border-color: #3a3a3d
+      font-size: 18px
     }
 
     .sequence-overlay {
@@ -267,43 +222,38 @@
       display: none;
       align-items: center;
       justify-content: center;
-      background: rgba(0, 0, 0, .62);
-      backdrop-filter: blur(10px);
-      z-index: 50
+      background: rgba(0, 0, 0, .45);
+      backdrop-filter: blur(6px);
+      z-index: 11
     }
 
-    .sequence {
-      display: grid;
-      gap: 14px;
-      justify-items: center
-    }
-
-    .sequence-card {
+    .seq-card {
+      width: min(920px, 92%);
       background: #fff;
-      border-radius: 26px;
-      padding: 18px 20px;
-      box-shadow: 0 22px 48px rgba(12, 21, 33, .28);
-      text-align: center;
-      min-width: min(540px, 92vw)
+      color: #111;
+      border-radius: 28px;
+      box-shadow: 0 20px 80px rgba(0, 0, 0, .45);
+      padding: 24px 22px 26px;
+      border: 1px solid rgba(0, 0, 0, .08)
     }
 
-    .start-lights {
-      display: flex;
-      gap: 10px;
+    .lights-wrap {
       background: #efefef;
-      padding: 12px 16px;
-      border-radius: 999px;
       border: 1px solid #e0e0e0;
-      margin: 0 auto;
-      max-width: 92%
+      border-radius: 999px;
+      padding: 14px 18px;
+      display: flex;
+      gap: 18px;
+      justify-content: flex-start;
+      align-items: center
     }
 
     .light {
-      width: 22px;
-      height: 22px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      background: #2b2b2b;
-      border: 1px solid rgba(0, 0, 0, .2)
+      background: #c2c2c2;
+      border: 1px solid rgba(0, 0, 0, .15)
     }
 
     .light.on.red {
@@ -311,80 +261,67 @@
     }
 
     .light.on.green {
-      background: #32a852
+      background: #44a947
     }
 
-    .seq-title {
-      margin: 10px 0 0;
-      font-weight: 900
+    .seq-legend {
+      margin: 18px 0 6px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 28px
     }
 
-    .seq-sub {
-      margin: 2px 0 0;
-      color: #6b7280;
-      font-size: 14px
+    .seq-replay {
+      margin: 0;
+      text-align: center;
+      color: #6a7280
     }
 
-    .winner-card {
-      display: none;
-      margin-top: 10px;
-      border-radius: 18px;
-      padding: 12px;
-      background: linear-gradient(180deg, #ffffff, #f6f8ff)
-    }
-
-    .winner-inner {
-      display: flex;
-      align-items: center;
-      gap: 14px
-    }
-
-    .wavatar {
-      width: 82px;
-      height: 82px;
-      border-radius: 16px;
-      object-fit: cover;
-      border: 1px solid #d9d9d9;
-      background: #eee
-    }
-
-    .winfo {
+    .card {
+      margin: 18px auto 0;
       display: grid;
-      gap: 3px;
-      text-align: left
+      grid-template-columns: 108px 1fr auto;
+      gap: 14px;
+      align-items: center;
+      padding: 14px;
+      border: 1px solid #eef0f4;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #fff, #f8faff)
     }
 
-    .wtitle {
-      font-weight: 900;
-      font-size: 18px
+    .card img {
+      width: 108px;
+      height: 108px;
+      border-radius: 16px;
+      object-fit: cover
     }
 
-    .wmeta {
+    .pills {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       flex-wrap: wrap
     }
 
-    .chip {
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--ring);
-      font-weight: 700;
-      font-size: 13px;
-      background: #fff
+    .pill {
+      padding: 8px 12px;
+      border: 1px solid #e3e6ee;
+      border-radius: 12px;
+      background: #fff;
+      font-weight: 800
     }
 
-    .wsub {
-      color: #6b7280;
-      font-size: 13px
-    }
-
-    .wbadge {
-      margin-left: auto;
-      font-weight: 900;
-      padding: 10px 12px;
+    .p1 {
+      width: 64px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #e3e6ee;
       border-radius: 14px;
-      border: 1px solid var(--ring);
+      background: #fff;
+      font-weight: 900
+    }
+
+    :root[data-theme="carlos"] .flag-btn {
       background: #fff
     }
   </style>
@@ -423,165 +360,151 @@
       </div>
 
       <div class="hub">
-        <a class="cta" href="projects.html">My Projects</a>
-        <a class="cta" href="about.html">About</a>
-        <a class="cta" href="contact.html">Contact</a>
+        <a class="btn" href="projects.html">My Projects</a>
+        <a class="btn" href="about.html">About</a>
+        <a class="btn" href="contact.html">Contact</a>
       </div>
     </div>
   </section>
 
   <footer>
-    <div class="container footer-row">
-      <div class="grow">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages
-      </div>
-      <div class="footer-right">
-        <span class="flag-label">Click to start sequence</span>
-        <button class="flag-btn" id="flagGo" title="Start lights + winner card">🏁</button>
-      </div>
+    <div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages
     </div>
   </footer>
 
-  <div class="sequence-overlay" id="seqOverlay" aria-live="polite">
-    <div class="sequence">
-      <div class="sequence-card">
-        <div class="start-lights" id="startLights">
-          <span class="light"></span><span class="light"></span><span class="light"></span><span
-            class="light"></span><span class="light"></span>
-        </div>
-        <p class="seq-title">Lights out and away we go!</p>
-        <p class="seq-sub">Tap 🏁 again to replay</p>
-        <div class="winner-card" id="winnerCard">
-          <div class="winner-inner">
-            <img class="wavatar" id="wAvatar" alt="">
-            <div class="winfo">
-              <div class="wtitle" id="wTitle"></div>
-              <div class="wmeta">
-                <span class="chip" id="wNumber"></span>
-                <span class="chip" id="wTeam"></span>
-                <span class="chip" id="wNat"></span>
-              </div>
-              <div class="wsub" id="wSub"></div>
-            </div>
-            <div class="wbadge" id="wBadge">P1</div>
+  <div class="flag-launch" aria-live="polite">
+    <span class="flag-tip">Tap to start →</span>
+    <button class="flag-btn" id="flagGo" title="Start lights + flag">🏁</button>
+  </div>
+
+  <div class="sequence-overlay" id="seqOverlay">
+    <div class="seq-card">
+      <div class="lights-wrap" id="lightsRow">
+        <span class="light" id="L1"></span>
+        <span class="light" id="L2"></span>
+        <span class="light" id="L3"></span>
+        <span class="light" id="L4"></span>
+        <span class="light" id="L5"></span>
+      </div>
+      <h2 class="seq-legend">Lights out and away we go!</h2>
+      <p class="seq-replay">Tap 🏁 again to replay</p>
+      <div class="card" id="winnerCard" style="display:none">
+        <img id="wImg" alt="">
+        <div>
+          <div id="wName" style="font:800 26px/1.2 Inter,system-ui"></div>
+          <div class="pills">
+            <div class="pill" id="wNum"></div>
+            <div class="pill" id="wTeam"></div>
+            <div class="pill" id="wNat"></div>
           </div>
+          <div id="wMeta" style="margin-top:8px;color:#374151;font-weight:700"></div>
         </div>
+        <div class="p1" id="wPos">P1</div>
       </div>
     </div>
   </div>
 
   <script src="assets/js/confetti.js"></script>
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear()
-    const root = document.documentElement
-    const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved)
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const root = document.documentElement;
+    const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved);
 
-    function setThemeAndConfetti(name) {
-      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos') }
-      if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando') }
+    function setTheme(name) {
+      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); kcConfetti.carlosConfetti(); }
+      if (name === 'lando') { root.setAttribute('data-theme', ''); localStorage.setItem('kc-theme', ''); kcConfetti.landoConfetti(); }
     }
-    document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); setThemeAndConfetti(b.dataset.theme) }))
-    document.getElementById('resetTheme').addEventListener('click', e => { e.stopPropagation(); root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfettiUnified() })
+    document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); setTheme(b.dataset.theme); }));
+    document.getElementById('resetTheme').addEventListener('click', e => { e.stopPropagation(); root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); kcConfetti.resetEmojiConfetti(); });
 
-    const TEAM_COLORS = { "Red Bull": ["#1e41ff", "#ffde00", "#e10600"], "Ferrari": ["#e10600", "#000", "#fff200"], "McLaren": ["#ff8000", "#00a0de", "#111"], "Mercedes": ["#00a19b", "#000", "#c0c0c0"], "Aston Martin": ["#00665e", "#ffd700", "#003e38"], "Williams": ["#00a0ff", "#001b3a", "#ffffff"], "Alpine": ["#ff69b4", "#000", "#00b3ff"], "RB": ["#001b3a", "#ffffff", "#ff2b2b"], "Kick Sauber": ["#006847", "#ffffff", "#d52b1e"], "Haas": ["#e10600", "#000", "#fff"] }
+    const overlay = document.getElementById('seqOverlay');
+    const lights = [1, 2, 3, 4, 5].map(i => document.getElementById('L' + i));
+    const card = document.getElementById('winnerCard');
+    const el = {
+      img: document.getElementById('wImg'),
+      name: document.getElementById('wName'),
+      num: document.getElementById('wNum'),
+      team: document.getElementById('wTeam'),
+      nat: document.getElementById('wNat'),
+      meta: document.getElementById('wMeta')
+    };
 
     const DRIVER_IMAGES = {
-      "Max Verstappen": { number: "1", img: "https://i.pinimg.com/736x/db/09/13/db0913972980b0ef004f82d66e9d6a82.jpg" },
-      "Yuki Tsunoda": { number: "22", img: "https://i.pinimg.com/736x/e7/52/4e/e7524ea95ec040f148412a1be120d50f.jpg" },
+      "Max Verstappen": { number: "1", img: "" },
+      "Yuki Tsunoda": { number: "22", img: "" },
       "Charles Leclerc": { number: "16", img: "https://i.pinimg.com/736x/63/ae/1b/63ae1b2000343836519aade2d3a4b6f7.jpg" },
-      "Lewis Hamilton": { number: "44", img: "https://i.pinimg.com/736x/56/ed/d3/56edd3cfe762ba4d1602774d1a190c67.jpg" },
-      "George Russell": { number: "63", img: "https://i.pinimg.com/736x/7f/dd/bc/7fddbc883419318d2651b19184f51496.jpg" },
-      "Kimi Antonelli": { number: "12", img: "https://i.pinimg.com/736x/25/5e/ad/255eadaf7b72ef3299add764c7517fd1.jpg" },
+      "Lewis Hamilton": { number: "44", img: "" },
+      "George Russell": { number: "63", img: "" },
+      "Kimi Antonelli": { number: "12", img: "" },
       "Lando Norris": { number: "4", img: "https://i.pinimg.com/1200x/bf/92/dc/bf92dcceb0a38fb4223add088d2dee5c.jpg" },
-      "Oscar Piastri": { number: "81", img: "https://i.pinimg.com/736x/84/dc/d1/84dcd1815774227c21c100e4ba24a4b3.jpg" },
-      "Liam Lawson": { number: "30", img: "https://i.pinimg.com/736x/be/b2/75/beb27524bc311f98e0cf9aba39874dfa.jpg" },
-      "Isack Hadjar": { number: "6", img: "https://i.pinimg.com/736x/91/99/51/91995154385797732801e76c6ee72351.jpg" },
-      "Fernando Alonso": { number: "14", img: "https://i.pinimg.com/736x/39/b0/3a/39b03abe0c24a2c4e4e871213bb60f83.jpg" },
-      "Lance Stroll": { number: "18", img: "https://i.pinimg.com/736x/81/70/30/817030e869314ba7ba5ba4aecce74b4d.jpg" },
-      "Alexander Albon": { number: "23", img: "https://i.pinimg.com/736x/1a/9f/f4/1a9ff4d0ec2318f6a0f5358f2c329d51.jpg" },
+      "Oscar Piastri": { number: "81", img: "" },
+      "Liam Lawson": { number: "30", img: "" },
+      "Isack Hadjar": { number: "6", img: "" },
+      "Fernando Alonso": { number: "14", img: "" },
+      "Lance Stroll": { number: "18", img: "" },
+      "Alexander Albon": { number: "23", img: "" },
       "Carlos Sainz": { number: "55", img: "https://i.pinimg.com/736x/5b/25/c8/5b25c8adf5bc8bb34831e5eae6fe0d59.jpg" },
-      "Pierre Gasly": { number: "10", img: "https://i.pinimg.com/736x/c6/1f/36/c61f360f00314644fc69975188daa1c8.jpg" },
-      "Franco Colapinto": { number: "7", img: "https://i.pinimg.com/736x/dd/e9/8c/dde98ca29bf331c5dffc3fd5f695353b.jpg" },
-      "Esteban Ocon": { number: "31", img: "https://i.pinimg.com/736x/03/a1/a1/03a1a1e842c76990ea4f11b612cac193.jpg" },
-      "Oliver Bearman": { number: "87", img: "https://i.pinimg.com/736x/02/08/e9/0208e9f1f70248040c745775c63e684f.jpg" },
-      "Nico Hülkenberg": { number: "27", img: "https://i.pinimg.com/736x/08/48/30/084830422b81cf2b7050dd0d9e5757bf.jpg" },
-      "Gabriel Bortoleto": { number: "5", img: "https://i.pinimg.com/736x/ab/e2/2d/abe22dce2129700892df4b74d52aab8e.jpg" }
-    }
+      "Pierre Gasly": { number: "10", img: "" },
+      "Franco Colapinto": { number: "7", img: "" },
+      "Esteban Ocon": { number: "31", img: "" },
+      "Oliver Bearman": { number: "87", img: "" },
+      "Nico Hülkenberg": { number: "27", img: "" },
+      "Gabriel Bortoleto": { number: "5", img: "" }
+    };
 
-    const ROTATION = [
-      { driver: "Lando Norris", team: "McLaren", nationality: "British" },
-      { driver: "Charles Leclerc", team: "Ferrari", nationality: "Monegasque" },
-      { driver: "Max Verstappen", team: "Red Bull", nationality: "Dutch" },
-      { driver: "Lewis Hamilton", team: "Mercedes", nationality: "British" },
-      { driver: "Carlos Sainz", team: "Ferrari", nationality: "Spanish" },
-      { driver: "Oscar Piastri", team: "McLaren", nationality: "Australian" },
-      { driver: "Fernando Alonso", team: "Aston Martin", nationality: "Spanish" },
-      { driver: "George Russell", team: "Mercedes", nationality: "British" }
-    ]
-
-    const overlay = document.getElementById('seqOverlay')
-    const lights = [...document.querySelectorAll('.light')]
-    const winnerCard = document.getElementById('winnerCard')
-    const wAvatar = document.getElementById('wAvatar')
-    const wTitle = document.getElementById('wTitle')
-    const wNumber = document.getElementById('wNumber')
-    const wTeam = document.getElementById('wTeam')
-    const wNat = document.getElementById('wNat')
-    const wSub = document.getElementById('wSub')
-
-    async function fetchLatestWinner() {
+    async function fetchLastWinner() {
+      // Try free Ergast endpoint; fallback to static
       try {
-        const r = await fetch('https://ergast.com/api/f1/current/last/results.json', { cache: 'no-store' })
-        const j = await r.json()
-        const race = j?.MRData?.RaceTable?.Races?.[0]
-        const res = race?.Results?.[0]
-        if (!res) throw 0
-        return {
-          driver: res.Driver.givenName + ' ' + res.Driver.familyName,
-          team: res.Constructor.name,
-          nationality: res.Driver.nationality || '',
-          number: res.Driver.permanentNumber || '',
-          race: race?.raceName || 'Grand Prix'
-        }
-      } catch (e) {
-        const i = (function (d) { d.setHours(0, 0, 0, 0); const onejan = new Date(d.getFullYear(), 0, 1); return Math.ceil((((d - onejan) / 86400000) + onejan.getDay() + 1) / 7) })(new Date())
-        const pick = ROTATION[i % ROTATION.length]
-        return { driver: pick.driver, team: pick.team, nationality: pick.nationality, number: (DRIVER_IMAGES[pick.driver]?.number || ''), race: 'Grand Prix' }
+        const r = await fetch('https://ergast.com/api/f1/current/last/results.json', { mode: 'cors' });
+        if (!r.ok) throw new Error('bad');
+        const j = await r.json();
+        const race = j?.MRData?.RaceTable?.Races?.[0];
+        const res = race?.Results?.[0];
+        if (!race || !res) throw new Error('no data');
+        const name = res.Driver.givenName + ' ' + res.Driver.familyName;
+        const team = res.Constructor.name.replace('Team', '').trim();
+        const nat = res.Driver.nationality || '';
+        const number = res.number || DRIVER_IMAGES[name]?.number || '';
+        return { name, team, nat, number, gp: race.raceName };
+      } catch {
+        // Fallback sample
+        return { name: 'Charles Leclerc', team: 'Ferrari', nat: 'Monegasque', number: DRIVER_IMAGES['Charles Leclerc'].number, gp: 'Grand Prix' };
       }
     }
 
-    function showWinnerCard(data) {
-      const manual = DRIVER_IMAGES[data.driver] || {}
-      const teamColors = TEAM_COLORS[data.team] || ['#ffd166', '#6ee7b7', '#93c5fd']
-      wTitle.textContent = data.driver
-      wNumber.textContent = manual.number ? ('#' + manual.number) : (data.number ? ('#' + data.number) : '#–')
-      wTeam.textContent = data.team || '—'
-      wNat.textContent = '🏁 ' + (data.nationality || '—')
-      wSub.textContent = (data.race || 'Grand Prix') + ' • ' + (data.team || '—')
-      if (manual.img) { wAvatar.src = manual.img; wAvatar.alt = data.driver } else { wAvatar.removeAttribute('src'); wAvatar.alt = '' }
-      winnerCard.style.display = 'block'
-      startWinnerConfetti(teamColors)
+    function showCard(data) {
+      const img = (DRIVER_IMAGES[data.name]?.img) || '';
+      el.img.src = img || 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png';
+      el.name.textContent = data.name;
+      el.num.textContent = '#' + (data.number || '');
+      el.team.textContent = data.team;
+      el.nat.innerHTML = '🏁 ' + (data.nat || '');
+      el.meta.textContent = data.gp + ' • ' + data.team;
+      card.style.display = '';
+      kcConfetti.teamConfetti(data.team);
     }
 
-    function runSequence() {
-      overlay.style.display = 'flex'
-      winnerCard.style.display = 'none'
-      lights.forEach(l => l.classList.remove('on', 'red', 'green'))
-      let i = 0
-      const tick = setInterval(() => {
-        if (i < 5) { lights[i].classList.add('on', 'red'); i++ }
-        else {
-          clearInterval(tick)
-          setTimeout(async () => {
-            lights.forEach(l => l.classList.remove('red'))
-            lights.forEach(l => l.classList.add('on', 'green'))
-            const w = await fetchLatestWinner()
-            showWinnerCard(w)
-            setTimeout(() => { overlay.style.display = 'none' }, 5200)
-          }, 420)
+    async function runSequence() {
+      overlay.style.display = 'flex';
+      card.style.display = 'none';
+      lights.forEach(l => l.className = 'light');
+      let i = 0;
+      const red = setInterval(() => {
+        if (i < 5) { lights[i].classList.add('on', 'red'); i++; } else {
+          clearInterval(red);
+          setTimeout(() => {
+            lights.forEach(l => { l.classList.remove('red'); l.classList.add('on', 'green'); });
+            setTimeout(async () => {
+              lights.forEach(l => l.classList.remove('on', 'green'));
+              const data = await fetchLastWinner();
+              showCard(data);
+            }, 450);
+          }, 250);
         }
-      }, 230)
+      }, 260);
     }
-    document.getElementById('flagGo').addEventListener('click', e => { e.stopPropagation(); runSequence() })
+    document.getElementById('flagGo').addEventListener('click', e => { e.stopPropagation(); runSequence(); });
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.style.display = 'none'; });
   </script>
 </body>
 
