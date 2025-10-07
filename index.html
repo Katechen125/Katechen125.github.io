@@ -5,14 +5,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Katherine Isabela Hsiung Chen — Pole Position 🏁</title>
-
   <link rel="icon" type="image/svg+xml"
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
-
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap"
     rel="stylesheet">
-
   <style>
     :root {
       --bg: #f7faf9;
@@ -46,6 +43,10 @@
       --btn-bg: #232325;
       --btn-text: #f3f3f3;
       --btn-border: #3a3a3d
+    }
+
+    * {
+      box-sizing: border-box
     }
 
     body {
@@ -207,43 +208,80 @@
       box-shadow: 0 16px 36px rgba(12, 21, 33, .16)
     }
 
+    footer {
+      border-top: 1px solid var(--ring);
+      padding: 18px 0;
+      color: var(--muted)
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-right: 8px
+    }
+
+    .footer-row .grow {
+      flex: 1;
+      text-align: center
+    }
+
+    .flag-label {
+      font-weight: 800
+    }
+
+    .flag-btn {
+      appearance: none;
+      border: 1px solid var(--ring);
+      background: #fff;
+      padding: 10px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 18px;
+      margin-left: auto;
+      transform: translateX(6px)
+    }
+
     .sequence-overlay {
       position: fixed;
       inset: 0;
       display: none;
       align-items: center;
       justify-content: center;
-      background: rgba(0, 0, 0, .75);
-      backdrop-filter: blur(16px);
+      background: rgba(0, 0, 0, .6);
+      backdrop-filter: blur(8px);
       z-index: 50
     }
 
     .sequence {
       display: grid;
-      gap: 16px;
+      gap: 14px;
       justify-items: center
     }
 
     .sequence-card {
-      background: rgba(255, 255, 255, .95);
-      border-radius: 22px;
-      padding: 18px 22px;
-      box-shadow: 0 22px 48px rgba(12, 21, 33, .32)
+      background: rgba(255, 255, 255, .98);
+      border-radius: 20px;
+      padding: 16px 18px;
+      box-shadow: 0 22px 48px rgba(12, 21, 33, .28);
+      text-align: center
     }
 
     .start-lights {
       display: flex;
-      gap: 12px;
-      background: rgba(255, 255, 255, .8);
-      padding: 14px 18px;
-      border-radius: 40px
+      gap: 10px;
+      background: #efefef;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--ring)
     }
 
     .light {
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
-      background: #2b2b2b
+      background: #2b2b2b;
+      border: 1px solid rgba(0, 0, 0, .2)
     }
 
     .light.on.red {
@@ -254,12 +292,23 @@
       background: #14b314
     }
 
+    .seq-title {
+      margin: 8px 0 0;
+      font-weight: 800
+    }
+
+    .seq-sub {
+      margin: 2px 0 0;
+      color: #6b7280;
+      font-size: 14px
+    }
+
     .winner-card {
       display: none;
-      margin-top: 10px;
+      margin-top: 12px;
       border-radius: 18px;
-      padding: 16px;
-      background: linear-gradient(180deg, #ffffffee, #f6f8ffcc)
+      padding: 14px;
+      background: linear-gradient(180deg, #ffffff, #f6f8ff)
     }
 
     .winner-inner {
@@ -269,34 +318,23 @@
     }
 
     .wavatar {
-      width: 72px;
-      height: 72px;
-      border-radius: 14px;
+      width: 80px;
+      height: 80px;
+      border-radius: 16px;
       object-fit: cover;
-      border: 1px solid #ccc;
+      border: 1px solid #d9d9d9;
       background: #eee
     }
 
     .winfo {
       display: grid;
-      gap: 4px
+      gap: 4px;
+      text-align: left
     }
 
     .wtitle {
-      font-weight: 800
-    }
-
-    .wsub {
-      color: var(--muted);
-      font-size: 14px
-    }
-
-    .wbadge {
-      margin-left: auto;
-      font-weight: 800;
-      padding: 8px 10px;
-      border-radius: 12px;
-      border: 1px solid var(--ring)
+      font-weight: 900;
+      font-size: 18px
     }
 
     .wmeta {
@@ -314,36 +352,18 @@
       background: #fff
     }
 
-    footer {
-      border-top: 1px solid var(--ring);
-      padding: 18px 0;
-      color: var(--muted)
+    .wsub {
+      color: #6b7280;
+      font-size: 14px
     }
 
-    .footer-row {
-      display: flex;
-      align-items: center;
-      gap: 10px
-    }
-
-    .footer-row .grow {
-      flex: 1;
-      text-align: center
-    }
-
-    .flag-label {
-      font-weight: 700
-    }
-
-    .flag-btn {
-      appearance: none;
-      border: 1px solid var(--ring);
-      background: #fff;
+    .wbadge {
+      margin-left: auto;
+      font-weight: 900;
       padding: 10px 12px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-size: 18px;
-      margin-left: auto
+      border-radius: 14px;
+      border: 1px solid var(--ring);
+      background: #fff
     }
   </style>
 </head>
@@ -371,13 +391,13 @@
     <div class="container">
       <h1>Hi, I’m Katherine — Computer Science student (soon Simulation Engineering) building playful-aesthetic code.
       </h1>
-      <div class="driver-bar">
+      <div class="driver-bar" style="margin-top:10px">
         <span>Favorite drivers:</span>
         <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
         <button class="btn" data-theme="lando">Lando Norris</button>
         <button class="btn" id="resetTheme">Reset theme</button>
+        <span>(themed confetti)</span>
       </div>
-
       <div class="hub">
         <a class="cta" href="projects.html">My Projects</a>
         <a class="cta" href="about.html">About</a>
@@ -389,29 +409,31 @@
   <footer>
     <div class="container footer-row">
       <div class="grow">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS</div>
-      <span class="flag-label">Start the sequence?</span>
+      <span class="flag-label">Lights out and away we go!</span>
       <button class="flag-btn" id="flagGo">🏁</button>
     </div>
   </footer>
 
-  <div class="sequence-overlay" id="seqOverlay">
+  <div class="sequence-overlay" id="seqOverlay" aria-live="polite">
     <div class="sequence">
       <div class="sequence-card">
         <div class="start-lights" id="startLights">
           <span class="light"></span><span class="light"></span><span class="light"></span><span
             class="light"></span><span class="light"></span>
         </div>
+        <p class="seq-title">Lights out and away we go!</p>
+        <p class="seq-sub">Tap 🏁 again to replay</p>
         <div class="winner-card" id="winnerCard">
           <div class="winner-inner">
-            <img class="wavatar" id="wAvatar" alt="" />
+            <img class="wavatar" id="wAvatar" alt="">
             <div class="winfo">
-              <div class="wtitle" id="wTitle">Winner</div>
+              <div class="wtitle" id="wTitle"></div>
               <div class="wmeta">
-                <span class="chip" id="wNumber">#00</span>
-                <span class="chip" id="wTeam">Team</span>
-                <span class="chip" id="wNat">🏁 Nationality</span>
+                <span class="chip" id="wNumber"></span>
+                <span class="chip" id="wTeam"></span>
+                <span class="chip" id="wNat"></span>
               </div>
-              <div class="wsub" id="wSub">Race • Team</div>
+              <div class="wsub" id="wSub"></div>
             </div>
             <div class="wbadge" id="wBadge">P1</div>
           </div>
@@ -422,19 +444,14 @@
 
   <script src="assets/js/confetti.js"></script>
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('year').textContent = new Date().getFullYear()
+    const root = document.documentElement
+    const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved)
+    function setThemeAndConfetti(name) { if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos') } if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando') } }
+    document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); setThemeAndConfetti(b.dataset.theme) }))
+    document.getElementById('resetTheme').addEventListener('click', e => { e.stopPropagation(); root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfettiFast() })
 
-    const root = document.documentElement;
-    const saved = localStorage.getItem('kc-theme');
-    if (saved) root.setAttribute('data-theme', saved);
-
-    function setThemeAndConfetti(name) {
-      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
-      if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
-    }
-    document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti(); });
-
+    const TEAM_COLORS = { "Red Bull": ["#1e41ff", "#ffde00", "#e10600"], "Ferrari": ["#e10600", "#000", "#fff200"], "McLaren": ["#ff8000", "#00a0de", "#111"], "Mercedes": ["#00a19b", "#000", "#c0c0c0"], "Aston Martin": ["#00665e", "#ffd700", "#003e38"], "Williams": ["#00a0ff", "#001b3a", "#ffffff"], "Alpine": ["#ff69b4", "#000", "#00b3ff"], "RB": ["#001b3a", "#ffffff", "#ff2b2b"], "Kick Sauber": ["#006847", "#ffffff", "#d52b1e"], "Haas": ["#e10600", "#000", "#fff"] }
     const DRIVER_IMAGES = {
       "Max Verstappen": { number: "1", img: "https://i.pinimg.com/736x/db/09/13/db0913972980b0ef004f82d66e9d6a82.jpg" },
       "Yuki Tsunoda": { number: "22", img: "https://i.pinimg.com/736x/e7/52/4e/e7524ea95ec040f148412a1be120d50f.jpg" },
@@ -456,74 +473,73 @@
       "Oliver Bearman": { number: "87", img: "https://i.pinimg.com/736x/02/08/e9/0208e9f1f70248040c745775c63e684f.jpg" },
       "Nico Hülkenberg": { number: "27", img: "https://i.pinimg.com/736x/08/48/30/084830422b81cf2b7050dd0d9e5757bf.jpg" },
       "Gabriel Bortoleto": { number: "5", img: "https://i.pinimg.com/736x/ab/e2/2d/abe22dce2129700892df4b74d52aab8e.jpg" }
-    };
+    }
 
-    const overlay = document.getElementById('seqOverlay');
-    const lights = [...document.querySelectorAll('.light')];
-
-    const TEAM_COLORS = {
-      "Red Bull": ["#1e41ff", "#ffde00", "#e10600"],
-      "Ferrari": ["#e10600", "#000", "#fff200"],
-      "McLaren": ["#ff8000", "#00a0de", "#111"],
-      "Mercedes": ["#00a19b", "#000", "#c0c0c0"],
-      "Aston Martin": ["#00665e", "#ffd700", "#003e38"],
-      "Williams": ["#00a0ff", "#001b3a", "#ffffff"],
-      "Alpine": ["#ff69b4", "#000", "#00b3ff"],
-      "RB": ["#001b3a", "#ffffff", "#ff2b2b"],
-      "Kick Sauber": ["#006847", "#ffffff", "#d52b1e"],
-      "Haas": ["#e10600", "#000", "#fff"]
-    };
-
-    const FLAG = { British: "🇬🇧", Spanish: "🇪🇸", Japanese: "🇯🇵", Dutch: "🇳🇱", Australian: "🇦🇺", French: "🇫🇷", Italian: "🇮🇹", Canadian: "🇨🇦", German: "🇩🇪", Brazilian: "🇧🇷", Argentine: "🇦🇷", NewZealander: "🇳🇿", Thai: "🇹🇭" };
+    const overlay = document.getElementById('seqOverlay')
+    const lights = [...document.querySelectorAll('.light')]
+    const winnerCard = document.getElementById('winnerCard')
+    const wAvatar = document.getElementById('wAvatar')
+    const wTitle = document.getElementById('wTitle')
+    const wNumber = document.getElementById('wNumber')
+    const wTeam = document.getElementById('wTeam')
+    const wNat = document.getElementById('wNat')
+    const wSub = document.getElementById('wSub')
 
     async function fetchLatestWinner() {
       try {
-        const r = await fetch('https://ergast.com/api/f1/current/last/results.json');
-        const j = await r.json();
-        const race = j?.MRData?.RaceTable?.Races?.[0];
-        const res = race?.Results?.[0];
-        const d = res?.Driver, t = res?.Constructor?.name;
-        return { driver: d?.givenName + " " + d?.familyName, team: t, nationality: d?.nationality, number: d?.permanentNumber || "", race: race?.raceName };
-      } catch { return { driver: "Lando Norris", team: "McLaren", nationality: "British", number: "4", race: "Grand Prix" } }
+        const r = await fetch('https://ergast.com/api/f1/current/last/results.json', { cache: 'no-store' })
+        const j = await r.json()
+        const race = j?.MRData?.RaceTable?.Races?.[0]
+        const res = race?.Results?.[0]
+        const d = res?.Driver, t = res?.Constructor?.name
+        const driver = d ? d.givenName + " " + d.familyName : ""
+        const nationality = d?.nationality || ""
+        const number = d?.permanentNumber || ""
+        const data = { driver, team: t || "", nationality, number, race: race?.raceName || "Grand Prix" }
+        if (driver) localStorage.setItem('kc-lastWinner', JSON.stringify(data))
+        return data
+      } catch (e) {
+        const cached = localStorage.getItem('kc-lastWinner')
+        if (cached) return JSON.parse(cached)
+        return { driver: "", team: "", nationality: "", number: "", race: "Grand Prix" }
+      }
     }
 
     function showWinnerCard(data) {
-      const card = document.getElementById('winnerCard');
-      const wAvatar = document.getElementById('wAvatar'), wTitle = document.getElementById('wTitle'),
-        wNumber = document.getElementById('wNumber'), wTeam = document.getElementById('wTeam'),
-        wNat = document.getElementById('wNat'), wSub = document.getElementById('wSub');
-
-      const d = DRIVER_IMAGES[data.driver] || {};
-      wTitle.textContent = data.driver;
-      wNumber.textContent = d.number ? `#${d.number}` : `#${data.number || "--"}`;
-      wTeam.textContent = data.team;
-      wNat.textContent = `${FLAG[data.nationality] || "🏁"} ${data.nationality}`;
-      wSub.textContent = `${data.race} • ${data.team}`;
-      if (d.img) { wAvatar.src = d.img; wAvatar.alt = data.driver; }
-      card.style.display = 'block';
+      if (!data || !data.team || !data.driver) { winnerCard.style.display = 'none'; startWinnerConfetti(['#ffd166', '#6ee7b7', '#93c5fd']); return }
+      const manual = DRIVER_IMAGES[data.driver] || {}
+      const teamColors = TEAM_COLORS[data.team] || ['#ffd166', '#6ee7b7', '#93c5fd']
+      wTitle.textContent = data.driver
+      wNumber.textContent = manual.number ? ('#' + manual.number) : (data.number ? ('#' + data.number) : '#–')
+      wTeam.textContent = data.team
+      wNat.textContent = '🏁 ' + (data.nationality || '—')
+      wSub.textContent = (data.race || 'Grand Prix') + ' • ' + data.team
+      if (manual.img) { wAvatar.src = manual.img; wAvatar.alt = data.driver } else { wAvatar.removeAttribute('src'); wAvatar.alt = '' }
+      winnerCard.style.display = 'block'
+      startWinnerConfetti(teamColors)
     }
 
     function runSequence() {
-      overlay.style.display = 'flex';
-      lights.forEach(l => l.classList.remove('on', 'red', 'green'));
-      let i = 0;
-      const seq = setInterval(() => {
-        if (i < 5) { lights[i].classList.add('on', 'red'); i++; }
+      overlay.style.display = 'flex'
+      winnerCard.style.display = 'none'
+      lights.forEach(l => l.classList.remove('on', 'red', 'green'))
+      let i = 0
+      const tick = setInterval(() => {
+        if (i < 5) { lights[i].classList.add('on', 'red'); i++ }
         else {
-          clearInterval(seq);
+          clearInterval(tick)
           setTimeout(async () => {
-            lights.forEach(l => l.classList.remove('red'));
-            lights.forEach(l => l.classList.add('on', 'green'));
-            const winner = await fetchLatestWinner();
-            showWinnerCard(winner);
-            const colors = TEAM_COLORS[winner.team] || ['#ffd166', '#6ee7b7', '#93c5fd'];
-            startWinnerConfetti(colors);
-            setTimeout(() => { overlay.style.display = 'none'; }, 5200);
-          }, 520);
+            lights.forEach(l => l.classList.remove('red'))
+            lights.forEach(l => l.classList.add('on', 'green'))
+            const w = await fetchLatestWinner()
+            showWinnerCard(w)
+            setTimeout(() => { overlay.style.display = 'none' }, 5200)
+          }, 450)
         }
-      }, 280);
+      }, 250)
     }
-    document.getElementById('flagGo').addEventListener('click', runSequence);
+
+    document.getElementById('flagGo').addEventListener('click', e => { e.stopPropagation(); runSequence() })
   </script>
 </body>
 
