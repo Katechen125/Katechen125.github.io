@@ -26,6 +26,7 @@
 
     :root[data-theme="carlos"] {
       --bg: #dbe6ff;
+      --surface: #ffffff;
       --text: #0b1220;
       --muted: #3f527a;
       --accent: #0d347e;
@@ -41,8 +42,8 @@
       --muted: #e2e6ee;
       --accent: #ff8000;
       --btn-bg: #232325;
-      --btn-text: #f3f3f3;
-      --btn-border: #3a3a3d
+      --btn-text: #ffeede;
+      --btn-border: #ff9d3a
     }
 
     * {
@@ -193,7 +194,7 @@
       text-decoration: none;
       display: inline-block;
       cursor: pointer;
-      color: var(--text);
+      color: #111;
       font-weight: 800;
       font-size: 17px;
       padding: 14px 26px;
@@ -208,6 +209,12 @@
       box-shadow: 0 16px 36px rgba(12, 21, 33, .16)
     }
 
+    :root[data-theme="lando"] .cta {
+      color: #0d0d0e;
+      background: linear-gradient(180deg, #ffe3c6, #ffc388);
+      border-color: #ff9d3a
+    }
+
     footer {
       border-top: 1px solid var(--ring);
       padding: 18px 0;
@@ -217,8 +224,7 @@
     .footer-row {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding-right: 8px
+      gap: 10px
     }
 
     .footer-row .grow {
@@ -230,6 +236,14 @@
       font-weight: 800
     }
 
+    .footer-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-right: 6px
+    }
+
     .flag-btn {
       appearance: none;
       border: 1px solid var(--ring);
@@ -237,9 +251,13 @@
       padding: 10px 12px;
       border-radius: 999px;
       cursor: pointer;
-      font-size: 18px;
-      margin-left: auto;
-      transform: translateX(6px)
+      font-size: 18px
+    }
+
+    :root[data-theme="lando"] .flag-btn {
+      background: #1f1f21;
+      color: #fff;
+      border-color: #3a3a3d
     }
 
     .sequence-overlay {
@@ -248,37 +266,39 @@
       display: none;
       align-items: center;
       justify-content: center;
-      background: rgba(0, 0, 0, .6);
-      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, .64);
+      backdrop-filter: blur(10px);
       z-index: 50
     }
 
     .sequence {
       display: grid;
-      gap: 14px;
+      gap: 16px;
       justify-items: center
     }
 
     .sequence-card {
       background: rgba(255, 255, 255, .98);
-      border-radius: 20px;
-      padding: 16px 18px;
+      border-radius: 22px;
+      padding: 18px 20px;
       box-shadow: 0 22px 48px rgba(12, 21, 33, .28);
-      text-align: center
+      text-align: center;
+      min-width: min(560px, 92vw)
     }
 
     .start-lights {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       background: #efefef;
-      padding: 12px 16px;
+      padding: 14px 18px;
       border-radius: 999px;
-      border: 1px solid var(--ring)
+      border: 1px solid var(--ring);
+      margin: 0 auto
     }
 
     .light {
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       background: #2b2b2b;
       border: 1px solid rgba(0, 0, 0, .2)
@@ -293,8 +313,8 @@
     }
 
     .seq-title {
-      margin: 8px 0 0;
-      font-weight: 800
+      margin: 10px 0 0;
+      font-weight: 900
     }
 
     .seq-sub {
@@ -318,8 +338,8 @@
     }
 
     .wavatar {
-      width: 80px;
-      height: 80px;
+      width: 84px;
+      height: 84px;
       border-radius: 16px;
       object-fit: cover;
       border: 1px solid #d9d9d9;
@@ -409,8 +429,10 @@
   <footer>
     <div class="container footer-row">
       <div class="grow">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS</div>
-      <span class="flag-label">Lights out and away we go!</span>
-      <button class="flag-btn" id="flagGo">🏁</button>
+      <div class="footer-right">
+        <span class="flag-label">Click the flag to start</span>
+        <button class="flag-btn" id="flagGo">🏁</button>
+      </div>
     </div>
   </footer>
 
@@ -449,31 +471,10 @@
     const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved)
     function setThemeAndConfetti(name) { if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos') } if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando') } }
     document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); setThemeAndConfetti(b.dataset.theme) }))
-    document.getElementById('resetTheme').addEventListener('click', e => { e.stopPropagation(); root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfettiFast() })
+    document.getElementById('resetTheme').addEventListener('click', e => { e.stopPropagation(); root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfettiUnified() })
 
     const TEAM_COLORS = { "Red Bull": ["#1e41ff", "#ffde00", "#e10600"], "Ferrari": ["#e10600", "#000", "#fff200"], "McLaren": ["#ff8000", "#00a0de", "#111"], "Mercedes": ["#00a19b", "#000", "#c0c0c0"], "Aston Martin": ["#00665e", "#ffd700", "#003e38"], "Williams": ["#00a0ff", "#001b3a", "#ffffff"], "Alpine": ["#ff69b4", "#000", "#00b3ff"], "RB": ["#001b3a", "#ffffff", "#ff2b2b"], "Kick Sauber": ["#006847", "#ffffff", "#d52b1e"], "Haas": ["#e10600", "#000", "#fff"] }
-    const DRIVER_IMAGES = {
-      "Max Verstappen": { number: "1", img: "https://i.pinimg.com/736x/db/09/13/db0913972980b0ef004f82d66e9d6a82.jpg" },
-      "Yuki Tsunoda": { number: "22", img: "https://i.pinimg.com/736x/e7/52/4e/e7524ea95ec040f148412a1be120d50f.jpg" },
-      "Charles Leclerc": { number: "16", img: "https://i.pinimg.com/736x/63/ae/1b/63ae1b2000343836519aade2d3a4b6f7.jpg" },
-      "Lewis Hamilton": { number: "44", img: "https://i.pinimg.com/736x/56/ed/d3/56edd3cfe762ba4d1602774d1a190c67.jpg" },
-      "George Russell": { number: "63", img: "https://i.pinimg.com/736x/7f/dd/bc/7fddbc883419318d2651b19184f51496.jpg" },
-      "Kimi Antonelli": { number: "12", img: "https://i.pinimg.com/736x/25/5e/ad/255eadaf7b72ef3299add764c7517fd1.jpg" },
-      "Lando Norris": { number: "4", img: "https://i.pinimg.com/1200x/bf/92/dc/bf92dcceb0a38fb4223add088d2dee5c.jpg" },
-      "Oscar Piastri": { number: "81", img: "https://i.pinimg.com/736x/84/dc/d1/84dcd1815774227c21c100e4ba24a4b3.jpg" },
-      "Liam Lawson": { number: "30", img: "https://i.pinimg.com/736x/be/b2/75/beb27524bc311f98e0cf9aba39874dfa.jpg" },
-      "Isack Hadjar": { number: "6", img: "https://i.pinimg.com/736x/91/99/51/91995154385797732801e76c6ee72351.jpg" },
-      "Fernando Alonso": { number: "14", img: "https://i.pinimg.com/736x/39/b0/3a/39b03abe0c24a2c4e4e871213bb60f83.jpg" },
-      "Lance Stroll": { number: "18", img: "https://i.pinimg.com/736x/81/70/30/817030e869314ba7ba5ba4aecce74b4d.jpg" },
-      "Alexander Albon": { number: "23", img: "https://i.pinimg.com/736x/1a/9f/f4/1a9ff4d0ec2318f6a0f5358f2c329d51.jpg" },
-      "Carlos Sainz": { number: "55", img: "https://i.pinimg.com/736x/5b/25/c8/5b25c8adf5bc8bb34831e5eae6fe0d59.jpg" },
-      "Pierre Gasly": { number: "10", img: "https://i.pinimg.com/736x/c6/1f/36/c61f360f00314644fc69975188daa1c8.jpg" },
-      "Franco Colapinto": { number: "7", img: "https://i.pinimg.com/736x/dd/e9/8c/dde98ca29bf331c5dffc3fd5f695353b.jpg" },
-      "Esteban Ocon": { number: "31", img: "https://i.pinimg.com/736x/03/a1/a1/03a1a1e842c76990ea4f11b612cac193.jpg" },
-      "Oliver Bearman": { number: "87", img: "https://i.pinimg.com/736x/02/08/e9/0208e9f1f70248040c745775c63e684f.jpg" },
-      "Nico Hülkenberg": { number: "27", img: "https://i.pinimg.com/736x/08/48/30/084830422b81cf2b7050dd0d9e5757bf.jpg" },
-      "Gabriel Bortoleto": { number: "5", img: "https://i.pinimg.com/736x/ab/e2/2d/abe22dce2129700892df4b74d52aab8e.jpg" }
-    }
+    const DRIVER_IMAGES = { "Max Verstappen": { number: "1", img: "https://i.pinimg.com/736x/db/09/13/db0913972980b0ef004f82d66e9d6a82.jpg" }, "Yuki Tsunoda": { number: "22", img: "https://i.pinimg.com/736x/e7/52/4e/e7524ea95ec040f148412a1be120d50f.jpg" }, "Charles Leclerc": { number: "16", img: "https://i.pinimg.com/736x/63/ae/1b/63ae1b2000343836519aade2d3a4b6f7.jpg" }, "Lewis Hamilton": { number: "44", img: "https://i.pinimg.com/736x/56/ed/d3/56edd3cfe762ba4d1602774d1a190c67.jpg" }, "George Russell": { number: "63", img: "https://i.pinimg.com/736x/7f/dd/bc/7fddbc883419318d2651b19184f51496.jpg" }, "Kimi Antonelli": { number: "12", img: "https://i.pinimg.com/736x/25/5e/ad/255eadaf7b72ef3299add764c7517fd1.jpg" }, "Lando Norris": { number: "4", img: "https://i.pinimg.com/1200x/bf/92/dc/bf92dcceb0a38fb4223add088d2dee5c.jpg" }, "Oscar Piastri": { number: "81", img: "https://i.pinimg.com/736x/84/dc/d1/84dcd1815774227c21c100e4ba24a4b3.jpg" }, "Liam Lawson": { number: "30", img: "https://i.pinimg.com/736x/be/b2/75/beb27524bc311f98e0cf9aba39874dfa.jpg" }, "Isack Hadjar": { number: "6", img: "https://i.pinimg.com/736x/91/99/51/91995154385797732801e76c6ee72351.jpg" }, "Fernando Alonso": { number: "14", img: "https://i.pinimg.com/736x/39/b0/3a/39b03abe0c24a2c4e4e871213bb60f83.jpg" }, "Lance Stroll": { number: "18", img: "https://i.pinimg.com/736x/81/70/30/817030e869314ba7ba5ba4aecce74b4d.jpg" }, "Alexander Albon": { number: "23", img: "https://i.pinimg.com/736x/1a/9f/f4/1a9ff4d0ec2318f6a0f5358f2c329d51.jpg" }, "Carlos Sainz": { number: "55", img: "https://i.pinimg.com/736x/5b/25/c8/5b25c8adf5bc8bb34831e5eae6fe0d59.jpg" }, "Pierre Gasly": { number: "10", img: "https://i.pinimg.com/736x/c6/1f/36/c61f360f00314644fc69975188daa1c8.jpg" }, "Franco Colapinto": { number: "7", img: "https://i.pinimg.com/736x/dd/e9/8c/dde98ca29bf331c5dffc3fd5f695353b.jpg" }, "Esteban Ocon": { number: "31", img: "https://i.pinimg.com/736x/03/a1/a1/03a1a1e842c76990ea4f11b612cac193.jpg" }, "Oliver Bearman": { number: "87", img: "https://i.pinimg.com/736x/02/08/e9/0208e9f1f70248040c745775c63e684f.jpg" }, "Nico Hülkenberg": { number: "27", img: "https://i.pinimg.com/736x/08/48/30/084830422b81cf2b7050dd0d9e5757bf.jpg" }, "Gabriel Bortoleto": { number: "5", img: "https://i.pinimg.com/736x/ab/e2/2d/abe22dce2129700892df4b74d52aab8e.jpg" } }
 
     const overlay = document.getElementById('seqOverlay')
     const lights = [...document.querySelectorAll('.light')]
