@@ -13,7 +13,7 @@
   <style>
     :root {
       --bg: #0f0f10;
-      --surface: #1b1b1d;
+      --surface: #1b1bd;
       --text: #f3f4f6;
       --muted: #e2e6ee;
       --ring: #2d2f33;
@@ -205,6 +205,10 @@
       transform: translateY(-1px)
     }
 
+    :root[data-theme="lando"] .hub a {
+      color: #ffedd9
+    }
+
     footer {
       border-top: 1px solid var(--ring);
       padding: 18px 0;
@@ -214,9 +218,10 @@
     }
 
     .flag-cta {
-      position: fixed;
+      position: absolute;
       right: 18px;
-      bottom: 18px;
+      top: 50%;
+      transform: translateY(-50%);
       display: flex;
       align-items: center;
       gap: 12px;
@@ -276,7 +281,7 @@
       padding: 18px 26px;
       display: flex;
       gap: 22px;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: center
     }
 
@@ -359,10 +364,6 @@
       background: #fff
     }
 
-    :root[data-theme="lando"] .hub a {
-      color: #ffedd9
-    }
-
     :root[data-theme="lando"] .tag {
       background: #1f1f21;
       border-color: #34363a;
@@ -414,12 +415,11 @@
   <footer>
     <div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages
     </div>
+    <div class="flag-cta" aria-live="polite">
+      <div class="hint" id="flagHint">Tap 🏁 again to replay</div>
+      <button class="flag-btn" id="flagGo" title="Start lights sequence">🏁</button>
+    </div>
   </footer>
-
-  <div class="flag-cta" aria-live="polite">
-    <div class="hint" id="flagHint">Tap 🏁 again to replay</div>
-    <button class="flag-btn" id="flagGo" title="Start lights sequence">🏁</button>
-  </div>
 
   <div class="seq-overlay" id="seqOverlay">
     <div class="seq-card">
@@ -432,6 +432,7 @@
       </div>
       <div class="seq-title">Lights out and away we go!</div>
       <div class="seq-sub" id="seqSub">Tap again to replay</div>
+
       <div class="card-winner" id="winnerCard" style="display:none">
         <img id="winImg" alt="">
         <div>
@@ -449,139 +450,27 @@
   </div>
 
   <script src="assets/js/confetti.js"></script>
+  <script src="assets/js/driver-images.js"></script>
+  <script src="assets/js/index-sequence.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const root = document.documentElement;
-    const saved = localStorage.getItem('kc-theme'); if (saved) { root.setAttribute('data-theme', saved); }
+    const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved);
+
     prepareConfetti();
 
     function setThemeAndConfetti(name) {
       if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
       if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
-    document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', e => {
-      e.stopPropagation();
-      setThemeAndConfetti(b.dataset.theme);
-    }));
+    document.querySelectorAll('button[data-theme]').forEach(b => {
+      b.addEventListener('click', e => { e.stopPropagation(); setThemeAndConfetti(b.dataset.theme); });
+    });
     document.getElementById('resetTheme').addEventListener('click', e => {
       e.stopPropagation();
       root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti();
     });
-
-    const overlay = document.getElementById('seqOverlay');
-    const lights = [1, 2, 3, 4, 5].map(i => document.getElementById('L' + i));
-    const flagBtn = document.getElementById('flagGo');
-    const hint = document.getElementById('flagHint');
-
-    const DRIVER_IMAGES = {
-      "Max Verstappen": { number: "1", img: "" },
-      "Yuki Tsunoda": { number: "22", img: "" },
-      "Charles Leclerc": { number: "16", img: "" },
-      "Lewis Hamilton": { number: "44", img: "" },
-      "George Russell": { number: "63", img: "" },
-      "Kimi Antonelli": { number: "12", img: "" },
-      "Lando Norris": { number: "4", img: "" },
-      "Oscar Piastri": { number: "81", img: "" },
-      "Liam Lawson": { number: "30", img: "" },
-      "Isack Hadjar": { number: "6", img: "" },
-      "Fernando Alonso": { number: "14", img: "" },
-      "Lance Stroll": { number: "18", img: "" },
-      "Alexander Albon": { number: "23", img: "" },
-      "Carlos Sainz": { number: "55", img: "" },
-      "Pierre Gasly": { number: "10", img: "" },
-      "Franco Colapinto": { number: "7", img: "" },
-      "Esteban Ocon": { number: "31", img: "" },
-      "Oliver Bearman": { number: "87", img: "" },
-      "Nico Hülkenberg": { number: "27", img: "" },
-      "Gabriel Bortoleto": { number: "5", img: "" }
-    };
-
-    function ccToFlagEmoji(cc) {
-      if (!cc || cc.length !== 2) return '🏁';
-      const codePoints = [...cc.toUpperCase()].map(c => 127397 + c.charCodeAt(0));
-      return String.fromCodePoint(...codePoints);
-    }
-
-    async function getLatestWinner() {
-      try {
-        const sessions = await fetch('https://api.openf1.org/v1/sessions?session_type=Race&year=' + (new Date().getUTCFullYear()) + '&orderby=-date_start&limit=1').then(r => r.json());
-        const session = sessions && sessions[0];
-        if (!session) { return null; }
-        const sessionKey = session.session_key;
-        const results = await fetch('https://api.openf1.org/v1/results?session_key=' + sessionKey + '&position=1').then(r => r.json());
-        const r1 = results && results[0];
-        if (!r1) { return null; }
-        const drivers = await fetch('https://api.openf1.org/v1/drivers?driver_number=' + r1.driver_number + '&session_key=' + sessionKey).then(r => r.json());
-        const d = drivers && drivers[0];
-        const flag = ccToFlagEmoji(d && d.country_code || session.country_code || '');
-        const gp = session.meeting_name || (session.country_name ? session.country_name + " Grand Prix" : "Grand Prix");
-        return {
-          name: d ? d.full_name : r1.driver_name,
-          number: String(r1.driver_number),
-          team: r1.team_name || (d ? d.team_name : ''),
-          flag,
-          gp,
-          img: (DRIVER_IMAGES[(d ? d.full_name : r1.driver_name)] || {}).img || ''
-        };
-      } catch (e) {
-        return null;
-      }
-    }
-
-    function lightsSequence() {
-      overlay.style.display = 'flex';
-      lights.forEach(l => { l.className = 'seq-light'; });
-      let i = 0;
-      const t = setInterval(() => {
-        if (i < 5) { lights[i].classList.add('on', 'red'); i++; }
-        else {
-          clearInterval(t);
-          setTimeout(() => {
-            lights.forEach(l => { l.classList.remove('red'); l.classList.add('on', 'green'); });
-            startNormalConfetti();
-            setTimeout(() => { overlay.style.display = 'none'; lights.forEach(l => l.className = 'seq-light'); }, 1200);
-          }, 450);
-        }
-      }, 260);
-    }
-
-    async function runSequence() {
-      overlay.style.display = 'flex';
-      lights.forEach(l => { l.className = 'seq-light'; });
-      let i = 0;
-      const t = setInterval(() => {
-        if (i < 5) { lights[i].classList.add('on', 'red'); i++; }
-        else {
-          clearInterval(t);
-          setTimeout(async () => {
-            lights.forEach(l => { l.classList.remove('red'); l.classList.add('on', 'green'); });
-            const win = await getLatestWinner();
-            if (win) {
-              document.getElementById('winnerCard').style.display = 'grid';
-              document.getElementById('winName').textContent = win.name;
-              document.getElementById('winNum').textContent = '#' + win.number;
-              document.getElementById('winTeam').textContent = win.team || 'Team';
-              document.getElementById('winNat').textContent = win.flag;
-              document.getElementById('winGP').textContent = win.gp + ' • ' + (win.team || '');
-              const img = document.getElementById('winImg');
-              if (win.img) { img.src = win.img; img.alt = win.name; } else { img.src = 'https://images.placeholders.dev/?width=192&height=192&text=%F0%9F%8F%81'; img.alt = ''; }
-              hint.textContent = 'Tap ' + win.flag + ' again to replay';
-            } else {
-              document.getElementById('winnerCard').style.display = 'none';
-              hint.textContent = 'Tap 🏁 again to replay';
-            }
-            startNormalConfetti();
-            setTimeout(() => { lights.forEach(l => l.classList.remove('on', 'green')); }, 1100);
-            setTimeout(() => { overlay.style.display = 'none'; }, 2000);
-          }, 450);
-        }
-      }, 260);
-    }
-
-    flagBtn.addEventListener('click', e => { e.stopPropagation(); runSequence(); });
-    document.addEventListener('click', () => { });
-
   </script>
 </body>
 
