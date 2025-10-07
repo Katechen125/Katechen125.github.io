@@ -17,7 +17,7 @@
       --text: #f3f4f6;
       --muted: #e2e6ee;
       --ring: #2d2f33;
-      --accent: #ff8000;
+      --accent: #6fa387;
       --btn-bg: #232325;
       --btn-text: #f3f3f3;
       --btn-border: #3a3a3d;
@@ -26,7 +26,7 @@
 
     :root[data-theme="carlos"] {
       --bg: #dbe6ff;
-      --surface: #ffffff;
+      --surface: #fff;
       --text: #0b1220;
       --muted: #3f527a;
       --ring: rgba(0, 0, 0, .12);
@@ -34,6 +34,18 @@
       --btn-bg: #fff;
       --btn-text: #0b1220;
       --btn-border: #3260b3
+    }
+
+    :root[data-theme="lando"] {
+      --bg: #0f0f10;
+      --surface: #1b1b1d;
+      --text: #f3f4f6;
+      --muted: #e2e6ee;
+      --ring: #2d2f33;
+      --accent: #ff8000;
+      --btn-bg: #232325;
+      --btn-text: #f3f3f3;
+      --btn-border: #3a3a3d
     }
 
     * {
@@ -126,6 +138,12 @@
       border-color: #0d347e
     }
 
+    :root[data-theme="lando"] .avatar-badge {
+      background: #fff url("https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png") center/80% no-repeat;
+      font-size: 0;
+      border-color: #ff8000
+    }
+
     .hero {
       display: grid;
       place-items: center;
@@ -172,16 +190,19 @@
       margin-top: 20px
     }
 
-    .hub .btn {
+    .hub a {
       padding: 14px 22px;
       border-radius: 999px;
       font-size: 17px;
-      box-shadow: 0 4px 0 rgba(0, 0, 0, .18);
-      transition: transform .08s
+      border: 1px solid var(--btn-border);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 94%, transparent), color-mix(in oklab, var(--surface) 98%, transparent));
+      box-shadow: 0 8px 18px rgba(0, 0, 0, .18), inset 0 1px 0 rgba(255, 255, 255, .06);
+      text-decoration: none;
+      color: var(--btn-text)
     }
 
-    .hub .btn:active {
-      transform: translateY(2px)
+    .hub a:hover {
+      transform: translateY(-1px)
     }
 
     footer {
@@ -192,134 +213,160 @@
       position: relative
     }
 
-    .flag-launch {
+    .flag-cta {
       position: fixed;
-      right: 12px;
+      right: 18px;
       bottom: 18px;
-      z-index: 12;
       display: flex;
-      align-items: baseline;
-      gap: 10px
+      align-items: center;
+      gap: 12px;
+      z-index: 11
     }
 
-    .flag-tip {
+    .flag-cta .hint {
       color: var(--muted);
       font-weight: 700
     }
 
-    .flag-btn {
+    .flag-cta .flag-btn {
       appearance: none;
       border: 1px solid var(--ring);
       background: #fff;
-      padding: 10px 12px;
+      color: #111;
+      width: 64px;
+      height: 64px;
       border-radius: 999px;
-      cursor: pointer;
-      font-size: 18px
+      display: grid;
+      place-items: center;
+      font-size: 26px
     }
 
-    .sequence-overlay {
+    :root[data-theme="lando"] .flag-cta .flag-btn {
+      background: #2a2a2a;
+      color: #fff;
+      border-color: #444
+    }
+
+    .seq-overlay {
       position: fixed;
       inset: 0;
       display: none;
       align-items: center;
       justify-content: center;
       background: rgba(0, 0, 0, .45);
-      backdrop-filter: blur(6px);
-      z-index: 11
+      backdrop-filter: blur(8px);
+      z-index: 12
     }
 
     .seq-card {
-      width: min(920px, 92%);
-      background: #fff;
-      color: #111;
+      width: min(920px, 92vw);
       border-radius: 28px;
-      box-shadow: 0 20px 80px rgba(0, 0, 0, .45);
-      padding: 24px 22px 26px;
-      border: 1px solid rgba(0, 0, 0, .08)
+      background: #fff;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, .45);
+      padding: 28px 26px 22px;
+      color: #0b1220
     }
 
-    .lights-wrap {
-      background: #efefef;
-      border: 1px solid #e0e0e0;
-      border-radius: 999px;
-      padding: 14px 18px;
+    .seq-tray {
+      margin: 0 auto 18px;
+      width: 100%;
+      background: #eee;
+      border: 2px solid #ddd;
+      border-radius: 64px;
+      padding: 18px 26px;
       display: flex;
-      gap: 18px;
-      justify-content: center;
+      gap: 22px;
+      justify-content: flex-start;
       align-items: center
     }
 
-    .light {
-      width: 40px;
-      height: 40px;
+    .seq-light {
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      background: #c2c2c2;
-      border: 1px solid rgba(0, 0, 0, .15)
+      background: #333;
+      border: 2px solid rgba(0, 0, 0, .25)
     }
 
-    .light.on.red {
-      background: #d10c0c
+    .seq-light.on.red {
+      background: #c61b1b
     }
 
-    .light.on.green {
-      background: #44a947
+    .seq-light.on.green {
+      background: #56b157
     }
 
-    .seq-legend {
-      margin: 18px 0 6px;
+    .seq-title {
+      font: 700 28px/1.2 "Playfair Display", serif;
       text-align: center;
-      font-weight: 800;
-      font-size: 28px
+      margin: 4px 0 8px
     }
 
-    .seq-replay {
-      margin: 0;
+    .seq-sub {
+      font-weight: 700;
       text-align: center;
-      color: #6a7280
+      color: #6b7280
     }
 
-    .card {
-      margin: 18px auto 0;
+    .card-winner {
+      margin: 16px auto 4px;
       display: grid;
-      grid-template-columns: 108px 1fr auto;
-      gap: 14px;
+      grid-template-columns: 96px 1fr auto;
+      gap: 16px;
       align-items: center;
-      padding: 14px;
-      border: 1px solid #eef0f4;
-      border-radius: 20px;
-      background: linear-gradient(180deg, #fff, #f8faff)
+      width: min(780px, 92vw);
+      background: linear-gradient(180deg, #fff, rgba(240, 244, 255, .6));
+      border: 1px solid #e6e7ea;
+      border-radius: 18px;
+      padding: 14px 16px
     }
 
-    .card img {
-      width: 108px;
-      height: 108px;
+    .card-winner img {
+      width: 96px;
+      height: 96px;
       border-radius: 16px;
       object-fit: cover
     }
 
-    .pills {
+    .win-name {
+      font: 700 22px/1.2 Inter, system-ui
+    }
+
+    .win-tags {
       display: flex;
       gap: 10px;
-      flex-wrap: wrap
+      flex-wrap: wrap;
+      margin-top: 6px
     }
 
-    .pill {
-      padding: 8px 12px;
-      border: 1px solid #e3e6ee;
-      border-radius: 12px;
-      background: #fff;
-      font-weight: 800
+    .tag {
+      border: 1px solid #e0e2e6;
+      background: #f6f8fb;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-weight: 700
     }
 
-    .p1 {
-      width: 64px;
-      height: 56px;
+    .badge-p1 {
+      width: 54px;
+      height: 54px;
+      border: 1px solid #e0e2e6;
+      border-radius: 14px;
       display: grid;
       place-items: center;
-      border: 1px solid #e3e6ee;
-      border-radius: 14px;
-      background: #fff;
-      font-weight: 900
+      font-weight: 800;
+      color: #9aa0a6;
+      background: #fff
+    }
+
+    :root[data-theme="lando"] .hub a {
+      color: #ffedd9
+    }
+
+    :root[data-theme="lando"] .tag {
+      background: #1f1f21;
+      border-color: #34363a;
+      color: #ffedd9
     }
   </style>
 </head>
@@ -357,9 +404,9 @@
       </div>
 
       <div class="hub">
-        <a class="btn" href="projects.html">My Projects</a>
-        <a class="btn" href="about.html">About</a>
-        <a class="btn" href="contact.html">Contact</a>
+        <a href="projects.html">My Projects</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
       </div>
     </div>
   </section>
@@ -369,42 +416,173 @@
     </div>
   </footer>
 
-  <div class="flag-launch" aria-live="polite">
-    <span class="flag-tip" id="replayTip">Tap 🏁 to start</span>
-    <button class="flag-btn" id="flagGo" title="Start lights + winner card">🏁</button>
+  <div class="flag-cta" aria-live="polite">
+    <div class="hint" id="flagHint">Tap 🏁 again to replay</div>
+    <button class="flag-btn" id="flagGo" title="Start lights sequence">🏁</button>
   </div>
 
-  <div class="sequence-overlay" id="seqOverlay">
+  <div class="seq-overlay" id="seqOverlay">
     <div class="seq-card">
-      <div class="lights-wrap">
-        <span class="light" id="L1"></span>
-        <span class="light" id="L2"></span>
-        <span class="light" id="L3"></span>
-        <span class="light" id="L4"></span>
-        <span class="light" id="L5"></span>
+      <div class="seq-tray" id="tray">
+        <span class="seq-light" id="L1"></span>
+        <span class="seq-light" id="L2"></span>
+        <span class="seq-light" id="L3"></span>
+        <span class="seq-light" id="L4"></span>
+        <span class="seq-light" id="L5"></span>
       </div>
-      <h2 class="seq-legend" id="seqTitle">Lights out and away we go!</h2>
-      <p class="seq-replay">Tap 🏁 again to replay</p>
-
-      <div class="card" id="winnerCard" style="display:none">
-        <img id="wImg" alt="">
+      <div class="seq-title">Lights out and away we go!</div>
+      <div class="seq-sub" id="seqSub">Tap again to replay</div>
+      <div class="card-winner" id="winnerCard" style="display:none">
+        <img id="winImg" alt="">
         <div>
-          <h3 id="wName" style="margin:0 0 6px;font-size:26px;line-height:1.1"></h3>
-          <div class="pills">
-            <div class="pill" id="wNum"></div>
-            <div class="pill" id="wTeam"></div>
-            <div class="pill" id="wNat"></div>
+          <div class="win-name" id="winName"></div>
+          <div class="win-tags">
+            <span class="tag" id="winNum"></span>
+            <span class="tag" id="winTeam"></span>
+            <span class="tag" id="winNat"></span>
           </div>
-          <div id="wMeta" style="margin-top:8px;color:#445065;font-weight:700"></div>
+          <div class="seq-sub" id="winGP" style="text-align:left;margin-top:6px"></div>
         </div>
-        <div class="p1">P1</div>
+        <div class="badge-p1">P1</div>
       </div>
     </div>
   </div>
 
   <script src="assets/js/confetti.js"></script>
-  <script src="assets/js/driver-images.js"></script>
-  <script src="assets/js/index-sequence.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const root = document.documentElement;
+    const saved = localStorage.getItem('kc-theme'); if (saved) { root.setAttribute('data-theme', saved); }
+    prepareConfetti();
+
+    function setThemeAndConfetti(name) {
+      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
+      if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
+    }
+    document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', e => {
+      e.stopPropagation();
+      setThemeAndConfetti(b.dataset.theme);
+    }));
+    document.getElementById('resetTheme').addEventListener('click', e => {
+      e.stopPropagation();
+      root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti();
+    });
+
+    const overlay = document.getElementById('seqOverlay');
+    const lights = [1, 2, 3, 4, 5].map(i => document.getElementById('L' + i));
+    const flagBtn = document.getElementById('flagGo');
+    const hint = document.getElementById('flagHint');
+
+    const DRIVER_IMAGES = {
+      "Max Verstappen": { number: "1", img: "" },
+      "Yuki Tsunoda": { number: "22", img: "" },
+      "Charles Leclerc": { number: "16", img: "" },
+      "Lewis Hamilton": { number: "44", img: "" },
+      "George Russell": { number: "63", img: "" },
+      "Kimi Antonelli": { number: "12", img: "" },
+      "Lando Norris": { number: "4", img: "" },
+      "Oscar Piastri": { number: "81", img: "" },
+      "Liam Lawson": { number: "30", img: "" },
+      "Isack Hadjar": { number: "6", img: "" },
+      "Fernando Alonso": { number: "14", img: "" },
+      "Lance Stroll": { number: "18", img: "" },
+      "Alexander Albon": { number: "23", img: "" },
+      "Carlos Sainz": { number: "55", img: "" },
+      "Pierre Gasly": { number: "10", img: "" },
+      "Franco Colapinto": { number: "7", img: "" },
+      "Esteban Ocon": { number: "31", img: "" },
+      "Oliver Bearman": { number: "87", img: "" },
+      "Nico Hülkenberg": { number: "27", img: "" },
+      "Gabriel Bortoleto": { number: "5", img: "" }
+    };
+
+    function ccToFlagEmoji(cc) {
+      if (!cc || cc.length !== 2) return '🏁';
+      const codePoints = [...cc.toUpperCase()].map(c => 127397 + c.charCodeAt(0));
+      return String.fromCodePoint(...codePoints);
+    }
+
+    async function getLatestWinner() {
+      try {
+        const sessions = await fetch('https://api.openf1.org/v1/sessions?session_type=Race&year=' + (new Date().getUTCFullYear()) + '&orderby=-date_start&limit=1').then(r => r.json());
+        const session = sessions && sessions[0];
+        if (!session) { return null; }
+        const sessionKey = session.session_key;
+        const results = await fetch('https://api.openf1.org/v1/results?session_key=' + sessionKey + '&position=1').then(r => r.json());
+        const r1 = results && results[0];
+        if (!r1) { return null; }
+        const drivers = await fetch('https://api.openf1.org/v1/drivers?driver_number=' + r1.driver_number + '&session_key=' + sessionKey).then(r => r.json());
+        const d = drivers && drivers[0];
+        const flag = ccToFlagEmoji(d && d.country_code || session.country_code || '');
+        const gp = session.meeting_name || (session.country_name ? session.country_name + " Grand Prix" : "Grand Prix");
+        return {
+          name: d ? d.full_name : r1.driver_name,
+          number: String(r1.driver_number),
+          team: r1.team_name || (d ? d.team_name : ''),
+          flag,
+          gp,
+          img: (DRIVER_IMAGES[(d ? d.full_name : r1.driver_name)] || {}).img || ''
+        };
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function lightsSequence() {
+      overlay.style.display = 'flex';
+      lights.forEach(l => { l.className = 'seq-light'; });
+      let i = 0;
+      const t = setInterval(() => {
+        if (i < 5) { lights[i].classList.add('on', 'red'); i++; }
+        else {
+          clearInterval(t);
+          setTimeout(() => {
+            lights.forEach(l => { l.classList.remove('red'); l.classList.add('on', 'green'); });
+            startNormalConfetti();
+            setTimeout(() => { overlay.style.display = 'none'; lights.forEach(l => l.className = 'seq-light'); }, 1200);
+          }, 450);
+        }
+      }, 260);
+    }
+
+    async function runSequence() {
+      overlay.style.display = 'flex';
+      lights.forEach(l => { l.className = 'seq-light'; });
+      let i = 0;
+      const t = setInterval(() => {
+        if (i < 5) { lights[i].classList.add('on', 'red'); i++; }
+        else {
+          clearInterval(t);
+          setTimeout(async () => {
+            lights.forEach(l => { l.classList.remove('red'); l.classList.add('on', 'green'); });
+            const win = await getLatestWinner();
+            if (win) {
+              document.getElementById('winnerCard').style.display = 'grid';
+              document.getElementById('winName').textContent = win.name;
+              document.getElementById('winNum').textContent = '#' + win.number;
+              document.getElementById('winTeam').textContent = win.team || 'Team';
+              document.getElementById('winNat').textContent = win.flag;
+              document.getElementById('winGP').textContent = win.gp + ' • ' + (win.team || '');
+              const img = document.getElementById('winImg');
+              if (win.img) { img.src = win.img; img.alt = win.name; } else { img.src = 'https://images.placeholders.dev/?width=192&height=192&text=%F0%9F%8F%81'; img.alt = ''; }
+              hint.textContent = 'Tap ' + win.flag + ' again to replay';
+            } else {
+              document.getElementById('winnerCard').style.display = 'none';
+              hint.textContent = 'Tap 🏁 again to replay';
+            }
+            startNormalConfetti();
+            setTimeout(() => { lights.forEach(l => l.classList.remove('on', 'green')); }, 1100);
+            setTimeout(() => { overlay.style.display = 'none'; }, 2000);
+          }, 450);
+        }
+      }, 260);
+    }
+
+    flagBtn.addEventListener('click', e => { e.stopPropagation(); runSequence(); });
+    document.addEventListener('click', () => { });
+
+  </script>
 </body>
 
 </html>
