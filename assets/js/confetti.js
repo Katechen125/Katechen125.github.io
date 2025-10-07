@@ -5,102 +5,80 @@
     mclaren: "https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png",
     ln4: "https://images.seeklogo.com/logo-png/44/2/lando-norris-logo-png_seeklogo-445536.png"
   };
-
   const IMAGES = {};
   for (const k in IMG_SRC) { const img = new Image(); img.src = IMG_SRC[k]; IMAGES[k] = img; }
 
-  let cvs, ctx, W = 0, H = 0, DPR = Math.max(1, window.devicePixelRatio || 1), rafId = null, prepared = false;
+  let cvs, ctx, W = 0, H = 0, DPR = 1, rafId = null;
 
   function ensureCanvas() {
     if (cvs) return;
+    DPR = Math.max(1, window.devicePixelRatio || 1);
     cvs = document.createElement('canvas');
     cvs.id = 'kc-confetti';
-    Object.assign(cvs.style, { position: 'fixed', inset: '0', pointerEvents: 'none', zIndex: '100' });
+    Object.assign(cvs.style, { position: 'fixed', inset: '0', pointerEvents: 'none', zIndex: '0' });
     document.body.appendChild(cvs);
     ctx = cvs.getContext('2d');
-    resize();
-    addEventListener('resize', resize);
+    resize(); addEventListener('resize', resize);
   }
   function resize() { if (!cvs) return; W = cvs.width = Math.floor(innerWidth * DPR); H = cvs.height = Math.floor(innerHeight * DPR); }
 
-  function makePartsRect(colors, n) {
-    return Array.from({ length: n }, () => ({
-      x: Math.random() * W, y: -Math.random() * H * 0.45,
-      vx: (Math.random() * 2 - 1) * 0.9 * DPR, vy: (1.8 + Math.random() * 2.2) * DPR,
-      rot: Math.random() * Math.PI, vr: (Math.random() * 0.28 - 0.14),
-      color: colors[(Math.random() * colors.length) | 0], w: 6 * DPR, h: 10 * DPR
-    }));
-  }
-  function makePartsLabeled(colors, labels, n, imgSize, textPx) {
-    return Array.from({ length: n }, () => ({
-      x: Math.random() * W, y: -Math.random() * H * 0.5,
-      vx: (Math.random() * 2 - 1) * 0.8 * DPR, vy: (2 + Math.random() * 2) * DPR,
-      rot: Math.random() * Math.PI, vr: (Math.random() * 0.2 - 0.1),
-      color: colors[(Math.random() * colors.length) | 0],
-      label: labels[(Math.random() * labels.length) | 0],
-      imgSize, textPx
-    }));
-  }
-
-  function run(parts, durationMs) {
+  function burst(opts) {
     ensureCanvas();
     if (rafId) cancelAnimationFrame(rafId);
+
+    const {
+      colors = ['#ff7676', '#ffd166', '#6ee7b7', '#93c5fd', '#fbcfe8', '#e9d5ff'],
+      labels = [], durationMs = 2400, fadeMs = 600, imgSize = 22, textPx = 16, count = 220
+    } = opts || {};
+
     const start = performance.now();
+    const parts = Array.from({ length: count }, () => ({
+      x: Math.random() * W, y: -Math.random() * H * 0.4,
+      vx: (Math.random() * 2 - 1) * 0.9 * DPR, vy: (1.8 + Math.random() * 2.2) * DPR,
+      rot: Math.random() * Math.PI, vr: (Math.random() * 0.28 - 0.14),
+      color: colors[(Math.random() * colors.length) | 0],
+      label: labels.length ? labels[(Math.random() * labels.length) | 0] : null
+    }));
+
     function tick(t) {
+      const elapsed = t - start;
       ctx.clearRect(0, 0, W, H);
       parts.forEach(p => {
-        p.vy += 0.01 * DPR;
-        p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+        p.vy += 0.012 * DPR; p.x += p.vx; p.y += p.vy; p.rot += p.vr;
         if (p.y > H + 24 * DPR) { p.y = -12 * DPR; p.x = Math.random() * W; }
       });
       parts.forEach(p => {
         ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
         if (p.label && IMAGES[p.label] && IMAGES[p.label].complete) {
-          const s = p.imgSize * DPR; ctx.drawImage(IMAGES[p.label], -s / 2, -s / 2, s, s);
+          const s = imgSize * DPR; ctx.drawImage(IMAGES[p.label], -s / 2, -s / 2, s, s);
         } else if (p.label && typeof p.label === 'string' && p.label.length <= 3) {
-          ctx.font = (p.textPx * DPR) + "px Playfair Display,serif"; ctx.fillStyle = p.color;
-          const m = ctx.measureText(p.label); ctx.fillText(p.label, -m.width / 2, 0);
-        } else if (p.w) {
-          ctx.fillStyle = p.color; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          ctx.font = (textPx * DPR) + "px Playfair Display,serif"; ctx.fillStyle = p.color;
+          ctx.fillText(p.label, -ctx.measureText(p.label).width / 2, 0);
         } else {
-          ctx.fillStyle = p.color; ctx.fillRect(-4, -4, 8, 8);
+          ctx.fillStyle = p.color; ctx.fillRect(-4 * DPR, -4 * DPR, 8 * DPR, 8 * DPR);
         }
         ctx.restore();
       });
-      if (t - start < durationMs) { rafId = requestAnimationFrame(tick); } else { ctx.clearRect(0, 0, W, H); rafId = null; }
+      if (elapsed < durationMs) { rafId = requestAnimationFrame(tick); }
+      else { ctx.clearRect(0, 0, W, H); rafId = null; }
     }
     rafId = requestAnimationFrame(tick);
   }
 
-  function startNormalConfetti() {
-    run(makePartsRect(['#ff7676', '#ffd166', '#6ee7b7', '#93c5fd', '#fbcfe8', '#e9d5ff'], 240), 2600);
-  }
-
-  function startEmojiConfetti() {
-    const colors = ['#e07b97', '#6fa387', '#6aa9d8'];
-    const labels = ['💻', '🫀', '🏎️'];
-    run(makePartsLabeled(colors, labels, 240, 22, 16), 2600);
-  }
-
   function startThemedConfetti(theme) {
     if (theme === 'carlos') {
-      run(makePartsLabeled(['#0f3d91', '#ffffff'], ['williams', 'chili'], 260, 24, 16), 2600);
+      burst({ colors: ['#0f3d91', '#ffffff'], labels: ['williams', 'chili'], imgSize: 24, count: 240 });
     } else if (theme === 'lando') {
-      run(makePartsLabeled(['#ff8000', '#ffffff', '#0c0c0d'], ['mclaren', 'ln4'], 260, 24, 16), 2600);
-    } else {
-      startEmojiConfetti();
+      burst({ colors: ['#ff8000', '#ffffff', '#0c0c0d'], labels: ['mclaren', 'ln4'], imgSize: 24, count: 240 });
     }
   }
+  function startNormalConfetti() { burst({ count: 220 }); }
+  function startEmojiConfetti() { burst({ colors: ['#e07b97', '#6fa387', '#6aa9d8'], labels: ['💻', '🫀', '🏎️'], imgSize: 22, count: 240 }); }
 
-  function prepareConfetti() {
-    ensureCanvas();
-    if (prepared) return;
-    run(makePartsRect(['#000000'], 1), 10);
-    prepared = true;
-  }
+  function prepareConfetti() { ensureCanvas(); }
 
-  window.prepareConfetti = prepareConfetti;
+  window.startThemedConfetti = startThemedConfetti;
   window.startNormalConfetti = startNormalConfetti;
   window.startEmojiConfetti = startEmojiConfetti;
-  window.startThemedConfetti = startThemedConfetti;
+  window.prepareConfetti = prepareConfetti;
 })();
