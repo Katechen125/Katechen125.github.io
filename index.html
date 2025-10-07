@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Katherine Isabela Hsiung Chen — Pole Position 🏁</title>
-  
+
   <link rel="icon" type="image/svg+xml"
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
 
@@ -103,7 +103,7 @@
       padding: 6px 12px;
       border-radius: 12px;
       border: 1px solid transparent;
-      position: relative;
+      position: relative
     }
 
     .nav a:hover {
@@ -155,7 +155,7 @@
       place-items: center;
       text-align: center;
       padding: 40px 0 28px;
-      min-height: calc(100svh - 64px - 84px);
+      min-height: calc(100svh - 64px - 96px)
     }
 
     .hero h1 {
@@ -219,7 +219,7 @@
       position: relative;
       transition: transform .12s ease, box-shadow .2s ease, border-color .2s ease;
       box-shadow: 0 12px 28px rgba(12, 21, 33, .10), 0 0 0 3px color-mix(in oklab, var(--accent) 12%, transparent) inset;
-      clip-path: polygon(10px 0%, calc(100% - 10px) 0%, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0% calc(100% - 10px), 0% 10px);
+      clip-path: polygon(10px 0%, calc(100% - 10px) 0%, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0% calc(100% - 10px), 0% 10px)
     }
 
     .cta::after {
@@ -230,12 +230,12 @@
       background: radial-gradient(40% 60% at 50% -20%, var(--glow), transparent);
       opacity: .0;
       transition: opacity .25s ease;
-      pointer-events: none;
+      pointer-events: none
     }
 
     .cta:hover {
       transform: translateY(-2px);
-      box-shadow: 0 16px 36px rgba(12, 21, 33, .16), 0 0 0 3px color-mix(in oklab, var(--accent) 22%, transparent) inset;
+      box-shadow: 0 16px 36px rgba(12, 21, 33, .16), 0 0 0 3px color-mix(in oklab, var(--accent) 22%, transparent) inset
     }
 
     .cta:hover::after {
@@ -253,9 +253,9 @@
       display: none;
       align-items: center;
       justify-content: center;
-      background: rgba(0, 0, 0, .62);
-      backdrop-filter: blur(12px) saturate(.9);
-      z-index: 50;
+      background: rgba(0, 0, 0, .75);
+      backdrop-filter: blur(16px) saturate(.9);
+      z-index: 50
     }
 
     .sequence {
@@ -270,24 +270,24 @@
       border-radius: 22px;
       padding: 18px 22px 22px;
       box-shadow: 0 22px 48px rgba(12, 21, 33, .32);
-      min-width: min(720px, 92vw);
+      min-width: min(720px, 92vw)
     }
 
     .start-lights {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       background: color-mix(in oklab, var(--bg) 86%, #fff);
-      padding: 10px 14px;
-      border-radius: 32px;
+      padding: 14px 18px;
+      border-radius: 40px;
       border: 1px solid var(--ring);
       box-shadow: 0 8px 24px rgba(12, 21, 33, .18) inset;
       width: fit-content;
-      margin: 0 auto;
+      margin: 0 auto
     }
 
     .light {
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: #2b2b2b;
       border: 1px solid rgba(0, 0, 0, .22)
@@ -306,7 +306,7 @@
       font: 700 clamp(16px, 2.6vw, 22px)/1.25 "Playfair Display", Georgia, serif;
       color: var(--text);
       text-align: center;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, .15);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, .15)
     }
 
     .flag-badge {
@@ -349,6 +349,78 @@
       }
     }
 
+    .winner-card {
+      display: none;
+      margin-top: 10px;
+      width: min(680px, 92vw);
+      border-radius: 18px;
+      padding: 16px;
+      border: 1px solid color-mix(in oklab, var(--accent) 30%, var(--ring));
+      background: linear-gradient(180deg, #ffffffee, #f6f8ffcc)
+    }
+
+    :root[data-theme="lando"] .winner-card {
+      background: linear-gradient(180deg, #141416ee, #1a1b22cc)
+    }
+
+    .winner-inner {
+      display: flex;
+      align-items: center;
+      gap: 14px
+    }
+
+    .wavatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 14px;
+      object-fit: cover;
+      border: 1px solid var(--ring);
+      background: #eaeaea
+    }
+
+    .winfo {
+      display: grid;
+      gap: 4px
+    }
+
+    .wtitle {
+      font-weight: 800
+    }
+
+    .wsub {
+      color: var(--muted);
+      font-size: 14px
+    }
+
+    .wbadge {
+      margin-left: auto;
+      font-weight: 800;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--ring)
+    }
+
+    .wmeta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap
+    }
+
+    .chip {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--ring);
+      font-weight: 700;
+      font-size: 13px;
+      background: color-mix(in oklab, var(--surface, #fff) 96%, transparent)
+    }
+
+    :root[data-theme="lando"] .chip {
+      background: #1b1b1d;
+      border-color: #2d2f33;
+      color: #ffedd9
+    }
+
     footer {
       border-top: 1px solid var(--ring);
       padding: 18px 0;
@@ -359,16 +431,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 16px;
-      position: relative
-    }
-
-    .footer-launch {
-      display: flex;
-      align-items: center;
       gap: 10px;
-      position: absolute;
-      right: 0
+      flex-wrap: wrap;
+      text-align: center
     }
 
     .flag-label {
@@ -436,10 +501,8 @@
   <footer>
     <div class="container footer-row">
       <div>© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages</div>
-      <div class="footer-launch">
-        <span class="flag-label">Start the sequence →</span>
-        <button class="flag-btn" id="flagGo" title="Start lights + wave flag">🏁</button>
-      </div>
+      <span class="flag-label">• Start the sequence →</span>
+      <button class="flag-btn" id="flagGo" title="Start lights + wave flag">🏁</button>
     </div>
   </footer>
 
@@ -447,11 +510,11 @@
     <div class="sequence">
       <div class="sequence-card">
         <div class="start-lights" id="startLights">
-          <span class="light" id="L1"></span>
-          <span class="light" id="L2"></span>
-          <span class="light" id="L3"></span>
-          <span class="light" id="L4"></span>
-          <span class="light" id="L5"></span>
+          <span class="light"></span>
+          <span class="light"></span>
+          <span class="light"></span>
+          <span class="light"></span>
+          <span class="light"></span>
         </div>
         <div class="flag-badge">
           <span class="seq-title">Lights out and away we go!</span>
@@ -468,6 +531,22 @@
             <rect x="8" y="6" width="8" height="64" rx="4" fill="#bcbcbc" />
           </svg>
         </div>
+
+        <div class="winner-card" id="winnerCard">
+          <div class="winner-inner">
+            <img class="wavatar" id="wAvatar" alt="" />
+            <div class="winfo">
+              <div class="wtitle" id="wTitle">Winner</div>
+              <div class="wmeta">
+                <span class="chip" id="wNumber">#00</span>
+                <span class="chip" id="wTeam">Team</span>
+                <span class="chip" id="wNat">🏁 Nationality</span>
+              </div>
+              <div class="wsub" id="wSub">Race • Team</div>
+            </div>
+            <div class="wbadge" id="wBadge">P1</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -477,42 +556,152 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const root = document.documentElement;
-    const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved);
+    const saved = localStorage.getItem('kc-theme');
+    if (saved) root.setAttribute('data-theme', saved);
 
     function setThemeAndConfetti(name) {
       if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
       if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
-    
-    document.querySelectorAll('button[data-theme]').forEach(b => {
-      b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme));
-    });
-    document.getElementById('resetTheme').addEventListener('click', () => {
-      root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti();
-    });
+    document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
+    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti(); });
 
     const overlay = document.getElementById('seqOverlay');
     const lights = [...document.querySelectorAll('.start-lights .light')];
     const flagSVG = document.getElementById('flagSVG');
 
+    const TEAM_COLORS = {
+      "Red Bull": ["#001f3f", "#ffde00", "#e10600"],
+      "Ferrari": ["#e10600", "#000000", "#fff200"],
+      "McLaren": ["#ff8000", "#00a0de", "#111111"],
+      "Mercedes": ["#00a19b", "#000000", "#c0c0c0"],
+      "Aston Martin": ["#00665e", "#ffd700", "#003e38"],
+      "Williams": ["#00a0ff", "#001b3a", "#ffffff"],
+      "Alpine": ["#ff69b4", "#000000", "#00b3ff"],
+      "RB": ["#001b3a", "#ffffff", "#ff2b2b"],
+      "Sauber": ["#006847", "#ffffff", "#d52b1e"],
+      "Haas": ["#e10600", "#000000", "#ffffff"]
+    };
+
+    function flagForNationality(nat = "") {
+      const m = {
+        British: "🇬🇧", Spanish: "🇪🇸", Mexican: "🇲🇽", Monegasque: "🇲🇨",
+        Dutch: "🇳🇱", Australian: "🇦🇺", Canadian: "🇨🇦", Japanese: "🇯🇵",
+        Thai: "🇹🇭", Danish: "🇩🇰", French: "🇫🇷", German: "🇩🇪",
+        Finnish: "🇫🇮", Italian: "🇮🇹", American: "🇺🇸", Chinese: "🇨🇳"
+      };
+      return m[nat] || "🏁";
+    }
+
+    async function fetchDriverThumb(ergastWikiUrl) {
+      try {
+        if (!ergastWikiUrl) return null;
+        const title = ergastWikiUrl.split("/").pop();
+        const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`, { cache: 'no-store' });
+        const j = await r.json();
+        return j?.thumbnail?.source || null;
+      } catch (e) { return null; }
+    }
+
+    async function fetchLatestWinner() {
+      try {
+        const r = await fetch('https://ergast.com/api/f1/current/last/results.json', { cache: 'no-store' });
+        const j = await r.json();
+        const race = j?.MRData?.RaceTable?.Races?.[0];
+        const res = race?.Results?.[0];
+        const driver = res?.Driver;
+        const team = res?.Constructor?.name || "F1";
+
+        const data = {
+          driverName: [driver?.givenName, driver?.familyName].filter(Boolean).join(" ") || "Grand Prix Winner",
+          team,
+          raceName: race?.raceName || "Latest Grand Prix",
+          nationality: driver?.nationality || "",
+          number: driver?.permanentNumber || "",
+          wiki: driver?.url || "",
+          colors: TEAM_COLORS[team] || ['#ffd166', '#6ee7b7', '#93c5fd']
+        };
+        data.photo = await fetchDriverThumb(data.wiki);
+        return data;
+      } catch (e) {
+        return {
+          driverName: "Lando Norris",
+          team: "McLaren",
+          raceName: "Latest Grand Prix",
+          nationality: "British",
+          number: "4",
+          wiki: "https://en.wikipedia.org/wiki/Lando_Norris",
+          photo: null,
+          colors: TEAM_COLORS["McLaren"]
+        };
+      }
+    }
+
+    function showWinnerCard(data) {
+      const card = document.getElementById('winnerCard');
+      const wTitle = document.getElementById('wTitle');
+      const wSub = document.getElementById('wSub');
+      const wBadge = document.getElementById('wBadge');
+      const wAvatar = document.getElementById('wAvatar');
+      const wNumber = document.getElementById('wNumber');
+      const wTeam = document.getElementById('wTeam');
+      const wNat = document.getElementById('wNat');
+
+      const [c1 = "#555"] = data.colors || [];
+      wTitle.textContent = data.driverName;
+      wSub.textContent = `${data.raceName} • ${data.team}`;
+      wBadge.textContent = "P1";
+      wNumber.textContent = data.number ? `#${data.number}` : "#—";
+      wTeam.textContent = data.team || "Team";
+      wNat.textContent = `${flagForNationality(data.nationality)} ${data.nationality || ""}`;
+
+      if (data.photo) {
+        wAvatar.src = data.photo;
+        wAvatar.alt = data.driverName;
+      } else {
+        const initials = (data.driverName || "F1").split(" ").map(s => s[0]).slice(0, 2).join("").toUpperCase();
+        const svg = encodeURIComponent(
+          `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'>
+             <rect width='120' height='120' rx='20' fill='${c1}'/>
+             <text x='50%' y='55%' text-anchor='middle' dominant-baseline='middle'
+               font-family='Georgia,serif' font-size='56' font-weight='700' fill='white'>${initials}</text>
+           </svg>`
+        );
+        wAvatar.src = `data:image/svg+xml,${svg}`;
+        wAvatar.alt = initials;
+      }
+
+      card.style.display = 'block';
+    }
+
     function runSequence() {
       overlay.style.display = 'flex';
+      document.getElementById('winnerCard').style.display = 'none';
       lights.forEach(l => l.classList.remove('on', 'red', 'green'));
+
       let i = 0;
       const rInt = setInterval(() => {
         if (i < 5) { lights[i].classList.add('on', 'red'); i++; }
         else {
           clearInterval(rInt);
-          setTimeout(() => {
+          setTimeout(async () => {
             lights.forEach(l => l.classList.remove('red'));
             lights.forEach(l => l.classList.add('on', 'green'));
             flagSVG.classList.remove('flag-wave'); void flagSVG.offsetWidth; flagSVG.classList.add('flag-wave');
-            startNormalConfetti();
-            setTimeout(() => { lights.forEach(l => l.classList.remove('on', 'green')); overlay.style.display = 'none'; }, 1200);
-          }, 480);
+
+            const winner = await fetchLatestWinner();
+            showWinnerCard(winner);
+            if (window.startWinnerConfetti) startWinnerConfetti(winner.colors);
+
+            setTimeout(() => {
+              lights.forEach(l => l.classList.remove('on', 'green'));
+              overlay.style.display = 'none';
+            }, 5200);
+          }, 520);
         }
-      }, 260);
+      }, 280);
     }
+
     document.getElementById('flagGo').addEventListener('click', runSequence);
   </script>
 </body>
