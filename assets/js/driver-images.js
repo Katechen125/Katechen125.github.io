@@ -1,0 +1,22 @@
+window.DRIVER_IMAGES = {
+    "Max Verstappen": { number: "1", img: "https://i.pinimg.com/736x/db/09/13/db0913972980b0ef004f82d66e9d6a82.jpg" },
+    "Yuki Tsunoda": { number: "22", img: "https://i.pinimg.com/736x/e7/52/4e/e7524ea95ec040f148412a1be120d50f.jpg" },
+    "Charles Leclerc": { number: "16", img: "https://i.pinimg.com/736x/63/ae/1b/63ae1b2000343836519aade2d3a4b6f7.jpg" },
+    "Lewis Hamilton": { number: "44", img: "https://i.pinimg.com/736x/56/ed/d3/56edd3cfe762ba4d1602774d1a190c67.jpg" },
+    "George Russell": { number: "63", img: "https://i.pinimg.com/736x/7f/dd/bc/7fddbc883419318d2651b19184f51496.jpg" },
+    "Kimi Antonelli": { number: "12", img: "https://i.pinimg.com/736x/25/5e/ad/255eadaf7b72ef3299add764c7517fd1.jpg" },
+    "Lando Norris": { number: "4", img: "https://i.pinimg.com/1200x/bf/92/dc/bf92dcceb0a38fb4223add088d2dee5c.jpg" },
+    "Oscar Piastri": { number: "81", img: "https://i.pinimg.com/736x/84/dc/d1/84dcd1815774227c21c100e4ba24a4b3.jpg" },
+    "Liam Lawson": { number: "30", img: "https://i.pinimg.com/736x/be/b2/75/beb27524bc311f98e0cf9aba39874dfa.jpg" },
+    "Isack Hadjar": { number: "6", img: "https://i.pinimg.com/736x/91/99/51/91995154385797732801e76c6ee72351.jpg" },
+    "Fernando Alonso": { number: "14", img: "https://i.pinimg.com/736x/39/b0/3a/39b03abe0c24a2c4e4e871213bb60f83.jpg" },
+    "Lance Stroll": { number: "18", img: "https://i.pinimg.com/736x/81/70/30/817030e869314ba7ba5ba4aecce74b4d.jpg" },
+    "Alexander Albon": { number: "23", img: "https://i.pinimg.com/736x/1a/9f/f4/1a9ff4d0ec2318f6a0f5358f2c329d51.jpg" },
+    "Carlos Sainz": { number: "55", img: "https://i.pinimg.com/736x/5b/25/c8/5b25c8adf5bc8bb34831e5eae6fe0d59.jpg" },
+    "Pierre Gasly": { number: "10", img: "https://i.pinimg.com/736x/c6/1f/36/c61f360f00314644fc69975188daa1c8.jpg" },
+    "Franco Colapinto": { number: "7", img: "https://i.pinimg.com/736x/dd/e9/8c/dde98ca29bf331c5dffc3fd5f695353b.jpg" },
+    "Esteban Ocon": { number: "31", img: "https://i.pinimg.com/736x/03/a1/a1/03a1a1e842c76990ea4f11b612cac193.jpg" },
+    "Oliver Bearman": { number: "87", img: "https://i.pinimg.com/736x/02/08/e9/0208e9f1f70248040c745775c63e684f.jpg" },
+    "Nico Hülkenberg": { number: "27", img: "https://i.pinimg.com/736x/08/48/30/084830422b81cf2b7050dd0d9e5757bf.jpg" },
+    "Gabriel Bortoleto": { number: "5", img: "https://i.pinimg.com/736x/ab/e2/2d/abe22dce2129700892df4b74d52aab8e.jpg" }
+};
