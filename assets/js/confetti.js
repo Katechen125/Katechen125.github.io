@@ -1,12 +1,5 @@
 (function () {
-  const IMG_SRC = {
-    williams: "https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp",
-    chili: "https://cdn.inspireuplift.com/uploads/images/seller_products/29868/1702918490_SmoothOperatorCarlosSainzChillionly.png",
-    mclaren: "https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png",
-    ln4: "https://images.seeklogo.com/logo-png/44/2/lando-norris-logo-png_seeklogo-445536.png"
-  };
   const IMAGES = {};
-  for (const k in IMG_SRC) { const img = new Image(); img.crossOrigin = "anonymous"; img.src = IMG_SRC[k]; IMAGES[k] = img; }
 
   let cvs, ctx, W = 0, H = 0, DPR = Math.max(1, window.devicePixelRatio || 1), rafId = null;
   function ensureCanvas() {
@@ -20,7 +13,7 @@
   }
   function resize() { if (!cvs) return; W = cvs.width = Math.floor(innerWidth * DPR); H = cvs.height = Math.floor(innerHeight * DPR); }
 
-  function burst({ colors, labels = [], durationMs = 3000, fadeMs = 900, imgSize = 24, textPx = 16, count = 260, gravity = 0.012, drift = 0.85 }) {
+  function burst({ colors, labels = [], durationMs = 3200, fadeMs = 900, imgSize = 24, textPx = 16, count = 260, gravity = 0.012, drift = 0.85, speed = 1 }) {
     ensureCanvas();
     if (rafId) cancelAnimationFrame(rafId);
     const start = performance.now();
@@ -28,8 +21,8 @@
     const parts = Array.from({ length: count }, () => ({
       x: Math.random() * W,
       y: -Math.random() * H * 0.5,
-      vx: (Math.random() * 2 - 1) * drift * DPR,
-      vy: (1.8 + Math.random() * 2.2) * DPR,
+      vx: (Math.random() * 2 - 1) * drift * DPR * speed,
+      vy: (1.8 + Math.random() * 2.2) * DPR * speed,
       rot: Math.random() * Math.PI,
       vr: (Math.random() * 0.3 - 0.15),
       color: colors[(Math.random() * colors.length) | 0],
@@ -48,10 +41,10 @@
 
       parts.forEach(p => {
         p.vy += gravity * DPR;
-        p.vx *= 0.995;
+        p.vx *= 0.996;
         p.vy *= 0.998;
         p.x += p.vx; p.y += p.vy;
-        p.rot += p.vr * 0.98;
+        p.rot += p.vr * 0.985;
         if (p.y > H + 20 * DPR) { p.y = -10 * DPR; p.x = Math.random() * W; }
       });
 
@@ -80,13 +73,25 @@
     rafId = requestAnimationFrame(tick);
   }
 
+
   function startThemedConfetti(theme) {
     if (theme === 'carlos') {
-      burst({ colors: ['#0f3d91', '#ffffff'], labels: ['williams', 'chili'], imgSize: 24, count: 260, durationMs: 3200 });
+      burst({ colors: ['#0f3d91', '#ffffff'], count: 260, durationMs: 3200, speed: 1.05 });
     } else if (theme === 'lando') {
-      burst({ colors: ['#ff8000', '#ffffff', '#0c0c0d'], labels: ['mclaren', 'ln4'], imgSize: 24, count: 260, durationMs: 3200 });
+      burst({ colors: ['#ff8000', '#ffffff', '#0c0c0d'], count: 260, durationMs: 3200, speed: 1.05 });
     } else {
-      burst({ colors: ['#e07b97', '#6fa387', '#6aa9d8'], labels: ['💻', '🫀', '🏎️'], imgSize: 22, count: 220, durationMs: 3000 });
+
+      burst({
+        colors: ['#e07b97', '#6fa387', '#6aa9d8'],
+        labels: ['💻', '🫀', '🏎️'],
+        imgSize: 22,
+        count: 240,
+        durationMs: 3200,
+        fadeMs: 1000,
+        gravity: 0.010,
+        drift: 0.85,
+        speed: 1.05
+      });
     }
   }
 
@@ -96,20 +101,21 @@
       labels: ['💻', '🫀', '🏎️'],
       imgSize: 22,
       count: 240,
-      durationMs: 3600,
-      fadeMs: 1200,
-      gravity: 0.008,
-      drift: 0.65
+      durationMs: 3200,
+      fadeMs: 1000,
+      gravity: 0.010,
+      drift: 0.85,
+      speed: 1.05
     });
   }
 
   function startNormalConfetti() {
     burst({
       colors: ['#ff7676', '#ffd166', '#6ee7b7', '#93c5fd', '#fbcfe8', '#e9d5ff'],
-      labels: [],
-      imgSize: 0,
-      count: 240,
-      durationMs: 3200
+      count: 260,
+      durationMs: 3200,
+      fadeMs: 900,
+      speed: 1.0
     });
   }
 
@@ -118,7 +124,8 @@
       colors: Array.isArray(colors) && colors.length ? colors : ['#ffd166', '#6ee7b7', '#93c5fd'],
       count: 320,
       durationMs: 5200,
-      fadeMs: 1200
+      fadeMs: 1200,
+      speed: 1.05
     });
   }
 
