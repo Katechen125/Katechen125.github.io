@@ -1,14 +1,100 @@
-(function () {
-  var cvs, ctx, W, H, DPR = Math.max(1, window.devicePixelRatio || 1), rafId = null;
-  function ensure() { if (cvs) return; cvs = document.createElement('canvas'); cvs.id = 'kc-confetti'; Object.assign(cvs.style, { position: 'fixed', inset: '0', pointerEvents: 'none', zIndex: '999' }); document.body.appendChild(cvs); ctx = cvs.getContext('2d'); resize(); addEventListener('resize', resize) }
-  function resize() { W = (cvs.width = Math.floor(innerWidth * DPR)); H = (cvs.height = Math.floor(innerHeight * DPR)) }
-  function run(parts, dur) { ensure(); if (rafId) cancelAnimationFrame(rafId); var t0 = performance.now(); function tick(t) { ctx.clearRect(0, 0, W, H); for (var i = 0; i < parts.length; i++) { var p = parts[i]; p.vy += p.g; p.x += p.vx; p.y += p.vy; p.rot += p.vr; if (p.loop && p.y > H + 30 * DPR) { p.y = -20 * DPR; p.x = Math.random() * W } } for (var j = 0; j < parts.length; j++) { var q = parts[j]; ctx.save(); ctx.globalAlpha = q.a; ctx.translate(q.x, q.y); ctx.rotate(q.rot); if (q.type === 'rect') { ctx.fillStyle = q.c; ctx.fillRect(-q.w / 2, -q.h / 2, q.w, q.h) } else if (q.type === 'emoji') { ctx.font = (q.s * DPR) + "px Apple Color Emoji,Segoe UI Emoji,Noto Color Emoji,system-ui"; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(q.e, 0, 0) } else if (q.type === 'image' && q.img && q.img.complete) { ctx.drawImage(q.img, -q.s / 2, -q.s / 2, q.s, q.s) } ctx.restore() } if (t - t0 < dur) { rafId = requestAnimationFrame(tick) } else { ctx.clearRect(0, 0, W, H); rafId = null } } rafId = requestAnimationFrame(tick) }
-  function rectBurst(colors, count, loop) { var a = []; for (var i = 0; i < count; i++) { a.push({ type: 'rect', x: Math.random() * W, y: -Math.random() * H * 0.45, vx: (Math.random() * 2 - 1) * 1.05 * DPR, vy: (2.2 + Math.random() * 2.4) * DPR, rot: Math.random() * Math.PI, vr: (Math.random() * 0.35 - 0.17), w: 6 * DPR, h: 10 * DPR, c: colors[(Math.random() * colors.length) | 0], g: 0.014 * DPR, a: 1, loop: loop }) } return a }
-  var IMGSRC = { williams: "https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp", chili: "https://cdn.inspireuplift.com/uploads/images/seller_products/29868/1702918490_SmoothOperatorCarlosSainzChillionly.png", mclaren: "https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png", ln4: "https://images.seeklogo.com/logo-png/44/2/lando-norris-logo-png_seeklogo-445536.png" };
-  var IMAGES = {}; for (var k in IMGSRC) { var img = new Image(); img.src = IMGSRC[k]; IMAGES[k] = img }
-  function labeled(colors, labels, count, loop) { var a = []; for (var i = 0; i < count; i++) { var label = labels[(Math.random() * labels.length) | 0], type = 'rect', e = null, im = null, s = 18 * DPR; if (label === 'KCIMG:williams') { type = 'image'; im = IMAGES.williams } else if (label === 'KCIMG:chili') { type = 'image'; im = IMAGES.chili } else if (label === 'KCIMG:mclaren') { type = 'image'; im = IMAGES.mclaren } else if (label === 'KCIMG:ln4') { type = 'image'; im = IMAGES.ln4 } else { type = 'emoji'; e = label } a.push({ type: type, img: im, e: e, s: s, x: Math.random() * W, y: -Math.random() * H * 0.45, vx: (Math.random() * 2 - 1) * 1.05 * DPR, vy: (2.2 + Math.random() * 2.4) * DPR, rot: Math.random() * Math.PI, vr: (Math.random() * 0.32 - 0.16), c: colors[(Math.random() * colors.length) | 0], g: 0.014 * DPR, a: 1, loop: loop, w: 6 * DPR, h: 6 * DPR }) } return a }
-  function unified(parts) { run(parts, 2400) }
-  window.startThemedConfetti = function (theme) { if (theme === 'carlos') { unified(labeled(['#0f3d91', '#ffffff'], ['KCIMG:williams', 'KCIMG:chili'], 220, true)) } else if (theme === 'lando') { unified(labeled(['#ff8000', '#ffffff', '#0c0c0d'], ['KCIMG:mclaren', 'KCIMG:ln4'], 220, true)) } }
-  window.startWinnerConfetti = function (colors) { unified(rectBurst(colors, 220, true)) }
-  window.startEmojiConfettiUnified = function () { unified(labeled(['#e07b97', '#6fa387', '#6aa9d8'], ['🏎️', '🫀', '💻'], 220, true)) }
+
+  (function () {
+  const DPR = Math.max(1, devicePixelRatio || 1);
+  let cvs, ctx, W = 0, H = 0, raf = null;
+
+  function ensure() {
+    if (cvs) return;
+  cvs = document.createElement('canvas');
+  cvs.id = 'kc-confetti';
+  Object.assign(cvs.style, {position: 'fixed', inset: '0', pointerEvents: 'none', zIndex: '1000' });
+  document.body.appendChild(cvs);
+  ctx = cvs.getContext('2d');
+  resize(); addEventListener('resize', resize, {passive: true });
+  }
+  function resize() { if (!cvs) return; W = cvs.width = innerWidth * DPR; H = cvs.height = innerHeight * DPR; }
+
+  function burstRects(colors, count = 240, dur = 2600) {
+    ensure();
+  if (raf) cancelAnimationFrame(raf);
+  const start = performance.now();
+  const parts = Array.from({length: count }, () => ({
+    x: Math.random() * W, y: -Math.random() * H * 0.4,
+  vx: (Math.random() * 2 - 1) * 0.9 * DPR,
+  vy: (1.9 + Math.random() * 2.3) * DPR,
+  rot: Math.random() * Math.PI, vr: (Math.random() * 0.3 - 0.15),
+  w: (5 + Math.random() * 3) * DPR, h: (9 + Math.random() * 4) * DPR,
+  c: colors[(Math.random() * colors.length) | 0]
+    }));
+  function tick(t) {
+    ctx.clearRect(0, 0, W, H);
+      parts.forEach(p => {
+    p.vy += 0.012 * DPR; p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+        if (p.y > H + 24 * DPR) {p.y = -12 * DPR; p.x = Math.random() * W; }
+  ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot); ctx.fillStyle = p.c;
+  ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.restore();
+      });
+  if (t - start < dur) raf = requestAnimationFrame(tick); else {ctx.clearRect(0, 0, W, H); raf = null; }
+    }
+  raf = requestAnimationFrame(tick);
+  }
+
+  const EMOJI = ['💻','🫀','🏎️'];
+  function burstEmoji(colors, count = 240, dur = 2600) {
+    ensure();
+  if (raf) cancelAnimationFrame(raf);
+  const start = performance.now();
+  ctx.font = 22 * DPR + "px Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, system-ui";
+  const parts = Array.from({length: count }, () => ({
+    x: Math.random() * W, y: -Math.random() * H * 0.4,
+  vx: (Math.random() * 2 - 1) * 0.9 * DPR,
+  vy: (1.9 + Math.random() * 2.3) * DPR,
+  rot: Math.random() * Math.PI, vr: (Math.random() * 0.3 - 0.15),
+  k: EMOJI[(Math.random() * EMOJI.length) | 0], c: colors[(Math.random() * colors.length) | 0]
+    }));
+  function tick(t) {
+    ctx.clearRect(0, 0, W, H);
+      parts.forEach(p => {
+    p.vy += 0.012 * DPR; p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+        if (p.y > H + 30 * DPR) {p.y = -15 * DPR; p.x = Math.random() * W; }
+  ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+  ctx.fillStyle = p.c; ctx.globalAlpha = 0.14; ctx.fillRect(-10, -10, 20, 20);
+  ctx.globalAlpha = 1; ctx.rotate(-p.rot); ctx.fillText(p.k, -10, 8);
+  ctx.restore();
+      });
+  if (t - start < dur) raf = requestAnimationFrame(tick); else {ctx.clearRect(0, 0, W, H); raf = null; }
+    }
+  raf = requestAnimationFrame(tick);
+  }
+
+  const TEAM_COLORS = {
+    Ferrari: ['#dc0000','#ffd800'],
+  McLaren: ['#ff8000','#00c2f3'],
+  'Red Bull': ['#1e5bc6','#ed1c24','#ffc20e'],
+  Mercedes: ['#00a19c','#e6e6e6'],
+  Williams: ['#00a3e0','#002f6c'],
+  Alpine: ['#ff87b7','#005baa'],
+  'Aston Martin': ['#00665e','#ffe600'],
+  Haas: ['#ffffff','#e6002b','#111111'],
+  RB: ['#2b2d42','#edf2f4'],
+  Sauber: ['#52e252','#111111']
+  };
+
+  function teamConfetti(team) {
+    const colors = TEAM_COLORS[team] || ['#ff7676','#ffd166','#6ee7b7','#93c5fd','#fbcfe8','#e9d5ff'];
+  burstRects(colors);
+  }
+
+  function carlosConfetti() {
+    burstRects(['#0f3d91', '#ffffff']);
+  }
+  function landoConfetti() {
+    burstRects(['#ff8000', '#ffffff', '#0c0c0d']);
+  }
+  function resetEmojiConfetti() {
+    burstEmoji(['#e07b97', '#6fa387', '#6aa9d8']);
+  }
+
+  window.kcConfetti = {teamConfetti, carlosConfetti, landoConfetti, resetEmojiConfetti};
 })();
+
