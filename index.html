@@ -26,7 +26,7 @@
 
     :root[data-theme="carlos"] {
       --bg: #dbe6ff;
-      --surface: #fff;
+      --surface: #ffffff;
       --text: #0b1220;
       --muted: #3f527a;
       --ring: rgba(0, 0, 0, .12);
@@ -188,16 +188,17 @@
       border-top: 1px solid var(--ring);
       padding: 18px 0;
       color: var(--muted);
-      text-align: center
+      text-align: center;
+      position: relative
     }
 
     .flag-launch {
       position: fixed;
-      right: 10px;
-      bottom: 16px;
+      right: 12px;
+      bottom: 18px;
       z-index: 12;
       display: flex;
-      align-items: center;
+      align-items: baseline;
       gap: 10px
     }
 
@@ -244,7 +245,7 @@
       padding: 14px 18px;
       display: flex;
       gap: 18px;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: center
     }
 
@@ -320,10 +321,6 @@
       background: #fff;
       font-weight: 900
     }
-
-    :root[data-theme="carlos"] .flag-btn {
-      background: #fff
-    }
   </style>
 </head>
 
@@ -373,139 +370,41 @@
   </footer>
 
   <div class="flag-launch" aria-live="polite">
-    <span class="flag-tip">Tap to start →</span>
-    <button class="flag-btn" id="flagGo" title="Start lights + flag">🏁</button>
+    <span class="flag-tip" id="replayTip">Tap 🏁 to start</span>
+    <button class="flag-btn" id="flagGo" title="Start lights + winner card">🏁</button>
   </div>
 
   <div class="sequence-overlay" id="seqOverlay">
     <div class="seq-card">
-      <div class="lights-wrap" id="lightsRow">
+      <div class="lights-wrap">
         <span class="light" id="L1"></span>
         <span class="light" id="L2"></span>
         <span class="light" id="L3"></span>
         <span class="light" id="L4"></span>
         <span class="light" id="L5"></span>
       </div>
-      <h2 class="seq-legend">Lights out and away we go!</h2>
+      <h2 class="seq-legend" id="seqTitle">Lights out and away we go!</h2>
       <p class="seq-replay">Tap 🏁 again to replay</p>
+
       <div class="card" id="winnerCard" style="display:none">
         <img id="wImg" alt="">
         <div>
-          <div id="wName" style="font:800 26px/1.2 Inter,system-ui"></div>
+          <h3 id="wName" style="margin:0 0 6px;font-size:26px;line-height:1.1"></h3>
           <div class="pills">
             <div class="pill" id="wNum"></div>
             <div class="pill" id="wTeam"></div>
             <div class="pill" id="wNat"></div>
           </div>
-          <div id="wMeta" style="margin-top:8px;color:#374151;font-weight:700"></div>
+          <div id="wMeta" style="margin-top:8px;color:#445065;font-weight:700"></div>
         </div>
-        <div class="p1" id="wPos">P1</div>
+        <div class="p1">P1</div>
       </div>
     </div>
   </div>
 
   <script src="assets/js/confetti.js"></script>
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-    const root = document.documentElement;
-    const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved);
-
-    function setTheme(name) {
-      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); kcConfetti.carlosConfetti(); }
-      if (name === 'lando') { root.setAttribute('data-theme', ''); localStorage.setItem('kc-theme', ''); kcConfetti.landoConfetti(); }
-    }
-    document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); setTheme(b.dataset.theme); }));
-    document.getElementById('resetTheme').addEventListener('click', e => { e.stopPropagation(); root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); kcConfetti.resetEmojiConfetti(); });
-
-    const overlay = document.getElementById('seqOverlay');
-    const lights = [1, 2, 3, 4, 5].map(i => document.getElementById('L' + i));
-    const card = document.getElementById('winnerCard');
-    const el = {
-      img: document.getElementById('wImg'),
-      name: document.getElementById('wName'),
-      num: document.getElementById('wNum'),
-      team: document.getElementById('wTeam'),
-      nat: document.getElementById('wNat'),
-      meta: document.getElementById('wMeta')
-    };
-
-    const DRIVER_IMAGES = {
-      "Max Verstappen": { number: "1", img: "" },
-      "Yuki Tsunoda": { number: "22", img: "" },
-      "Charles Leclerc": { number: "16", img: "https://i.pinimg.com/736x/63/ae/1b/63ae1b2000343836519aade2d3a4b6f7.jpg" },
-      "Lewis Hamilton": { number: "44", img: "" },
-      "George Russell": { number: "63", img: "" },
-      "Kimi Antonelli": { number: "12", img: "" },
-      "Lando Norris": { number: "4", img: "https://i.pinimg.com/1200x/bf/92/dc/bf92dcceb0a38fb4223add088d2dee5c.jpg" },
-      "Oscar Piastri": { number: "81", img: "" },
-      "Liam Lawson": { number: "30", img: "" },
-      "Isack Hadjar": { number: "6", img: "" },
-      "Fernando Alonso": { number: "14", img: "" },
-      "Lance Stroll": { number: "18", img: "" },
-      "Alexander Albon": { number: "23", img: "" },
-      "Carlos Sainz": { number: "55", img: "https://i.pinimg.com/736x/5b/25/c8/5b25c8adf5bc8bb34831e5eae6fe0d59.jpg" },
-      "Pierre Gasly": { number: "10", img: "" },
-      "Franco Colapinto": { number: "7", img: "" },
-      "Esteban Ocon": { number: "31", img: "" },
-      "Oliver Bearman": { number: "87", img: "" },
-      "Nico Hülkenberg": { number: "27", img: "" },
-      "Gabriel Bortoleto": { number: "5", img: "" }
-    };
-
-    async function fetchLastWinner() {
-      // Try free Ergast endpoint; fallback to static
-      try {
-        const r = await fetch('https://ergast.com/api/f1/current/last/results.json', { mode: 'cors' });
-        if (!r.ok) throw new Error('bad');
-        const j = await r.json();
-        const race = j?.MRData?.RaceTable?.Races?.[0];
-        const res = race?.Results?.[0];
-        if (!race || !res) throw new Error('no data');
-        const name = res.Driver.givenName + ' ' + res.Driver.familyName;
-        const team = res.Constructor.name.replace('Team', '').trim();
-        const nat = res.Driver.nationality || '';
-        const number = res.number || DRIVER_IMAGES[name]?.number || '';
-        return { name, team, nat, number, gp: race.raceName };
-      } catch {
-        // Fallback sample
-        return { name: 'Charles Leclerc', team: 'Ferrari', nat: 'Monegasque', number: DRIVER_IMAGES['Charles Leclerc'].number, gp: 'Grand Prix' };
-      }
-    }
-
-    function showCard(data) {
-      const img = (DRIVER_IMAGES[data.name]?.img) || '';
-      el.img.src = img || 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png';
-      el.name.textContent = data.name;
-      el.num.textContent = '#' + (data.number || '');
-      el.team.textContent = data.team;
-      el.nat.innerHTML = '🏁 ' + (data.nat || '');
-      el.meta.textContent = data.gp + ' • ' + data.team;
-      card.style.display = '';
-      kcConfetti.teamConfetti(data.team);
-    }
-
-    async function runSequence() {
-      overlay.style.display = 'flex';
-      card.style.display = 'none';
-      lights.forEach(l => l.className = 'light');
-      let i = 0;
-      const red = setInterval(() => {
-        if (i < 5) { lights[i].classList.add('on', 'red'); i++; } else {
-          clearInterval(red);
-          setTimeout(() => {
-            lights.forEach(l => { l.classList.remove('red'); l.classList.add('on', 'green'); });
-            setTimeout(async () => {
-              lights.forEach(l => l.classList.remove('on', 'green'));
-              const data = await fetchLastWinner();
-              showCard(data);
-            }, 450);
-          }, 250);
-        }
-      }, 260);
-    }
-    document.getElementById('flagGo').addEventListener('click', e => { e.stopPropagation(); runSequence(); });
-    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.style.display = 'none'; });
-  </script>
+  <script src="assets/js/driver-images.js"></script>
+  <script src="assets/js/index-sequence.js"></script>
 </body>
 
 </html>
