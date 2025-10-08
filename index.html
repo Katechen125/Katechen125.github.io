@@ -13,7 +13,7 @@
   <style>
     :root {
       --bg: #0f0f10;
-      --surface: #1b1bd;
+      --surface: #1b1b1d;
       --text: #f3f4f6;
       --muted: #e2e6ee;
       --ring: #2d2f33;
@@ -217,6 +217,7 @@
       position: relative
     }
 
+    /* Button aligned with footer text (same baseline, right edge) */
     .flag-cta {
       position: absolute;
       right: 18px;
@@ -263,13 +264,15 @@
       z-index: 12
     }
 
+    /* Lower the card slightly for comfort */
     .seq-card {
       width: min(920px, 92vw);
       border-radius: 28px;
       background: #fff;
       box-shadow: 0 30px 80px rgba(0, 0, 0, .45);
       padding: 28px 26px 22px;
-      color: #0b1220
+      color: #0b1220;
+      transform: translateY(6vh)
     }
 
     .seq-tray {
