@@ -19,8 +19,7 @@
     "RB": ["#2B2D42", "#EDF2F4", "#EF233C"]
   };
 
-  const IMAGES = {};
-  const LOADED = {};
+  const IMAGES = {}, LOADED = {};
   for (const k in IMG_SRC) {
     const img = new Image();
     img.crossOrigin = "anonymous";
@@ -31,7 +30,7 @@
     LOADED[k] = false;
   }
 
-  let cvs = null, ctx = null, DPR = 1, W = 0, H = 0, rafId = null, ready = false;
+  let cvs, ctx, DPR = 1, W = 0, H = 0, rafId = null, ready = false;
 
   function ensureCanvas() {
     if (cvs && ctx) return;
@@ -44,7 +43,7 @@
         position: "fixed",
         inset: "0",
         pointerEvents: "none",
-        zIndex: "0"
+        zIndex: "99999"
       });
       document.body.appendChild(cvs);
     }
@@ -55,32 +54,30 @@
 
   function resize(force) {
     if (!cvs) return;
-    const w = Math.max(1, Math.floor(window.innerWidth * DPR));
-    const h = Math.max(1, Math.floor(window.innerHeight * DPR));
-    if (force || w !== W || h !== H) {
-      W = cvs.width = w;
-      H = cvs.height = h;
-    }
+    const w = Math.max(1, (innerWidth | 0) * DPR);
+    const h = Math.max(1, (innerHeight | 0) * DPR);
+    if (force || w !== W || h !== H) { W = cvs.width = w; H = cvs.height = h; }
   }
 
-  function burst(opts = {}) {
+  function burst(opts) {
     ensureCanvas();
     resize(false);
-    if (!ctx || !W || !H) return;
+    if (!ctx) return;
 
-    if (rafId) {
-      cancelAnimationFrame(rafId);
-      rafId = null;
-    }
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
 
-    const colors = opts.colors || ["#ff7676", "#ffd166", "#6ee7b7", "#93c5fd", "#fbcfe8", "#e9d5ff"];
-    const labels = opts.labels || [];
-    const durationMs = opts.durationMs ?? 1800;
-    const count = opts.count ?? 220;
-    const imgSize = (opts.imgSize ?? 20) * DPR;
-    const fontPx = (opts.textPx ?? 18) * DPR;
+    const colors = opts?.colors || ["#ff7676", "#ffd166", "#6ee7b7", "#93c5fd", "#fbcfe8", "#e9d5ff"];
+    const labels = opts?.labels || [];
+    const durationMs = opts?.durationMs ?? 1600;
+    const count = opts?.count ?? 220;
+    const imgSize = (opts?.imgSize ?? 20) * DPR;
+    const fontPx = (opts?.textPx ?? 18) * DPR;
 
+    const g = 0.012 * DPR;
+    const friction = 0.998;
     const start = performance.now();
+    let last = start;
+
     const parts = Array.from({ length: count }, () => ({
       x: Math.random() * W,
       y: -Math.random() * H * 0.35,
@@ -103,37 +100,41 @@
         ctx.drawImage(IMAGES[key], -imgSize / 2, -imgSize / 2, imgSize, imgSize);
         return;
       }
-      if (typeof key === "string") {
-        ctx.font = fontPx + "px Playfair Display,serif";
-        ctx.fillStyle = p.color;
-        const m = ctx.measureText(key);
-        ctx.fillText(key, -m.width / 2, fontPx * 0.33);
-        return;
-      }
+      ctx.font = fontPx + "px Playfair Display,serif";
       ctx.fillStyle = p.color;
-      ctx.fillRect(-4 * DPR, -4 * DPR, 8 * DPR, 8 * DPR);
+      const txt = key.length > 3 ? "🏎️" : key;
+      const m = ctx.measureText(txt);
+      ctx.fillText(txt, -m.width / 2, fontPx * 0.33);
     }
 
-    function tick(t) {
+    function tick(now) {
+      const dt = Math.min((now - last) / 16.666, 3);
+      last = now;
+
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, W, H);
-      for (const p of parts) {
-        p.vy += 0.012 * DPR;
-        p.x += p.vx;
-        p.y += p.vy;
-        p.rot += p.vr;
-        if (p.y > H + 24 * DPR) {
-          p.y = -12 * DPR;
-          p.x = Math.random() * W;
-        }
+
+      for (let i = 0; i < parts.length; i++) {
+        const p = parts[i];
+        p.vy += g * dt;
+        p.vx *= friction;
+        p.vy *= friction;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.rot += p.vr * dt;
+        if (p.y > H + 24 * DPR) { p.y = -12 * DPR; p.x = Math.random() * W; }
       }
-      for (const p of parts) {
+
+      for (let i = 0; i < parts.length; i++) {
+        const p = parts[i];
         ctx.save();
         ctx.translate(p.x, p.y);
         ctx.rotate(p.rot);
         drawLabel(p);
         ctx.restore();
       }
-      if (t - start < durationMs) {
+
+      if (now - start < durationMs) {
         rafId = requestAnimationFrame(tick);
       } else {
         ctx.clearRect(0, 0, W, H);
@@ -147,9 +148,9 @@
   function startThemedConfetti(theme) {
     prepareConfetti();
     if (theme === "carlos") {
-      burst({ colors: ["#0d347e", "#ffffff"], labels: ["williams", "chili"], imgSize: 20, count: 220, durationMs: 1700 });
+      burst({ colors: ["#0d347e", "#ffffff"], labels: ["williams", "chili"], imgSize: 22, count: 240, durationMs: 1700 });
     } else if (theme === "lando") {
-      burst({ colors: ["#ff8000", "#ffffff", "#0c0c0d"], labels: ["mclaren", "ln4"], imgSize: 20, count: 220, durationMs: 1700 });
+      burst({ colors: ["#ff8000", "#ffffff", "#0c0c0d"], labels: ["mclaren", "ln4"], imgSize: 22, count: 240, durationMs: 1700 });
     }
   }
 
@@ -160,28 +161,12 @@
     else startNormalConfetti();
   }
 
-  function startNormalConfetti() {
-    prepareConfetti();
-    burst({ count: 220, durationMs: 1600 });
-  }
-
-  function startEmojiConfetti() {
-    prepareConfetti();
-    burst({
-      colors: ["#e07b97", "#6fa387", "#6aa9d8"],
-      labels: ["💻", "🫀", "🏎️"],
-      imgSize: 20,
-      count: 220,
-      durationMs: 1500
-    });
-  }
+  function startNormalConfetti() { prepareConfetti(); burst({ count: 220, durationMs: 1600 }); }
+  function startEmojiConfetti() { prepareConfetti(); burst({ colors: ["#e07b97", "#6fa387", "#6aa9d8"], labels: ["💻", "🫀", "🏎️"], imgSize: 20, count: 220, durationMs: 1500 }); }
 
   function prepareConfetti() {
     ensureCanvas();
-    if (!ready) {
-      ctx.clearRect(0, 0, W, H);
-      ready = true;
-    }
+    if (!ready) { ctx.clearRect(0, 0, W, H); ready = true; }
   }
 
   window.startThemedConfetti = startThemedConfetti;

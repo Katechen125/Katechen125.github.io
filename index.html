@@ -249,12 +249,12 @@
       border: 1px solid var(--ring);
       background: #fff;
       color: #111;
-      width: 52px;
-      height: 52px;
+      width: 48px;
+      height: 48px;
       border-radius: 999px;
       display: grid;
       place-items: center;
-      font-size: 22px
+      font-size: 20px
     }
 
     :root[data-theme="lando"] .flag-cta .flag-btn {
@@ -444,7 +444,6 @@
       </div>
       <div class="seq-title">Lights out and away we go!</div>
       <div class="seq-sub" id="seqSub">Tap again to replay</div>
-
       <div class="card-winner" id="winnerCard" style="display:none">
         <img id="winImg" alt="">
         <div>
@@ -466,10 +465,8 @@
   <script src="assets/js/index-sequence.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-
     const root = document.documentElement;
     const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved);
-
     prepareConfetti();
 
     function setThemeAndConfetti(name) {
