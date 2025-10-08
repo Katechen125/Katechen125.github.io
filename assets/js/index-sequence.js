@@ -21,26 +21,44 @@ const FALLBACK = { raceName: "British Grand Prix", driver: { givenName: "George"
 
 async function getLatestWinner() {
     try {
-        const r = await fetch("https://ergast.com/api/f1/current/last/results.json", { cache: "no-store" });
-        const j = await r.json();
-        const race = j?.MRData?.RaceTable?.Races?.[0] || null;
-        if (!race) throw 0;
-        const res = race.Results?.[0]; if (!res) throw 0;
-        const d = res.Driver || {}, c = res.Constructor || {};
-        const full = ((d.givenName || "") + " " + (d.familyName || "")).trim();
-        const natFlag = flagFromNationality(d.nationality || "");
-        const gpName = race.raceName || "Grand Prix";
-        const gpFlag = flagFromCountryName(race?.Circuit?.Location?.country || "");
-        const showFlag = natFlag !== "🏁" ? natFlag : gpFlag;
-        const number = String(d.permanentNumber || res.number || res.positionText || "");
-        const team = c.name || "";
-        const img = (window.DRIVER_IMAGES && window.DRIVER_IMAGES[full] && window.DRIVER_IMAGES[full].img) || "";
-        return { name: full, number, team, flag: showFlag, gp: gpName, img };
+        const year = new Date().getUTCFullYear();
+        const sess = await fetch(`https://api.openf1.org/v1/sessions?session_type=Race&year=${year}&orderby=-date_start&limit=1`, { cache: "no-store" }).then(r => r.json());
+        const s = sess?.[0]; if (!s) throw 0;
+        const res = await fetch(`https://api.openf1.org/v1/results?session_key=${s.session_key}&position=1`, { cache: "no-store" }).then(r => r.json());
+        const r1 = res?.[0]; if (!r1) throw 0;
+        const drs = await fetch(`https://api.openf1.org/v1/drivers?driver_number=${r1.driver_number}&session_key=${s.session_key}`, { cache: "no-store" }).then(r => r.json());
+        const d = drs?.[0] || {};
+        const name = d.full_name || r1.driver_name || "Winner";
+        const team = r1.team_name || d.team_name || "";
+        const number = String(r1.driver_number || "");
+        const gp = s.meeting_name || (s.country_name ? `${s.country_name} Grand Prix` : "Grand Prix");
+        const flag = flagFromCC(d.country_code || s.country_code || "");
+        const img = (window.DRIVER_IMAGES && window.DRIVER_IMAGES[name] && window.DRIVER_IMAGES[name].img) || "";
+        return { name, number, team, flag, gp, img };
     } catch (e) {
-        const d = FALLBACK.driver, c = FALLBACK.constructor;
-        const full = d.givenName + " " + d.familyName;
-        const img = (window.DRIVER_IMAGES && window.DRIVER_IMAGES[full] && window.DRIVER_IMAGES[full].img) || "";
-        return { name: full, number: String(d.permanentNumber || "63"), team: c.name, flag: flagFromNationality(d.nationality), gp: FALLBACK.raceName, img, fallback: true };
+        try {
+            const r = await fetch("https://ergast.com/api/f1/current/last/results.json", { cache: "no-store" });
+            const j = await r.json();
+            const race = j?.MRData?.RaceTable?.Races?.[0]; if (!race) throw 0;
+            const res = race.Results?.[0]; if (!res) throw 0;
+            const d = res.Driver || {}, c = res.Constructor || {};
+            const name = ((d.givenName || "") + " " + (d.familyName || "")).trim();
+            const team = c.name || "";
+            const number = String(d.permanentNumber || res.number || res.positionText || "");
+            const gp = race.raceName || "Grand Prix";
+            const flag = flagFromNationality(d.nationality || "") !== "🏁" ? flagFromNationality(d.nationality || "") : flagFromCountryName(race?.Circuit?.Location?.country || "");
+            const img = (window.DRIVER_IMAGES && window.DRIVER_IMAGES[name] && window.DRIVER_IMAGES[name].img) || "";
+            return { name, number, team, flag, gp, img };
+        } catch (e2) {
+            const d = FALLBACK.driver, c = FALLBACK.constructor;
+            const name = d.givenName + " " + d.familyName;
+            const team = c.name;
+            const number = String(d.permanentNumber || "63");
+            const gp = FALLBACK.raceName;
+            const flag = flagFromNationality(d.nationality);
+            const img = (window.DRIVER_IMAGES && window.DRIVER_IMAGES[name] && window.DRIVER_IMAGES[name].img) || "";
+            return { name, number, team, flag, gp, img, fallback: true };
+        }
     }
 }
 
