@@ -5,7 +5,13 @@
     mclaren: "https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png",
     ln4: "https://images.seeklogo.com/logo-png/44/2/lando-norris-logo-png_seeklogo-445536.png"
   };
-  const IMAGES = {}; for (const k in IMG_SRC) { const img = new Image(); img.crossOrigin = "anonymous"; img.src = IMG_SRC[k]; IMAGES[k] = img; }
+  const IMAGES = {};
+  for (const k in IMG_SRC) {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = IMG_SRC[k];
+    IMAGES[k] = img;
+  }
 
   let cvs, ctx, W = 0, H = 0, DPR = 1, rafId = null, ready = false;
 
@@ -13,48 +19,83 @@
     if (cvs) return;
     DPR = Math.max(1, window.devicePixelRatio || 1);
     cvs = document.createElement('canvas');
-    Object.assign(cvs.style, { position: 'fixed', inset: '0', pointerEvents: 'none', zIndex: '0' });
+    Object.assign(cvs.style, {
+      position: 'fixed',
+      inset: '0',
+      pointerEvents: 'none',
+      zIndex: '9999'  
+    });
     document.body.appendChild(cvs);
     ctx = cvs.getContext('2d');
-    resize(); addEventListener('resize', resize);
+    resize();
+    addEventListener('resize', resize);
   }
-  function resize() { if (!cvs) return; W = cvs.width = Math.floor(innerWidth * DPR); H = cvs.height = Math.floor(innerHeight * DPR); }
+  function resize() {
+    if (!cvs) return;
+    W = cvs.width = Math.floor(innerWidth * DPR);
+    H = cvs.height = Math.floor(innerHeight * DPR);
+  }
 
   function burst(opts) {
     ensureCanvas();
     if (rafId) cancelAnimationFrame(rafId);
 
-    const { colors = ['#ff7676', '#ffd166', '#6ee7b7', '#93c5fd', '#fbcfe8', '#e9d5ff'],
-      labels = [], durationMs = 1900, imgSize = 22, textPx = 16, count = 240 } = opts || {};
+    const {
+      colors = ['#ff7676', '#ffd166', '#6ee7b7', '#93c5fd', '#fbcfe8', '#e9d5ff'],
+      labels = [],
+      durationMs = 1600,
+      imgSize = 22,
+      textPx = 16,
+      count = 240
+    } = opts || {};
 
     const start = performance.now();
     const parts = Array.from({ length: count }, () => ({
-      x: Math.random() * W, y: -Math.random() * H * 0.35,
-      vx: (Math.random() * 2 - 1) * 1.0 * DPR, vy: (2.0 + Math.random() * 2.2) * DPR,
-      rot: Math.random() * Math.PI, vr: (Math.random() * 0.30 - 0.15),
+      x: Math.random() * W,
+      y: -Math.random() * H * 0.35,
+      vx: (Math.random() * 2 - 1) * 1.0 * DPR,
+      vy: (2.1 + Math.random() * 2.3) * DPR,
+      rot: Math.random() * Math.PI,
+      vr: (Math.random() * 0.30 - 0.15),
       color: colors[(Math.random() * colors.length) | 0],
       label: labels.length ? labels[(Math.random() * labels.length) | 0] : null
     }));
 
     function tick(t) {
       ctx.clearRect(0, 0, W, H);
+
       parts.forEach(p => {
-        p.vy += 0.015 * DPR; p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+        p.vy += 0.016 * DPR;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.vr;
         if (p.y > H + 24 * DPR) { p.y = -12 * DPR; p.x = Math.random() * W; }
       });
+
       parts.forEach(p => {
-        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
         if (p.label && IMAGES[p.label] && IMAGES[p.label].complete) {
-          const s = imgSize * DPR; ctx.drawImage(IMAGES[p.label], -s / 2, -s / 2, s, s);
+          const s = imgSize * DPR;
+          ctx.drawImage(IMAGES[p.label], -s / 2, -s / 2, s, s);
         } else if (p.label && typeof p.label === 'string' && p.label.length <= 3) {
-          ctx.font = (textPx * DPR) + "px Playfair Display,serif"; ctx.fillStyle = p.color;
+          ctx.font = (textPx * DPR) + "px Playfair Display,serif";
+          ctx.fillStyle = p.color;
           ctx.fillText(p.label, -ctx.measureText(p.label).width / 2, 0);
         } else {
-          ctx.fillStyle = p.color; ctx.fillRect(-4 * DPR, -4 * DPR, 8 * DPR, 8 * DPR);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-4 * DPR, -4 * DPR, 8 * DPR, 8 * DPR);
         }
         ctx.restore();
       });
-      if (t - start < durationMs) { rafId = requestAnimationFrame(tick); } else { ctx.clearRect(0, 0, W, H); rafId = null; }
+
+      if (t - start < durationMs) {
+        rafId = requestAnimationFrame(tick);
+      } else {
+        ctx.clearRect(0, 0, W, H);
+        rafId = null;
+      }
     }
     rafId = requestAnimationFrame(tick);
   }
@@ -69,12 +110,7 @@
   }
   function startNormalConfetti() { ready || prepareConfetti(); burst({ count: 240 }); }
   function startEmojiConfetti() { ready || prepareConfetti(); burst({ colors: ['#e07b97', '#6fa387', '#6aa9d8'], labels: ['💻', '🫀', '🏎️'], imgSize: 22, count: 240 }); }
-
-  function prepareConfetti() {
-    ensureCanvas();
-    ctx.clearRect(0, 0, W, H);
-    ready = true;
-  }
+  function prepareConfetti() { ensureCanvas(); ctx.clearRect(0, 0, W, H); ready = true; }
 
   window.startThemedConfetti = startThemedConfetti;
   window.startNormalConfetti = startNormalConfetti;

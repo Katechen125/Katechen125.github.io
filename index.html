@@ -52,11 +52,15 @@
       box-sizing: border-box
     }
 
+    /* push footer to the bottom (only layout change) */
     body {
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif
+      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column
     }
 
     h1,
@@ -214,10 +218,10 @@
       padding: 18px 0;
       color: var(--muted);
       text-align: center;
-      position: relative
+      position: relative;
+      margin-top: auto
     }
 
-    /* Button aligned with footer text (same baseline, right edge) */
     .flag-cta {
       position: absolute;
       right: 18px;
@@ -264,7 +268,6 @@
       z-index: 12
     }
 
-    /* Lower the card slightly for comfort */
     .seq-card {
       width: min(920px, 92vw);
       border-radius: 28px;
