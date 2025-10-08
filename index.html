@@ -143,13 +143,13 @@
     }
 
     :root[data-theme="carlos"] .avatar-badge {
-      background: #fff url("https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp") center/80% no-repeat;
+      background: #fff url("assets/img/williams.png") center/80% no-repeat;
       font-size: 0;
       border-color: #0d347e
     }
 
     :root[data-theme="lando"] .avatar-badge {
-      background: #fff url("https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png") center/80% no-repeat;
+      background: #fff url("assets/img/mclaren.png") center/80% no-repeat;
       font-size: 0;
       border-color: #ff8000
     }
@@ -184,13 +184,15 @@
       padding: 10px 14px;
       border-radius: 12px;
       font-weight: 700;
-      cursor: pointer
+      cursor: pointer;
+      transition: transform .12s ease
     }
 
     .btn:hover {
       background: var(--accent);
       color: #fff;
-      border-color: transparent
+      border-color: transparent;
+      transform: translateY(-1px)
     }
 
     .hub {
@@ -428,7 +430,7 @@
     <div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages
     </div>
     <div class="flag-cta" aria-live="polite">
-      <div class="hint" id="flagHint">Tap 🏁 again to replay</div>
+      <div class="hint" id="flagHint">Tap 🏁 to run lights</div>
       <button class="flag-btn" id="flagGo" title="Start lights sequence">🏁</button>
     </div>
   </footer>
@@ -436,14 +438,12 @@
   <div class="seq-overlay" id="seqOverlay">
     <div class="seq-card">
       <div class="seq-tray" id="tray">
-        <span class="seq-light" id="L1"></span>
-        <span class="seq-light" id="L2"></span>
-        <span class="seq-light" id="L3"></span>
-        <span class="seq-light" id="L4"></span>
+        <span class="seq-light" id="L1"></span><span class="seq-light" id="L2"></span>
+        <span class="seq-light" id="L3"></span><span class="seq-light" id="L4"></span>
         <span class="seq-light" id="L5"></span>
       </div>
       <div class="seq-title">Lights out and away we go!</div>
-      <div class="seq-sub" id="seqSub">Tap again to replay</div>
+      <div class="seq-sub" id="seqSub">Starting…</div>
       <div class="card-winner" id="winnerCard" style="display:none">
         <img id="winImg" alt="">
         <div>
@@ -473,15 +473,17 @@
       if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
       if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
+
     document.querySelectorAll('button[data-theme]').forEach(b => {
-      b.addEventListener('click', e => { e.stopPropagation(); setThemeAndConfetti(b.dataset.theme); });
+      b.addEventListener('click', e => { e.stopPropagation(); setThemeAndConfetti(b.dataset.theme); }, { passive: true });
     });
+
     document.getElementById('resetTheme').addEventListener('click', e => {
       e.stopPropagation();
       root.removeAttribute('data-theme');
       localStorage.removeItem('kc-theme');
       startEmojiConfetti();
-    });
+    }, { passive: true });
   </script>
 </body>
 
