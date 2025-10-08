@@ -1,9 +1,9 @@
 (function () {
   const IMG_SRC = {
-    williams: "https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp",
-    chili: "https://cdn.inspireuplift.com/uploads/images/seller_products/29868/1702918490_SmoothOperatorCarlosSainzChillionly.png",
-    mclaren: "https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png",
-    ln4: "https://images.seeklogo.com/logo-png/44/2/lando-norris-logo-png_seeklogo-445536.png"
+    williams: "assets/img/Williams_logo.png",
+    chili: "assets/img/Chili.png",
+    mclaren: "assets/img/mclaren_logo.png",
+    ln4: "assets/img/lando_logo.png"
   };
 
   const TEAM_COLORS = {
@@ -22,7 +22,6 @@
   const IMAGES = {}, LOADED = {};
   for (const k in IMG_SRC) {
     const img = new Image();
-    img.crossOrigin = "anonymous";
     img.onload = () => (LOADED[k] = true);
     img.onerror = () => (LOADED[k] = false);
     img.src = IMG_SRC[k];
@@ -62,9 +61,9 @@
 
     const colors = opts?.colors || ["#ff7676", "#ffd166", "#6ee7b7", "#93c5fd", "#fbcfe8", "#e9d5ff"];
     const labels = opts?.labels || [];
-    const durationMs = opts?.durationMs ?? 1600;
-    const count = opts?.count ?? 220;
-    const imgSize = (opts?.imgSize ?? 20);
+    const durationMs = opts?.durationMs ?? 1400;
+    const count = opts?.count ?? 180;
+    const imgSize = (opts?.imgSize ?? 22);
     const textPx = (opts?.textPx ?? 18);
 
     const start = performance.now();
@@ -72,11 +71,11 @@
 
     const parts = Array.from({ length: count }, () => ({
       x: Math.random() * W,
-      y: -Math.random() * H * 0.35,
-      vx: (Math.random() * 2 - 1) * 0.95 * DPR,
-      vy: (1.9 + Math.random() * 2.0) * DPR,
+      y: -Math.random() * H * 0.25,
+      vx: (Math.random() * 2 - 1) * 0.85 * DPR,
+      vy: (1.8 + Math.random() * 1.8) * DPR,
       rot: Math.random() * Math.PI,
-      vr: (Math.random() * 0.28 - 0.14),
+      vr: (Math.random() * 0.25 - 0.125),
       color: colors[(Math.random() * colors.length) | 0],
       label: labels.length ? labels[(Math.random() * labels.length) | 0] : null
     }));
@@ -85,9 +84,9 @@
       const key = p.label;
       if (!key) { ctx.fillStyle = p.color; ctx.fillRect(-4 * DPR, -4 * DPR, 8 * DPR, 8 * DPR); return; }
       if (IMAGES[key] && LOADED[key]) { const s = imgSize * DPR; ctx.drawImage(IMAGES[key], -s / 2, -s / 2, s, s); return; }
+      const txt = /[\u{1F1E6}-\u{1F1FF}]/u.test(key) ? key : "🏎️";
       ctx.font = (textPx * DPR) + "px Playfair Display,serif";
       ctx.fillStyle = p.color;
-      const txt = key.length > 3 ? "🏎️" : key;
       const m = ctx.measureText(txt);
       ctx.fillText(txt, -m.width / 2, textPx * DPR * 0.33);
     }
@@ -99,9 +98,9 @@
       ctx.clearRect(0, 0, W, H);
 
       for (const p of parts) {
-        p.vy += 0.012 * DPR * dt;
-        p.vx *= 0.998;
-        p.vy *= 0.998;
+        p.vy += 0.010 * DPR * dt;
+        p.vx *= 0.999;
+        p.vy *= 0.999;
         p.x += p.vx * dt;
         p.y += p.vy * dt;
         p.rot += p.vr * dt;
@@ -122,18 +121,18 @@
 
   function startThemedConfetti(theme) {
     prepareConfetti();
-    if (theme === "carlos") burst({ colors: ["#0d347e", "#ffffff"], labels: ["williams", "chili"], imgSize: 22, count: 240, durationMs: 1700 });
-    else if (theme === "lando") burst({ colors: ["#ff8000", "#ffffff", "#0c0c0d"], labels: ["mclaren", "ln4"], imgSize: 22, count: 240, durationMs: 1700 });
+    if (theme === "carlos") burst({ colors: ["#0d347e", "#ffffff"], labels: ["williams", "chili"], imgSize: 24, count: 220, durationMs: 1500 });
+    else if (theme === "lando") burst({ colors: ["#ff8000", "#ffffff", "#0c0c0d"], labels: ["mclaren", "ln4"], imgSize: 24, count: 220, durationMs: 1500 });
   }
 
   function startTeamConfetti(team) {
     prepareConfetti();
     const c = TEAM_COLORS[team];
-    if (c) burst({ colors: c, count: 230, durationMs: 1800 }); else startNormalConfetti();
+    if (c) burst({ colors: c, count: 210, durationMs: 1500 }); else startNormalConfetti();
   }
 
-  function startNormalConfetti() { prepareConfetti(); burst({ count: 220, durationMs: 1600 }); }
-  function startEmojiConfetti() { prepareConfetti(); burst({ colors: ["#e07b97", "#6fa387", "#6aa9d8"], labels: ["💻", "🫀", "🏎️"], imgSize: 20, count: 220, durationMs: 1500 }); }
+  function startNormalConfetti() { prepareConfetti(); burst({ count: 200, durationMs: 1400 }); }
+  function startEmojiConfetti() { prepareConfetti(); burst({ colors: ["#e07b97", "#6fa387", "#6aa9d8"], labels: ["💻", "🫀", "🏎️"], imgSize: 20, count: 200, durationMs: 1300 }); }
   function prepareConfetti() { ensureCanvas(); if (!ready) { ctx.clearRect(0, 0, W, H); ready = true; } }
 
   window.startThemedConfetti = startThemedConfetti;
