@@ -52,15 +52,21 @@
       box-sizing: border-box
     }
 
-    /* push footer to the bottom (only layout change) */
+    html,
+    body {
+      height: 100%
+    }
+
+    ::selection {
+      background: color-mix(in oklab, var(--accent) 40%, transparent);
+      color: var(--text)
+    }
+
     body {
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column
+      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif
     }
 
     h1,
@@ -152,7 +158,8 @@
       display: grid;
       place-items: center;
       text-align: center;
-      padding: 40px 0 28px
+      padding: 40px 0 28px;
+      min-height: calc(100vh - 64px - 110px)
     }
 
     .hero h1 {
@@ -218,8 +225,7 @@
       padding: 18px 0;
       color: var(--muted);
       text-align: center;
-      position: relative;
-      margin-top: auto
+      position: relative
     }
 
     .flag-cta {
@@ -229,7 +235,7 @@
       transform: translateY(-50%);
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       z-index: 11
     }
 
@@ -243,12 +249,12 @@
       border: 1px solid var(--ring);
       background: #fff;
       color: #111;
-      width: 64px;
-      height: 64px;
+      width: 52px;
+      height: 52px;
       border-radius: 999px;
       display: grid;
       place-items: center;
-      font-size: 26px
+      font-size: 22px
     }
 
     :root[data-theme="lando"] .flag-cta .flag-btn {
@@ -475,7 +481,9 @@
     });
     document.getElementById('resetTheme').addEventListener('click', e => {
       e.stopPropagation();
-      root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti();
+      root.removeAttribute('data-theme');
+      localStorage.removeItem('kc-theme');
+      startEmojiConfetti();
     });
   </script>
 </body>
