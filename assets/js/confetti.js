@@ -39,12 +39,7 @@
     if (!cvs) {
       cvs = document.createElement("canvas");
       cvs.id = "kc-confetti";
-      Object.assign(cvs.style, {
-        position: "fixed",
-        inset: "0",
-        pointerEvents: "none",
-        zIndex: "99999"
-      });
+      Object.assign(cvs.style, { position: "fixed", inset: "0", pointerEvents: "none", zIndex: "99999" });
       document.body.appendChild(cvs);
     }
     ctx = cvs.getContext("2d");
@@ -63,18 +58,15 @@
     ensureCanvas();
     resize(false);
     if (!ctx) return;
-
     if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
 
     const colors = opts?.colors || ["#ff7676", "#ffd166", "#6ee7b7", "#93c5fd", "#fbcfe8", "#e9d5ff"];
     const labels = opts?.labels || [];
     const durationMs = opts?.durationMs ?? 1600;
     const count = opts?.count ?? 220;
-    const imgSize = (opts?.imgSize ?? 20) * DPR;
-    const fontPx = (opts?.textPx ?? 18) * DPR;
+    const imgSize = (opts?.imgSize ?? 20);
+    const textPx = (opts?.textPx ?? 18);
 
-    const g = 0.012 * DPR;
-    const friction = 0.998;
     const start = performance.now();
     let last = start;
 
@@ -91,55 +83,38 @@
 
     function drawLabel(p) {
       const key = p.label;
-      if (!key) {
-        ctx.fillStyle = p.color;
-        ctx.fillRect(-4 * DPR, -4 * DPR, 8 * DPR, 8 * DPR);
-        return;
-      }
-      if (IMAGES[key] && LOADED[key]) {
-        ctx.drawImage(IMAGES[key], -imgSize / 2, -imgSize / 2, imgSize, imgSize);
-        return;
-      }
-      ctx.font = fontPx + "px Playfair Display,serif";
+      if (!key) { ctx.fillStyle = p.color; ctx.fillRect(-4 * DPR, -4 * DPR, 8 * DPR, 8 * DPR); return; }
+      if (IMAGES[key] && LOADED[key]) { const s = imgSize * DPR; ctx.drawImage(IMAGES[key], -s / 2, -s / 2, s, s); return; }
+      ctx.font = (textPx * DPR) + "px Playfair Display,serif";
       ctx.fillStyle = p.color;
       const txt = key.length > 3 ? "🏎️" : key;
       const m = ctx.measureText(txt);
-      ctx.fillText(txt, -m.width / 2, fontPx * 0.33);
+      ctx.fillText(txt, -m.width / 2, textPx * DPR * 0.33);
     }
 
     function tick(now) {
       const dt = Math.min((now - last) / 16.666, 3);
       last = now;
-
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, W, H);
 
-      for (let i = 0; i < parts.length; i++) {
-        const p = parts[i];
-        p.vy += g * dt;
-        p.vx *= friction;
-        p.vy *= friction;
+      for (const p of parts) {
+        p.vy += 0.012 * DPR * dt;
+        p.vx *= 0.998;
+        p.vy *= 0.998;
         p.x += p.vx * dt;
         p.y += p.vy * dt;
         p.rot += p.vr * dt;
         if (p.y > H + 24 * DPR) { p.y = -12 * DPR; p.x = Math.random() * W; }
       }
-
-      for (let i = 0; i < parts.length; i++) {
-        const p = parts[i];
+      for (const p of parts) {
         ctx.save();
         ctx.translate(p.x, p.y);
         ctx.rotate(p.rot);
         drawLabel(p);
         ctx.restore();
       }
-
-      if (now - start < durationMs) {
-        rafId = requestAnimationFrame(tick);
-      } else {
-        ctx.clearRect(0, 0, W, H);
-        rafId = null;
-      }
+      if (now - start < durationMs) { rafId = requestAnimationFrame(tick); } else { ctx.clearRect(0, 0, W, H); rafId = null; }
     }
 
     rafId = requestAnimationFrame(tick);
@@ -147,27 +122,19 @@
 
   function startThemedConfetti(theme) {
     prepareConfetti();
-    if (theme === "carlos") {
-      burst({ colors: ["#0d347e", "#ffffff"], labels: ["williams", "chili"], imgSize: 22, count: 240, durationMs: 1700 });
-    } else if (theme === "lando") {
-      burst({ colors: ["#ff8000", "#ffffff", "#0c0c0d"], labels: ["mclaren", "ln4"], imgSize: 22, count: 240, durationMs: 1700 });
-    }
+    if (theme === "carlos") burst({ colors: ["#0d347e", "#ffffff"], labels: ["williams", "chili"], imgSize: 22, count: 240, durationMs: 1700 });
+    else if (theme === "lando") burst({ colors: ["#ff8000", "#ffffff", "#0c0c0d"], labels: ["mclaren", "ln4"], imgSize: 22, count: 240, durationMs: 1700 });
   }
 
   function startTeamConfetti(team) {
     prepareConfetti();
     const c = TEAM_COLORS[team];
-    if (c) burst({ colors: c, count: 230, durationMs: 1800 });
-    else startNormalConfetti();
+    if (c) burst({ colors: c, count: 230, durationMs: 1800 }); else startNormalConfetti();
   }
 
   function startNormalConfetti() { prepareConfetti(); burst({ count: 220, durationMs: 1600 }); }
   function startEmojiConfetti() { prepareConfetti(); burst({ colors: ["#e07b97", "#6fa387", "#6aa9d8"], labels: ["💻", "🫀", "🏎️"], imgSize: 20, count: 220, durationMs: 1500 }); }
-
-  function prepareConfetti() {
-    ensureCanvas();
-    if (!ready) { ctx.clearRect(0, 0, W, H); ready = true; }
-  }
+  function prepareConfetti() { ensureCanvas(); if (!ready) { ctx.clearRect(0, 0, W, H); ready = true; } }
 
   window.startThemedConfetti = startThemedConfetti;
   window.startTeamConfetti = startTeamConfetti;
