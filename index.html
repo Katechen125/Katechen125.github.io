@@ -12,18 +12,22 @@
     rel="stylesheet">
   <style>
     :root {
-      --bg: #0f0f10;
-      --surface: #1b1b1d;
-      --text: #f3f4f6;
-      --muted: #e2e6ee;
-      --ring: #2d2f33;
+      --bg:
+        radial-gradient(900px 600px at 8% 0%, #fff7fb 0%, #ffffff 42%),
+        radial-gradient(1200px 700px at 92% 8%, #f2f8ff 0%, #ffffff 48%),
+        radial-gradient(1200px 800px at 50% 96%, #f6fff7 0%, #ffffff 56%);
+      --surface: rgba(255, 255, 255, 0.78);
+      --text: #1b1e22;
+      --muted: #5b6471;
+      --ring: rgba(12, 21, 33, 0.12);
       --accent: #6fa387;
-      --btn-bg: #232325;
-      --btn-text: #f3f3f3;
-      --btn-border: #3a3a3d;
-      --maxw: 1080px
+      --btn-bg: #fff;
+      --btn-text: #111;
+      --btn-border: #d7dde5;
+      --maxw: 1080px;
     }
 
+    /* Themes */
     :root[data-theme="carlos"] {
       --bg: #dbe6ff;
       --surface: #fff;
@@ -33,7 +37,7 @@
       --accent: #0d347e;
       --btn-bg: #fff;
       --btn-text: #0b1220;
-      --btn-border: #3260b3
+      --btn-border: #3260b3;
     }
 
     :root[data-theme="lando"] {
@@ -45,11 +49,17 @@
       --accent: #ff8000;
       --btn-bg: #232325;
       --btn-text: #f3f3f3;
-      --btn-border: #3a3a3d
+      --btn-border: #3a3a3d;
     }
 
     * {
       box-sizing: border-box
+    }
+
+    ::selection {
+      background: color-mix(in oklab, var(--accent) 38%, #ffffff);
+      color: #0b2b20;
+      text-shadow: none;
     }
 
     html,
@@ -57,16 +67,25 @@
       height: 100%
     }
 
-    ::selection {
-      background: color-mix(in oklab, var(--accent) 40%, transparent);
-      color: var(--text)
-    }
-
     body {
       margin: 0;
       background: var(--bg);
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: 140% 140%, 150% 150%, 120% 120%;
+      animation: aurora-float 18s ease-in-out infinite alternate;
       color: var(--text);
-      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif
+      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+
+    @keyframes aurora-float {
+      0% {
+        background-position: 0% 0%, 100% 0%, 50% 100%
+      }
+
+      100% {
+        background-position: 0% 22%, 100% -12%, 50% 78%
+      }
     }
 
     h1,
@@ -84,9 +103,13 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      background: color-mix(in oklab, var(--bg) 90%, transparent);
+      background: rgba(255, 255, 255, 0.65);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--ring)
+    }
+
+    :root[data-theme="lando"] header.site {
+      background: rgba(18, 18, 20, 0.65)
     }
 
     .site-inner {
@@ -107,11 +130,15 @@
       margin-left: 14px;
       color: var(--text);
       font-weight: 700;
-      text-decoration: none
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 10px
     }
 
     .nav a:hover {
-      color: var(--accent)
+      background: color-mix(in oklab, var(--accent) 18%, #ffffff);
+      color: #0b2b20;
+      transition: background .18s ease, color .18s ease
     }
 
     .avatar {
@@ -129,8 +156,6 @@
 
     .avatar-badge {
       position: absolute;
-      right: -5px;
-      bottom: -5px;
       width: 28px;
       height: 28px;
       border-radius: 50%;
@@ -142,13 +167,36 @@
       color: var(--accent)
     }
 
-    :root[data-theme="carlos"] .avatar-badge {
+    .avatar-badge.team {
+      right: -5px;
+      bottom: -5px
+    }
+
+    .avatar-badge.country {
+      left: -5px;
+      top: -5px;
+      border-color: var(--ring);
+      font-size: 14px
+    }
+
+    :root:not([data-theme]) .avatar-badge.team {
+      background: #fff url("assets/img/checkered.png") center/80% no-repeat;
+      font-size: 0;
+      border-color: #999
+    }
+
+    :root:not([data-theme]) .avatar-badge.country {
+      background: #fff;
+      color: #111
+    }
+
+    :root[data-theme="carlos"] .avatar-badge.team {
       background: #fff url("assets/img/williams.png") center/80% no-repeat;
       font-size: 0;
       border-color: #0d347e
     }
 
-    :root[data-theme="lando"] .avatar-badge {
+    :root[data-theme="lando"] .avatar-badge.team {
       background: #fff url("assets/img/mclaren.png") center/80% no-repeat;
       font-size: 0;
       border-color: #ff8000
@@ -208,18 +256,14 @@
       border-radius: 999px;
       font-size: 17px;
       border: 1px solid var(--btn-border);
-      background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 94%, transparent), color-mix(in oklab, var(--surface) 98%, transparent));
-      box-shadow: 0 8px 18px rgba(0, 0, 0, .18), inset 0 1px 0 rgba(255, 255, 255, .06);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.98));
+      box-shadow: 0 8px 18px rgba(0, 0, 0, .08), inset 0 1px 0 rgba(255, 255, 255, .4);
       text-decoration: none;
       color: var(--btn-text)
     }
 
     .hub a:hover {
       transform: translateY(-1px)
-    }
-
-    :root[data-theme="lando"] .hub a {
-      color: #ffedd9
     }
 
     footer {
@@ -392,7 +436,8 @@
       <div class="brand">
         <div class="avatar-wrap">
           <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
-          <span class="avatar-badge">KC</span>
+          <span class="avatar-badge team" id="badgeTeam">KC</span>
+          <span class="avatar-badge country" id="badgeCountry">🏁</span>
         </div>
         <span>Katherine — Pole Position🏁</span>
       </div>
@@ -409,7 +454,6 @@
     <div class="container">
       <h1>Hi, I’m Katherine — Computer Science student (soon Simulation Engineering) building playful-aesthetic code.
       </h1>
-
       <div class="driver-bar" style="margin-top:10px">
         <span>Favorite drivers:</span>
         <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
@@ -417,7 +461,6 @@
         <button class="btn" id="resetTheme">Reset theme</button>
         <span>(themed confetti)</span>
       </div>
-
       <div class="hub">
         <a href="projects.html">My Projects</a>
         <a href="about.html">About</a>
@@ -466,22 +509,32 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
     const root = document.documentElement;
+    const badgeCountry = document.getElementById('badgeCountry');
+
     const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved);
     prepareConfetti();
 
-    function setThemeAndConfetti(name) {
-      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
-      if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
+    function setBadgesFor(theme) {
+      if (theme === 'carlos') badgeCountry.textContent = '🇪🇸';
+      else if (theme === 'lando') badgeCountry.textContent = '🇬🇧';
+      else badgeCountry.textContent = '🏁';
     }
+    
+    setBadgesFor(saved || null);
 
+    function setThemeAndConfetti(name) {
+      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); setBadgesFor('carlos'); startThemedConfetti('carlos'); return; }
+      if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); setBadgesFor('lando'); startThemedConfetti('lando'); return; }
+    }
     document.querySelectorAll('button[data-theme]').forEach(b => {
       b.addEventListener('click', e => { e.stopPropagation(); setThemeAndConfetti(b.dataset.theme); }, { passive: true });
     });
-
     document.getElementById('resetTheme').addEventListener('click', e => {
       e.stopPropagation();
       root.removeAttribute('data-theme');
       localStorage.removeItem('kc-theme');
+      void document.body.offsetHeight; 
+      setBadgesFor(null);
       startEmojiConfetti();
     }, { passive: true });
   </script>

@@ -12,28 +12,31 @@
     rel="stylesheet">
   <style>
     :root {
-      --bg: #f7faf9;
-      --surface: #fff;
+      --bg:
+        radial-gradient(900px 600px at 8% 0%, #fff7fb 0%, #ffffff 42%),
+        radial-gradient(1200px 700px at 92% 8%, #f2f8ff 0%, #ffffff 48%),
+        radial-gradient(1200px 800px at 50% 96%, #f6fff7 0%, #ffffff 56%);
+      --surface: rgba(255, 255, 255, 0.78);
       --text: #1b1e22;
       --muted: #5b6471;
-      --ring: rgba(0, 0, 0, .08);
+      --ring: rgba(12, 21, 33, .12);
       --accent: #6fa387;
       --btn-bg: #fff;
       --btn-text: #111;
       --btn-border: #d7dde5;
-      --maxw: 940px
+      --maxw: 940px;
     }
 
     :root[data-theme="carlos"] {
       --bg: #dbe6ff;
-      --surface: #ffffff;
+      --surface: #fff;
       --text: #0b1220;
       --muted: #3f527a;
       --ring: rgba(0, 0, 0, .12);
       --accent: #0d347e;
       --btn-bg: #fff;
       --btn-text: #0b1220;
-      --btn-border: #3260b3
+      --btn-border: #3260b3;
     }
 
     :root[data-theme="lando"] {
@@ -45,18 +48,37 @@
       --accent: #ff8000;
       --btn-bg: #232325;
       --btn-text: #f3f3f3;
-      --btn-border: #3a3a3d
+      --btn-border: #3a3a3d;
     }
 
     * {
       box-sizing: border-box
     }
 
+    ::selection {
+      background: color-mix(in oklab, var(--accent) 38%, #ffffff);
+      color: #0b2b20;
+    }
+
     body {
       margin: 0;
       background: var(--bg);
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: 140% 140%, 150% 150%, 120% 120%;
+      animation: aurora-float 18s ease-in-out infinite alternate;
       color: var(--text);
-      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif
+      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+
+    @keyframes aurora-float {
+      0% {
+        background-position: 0% 0%, 100% 0%, 50% 100%
+      }
+
+      100% {
+        background-position: 0% 22%, 100% -12%, 50% 78%
+      }
     }
 
     h1,
@@ -74,9 +96,13 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      background: color-mix(in oklab, var(--bg) 90%, transparent);
+      background: rgba(255, 255, 255, 0.65);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--ring)
+    }
+
+    :root[data-theme="lando"] header.site {
+      background: rgba(18, 18, 20, 0.65)
     }
 
     .site-inner {
@@ -133,13 +159,13 @@
     }
 
     :root[data-theme="carlos"] .avatar-badge {
-      background: #fff url("https://brandlogo.org/wp-content/uploads/2025/02/Williams-Racing-Icon-2020.png.webp") center/80% no-repeat;
+      background: #fff url("assets/img/williams.png") center/80% no-repeat;
       font-size: 0;
       border-color: #0d347e
     }
 
     :root[data-theme="lando"] .avatar-badge {
-      background: #fff url("https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png") center/80% no-repeat;
+      background: #fff url("assets/img/mclaren.png") center/80% no-repeat;
       font-size: 0;
       border-color: #ff8000
     }
@@ -186,14 +212,14 @@
       margin-top: 8px
     }
 
-    @media (min-width:900px) {
+    @media(min-width:900px) {
       .grid {
         grid-template-columns: 1.15fr .85fr
       }
     }
 
     .card {
-      background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 88%, transparent), color-mix(in oklab, var(--surface) 96%, transparent));
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.76));
       border: 1px solid var(--ring);
       border-radius: 18px;
       padding: 20px 22px;
@@ -217,7 +243,7 @@
       gap: 10px
     }
 
-    @media (min-width:560px) {
+    @media(min-width:560px) {
       .row {
         grid-template-columns: 120px 1fr;
         align-items: center
@@ -331,13 +357,6 @@
       margin-top: 8px
     }
 
-    .linkcard:link,
-    .linkcard:visited,
-    .linkcard:hover,
-    .linkcard:active {
-      color: inherit
-    }
-
     .linkcard:hover {
       transform: translateY(-1px);
       box-shadow: 0 10px 20px rgba(12, 21, 33, .06)
@@ -401,7 +420,6 @@
             <div class="label">To</div>
             <div class="to-chip">Katherine &lt;katisabela125@gmail.com&gt;</div>
           </div>
-
           <div class="row">
             <div class="label">Topic</div>
             <div class="topic-wrap" id="topicWrap">
@@ -412,7 +430,6 @@
               <button class="chip" data-topic="Other">Other</button>
             </div>
           </div>
-
           <div class="row">
             <div class="label">Urgency</div>
             <div class="inline">
@@ -425,12 +442,10 @@
               </select>
             </div>
           </div>
-
           <div class="row">
-            <div class="label">Subject</div>
-            <input class="input" id="subject" placeholder="e.g., Collaboration idea: UX for Pathfinder" />
+            <div class="label">Subject</div><input class="input" id="subject"
+              placeholder="e.g., Collaboration idea: UX for Pathfinder" />
           </div>
-
           <div class="row">
             <div class="label">Template</div>
             <div class="inline">
@@ -444,40 +459,35 @@
               <button class="btn" id="applyTemplate">Apply</button>
             </div>
           </div>
-
           <div class="row">
             <div class="label">Message</div>
             <textarea class="textarea" id="message"
               placeholder="Hi Katherine —&#10;&#10;I’m reaching out about [topic]. My timeline is [urgency]. Here’s the context…&#10;&#10;Best,&#10;[Your name]"></textarea>
           </div>
-
-          <div class="actions">
-            <button class="btn" id="buildMail">Open in Email ✉️</button>
-            <button class="btn" id="copyAll">Copy All 📋</button>
-          </div>
+          <div class="actions"><button class="btn" id="buildMail">Open in Email ✉️</button><button class="btn"
+              id="copyAll">Copy All 📋</button></div>
           <div class="small">Tip: selecting a <strong>Topic</strong>, an <strong>Urgency</strong>, and a
-            <strong>Template</strong> will pre-fill the subject and message so it’s easy to start.</div>
+            <strong>Template</strong> will pre-fill the subject and message.</div>
         </div>
       </article>
 
       <article class="card">
         <h2>Direct Links</h2>
         <div class="links-stack">
-          <a class="linkcard" href="mailto:katisabela125@gmail.com">
-            <img src="https://img.icons8.com/fluency/48/filled-message.png" alt="">
+          <a class="linkcard" href="mailto:katisabela125@gmail.com"><img
+              src="https://img.icons8.com/fluency/48/filled-message.png" alt="">
             <div><strong>Email:</strong> katisabela125@gmail.com</div>
           </a>
-          <a class="linkcard" href="https://github.com/Katechen125" target="_blank">
-            <img src="https://img.icons8.com/ios-glyphs/30/github.png" alt="">
+          <a class="linkcard" href="https://github.com/Katechen125" target="_blank"><img
+              src="https://img.icons8.com/ios-glyphs/30/github.png" alt="">
             <div><strong>GitHub:</strong> @Katechen125</div>
           </a>
-          <a class="linkcard" href="https://www.linkedin.com/in/katherine-hsiung-chen-22972830b" target="_blank">
-            <img src="https://img.icons8.com/color/48/linkedin.png" alt="">
+          <a class="linkcard" href="https://www.linkedin.com/in/katherine-hsiung-chen-22972830b" target="_blank"><img
+              src="https://img.icons8.com/color/48/linkedin.png" alt="">
             <div><strong>LinkedIn:</strong> /in/katherine-hsiung-chen-22972830b</div>
           </a>
         </div>
-        <div class="links-small">Prefer X/Twitter or another platform? Mention it in your note and I’ll reply there.
-        </div>
+        <div class="links-small">Prefer X/Twitter or another platform? Mention it and I’ll reply there.</div>
       </article>
     </section>
   </main>
@@ -490,112 +500,37 @@
   <script src="assets/js/confetti.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    const root = document.documentElement;
-    const saved = localStorage.getItem('kc-theme'); if (saved) { root.setAttribute('data-theme', saved); }
-    function setThemeAndConfetti(name) {
-      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
-      if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
+    const root = document.documentElement; const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved);
+    function setThemeAndConfetti(n) {
+      if (n === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
+      if (n === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
     }
     document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti(); });
+    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); void document.body.offsetHeight; startEmojiConfetti(); });
 
-    const topicWrap = document.getElementById('topicWrap');
-    const subjectEl = document.getElementById('subject');
-    const urgencyEl = document.getElementById('urgency');
-    const msgEl = document.getElementById('message');
+    const topicWrap = document.getElementById('topicWrap'), subjectEl = document.getElementById('subject'),
+      urgencyEl = document.getElementById('urgency'), msgEl = document.getElementById('message');
     let topic = "";
-
     topicWrap.addEventListener('click', (e) => {
-      const b = e.target.closest('.chip'); if (!b) return;
-      [...topicWrap.querySelectorAll('.chip')].forEach(c => c.classList.remove('active'));
+      const b = e.target.closest('.chip'); if (!b) return;[...topicWrap.querySelectorAll('.chip')].forEach(c => c.classList.remove('active'));
       b.classList.add('active'); topic = b.dataset.topic;
-      if (!subjectEl.value) { const urg = urgencyEl.value ? ` — ${urgencyEl.value}` : ""; subjectEl.value = `${topic}${urg ? urg : ""}`; }
-      if (!msgEl.value) { msgEl.value = `Hi Katherine —\n\nI’m reaching out about ${topic.toLowerCase()}. My timeline is ${urgencyEl.value || "flexible"}. Here’s the context…\n\nBest,\n[Your name]`; }
+      if (!subjectEl.value) { const urg = urgencyEl.value ? ` — ${urgencyEl.value}` : ""; subjectEl.value = `${topic}${urg}`; }
+      if (!msgEl.value) { msgEl.value = `Hi Katherine —\n\nI’m reaching out about ${topic.toLowerCase()}. My timeline is ${urgencyEl.value || "flexible"}.\n\nBest,\n[Your name]`; }
     });
-
-    function updateSubjectForUrgency() {
-      const urg = urgencyEl.value;
-      if (!subjectEl.value || /^([A-Za-z ]+)( — .+)?$/.test(subjectEl.value)) {
-        const base = topic || "Opportunity";
-        subjectEl.value = urg ? `${base} — ${urg}` : base;
-      }
-    }
+    function updateSubjectForUrgency() { const urg = urgencyEl.value; if (!subjectEl.value || /^([A-Za-z ]+)( — .+)?$/.test(subjectEl.value)) { const base = topic || "Opportunity"; subjectEl.value = urg ? `${base} — ${urg}` : base; } }
     urgencyEl.addEventListener('change', updateSubjectForUrgency);
-
     const templates = {
-      intro: `Hi Katherine —
-
-I’m reaching out to introduce myself and say hi. I’ve been following your work and thought ${topic ? "the " + topic.toLowerCase() + " angle " : "it"} might be a good fit to connect. My timeline is ${urgencyEl.value || "flexible"}.
-
-Quick context:
-• Who I am:
-• What I’m exploring:
-• How we might collaborate:
-
-Best,
-[Your name]`,
-      collab: `Hi Katherine —
-
-I’d love to explore a collaboration around ${topic || "a feature idea"} for Pathfinder / UI polish. I can share a quick demo and next steps. Timeline: ${urgencyEl.value || "flexible"}.
-
-Goals:
-• What success looks like:
-• Constraints:
-• Proposed next action:
-
-Thanks!
-[Your name]`,
-      recruiter: `Hi Katherine —
-
-I’m reaching out after seeing your portfolio. I think your background in C++, Unreal, and React Native could match roles we’re hiring for. If you’re open, I’d love to set up a brief intro. Timeline: ${urgencyEl.value || "this month"}.
-
-Role highlights:
-• Team:
-• Scope:
-• Location/Remote:
-
-Best,
-[Recruiter name]`,
-      feedback: `Hi Katherine —
-
-I tried your project and wanted to share quick feedback. Overall impression: [great / promising / curious]. Timeline for a response is ${urgencyEl.value || "whenever you have time"}.
-
-Notes:
-• What worked:
-• What confused me:
-• Suggestion:
-
-Cheers,
-[Your name]`
+      intro: `Hi Katherine —\n\nQuick hello. Timeline: ${urgencyEl.value || "flexible"}.\n\nBest,\n[Your name]`,
+      collab: `Hi Katherine —\n\nCollaboration idea around ${topic || "a feature"}.\nTimeline: ${urgencyEl.value || "flexible"}.\n\nThanks!\n[Your name]`,
+      recruiter: `Hi Katherine —\n\nI think your background could match roles we have. Timeline: ${urgencyEl.value || "this month"}.\n\nBest,\n[Recruiter]`,
+      feedback: `Hi Katherine —\n\nTried your project—feedback below.\nTimeline: ${urgencyEl.value || "whenever"}.\n\nCheers,\n[Your name]`
     };
-
     document.getElementById('applyTemplate').addEventListener('click', () => {
-      const key = (document.getElementById('template').value || "").toLowerCase();
-      if (!key) return;
-      msgEl.value = templates[key] || msgEl.value;
-      if (!subjectEl.value) {
-        const base = (key === "collab" ? "Collaboration" : key === "recruiter" ? "Recruiting" : key === "feedback" ? "Feedback" : "Intro");
-        subjectEl.value = topic ? `${base}: ${topic}` : base;
-      }
+      const k = (document.getElementById('template').value || "").toLowerCase(); if (!k) return;
+      msgEl.value = templates[k] || msgEl.value; if (!subjectEl.value) { const base = (k === "collab" ? "Collaboration" : k === "recruiter" ? "Recruiting" : k === "feedback" ? "Feedback" : "Intro"); subjectEl.value = topic ? `${base}: ${topic}` : base; }
     });
-
-    document.getElementById('buildMail').addEventListener('click', () => {
-      const to = "katisabela125@gmail.com";
-      const subj = encodeURIComponent(subjectEl.value || "Hello from your site");
-      const body = encodeURIComponent(msgEl.value || "Hi Katherine —");
-      window.location.href = `mailto:${to}?subject=${subj}&body=${body}`;
-    });
-
-    document.getElementById('copyAll').addEventListener('click', async () => {
-      const all = `To: katisabela125@gmail.com
-Subject: ${subjectEl.value || "(none)"}
-
-${msgEl.value || ""}`;
-      try { await navigator.clipboard.writeText(all); alert("Copied to clipboard!"); } catch (e) { alert("Could not copy, sorry."); }
-    });
-
-    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('buildMail').addEventListener('click', () => { const to = "katisabela125@gmail.com"; const subj = encodeURIComponent(subjectEl.value || "Hello from your site"); const body = encodeURIComponent(msgEl.value || "Hi Katherine —"); window.location.href = `mailto:${to}?subject=${subj}&body=${body}`; });
+    document.getElementById('copyAll').addEventListener('click', async () => { const all = `To: katisabela125@gmail.com\nSubject: ${subjectEl.value || "(none)"}\n\n${msgEl.value || ""}`; try { await navigator.clipboard.writeText(all); alert("Copied to clipboard!"); } catch { alert("Could not copy, sorry."); } });
   </script>
 </body>
 
