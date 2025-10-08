@@ -5,16 +5,14 @@
     mclaren: "https://img.icons8.com/m_sharp/512/FD7E14/mclaren.png",
     ln4: "https://images.seeklogo.com/logo-png/44/2/lando-norris-logo-png_seeklogo-445536.png"
   };
-  const IMAGES = {};
-  for (const k in IMG_SRC) { const img = new Image(); img.src = IMG_SRC[k]; IMAGES[k] = img; }
+  const IMAGES = {}; for (const k in IMG_SRC) { const img = new Image(); img.crossOrigin = "anonymous"; img.src = IMG_SRC[k]; IMAGES[k] = img; }
 
-  let cvs, ctx, W = 0, H = 0, DPR = 1, rafId = null;
+  let cvs, ctx, W = 0, H = 0, DPR = 1, rafId = null, ready = false;
 
   function ensureCanvas() {
     if (cvs) return;
     DPR = Math.max(1, window.devicePixelRatio || 1);
     cvs = document.createElement('canvas');
-    cvs.id = 'kc-confetti';
     Object.assign(cvs.style, { position: 'fixed', inset: '0', pointerEvents: 'none', zIndex: '0' });
     document.body.appendChild(cvs);
     ctx = cvs.getContext('2d');
@@ -26,25 +24,22 @@
     ensureCanvas();
     if (rafId) cancelAnimationFrame(rafId);
 
-    const {
-      colors = ['#ff7676', '#ffd166', '#6ee7b7', '#93c5fd', '#fbcfe8', '#e9d5ff'],
-      labels = [], durationMs = 2400, fadeMs = 600, imgSize = 22, textPx = 16, count = 220
-    } = opts || {};
+    const { colors = ['#ff7676', '#ffd166', '#6ee7b7', '#93c5fd', '#fbcfe8', '#e9d5ff'],
+      labels = [], durationMs = 1900, imgSize = 22, textPx = 16, count = 240 } = opts || {};
 
     const start = performance.now();
     const parts = Array.from({ length: count }, () => ({
-      x: Math.random() * W, y: -Math.random() * H * 0.4,
-      vx: (Math.random() * 2 - 1) * 0.9 * DPR, vy: (1.8 + Math.random() * 2.2) * DPR,
-      rot: Math.random() * Math.PI, vr: (Math.random() * 0.28 - 0.14),
+      x: Math.random() * W, y: -Math.random() * H * 0.35,
+      vx: (Math.random() * 2 - 1) * 1.0 * DPR, vy: (2.0 + Math.random() * 2.2) * DPR,
+      rot: Math.random() * Math.PI, vr: (Math.random() * 0.30 - 0.15),
       color: colors[(Math.random() * colors.length) | 0],
       label: labels.length ? labels[(Math.random() * labels.length) | 0] : null
     }));
 
     function tick(t) {
-      const elapsed = t - start;
       ctx.clearRect(0, 0, W, H);
       parts.forEach(p => {
-        p.vy += 0.012 * DPR; p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+        p.vy += 0.015 * DPR; p.x += p.vx; p.y += p.vy; p.rot += p.vr;
         if (p.y > H + 24 * DPR) { p.y = -12 * DPR; p.x = Math.random() * W; }
       });
       parts.forEach(p => {
@@ -59,23 +54,27 @@
         }
         ctx.restore();
       });
-      if (elapsed < durationMs) { rafId = requestAnimationFrame(tick); }
-      else { ctx.clearRect(0, 0, W, H); rafId = null; }
+      if (t - start < durationMs) { rafId = requestAnimationFrame(tick); } else { ctx.clearRect(0, 0, W, H); rafId = null; }
     }
     rafId = requestAnimationFrame(tick);
   }
 
   function startThemedConfetti(theme) {
+    ready || prepareConfetti();
     if (theme === 'carlos') {
-      burst({ colors: ['#0f3d91', '#ffffff'], labels: ['williams', 'chili'], imgSize: 24, count: 240 });
+      burst({ colors: ['#0f3d91', '#ffffff'], labels: ['williams', 'chili'], imgSize: 22, count: 240 });
     } else if (theme === 'lando') {
-      burst({ colors: ['#ff8000', '#ffffff', '#0c0c0d'], labels: ['mclaren', 'ln4'], imgSize: 24, count: 240 });
+      burst({ colors: ['#ff8000', '#ffffff', '#0c0c0d'], labels: ['mclaren', 'ln4'], imgSize: 22, count: 240 });
     }
   }
-  function startNormalConfetti() { burst({ count: 220 }); }
-  function startEmojiConfetti() { burst({ colors: ['#e07b97', '#6fa387', '#6aa9d8'], labels: ['💻', '🫀', '🏎️'], imgSize: 22, count: 240 }); }
+  function startNormalConfetti() { ready || prepareConfetti(); burst({ count: 240 }); }
+  function startEmojiConfetti() { ready || prepareConfetti(); burst({ colors: ['#e07b97', '#6fa387', '#6aa9d8'], labels: ['💻', '🫀', '🏎️'], imgSize: 22, count: 240 }); }
 
-  function prepareConfetti() { ensureCanvas(); }
+  function prepareConfetti() {
+    ensureCanvas();
+    ctx.clearRect(0, 0, W, H);
+    ready = true;
+  }
 
   window.startThemedConfetti = startThemedConfetti;
   window.startNormalConfetti = startNormalConfetti;

@@ -28,13 +28,25 @@ function getFlag(code) {
     return '🏁';
 }
 
+const FALLBACK_LAST_WINNER = {
+    meeting_name: "British Grand Prix",
+    driver_name: "George Russell",
+    team_name: "Mercedes",
+    driver_number: "63",
+    country_code: "GBR"
+};
+
 async function getLatestWinner() {
     try {
         const year = new Date().getUTCFullYear();
         const sessions = await fetch(`https://api.openf1.org/v1/sessions?session_type=Race&year=${year}&orderby=-date_start&limit=1`).then(r => r.json());
-        const session = sessions && sessions[0]; if (!session) return null;
+        const session = sessions && sessions[0];
+        if (!session) throw new Error('no session');
+
         const results = await fetch(`https://api.openf1.org/v1/results?session_key=${session.session_key}&position=1`).then(r => r.json());
-        const r1 = results && results[0]; if (!r1) return null;
+        const r1 = results && results[0];
+        if (!r1) throw new Error('no results');
+
         const drivers = await fetch(`https://api.openf1.org/v1/drivers?driver_number=${r1.driver_number}&session_key=${session.session_key}`).then(r => r.json());
         const d = drivers && drivers[0];
 
@@ -46,12 +58,17 @@ async function getLatestWinner() {
 
         return { name, team, flag, number: String(r1.driver_number), gp, img };
     } catch (e) {
-        return null;
+        const f = FALLBACK_LAST_WINNER;
+        const name = f.driver_name;
+        const team = f.team_name;
+        const flag = getFlag(f.country_code);
+        const gp = f.meeting_name;
+        const img = (DRIVER_IMAGES[name] && DRIVER_IMAGES[name].img) || '';
+        return { name, team, flag, number: String(f.driver_number), gp, img, fallback: true };
     }
 }
 
 function resetLights() { lights.forEach(l => l.className = 'seq-light'); }
-
 function animateLights() {
     resetLights();
     let i = 0;
@@ -59,7 +76,7 @@ function animateLights() {
         const t = setInterval(() => {
             if (i < 5) { lights[i].classList.add('on', 'red'); i++; }
             else { clearInterval(t); setTimeout(resolve, 420); }
-        }, 240);
+        }, 240); 
     });
 }
 function goGreen() {
