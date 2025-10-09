@@ -10,9 +10,9 @@
     --btn-border: #d7dde5;
     --maxw: 1080px;
     --bg-grad:
-        radial-gradient(1200px 800px at 10% 15%, #f6fffb 0, transparent 50%),
-        radial-gradient(1200px 900px at 90% 20%, #fff7fb 0, transparent 55%),
-        radial-gradient(1000px 700px at 40% 90%, #f5f9ff 0, transparent 50%)
+        radial-gradient(1400px 900px at 12% 18%, rgba(214, 255, 232, .85) 0, rgba(214, 255, 232, 0) 58%),
+        radial-gradient(1400px 1000px at 88% 22%, rgba(255, 228, 242, .85) 0, rgba(255, 228, 242, 0) 60%),
+        radial-gradient(1200px 820px at 42% 92%, rgba(227, 236, 255, .9) 0, rgba(227, 236, 255, 0) 55%)
 }
 
 ::selection {
@@ -167,4 +167,84 @@ header.site {
     background: var(--accent);
     color: #101010;
     border-color: transparent
+}
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--ring);
+    border-radius: 16px;
+    padding: 18px
+}
+
+.linkcard {
+    background: var(--surface);
+    border: 1px solid var(--ring)
+}
+
+.input,
+.select,
+.textarea,
+.to-chip {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--ring)
+}
+
+footer {
+    border-top: 1px solid var(--ring);
+    background: color-mix(in oklab, var(--bg) 92%, transparent);
+    backdrop-filter: blur(6px);
+    padding: 18px 0;
+    color: var(--muted)
+}
+
+.footer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    position: static
+}
+
+.footer-launch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: static
+}
+
+.flag-btn {
+    appearance: none;
+    border: 1px solid var(--ring);
+    background: #fff;
+    padding: 10px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 18px
+}
+
+:root[data-theme="lando"] .card {
+    background: linear-gradient(180deg, #191a1c, #141416)
+}
+
+:root[data-theme="lando"] .linkcard {
+    background: #1c1d1f
+}
+
+:root[data-theme="lando"] .input,
+:root[data-theme="lando"] .select,
+:root[data-theme="lando"] .textarea {
+    background: #121214;
+    color: #f3f4f6;
+    border-color: #2f3136
+}
+
+:root[data-theme="lando"] .flag-btn {
+    background: #2a2a2a;
+    color: #fff;
+    border-color: #444
+}
+
+:root:not([data-theme]) .card {
+    background: linear-gradient(180deg, #ffffff, #f6f9ff)
 }
