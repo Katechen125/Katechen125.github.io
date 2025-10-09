@@ -4,12 +4,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Projects — Katherine</title>
+  <title>Projects — Katherine Isabela Hsiung Chen</title>
   <link rel="icon" type="image/svg+xml"
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap"
     rel="stylesheet">
+    
   <style>
     :root {
       --bg:
@@ -24,112 +25,109 @@
       --btn-bg: #fff;
       --btn-text: #111;
       --btn-border: #d7dde5;
-      --maxw: 1080px
+      --maxw: 1080px;
     }
 
     :root[data-theme="carlos"] {
-      --bg: #dbe6ff;
-      --surface: #fff;
+      --bg:
+        radial-gradient(900px 600px at 10% 0%, #d9e5ff 0%, #ffffff 45%),
+        radial-gradient(1200px 700px at 90% 12%, #d2e0ff 0%, #ffffff 55%),
+        radial-gradient(1200px 800px at 50% 98%, #e8f1ff 0%, #ffffff 62%);
+      --surface: #ffffff;
       --text: #0b1220;
       --muted: #3f527a;
-      --ring: rgba(0, 0, 0, .12);
+      --ring: rgba(13, 52, 126, .18);
       --accent: #0d347e;
       --btn-bg: #fff;
       --btn-text: #0b1220;
-      --btn-border: #3260b3
+      --btn-border: #3260b3;
     }
 
     :root[data-theme="lando"] {
-      --bg: #0f0f10;
-      --surface: #1b1b1d;
-      --text: #f3f4f6;
-      --muted: #e2e6ee;
-      --ring: #2d2f33;
+      --bg:
+        radial-gradient(900px 600px at 8% 0%, #fff1e5 0%, #ffffff 44%),
+        radial-gradient(1200px 700px at 92% 10%, #ffe6c7 0%, #ffffff 54%),
+        radial-gradient(1200px 800px at 50% 96%, #fff3d6 0%, #ffffff 60%);
+      --surface: #ffffff;
+      --text: #1b1e22;
+      --muted: #6c5a3a;
+      --ring: rgba(255, 128, 0, .22);
       --accent: #ff8000;
-      --btn-bg: #232325;
-      --btn-text: #f3f3f3;
-      --btn-border: #3a3a3d
+      --btn-bg: #fff3e6;
+      --btn-text: #3b2a10;
+      --btn-border: #ffd5a8;
+    }
+
+    :root[data-theme="carlos"] .avatar-badge {
+      background: #fff url("assets/img/Williams_logo.png") center/80% no-repeat;
+      font-size: 0;
+      border-color: #0d347e;
+    }
+
+    :root[data-theme="lando"] .avatar-badge {
+      background: #fff url("assets/img/mclaren_logo.png") center/80% no-repeat;
+      font-size: 0;
+      border-color: #ff8000;
     }
 
     * {
-      box-sizing: border-box
+      box-sizing: border-box;
     }
 
     ::selection {
       background: color-mix(in oklab, var(--accent) 38%, #ffffff);
-      color: #0b2b20
+      color: #0b2b20;
     }
 
     body {
       margin: 0;
-      background: #fff;
-      background-image: var(--bg);
+      background: var(--bg);
       background-attachment: fixed;
       background-repeat: no-repeat;
       background-size: 140% 140%, 150% 150%, 120% 120%;
       animation: aurora-float 18s ease-in-out infinite alternate;
       color: var(--text);
-      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif
+      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     }
 
     @keyframes aurora-float {
       0% {
-        background-position: 0% 0%, 100% 0%, 50% 100%
+        background-position: 0% 0%, 100% 0%, 50% 100%;
       }
 
       100% {
-        background-position: 0% 22%, 100% -12%, 50% 78%
+        background-position: 0% 22%, 100% -12%, 50% 78%;
       }
-    }
-
-    h1,
-    h2,
-    h3 {
-      font-family: "Playfair Display", Georgia, serif
-    }
-
-    .container {
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: 0 22px
     }
 
     header.site {
       position: sticky;
       top: 0;
-      z-index: 10;
       background: rgba(255, 255, 255, 0.65);
       backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--ring)
+      border-bottom: 1px solid var(--ring);
+      z-index: 10;
     }
 
     :root[data-theme="lando"] header.site {
-      background: rgba(18, 18, 20, 0.65)
+      background: rgba(18, 18, 20, 0.65);
     }
 
     .site-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 64px
+      height: 64px;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 22px;
     }
 
     .brand {
       display: flex;
       gap: 12px;
       align-items: center;
-      font-weight: 800
-    }
-
-    .nav a {
-      margin-left: 14px;
-      color: var(--text);
-      font-weight: 700;
-      text-decoration: none
-    }
-
-    .nav a:hover {
-      color: var(--accent)
+      font-weight: 800;
     }
 
     .avatar {
@@ -137,12 +135,12 @@
       height: 60px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff)
+      border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff);
     }
 
     .avatar-wrap {
       position: relative;
-      display: inline-block
+      display: inline-block;
     }
 
     .avatar-badge {
@@ -157,39 +155,21 @@
       display: grid;
       place-items: center;
       font: 700 12px/1 "Playfair Display", serif;
-      color: var(--accent)
+      color: var(--accent);
     }
 
-    :root[data-theme="carlos"] .avatar-badge {
-      background: #fff url("assets/img/williams.png") center/80% no-repeat;
-      font-size: 0;
-      border-color: #0d347e
-    }
-
-    :root[data-theme="lando"] .avatar-badge {
-      background: #fff url("assets/img/mclaren.png") center/80% no-repeat;
-      font-size: 0;
-      border-color: #ff8000
-    }
-
-    .page-hero {
-      padding: 40px 0 18px;
-      text-align: center
-    }
-
-    .page-hero h1 {
-      margin: 0 auto 10px;
-      max-width: 820px;
-      font-size: clamp(28px, 5vw, 46px)
+    h1,
+    h2,
+    h3 {
+      font-family: "Playfair Display", Georgia, serif;
     }
 
     .driver-bar {
-      margin: 6px auto 0;
+      margin: 10px 0 20px;
       display: flex;
       gap: 10px;
-      flex-wrap: wrap;
       justify-content: center;
-      color: var(--muted)
+      flex-wrap: wrap;
     }
 
     .btn {
@@ -200,25 +180,31 @@
       padding: 10px 14px;
       border-radius: 12px;
       font-weight: 700;
-      cursor: pointer
+      cursor: pointer;
+      transition: transform 0.1s ease;
     }
 
     .btn:hover {
       background: var(--accent);
       color: #fff;
-      border-color: transparent
+      border-color: transparent;
+      transform: translateY(-2px);
     }
 
-    :root[data-theme="lando"] .btn {
-      background: var(--btn-bg);
-      color: var(--btn-text);
-      border-color: var(--btn-border)
+    .page-hero {
+      text-align: center;
+      padding: 40px 0 20px;
     }
 
-    :root[data-theme="lando"] .btn:hover {
-      background: var(--accent);
-      color: #111;
-      border-color: transparent
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    @media (min-width: 780px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     .card {
@@ -226,25 +212,14 @@
       border: 1px solid var(--ring);
       border-radius: 16px;
       padding: 18px;
-      box-shadow: 0 10px 24px rgba(12, 21, 33, .06), 0 2px 6px rgba(12, 21, 33, .04)
-    }
-
-    .grid {
-      display: grid;
-      gap: 16px
-    }
-
-    @media(min-width:780px) {
-      .grid {
-        grid-template-columns: 1fr 1fr
-      }
+      box-shadow: 0 10px 24px rgba(12, 21, 33, .06), 0 2px 6px rgba(12, 21, 33, .04);
     }
 
     .tags {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
-      margin: .35rem 0 .8rem
+      margin: .35rem 0 .8rem;
     }
 
     .tag {
@@ -254,73 +229,33 @@
       border: 1px solid var(--ring);
       font-weight: 700;
       background: color-mix(in oklab, #cfe9fb 35%, white);
-      color: #0b2033
+      color: #0b2033;
     }
 
     :root[data-theme="lando"] .tag {
       background: #2a2a2a;
       border-color: #3a3a3d;
-      color: #ffe5c2
-    }
-
-    .linkrow {
-      margin-top: 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px
-    }
-
-    .sep {
-      opacity: .6
-    }
-
-    a.code-link,
-    a.video-link {
-      font-weight: 700;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px
-    }
-
-    a.code-link {
-      color: var(--accent)
-    }
-
-    a.video-link {
-      color: var(--muted)
-    }
-
-    :root[data-theme="lando"] a.code-link {
-      color: #ff8000
-    }
-
-    :root[data-theme="lando"] a.video-link {
-      color: #ffae42
+      color: #ffe5c2;
     }
 
     footer {
       border-top: 1px solid var(--ring);
       padding: 18px 0;
       color: var(--muted);
-      text-align: center
-    }
-
-    .space-top {
-      margin-top: 12px
+      text-align: center;
     }
   </style>
 </head>
 
 <body>
   <header class="site">
-    <div class="site-inner container">
+    <div class="site-inner">
       <div class="brand">
         <div class="avatar-wrap">
           <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
           <span class="avatar-badge">KC</span>
         </div>
-        <span>Projects</span>
+        <span>Projects — Pole Position 🏁</span>
       </div>
       <nav class="nav">
         <a href="index.html">Home</a>
@@ -348,9 +283,7 @@
           dedicated <strong>processor instance</strong>.</p>
         <div class="tags"><span class="tag">C++</span><span class="tag">Factory Pattern</span><span
             class="tag">Algorithms</span></div>
-        <div class="linkrow"><a class="code-link" href="https://github.com/Katechen125/Calculator" target="_blank">💻
-            Code</a><span class="sep">•</span><a class="video-link" href="YOUR_DEMO_LINK_CALCULATOR" target="_blank">🎥
-            Demo</a></div>
+        <div><a class="code-link" href="https://github.com/Katechen125/Calculator" target="_blank">💻 Code</a></div>
       </article>
 
       <article class="card">
@@ -358,10 +291,8 @@
         <p>C++ with updated <strong>wxWidgets</strong> UI via <strong>vcpkg</strong>. Pause/step + presets.</p>
         <div class="tags"><span class="tag">C++</span><span class="tag">wxWidgets</span><span class="tag">vcpkg</span>
         </div>
-        <div class="linkrow"><a class="code-link"
-            href="https://github.com/Katechen125/conway-s-game-of-life-05-24-Katechen125" target="_blank">💻
-            Code</a><span class="sep">•</span><a class="video-link" href="YOUR_DEMO_LINK_GOL" target="_blank">🎥
-            Demo</a></div>
+        <div><a class="code-link" href="https://github.com/Katechen125/conway-s-game-of-life-05-24-Katechen125"
+            target="_blank">💻 Code</a></div>
       </article>
 
       <article class="card">
@@ -370,9 +301,7 @@
           Built with <strong>TypeScript</strong>, <strong>Google Cloud</strong>, <strong>Xcode</strong> (iOS).</p>
         <div class="tags"><span class="tag">React Native</span><span class="tag">TypeScript</span><span
             class="tag">Google Cloud</span><span class="tag">Xcode (iOS)</span></div>
-        <div class="linkrow"><a class="code-link" href="https://github.com/Katechen125/Pathfinder" target="_blank">💻
-            Code</a><span class="sep">•</span><a class="video-link" href="YOUR_DEMO_LINK_PATHFINDER" target="_blank">🎥
-            Demo</a></div>
+        <div><a class="code-link" href="https://github.com/Katechen125/Pathfinder" target="_blank">💻 Code</a></div>
       </article>
 
       <article class="card">
@@ -381,9 +310,7 @@
           shutdown.</p>
         <div class="tags"><span class="tag">C++</span><span class="tag">TCP</span><span class="tag">Sockets</span><span
             class="tag">Networking</span></div>
-        <div class="linkrow"><a class="code-link" href="https://github.com/Katechen125/TCP-server" target="_blank">💻
-            Code</a><span class="sep">•</span><a class="video-link" href="YOUR_DEMO_LINK_TCP" target="_blank">🎥
-            Demo</a></div>
+        <div><a class="code-link" href="https://github.com/Katechen125/TCP-server" target="_blank">💻 Code</a></div>
       </article>
 
       <article class="card">
@@ -391,26 +318,47 @@
         <p><strong>UE5 — Blueprints.</strong> Proximity trigger: approach → panel reveals; step away → panel hides.</p>
         <div class="tags"><span class="tag">UE5</span><span class="tag">Blueprints</span><span
             class="tag">Prototype</span></div>
-        <div class="linkrow"><a class="video-link" href="YOUR_DEMO_LINK_COLLAB" target="_blank">🎥 Demo</a></div>
+        <div><a class="code-link" href="#">🎥 Demo</a></div>
       </article>
     </div>
   </section>
 
   <footer>
-    <div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages
+    <div class="container">
+      © <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages
     </div>
   </footer>
 
   <script src="assets/js/confetti.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    const root = document.documentElement; const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved);
-    function setThemeAndConfetti(n) {
-      if (n === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
-      if (n === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
+    const root = document.documentElement;
+    const saved = localStorage.getItem('kc-theme');
+    if (saved) root.setAttribute('data-theme', saved);
+
+    function setTheme(name) {
+      if (name === 'carlos') {
+        root.setAttribute('data-theme', 'carlos');
+        localStorage.setItem('kc-theme', 'carlos');
+        startThemedConfetti('carlos');
+      }
+      if (name === 'lando') {
+        root.setAttribute('data-theme', 'lando');
+        localStorage.setItem('kc-theme', 'lando');
+        startThemedConfetti('lando');
+      }
     }
-    document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme')?.addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); void document.body.offsetHeight; startEmojiConfetti(); });
+
+    document.querySelectorAll('button[data-theme]').forEach(b =>
+      b.addEventListener('click', () => setTheme(b.dataset.theme))
+    );
+
+    document.getElementById('resetTheme').addEventListener('click', () => {
+      root.removeAttribute('data-theme');
+      localStorage.removeItem('kc-theme');
+      void document.body.offsetHeight;
+      startEmojiConfetti();
+    });
   </script>
 </body>
 

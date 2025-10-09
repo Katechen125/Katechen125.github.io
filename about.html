@@ -10,6 +10,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap"
     rel="stylesheet">
+
   <style>
     :root {
       --bg:
@@ -24,147 +25,104 @@
       --btn-bg: #fff;
       --btn-text: #111;
       --btn-border: #d7dde5;
-      --maxw: 980px
+      --maxw: 980px;
     }
 
     :root[data-theme="carlos"] {
-      --bg: #dbe6ff;
-      --surface: #fff;
+      --bg:
+        radial-gradient(900px 600px at 10% 0%, #d9e5ff 0%, #ffffff 45%),
+        radial-gradient(1200px 700px at 90% 12%, #d2e0ff 0%, #ffffff 55%),
+        radial-gradient(1200px 800px at 50% 98%, #e8f1ff 0%, #ffffff 62%);
+      --surface: #ffffff;
       --text: #0b1220;
       --muted: #3f527a;
-      --ring: rgba(0, 0, 0, .12);
+      --ring: rgba(13, 52, 126, .18);
       --accent: #0d347e;
       --btn-bg: #fff;
       --btn-text: #0b1220;
-      --btn-border: #3260b3
+      --btn-border: #3260b3;
     }
 
     :root[data-theme="lando"] {
-      --bg: #0f0f10;
-      --surface: #1b1b1d;
-      --text: #f3f4f6;
-      --muted: #e2e6ee;
-      --ring: #2d2f33;
+      --bg:
+        radial-gradient(900px 600px at 8% 0%, #fff1e5 0%, #ffffff 44%),
+        radial-gradient(1200px 700px at 92% 10%, #ffe6c7 0%, #ffffff 54%),
+        radial-gradient(1200px 800px at 50% 96%, #fff3d6 0%, #ffffff 60%);
+      --surface: #ffffff;
+      --text: #1b1e22;
+      --muted: #6c5a3a;
+      --ring: rgba(255, 128, 0, .22);
       --accent: #ff8000;
-      --btn-bg: #232325;
-      --btn-text: #f3f3f3;
-      --btn-border: #3a3a3d
+      --btn-bg: #fff3e6;
+      --btn-text: #3b2a10;
+      --btn-border: #ffd5a8;
     }
 
-    :root[data-theme="lando"] .card {
-      background: linear-gradient(180deg, #191a1c, #141416)
+    :root[data-theme="carlos"] .avatar-badge {
+      background: #fff url("assets/img/Williams_logo.png") center/80% no-repeat;
+      font-size: 0;
+      border-color: #0d347e;
     }
 
-    :root[data-theme="lando"] .linkcard {
-      background: #1c1d1f
-    }
-
-    :root[data-theme="lando"] .input,
-    :root[data-theme="lando"] .select,
-    :root[data-theme="lando"] .textarea {
-      background: #121214;
-      color: #f3f4f6;
-      border-color: #2f3136
-    }
-
-    :root[data-theme="lando"] .btn {
-      background: var(--btn-bg);
-      color: var(--btn-text);
-      border-color: var(--btn-border)
-    }
-
-    :root[data-theme="lando"] .btn:hover {
-      background: var(--accent);
-      color: #111;
-      border-color: transparent
-    }
-
-    :root:not([data-theme]) .card {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.76))
+    :root[data-theme="lando"] .avatar-badge {
+      background: #fff url("assets/img/mclaren_logo.png") center/80% no-repeat;
+      font-size: 0;
+      border-color: #ff8000;
     }
 
     * {
-      box-sizing: border-box
-    }
-
-    ::selection {
-      background: color-mix(in oklab, var(--accent) 38%, #ffffff);
-      color: #0b2b20
+      box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      background: #fff;
-      background-image: var(--bg);
+      background: var(--bg);
       background-attachment: fixed;
       background-repeat: no-repeat;
       background-size: 140% 140%, 150% 150%, 120% 120%;
       animation: aurora-float 18s ease-in-out infinite alternate;
       color: var(--text);
-      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif
+      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     }
 
     @keyframes aurora-float {
       0% {
-        background-position: 0% 0%, 100% 0%, 50% 100%
+        background-position: 0% 0%, 100% 0%, 50% 100%;
       }
 
       100% {
-        background-position: 0% 22%, 100% -12%, 50% 78%
+        background-position: 0% 22%, 100% -12%, 50% 78%;
       }
-    }
-
-    h1,
-    h2 {
-      font-family: "Playfair Display", Georgia, serif
-    }
-
-    .container {
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: 0 22px
     }
 
     header.site {
       position: sticky;
       top: 0;
-      z-index: 10;
       background: rgba(255, 255, 255, 0.65);
       backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--ring)
+      border-bottom: 1px solid var(--ring);
+      z-index: 10;
     }
 
     :root[data-theme="lando"] header.site {
-      background: rgba(18, 18, 20, 0.65)
+      background: rgba(18, 18, 20, 0.65);
     }
 
     .site-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 64px
+      height: 64px;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 22px;
     }
 
     .brand {
       display: flex;
       gap: 12px;
       align-items: center;
-      font-weight: 800
-    }
-
-    .nav a {
-      margin-left: 14px;
-      color: var(--text);
-      font-weight: 700;
-      text-decoration: none;
-      padding: 6px 10px;
-      border-radius: 10px
-    }
-
-    .nav a:hover {
-      background: color-mix(in oklab, var(--accent) 18%, #ffffff);
-      color: #0b2b20;
-      transition: background .18s ease, color .18s ease
+      font-weight: 800;
     }
 
     .avatar {
@@ -172,12 +130,12 @@
       height: 60px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff)
+      border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff);
     }
 
     .avatar-wrap {
       position: relative;
-      display: inline-block
+      display: inline-block;
     }
 
     .avatar-badge {
@@ -192,38 +150,15 @@
       display: grid;
       place-items: center;
       font: 700 12px/1 "Playfair Display", serif;
-      color: var(--accent)
-    }
-
-    :root[data-theme="carlos"] .avatar-badge {
-      background: #fff url("assets/img/williams.png") center/80% no-repeat;
-      font-size: 0;
-      border-color: #0d347e
-    }
-
-    :root[data-theme="lando"] .avatar-badge {
-      background: #fff url("assets/img/mclaren.png") center/80% no-repeat;
-      font-size: 0;
-      border-color: #ff8000
-    }
-
-    .page {
-      padding: 36px 0 28px
-    }
-
-    .page h1 {
-      margin: 0 0 12px;
-      font-size: clamp(28px, 5vw, 46px);
-      text-align: center
+      color: var(--accent);
     }
 
     .driver-bar {
-      margin: 8px 0 18px;
+      margin: 10px 0 20px;
       display: flex;
       gap: 10px;
-      flex-wrap: wrap;
       justify-content: center;
-      color: var(--muted)
+      flex-wrap: wrap;
     }
 
     .btn {
@@ -234,117 +169,51 @@
       padding: 10px 14px;
       border-radius: 12px;
       font-weight: 700;
-      cursor: pointer
+      cursor: pointer;
+      transition: transform 0.1s ease;
     }
 
     .btn:hover {
       background: var(--accent);
       color: #fff;
-      border-color: transparent
+      border-color: transparent;
+      transform: translateY(-2px);
     }
 
-    .grid {
-      display: grid;
-      gap: 16px
+    main {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 40px 22px 60px;
     }
 
-    @media(min-width:860px) {
-      .grid {
-        grid-template-columns: 1fr 1fr
-      }
+    h1,
+    h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      text-align: center;
     }
 
-    .card {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.76));
-      border: 1px solid var(--ring);
-      border-radius: 16px;
-      padding: 18px 20px;
-      box-shadow: 0 12px 28px rgba(12, 21, 33, .08), 0 2px 6px rgba(12, 21, 33, .05)
-    }
-
-    .race-wrap {
-      margin: 6px auto 20px;
-      width: min(760px, 92%)
-    }
-
-    .race-line {
-      position: relative;
-      height: 28px;
-      margin: 10px auto 0;
-      width: 100%;
-      border-bottom: 3px dashed color-mix(in oklab, var(--text) 35%, transparent);
-      overflow: hidden
-    }
-
-    .race-flag {
-      position: absolute;
-      left: 2px;
-      top: -10px;
-      font-size: 22px;
-      line-height: 1
-    }
-
-    .race-car {
-      position: absolute;
-      top: -6px;
-      right: -40px;
-      left: auto;
-      font-size: 22px;
-      line-height: 1;
-      animation: car-move 10s linear infinite;
-      will-change: right
-    }
-
-    @keyframes car-move {
-      0% {
-        right: -40px
-      }
-
-      100% {
-        right: calc(100% - 24px)
-      }
-    }
-
-    .race-progress {
-      position: absolute;
-      bottom: -3px;
-      right: 0;
-      height: 6px;
-      width: 0%;
-      background: color-mix(in oklab, var(--accent) 55%, #243);
-      border-radius: 4px;
-      animation: prog-move 10s linear infinite;
-      will-change: width
-    }
-
-    @keyframes prog-move {
-      0% {
-        width: 0%
-      }
-
-      100% {
-        width: 100%
-      }
+    p {
+      margin-bottom: 1.2rem;
     }
 
     footer {
       border-top: 1px solid var(--ring);
       padding: 18px 0;
       color: var(--muted);
-      text-align: center
+      text-align: center;
     }
   </style>
 </head>
 
 <body>
   <header class="site">
-    <div class="site-inner container">
+    <div class="site-inner">
       <div class="brand">
         <div class="avatar-wrap">
           <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
           <span class="avatar-badge">KC</span>
         </div>
-        <span>About — Pole Position🏁</span>
+        <span>About — Pole Position 🏁</span>
       </div>
       <nav class="nav">
         <a href="index.html">Home</a>
@@ -355,62 +224,61 @@
     </div>
   </header>
 
-  <main class="page container">
+  <main>
     <h1>About Me</h1>
-    <div class="race-wrap">
-      <div class="race-line"><span class="race-flag">🏁</span><span class="race-car">🏎️</span>
-        <div class="race-progress"></div>
-      </div>
-    </div>
-
     <div class="driver-bar">
-      <span>Favorite drivers:</span>
       <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
       <button class="btn" data-theme="lando">Lando Norris</button>
-      <button class="btn" id="resetTheme">Reset theme</button>
-      <span>(themed confetti)</span>
+      <button class="btn" id="resetTheme">Reset Theme</button>
     </div>
 
-    <section class="grid">
-      <article class="card">
-        <h2>Where I’m headed</h2>
-        <p>Finishing Computer Science and starting Simulation Engineering. I love turning ideas into working systems
-          with polish.</p>
-      </article>
-      <article class="card">
-        <h2>Tech I enjoy</h2>
-        <p>Clean C++ builds, Unreal blueprints for fast experiments, React Native + TypeScript for app UX, and little UI
-          details that make everything feel intentional.</p>
-      </article>
-      <article class="card">
-        <h2>Why F1</h2>
-        <p>Strategy, timing, teamwork—and that moment when everything clicks. I like shipping software with the same
-          energy.</p>
-      </article>
-      <article class="card">
-        <h2>How I work</h2>
-        <p>Sketch the flow, build the core, add fit-and-finish. I care about accessibility, performance, and joyful
-          details.</p>
-      </article>
-    </section>
+    <p>Hi, I’m <strong>Katherine Isabela Hsiung Chen</strong> — a Computer Science student soon transitioning into
+      <strong>Simulation Engineering</strong>. I’m passionate about blending creativity and technology through playful,
+      visually engaging code.
+    </p>
+
+    <p>I’ve built multiple projects across <strong>C++</strong>, <strong>React Native</strong>, and <strong>Jetpack
+        Compose</strong>, focusing on interaction design and performance-driven environments. My academic and personal
+      work revolves around translating technical systems into aesthetically functional experiences.</p>
+
+    <p>Outside of development, I’m inspired by motorsport — especially Formula 1 — where precision, adaptability, and
+      human performance align perfectly with the art of engineering. Every line of code is my lap around the circuit.
+    </p>
   </main>
 
   <footer>
-    <div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages
-    </div>
+    © <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages
   </footer>
 
   <script src="assets/js/confetti.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
     const root = document.documentElement;
-    const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved);
-    function setThemeAndConfetti(name) {
-      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
-      if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
+    const saved = localStorage.getItem('kc-theme');
+    if (saved) root.setAttribute('data-theme', saved);
+
+    function setTheme(name) {
+      if (name === 'carlos') {
+        root.setAttribute('data-theme', 'carlos');
+        localStorage.setItem('kc-theme', 'carlos');
+        startThemedConfetti('carlos');
+      }
+      if (name === 'lando') {
+        root.setAttribute('data-theme', 'lando');
+        localStorage.setItem('kc-theme', 'lando');
+        startThemedConfetti('lando');
+      }
     }
-    document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); void document.body.offsetHeight; startEmojiConfetti(); });
+
+    document.querySelectorAll('button[data-theme]').forEach(b =>
+      b.addEventListener('click', () => setTheme(b.dataset.theme))
+    );
+    document.getElementById('resetTheme').addEventListener('click', () => {
+      root.removeAttribute('data-theme');
+      localStorage.removeItem('kc-theme');
+      void document.body.offsetHeight;
+      startEmojiConfetti();
+    });
   </script>
 </body>
 

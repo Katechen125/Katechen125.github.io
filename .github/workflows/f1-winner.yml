@@ -1,26 +1,39 @@
 name: Update F1 Winner
+
 on:
   workflow_dispatch:
   schedule:
     - cron: "0 */12 * * *"
   push:
     paths:
-      - tools/f1_winner.py
+      - "tools/f1_winner.py"
+
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install fastf1==3.4.5 pandas==2.2.2 numpy==1.26.4 requests-cache==1.2.0
-      - run: python tools/f1_winner.py
-      - run: |
+
+      - name: Install dependencies
+        run: |
+          pip install fastf1==3.4.5 pandas==2.2.2 numpy==1.26.4 requests-cache==1.2.0
+
+      - name: Run F1 Winner script
+        run: python tools/f1_winner.py
+
+      - name: Commit and push latest winner data
+        run: |
           git config user.name "github-actions"
           git config user.email "actions@users.noreply.github.com"
-          git add data/latest.json
-          git commit -m "Update latest F1 winner" || true
+          git add data/latest.json || true
+          git commit -m "Update latest F1 winner" || echo "No changes to commit"
           git push

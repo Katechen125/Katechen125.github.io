@@ -4,232 +4,217 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Katherine Isabela Hsiung Chen — Pole Position 🏁</title>
+  <title>Home — Katherine Isabela Hsiung Chen</title>
   <link rel="icon" type="image/svg+xml"
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/base.css">
+
   <style>
-    .hero {
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 40px 0 28px;
-      min-height: calc(100svh - 64px - 84px)
+    :root {
+      --bg:
+        radial-gradient(900px 600px at 8% 0%, #fff7fb 0%, #ffffff 42%),
+        radial-gradient(1200px 700px at 92% 8%, #f2f8ff 0%, #ffffff 48%),
+        radial-gradient(1200px 800px at 50% 96%, #f6fff7 0%, #ffffff 56%);
+      --surface: rgba(255, 255, 255, 0.78);
+      --text: #1b1e22;
+      --muted: #5b6471;
+      --ring: rgba(12, 21, 33, .12);
+      --accent: #6fa387;
+      --btn-bg: #fff;
+      --btn-text: #111;
+      --btn-border: #d7dde5;
+      --maxw: 980px;
     }
 
-    .hero h1 {
-      margin: 0 0 10px;
-      font-size: clamp(28px, 5vw, 48px)
+    :root[data-theme="carlos"] {
+      --bg:
+        radial-gradient(900px 600px at 10% 0%, #d9e5ff 0%, #ffffff 45%),
+        radial-gradient(1200px 700px at 90% 12%, #d2e0ff 0%, #ffffff 55%),
+        radial-gradient(1200px 800px at 50% 98%, #e8f1ff 0%, #ffffff 62%);
+      --surface: #ffffff;
+      --text: #0b1220;
+      --muted: #3f527a;
+      --ring: rgba(13, 52, 126, .18);
+      --accent: #0d347e;
+      --btn-bg: #fff;
+      --btn-text: #0b1220;
+      --btn-border: #3260b3;
     }
 
-    .driver-bar {
-      margin-top: 8px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-      color: var(--muted)
+    :root[data-theme="lando"] {
+      --bg:
+        radial-gradient(900px 600px at 8% 0%, #fff1e5 0%, #ffffff 44%),
+        radial-gradient(1200px 700px at 92% 10%, #ffe6c7 0%, #ffffff 54%),
+        radial-gradient(1200px 800px at 50% 96%, #fff3d6 0%, #ffffff 60%);
+      --surface: #ffffff;
+      --text: #1b1e22;
+      --muted: #6c5a3a;
+      --ring: rgba(255, 128, 0, .22);
+      --accent: #ff8000;
+      --btn-bg: #fff3e6;
+      --btn-text: #3b2a10;
+      --btn-border: #ffd5a8;
     }
 
-    .hub {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 22px
+    :root[data-theme="carlos"] .avatar-badge {
+      background: #fff url("assets/img/Williams_logo.png") center/80% no-repeat;
+      font-size: 0;
+      border-color: #0d347e;
     }
 
-    .cta {
-      --cut: 16px;
-      cursor: pointer;
-      font-weight: 800;
-      letter-spacing: .2px;
+    :root[data-theme="lando"] .avatar-badge {
+      background: #fff url("assets/img/mclaren_logo.png") center/80% no-repeat;
+      font-size: 0;
+      border-color: #ff8000;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    ::selection {
+      background: color-mix(in oklab, var(--accent) 38%, #ffffff);
+      color: #0b2b20;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: 140% 140%, 150% 150%, 120% 120%;
+      animation: aurora-float 18s ease-in-out infinite alternate;
       color: var(--text);
-      background: linear-gradient(180deg, color-mix(in oklab, var(--surface, #fff) 96%, transparent), color-mix(in oklab, var(--surface, #fff) 88%, transparent));
-      border: 1px solid color-mix(in oklab, var(--accent) 30%, var(--ring));
-      padding: 14px 24px;
-      font-size: 17px;
-      clip-path: polygon(0% 0%, calc(100% - var(--cut)) 0%, 100% 50%, calc(100% - var(--cut)) 100%, 0% 100%, var(--cut) 50%);
-      position: relative;
-      overflow: hidden;
-      transition: transform .12s, box-shadow .2s, border-color .2s;
-      box-shadow: 0 12px 28px rgba(12, 21, 33, .10), inset 0 0 0 1px color-mix(in oklab, var(--accent) 18%, #fff);
-      text-decoration: none;
-      display: inline-block
+      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     }
 
-    .cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 36px rgba(12, 21, 33, .16)
+    @keyframes aurora-float {
+      0% {
+        background-position: 0% 0%, 100% 0%, 50% 100%;
+      }
+
+      100% {
+        background-position: 0% 22%, 100% -12%, 50% 78%;
+      }
     }
 
-    .sequence-overlay {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, .58);
-      backdrop-filter: blur(10px) saturate(.9);
-      z-index: 50
+    header.site {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--ring);
+      z-index: 10;
     }
 
-    .sequence {
-      display: grid;
-      gap: 16px;
-      justify-items: center
+    :root[data-theme="lando"] header.site {
+      background: rgba(18, 18, 20, 0.65);
     }
 
-    .sequence-card {
-      background: color-mix(in oklab, var(--surface, #fff) 96%, transparent);
-      border: 1px solid color-mix(in oklab, var(--accent) 32%, var(--ring));
-      border-radius: 20px;
-      padding: 20px 24px;
-      box-shadow: 0 22px 48px rgba(12, 21, 33, .32)
-    }
-
-    .start-lights {
+    .site-inner {
       display: flex;
-      gap: 14px;
-      background: color-mix(in oklab, var(--bg) 86%, #fff);
-      padding: 14px 18px;
-      border-radius: 999px;
-      border: 1px solid var(--ring);
-      box-shadow: 0 8px 24px rgba(12, 21, 33, .18) inset
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 22px;
     }
 
-    .light {
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      font-weight: 800;
+    }
+
+    .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff);
+    }
+
+    .avatar-wrap {
+      position: relative;
+      display: inline-block;
+    }
+
+    .avatar-badge {
+      position: absolute;
+      right: -5px;
+      bottom: -5px;
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: #2b2b2b;
-      border: 1px solid rgba(0, 0, 0, .22)
-    }
-
-    .light.on.red {
-      background: #d10c0c
-    }
-
-    .light.on.green {
-      background: #14b314
-    }
-
-    .seq-title {
-      margin-top: 10px;
-      font: 700 clamp(16px, 2.6vw, 22px)/1.25 "Playfair Display", Georgia, serif;
-      color: var(--text);
-      text-align: center
-    }
-
-    .seq-sub {
-      text-align: center;
-      font-weight: 700;
-      color: #6b7280
-    }
-
-    .card-winner {
-      margin: 16px auto 4px;
-      display: none;
-      grid-template-columns: 96px 1fr auto;
-      gap: 16px;
-      align-items: center;
-      width: min(780px, 92vw);
-      background: linear-gradient(180deg, #fff, rgba(240, 244, 255, .6));
-      border: 1px solid #e6e7ea;
-      border-radius: 18px;
-      padding: 14px 16px
-    }
-
-    .card-winner img {
-      width: 96px;
-      height: 96px;
-      border-radius: 16px;
-      object-fit: cover
-    }
-
-    .win-name {
-      font: 700 22px/1.2 Inter, system-ui
-    }
-
-    .win-tags {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 6px
-    }
-
-    .tag {
-      border: 1px solid #e0e2e6;
-      background: #f6f8fb;
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-weight: 700
-    }
-
-    .badge-p1 {
-      width: 54px;
-      height: 54px;
-      border: 1px solid #e0e2e6;
-      border-radius: 14px;
+      background: #fff;
+      border: 2px solid var(--ring);
       display: grid;
       place-items: center;
-      font-weight: 800;
-      color: #9aa0a6;
-      background: #fff
+      font: 700 12px/1 "Playfair Display", serif;
+      color: var(--accent);
     }
 
-    .footer-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      position: relative
+    main {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 60px 22px;
+      text-align: center;
     }
 
-    .footer-launch {
+    h1 {
+      font-family: "Playfair Display", Georgia, serif;
+      margin-bottom: 18px;
+    }
+
+    .driver-bar {
+      margin: 30px 0;
       display: flex;
-      align-items: center;
       gap: 10px;
-      position: absolute;
-      right: 0
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
-    .flag-btn {
+    .btn {
       appearance: none;
-      border: 1px solid var(--ring);
-      background: #fff;
-      padding: 10px 12px;
-      border-radius: 999px;
+      border: 1px solid var(--btn-border);
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 700;
       cursor: pointer;
-      font-size: 18px
+      transition: transform 0.1s ease;
     }
 
-    :root[data-theme="lando"] .tag {
-      background: #1f1f21;
-      border-color: #34363a;
-      color: #ffedd9
-    }
-
-    :root[data-theme="lando"] .flag-btn {
-      background: #2a2a2a;
+    .btn:hover {
+      background: var(--accent);
       color: #fff;
-      border-color: #444
+      border-color: transparent;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      border-top: 1px solid var(--ring);
+      padding: 18px 0;
+      color: var(--muted);
+      text-align: center;
     }
   </style>
 </head>
 
 <body>
   <header class="site">
-    <div class="site-inner container">
+    <div class="site-inner">
       <div class="brand">
         <div class="avatar-wrap">
           <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
           <span class="avatar-badge">KC</span>
         </div>
-        <span>Katherine — Pole Position🏁</span>
+        <span>Home — Pole Position 🏁</span>
       </div>
       <nav class="nav">
         <a href="index.html">Home</a>
@@ -240,73 +225,64 @@
     </div>
   </header>
 
-  <section class="hero">
-    <div class="container">
-      <h1>Hi, I’m Katherine — Computer Science student (soon Simulation Engineering) building playful-aesthetic code.
-      </h1>
-      <div class="driver-bar" style="margin-top:10px">
-        <span>Favorite drivers:</span>
-        <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
-        <button class="btn" data-theme="lando">Lando Norris</button>
-        <button class="btn" id="resetTheme">Reset theme</button>
-        <span>(themed confetti)</span>
-      </div>
-      <div class="hub">
-        <a class="cta" href="projects.html">My Projects</a>
-        <a class="cta" href="about.html">About</a>
-        <a class="cta" href="contact.html">Contact</a>
-      </div>
+  <main>
+    <h1>Welcome to My Portfolio</h1>
+    <div class="driver-bar">
+      <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
+      <button class="btn" data-theme="lando">Lando Norris</button>
+      <button class="btn" id="resetTheme">Reset Theme</button>
     </div>
-  </section>
+
+    <section id="latest-winner"
+      style="text-align:center;margin:30px 0;font-weight:700;color:var(--accent);font-size:1.1rem">
+      <span>🏆 Latest Race Winner:</span>
+      <span id="winner-name">Loading...</span>
+    </section>
+  </main>
 
   <footer>
-    <div class="container footer-row">
-      <div>© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages</div>
-      <div class="footer-launch">
-        <span class="flag-label">Start the sequence →</span>
-        <button class="flag-btn" id="flagGo" title="Start lights + wave flag">🏁</button>
-      </div>
-    </div>
+    © <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages
   </footer>
 
-  <div class="sequence-overlay" id="seqOverlay">
-    <div class="sequence">
-      <div class="sequence-card">
-        <div class="start-lights" id="startLights">
-          <span class="light" id="L1"></span>
-          <span class="light" id="L2"></span>
-          <span class="light" id="L3"></span>
-          <span class="light" id="L4"></span>
-          <span class="light" id="L5"></span>
-        </div>
-        <div class="seq-title" id="seqTitle">Lights out and away we go!</div>
-        <div class="seq-sub" id="seqSub">Tap again to replay</div>
-        <div class="card-winner" id="winnerCard">
-          <img id="winImg" alt="">
-          <div>
-            <div class="win-name" id="winName"></div>
-            <div class="win-tags">
-              <span class="tag" id="winNum"></span>
-              <span class="tag" id="winTeam"></span>
-              <span class="tag" id="winNat"></span>
-            </div>
-            <div class="seq-sub" id="winGP" style="text-align:left;margin-top:6px"></div>
-          </div>
-          <div class="badge-p1">P1</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script src="assets/js/confetti.js"></script>
-  <script src="assets/js/driver-images.js"></script>
-  <script src="assets/js/theme.js"></script>
-  <script src="assets/js/index-sequence.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme').addEventListener('click', resetTheme);
-    document.getElementById('flagGo').addEventListener('click', runSequence);
+    const root = document.documentElement;
+    const saved = localStorage.getItem('kc-theme');
+    if (saved) root.setAttribute('data-theme', saved);
+
+    function setTheme(name) {
+      if (name === 'carlos') {
+        root.setAttribute('data-theme', 'carlos');
+        localStorage.setItem('kc-theme', 'carlos');
+        startThemedConfetti('carlos');
+      }
+      if (name === 'lando') {
+        root.setAttribute('data-theme', 'lando');
+        localStorage.setItem('kc-theme', 'lando');
+        startThemedConfetti('lando');
+      }
+    }
+
+    document.querySelectorAll('button[data-theme]').forEach(b =>
+      b.addEventListener('click', () => setTheme(b.dataset.theme))
+    );
+
+    document.getElementById('resetTheme').addEventListener('click', () => {
+      root.removeAttribute('data-theme');
+      localStorage.removeItem('kc-theme');
+      void document.body.offsetHeight;
+      startEmojiConfetti();
+    });
+
+    fetch('data/latest.json')
+      .then(r => r.json())
+      .then(d => {
+        document.getElementById('winner-name').textContent = d.winner || 'No data available';
+      })
+      .catch(() => {
+        document.getElementById('winner-name').textContent = 'Unable to load winner';
+      });
   </script>
 </body>
 
