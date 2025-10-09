@@ -1,7 +1,5 @@
 const overlay = document.getElementById("seqOverlay");
 const lights = [1, 2, 3, 4, 5].map(i => document.getElementById("L" + i));
-const flagBtn = document.getElementById("flagGo");
-const hint = document.getElementById("flagHint");
 const winCard = document.getElementById("winnerCard");
 const winImg = document.getElementById("winImg");
 const winName = document.getElementById("winName");
@@ -9,171 +7,82 @@ const winNum = document.getElementById("winNum");
 const winTeam = document.getElementById("winTeam");
 const winNat = document.getElementById("winNat");
 const winGP = document.getElementById("winGP");
-
-
-function flagFromCC(cc) {
-  if (!cc) return "🏁";
-  const c = cc.toUpperCase();
-  if (c.length !== 2) return "🏁";
-  const A = 0x1F1E6, a = "A".charCodeAt(0);
-  return String.fromCodePoint(A + (c.charCodeAt(0) - a), A + (c.charCodeAt(1) - a));
-}
-const COUNTRY_CC = {
-  "United Kingdom": "GB", "Great Britain": "GB", "Britain": "GB", "UK": "GB",
-  "U.S.A.": "US", "USA": "US", "United States": "US",
-  "United Arab Emirates": "AE", "UAE": "AE", "Saudi Arabia": "SA", "Bahrain": "BH", "Qatar": "QA", "Azerbaijan": "AZ",
-  "Brazil": "BR", "Mexico": "MX", "Canada": "CA", "Spain": "ES", "Italy": "IT", "San Marino": "SM", "Monaco": "MC", "France": "FR", "Belgium": "BE",
-  "Netherlands": "NL", "Austria": "AT", "Germany": "DE", "Hungary": "HU", "Czech Republic": "CZ", "Singapore": "SG", "Japan": "JP", "China": "CN",
-  "Australia": "AU", "New Zealand": "NZ", "South Africa": "ZA", "Argentina": "AR"
-};
-const ccFromCountryName = (n) => COUNTRY_CC[n] || "";
-
-
-function resetLights() { lights.forEach(l => l.className = "seq-light"); }
-function animateLights() {
-  resetLights(); let i = 0;
-  return new Promise(res => {
-    const t = setInterval(() => {
-      if (i < 5) { lights[i].classList.add("on", "red"); i++; }
-      else { clearInterval(t); setTimeout(res, 220); }
-    }, 160);
-  });
-}
-function goGreen() {
-  lights.forEach(l => { l.classList.remove("red"); l.classList.add("on", "green"); });
-  setTimeout(() => lights.forEach(l => l.classList.remove("on", "green")), 850);
-}
-
-
-const CACHE_KEY = "kc-latest-f1-winner";
-const CACHE_TTL_MS = 6 * 60 * 60 * 1000; 
-
-function readCache() {
-  try {
-    const raw = sessionStorage.getItem(CACHE_KEY);
-    if (!raw) return null;
-    const { t, data } = JSON.parse(raw);
-    if (!t || !data) return null;
-    if (Date.now() - t > CACHE_TTL_MS) return null;
-    return data;
-  } catch { return null; }
-}
-function writeCache(data) {
-  try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), data })); } catch { }
-}
-
-async function fetchWinnerWikidata(signal) {
+const flagSVG = document.getElementById("flagSVG");
+function resetLights() { lights.forEach(l => l.classList.remove("on", "red", "green")) }
+function animateLights() { resetLights(); let i = 0; return new Promise(res => { const t = setInterval(() => { if (i < 5) { lights[i].classList.add("on", "red"); i++ } else { clearInterval(t); setTimeout(res, 220) } }, 180) }) }
+function goGreen() { lights.forEach(l => { l.classList.remove("red"); l.classList.add("on", "green") }); setTimeout(() => lights.forEach(l => l.classList.remove("on", "green")), 900) }
+function flagFromCC(cc) { if (!cc) return "🏁"; const c = cc.toUpperCase(); if (c.length !== 2) return "🏁"; const A = 0x1F1E6, a = "A".charCodeAt(0); return String.fromCodePoint(A + (c.charCodeAt(0) - a), A + (c.charCodeAt(1) - a)) }
+const COUNTRY_MAP = { "United Kingdom": "GB", "Great Britain": "GB", "Britain": "GB", "United States": "US", "USA": "US", "United Arab Emirates": "AE", "UAE": "AE", "Saudi Arabia": "SA", "Bahrain": "BH", "Qatar": "QA", "Azerbaijan": "AZ", "Brazil": "BR", "Mexico": "MX", "Canada": "CA", "Spain": "ES", "Italy": "IT", "San Marino": "SM", "Monaco": "MC", "France": "FR", "Belgium": "BE", "Netherlands": "NL", "Austria": "AT", "Germany": "DE", "Hungary": "HU", "Czech Republic": "CZ", "Singapore": "SG", "Japan": "JP", "China": "CN", "Australia": "AU", "New Zealand": "NZ", "South Africa": "ZA", "Argentina": "AR" };
+const CACHE_KEY = "kc-wp-rest-latest", CACHE_TTL = 60 * 60 * 1000;
+function readCache() { try { const r = sessionStorage.getItem(CACHE_KEY); if (!r) return null; const { t, data } = JSON.parse(r); if (!t || !data) return null; if (Date.now() - t > CACHE_TTL) return null; return data } catch { return null } }
+function writeCache(d) { try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), data: d })) } catch { } }
+async function fetchLatestFromWikimedia(signal) {
   const year = new Date().getUTCFullYear();
-  const today = new Date().toISOString().slice(0, 10);
-  const seasonLabel = `${year} Formula One World Championship`;
-
-  const sparql = `
-    SELECT ?race ?raceLabel ?date ?winner ?winnerLabel ?teamLabel ?driverNumber ?driverCC ?countryLabel WHERE {
-      ?season rdfs:label "${seasonLabel}"@en .
-      ?season wdt:P527 ?race .
-      ?race wdt:P585 ?date .
-      FILTER (?date <= "${today}"^^xsd:date)
-      ?race wdt:P1346 ?winner .
-      OPTIONAL { ?winner wdt:P493 ?driverNumber. }           # car number (if present)
-      OPTIONAL { ?winner wdt:P27 ?driverCountry . ?driverCountry wdt:P297 ?driverCC . } # 2-letter cc
-      OPTIONAL { ?race wdt:P17 ?hostCountry . ?hostCountry rdfs:label ?countryLabel FILTER (lang(?countryLabel)="en") }
-      OPTIONAL {
-        ?race p:P1346 ?st .
-        ?st ps:P1346 ?winner .
-        OPTIONAL { ?st pq:P54 ?team . }      # team as qualifier (often set)
-        OPTIONAL { ?st pq:P642 ?team . }     # sometimes stored as 'of' relation
-        OPTIONAL { ?team rdfs:label ?teamLabel FILTER(lang(?teamLabel)="en") }
-      }
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
-    }
-    ORDER BY DESC(?date) LIMIT 1
-  `;
-  const url = "https://query.wikidata.org/sparql?format=json&query=" + encodeURIComponent(sparql);
-  const res = await fetch(url, { headers: { "Accept": "application/sparql-results+json" }, signal });
-  if (!res.ok) throw new Error("wikidata-http");
-  const json = await res.json();
-  const b = json?.results?.bindings?.[0];
-  if (!b) throw new Error("wikidata-empty");
-
-  const driver = b.winnerLabel?.value || "Winner";
-  const number = b.driverNumber?.value || "";
-  const team = b.teamLabel?.value || "";
-  const gp = b.raceLabel?.value || "Grand Prix";
-  const cc = (b.driverCC?.value || ccFromCountryName(b.countryLabel?.value || "")).toUpperCase();
-  const flag = flagFromCC(cc);
-  const img = (window.DRIVER_IMAGES && window.DRIVER_IMAGES[driver] && window.DRIVER_IMAGES[driver].img) || "";
-
-  return { name: driver, number, team, flag, gp, img };
+  const page = `${year}_Formula_One_World_Championship`;
+  const url = `https://en.wikipedia.org/api/rest_v1/page/html/${encodeURIComponent(page)}`;
+  const r = await fetch(url, { signal, headers: { "Accept": "text/html" } }); if (!r.ok) throw 0;
+  const html = await r.text();
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  const tables = [...doc.querySelectorAll("table")];
+  let table = null;
+  for (const t of tables) {
+    const cap = t.querySelector("caption")?.textContent?.toLowerCase() || "";
+    const th = t.querySelector("th")?.textContent?.toLowerCase() || "";
+    if (cap.includes("grand prix") || cap.includes("race") || th.includes("grand prix") || th.includes("race")) { table = t; break }
+  }
+  if (!table) throw 0;
+  const rows = [...table.querySelectorAll("tr")].filter(tr => tr.querySelectorAll("td").length >= 2);
+  let row = null;
+  for (let i = rows.length - 1; i >= 0; i--) {
+    const tr = rows[i];
+    const bold = tr.querySelector("b a, b span[rel='mw:WikiLink']");
+    const gpCell = tr.querySelector("td");
+    if ((bold || tr.querySelector("td:nth-child(2) a")) && gpCell) { row = tr; break }
+  }
+  if (!row) throw 0;
+  const tds = row.querySelectorAll("td");
+  const gpText = (tds[0]?.textContent || "").replace(/\[\d+\]/g, "").trim();
+  const winnerLink = row.querySelector("b a, b span[rel='mw:WikiLink']") || tds[1]?.querySelector("a, span[rel='mw:WikiLink']");
+  const name = (winnerLink?.textContent || "").trim();
+  let team = "";
+  if (tds[1]) { const ls = [...tds[1].querySelectorAll("a, span[rel='mw:WikiLink]")].map(a => a.textContent.trim()).filter(Boolean); if (ls.length >= 2) team = ls[ls.length - 1] }
+  let cc = "";
+  const flagEl = tds[0]?.querySelector("span[title], img[alt]");
+  const hint = flagEl?.getAttribute("title") || flagEl?.getAttribute("alt") || "";
+  if (hint) cc = (COUNTRY_MAP[hint] || "");
+  let number = "";
+  if (tds[1]) { const txt = tds[1].textContent; const m = txt.match(/#\s?(\d{1,2})/); if (m) number = m[1] }
+  const img = (window.DRIVER_IMAGES && window.DRIVER_IMAGES[name] && window.DRIVER_IMAGES[name].img) || "";
+  return { name, number, team, gp: gpText, flag: flagFromCC(cc), img }
 }
-
-
-async function prefetchWinner() {
-  try {
-    if (readCache()) return;
-    const ctl = new AbortController();
-    const to = setTimeout(() => ctl.abort(), 2500); 
-    const w = await fetchWinnerWikidata(ctl.signal);
-    clearTimeout(to);
-    writeCache(w);
-  } catch { }
-}
-
-
 async function getLatestWinner() {
-  const cached = readCache();
-  if (cached) return cached;
-
-  const ctl = new AbortController();
-  const to = setTimeout(() => ctl.abort(), 2500); 
-  try {
-    const w = await fetchWinnerWikidata(ctl.signal);
-    clearTimeout(to);
-    writeCache(w);
-    return w;
-  } catch (e) {
-    clearTimeout(to);
-    return null; 
-  }
+  const c = readCache(); if (c) return c;
+  const ctl = new AbortController(); const to = setTimeout(() => ctl.abort(), 3000);
+  try { const w = await fetchLatestFromWikimedia(ctl.signal); clearTimeout(to); writeCache(w); return w } catch { clearTimeout(to); return null }
 }
-
-
 function showWinner(w) {
-  if (!w) { 
-    winCard.style.display = "none";
-    if (hint) hint.textContent = "Couldn’t fetch — tap 🏁 to try again";
-    if (flagBtn) flagBtn.textContent = "🏁";
-    return;
-  }
+  if (!w) { winCard.style.display = "none"; return }
   winCard.style.display = "grid";
   winName.textContent = w.name || "Winner";
   winNum.textContent = w.number ? ("#" + w.number) : "#";
   winTeam.textContent = w.team || "Team";
   winNat.textContent = w.flag || "";
   winGP.textContent = (w.gp || "Grand Prix") + (w.team ? " • " + w.team : "");
-  if (w.img) { winImg.src = w.img; winImg.alt = w.name; }
-  else { winImg.src = "https://images.placeholders.dev/?width=192&height=192&text=%F0%9F%8F%81"; winImg.alt = ""; }
-
-  if (hint) hint.textContent = `Tap ${w.flag || "🏁"} to replay`;
-  if (flagBtn) flagBtn.textContent = w.flag || "🏁";
+  if (w.img) { winImg.src = w.img; winImg.alt = w.name }
 }
-
-async function runSequence() {
+function runSequence() {
   overlay.style.display = "flex";
-  winCard.style.display = "none";
   document.getElementById("seqSub").textContent = "Starting…";
-
-  await animateLights();
-  document.getElementById("seqSub").textContent = "Fetching winner…";
-
-  const w = await getLatestWinner();
-  goGreen();
-
-  if (w && w.team && window.startTeamConfetti) startTeamConfetti(w.team);
-  else if (window.startNormalConfetti) startNormalConfetti();
-
-  showWinner(w);
-  setTimeout(() => { overlay.style.display = "none"; resetLights(); }, 1900);
+  lights.forEach(l => l.classList.remove("on", "red", "green"));
+  animateLights().then(async () => {
+    document.getElementById("seqSub").textContent = "Fetching winner…";
+    const w = await getLatestWinner();
+    goGreen();
+    if (w && w.team && window.startTeamConfetti) startTeamConfetti(w.team); else if (window.startNormalConfetti) startNormalConfetti();
+    showWinner(w);
+    flagSVG.classList.remove("flag-wave"); void flagSVG.offsetWidth; flagSVG.classList.add("flag-wave");
+    setTimeout(() => { overlay.style.display = "none"; resetLights() }, 1500);
+  })
 }
-
-if (flagBtn) flagBtn.addEventListener("click", (e) => { e.stopPropagation(); runSequence(); }, { passive: true });
-window.addEventListener("load", prefetchWinner, { once: true });
+window.runSequence = runSequence;
+window.addEventListener("load", () => { getLatestWinner().catch(() => { }) }, { once: true });

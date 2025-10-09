@@ -12,32 +12,43 @@
     rel="stylesheet">
   <style>
     :root {
-      --bg:
-        radial-gradient(900px 600px at 8% 0%, #fff7fb 0%, #ffffff 42%),
-        radial-gradient(1200px 700px at 92% 8%, #f2f8ff 0%, #ffffff 48%),
-        radial-gradient(1200px 800px at 50% 96%, #f6fff7 0%, #ffffff 56%);
-      --surface: rgba(255, 255, 255, 0.78);
+      --bg: #ffffff;
+      --surface: #ffffff;
       --text: #1b1e22;
       --muted: #5b6471;
-      --ring: rgba(12, 21, 33, 0.12);
+      --ring: rgba(0, 0, 0, .08);
       --accent: #6fa387;
-      --btn-bg: #fff;
+      --btn-bg: #ffffff;
       --btn-text: #111;
       --btn-border: #d7dde5;
       --maxw: 1080px;
+      --bg-grad: radial-gradient(1200px 800px at 10% 15%, #f6fffb 0, transparent 50%), radial-gradient(1200px 900px at 90% 20%, #fff7fb 0, transparent 55%), radial-gradient(1000px 700px at 40% 90%, #f5f9ff 0, transparent 50%)
     }
 
-    /* Themes */
+    body {
+      margin: 0;
+      background: var(--bg);
+      background-image: var(--bg-grad);
+      color: var(--text);
+      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif
+    }
+
+    ::selection {
+      background: color-mix(in oklab, var(--accent) 60%, transparent);
+      color: var(--text)
+    }
+
     :root[data-theme="carlos"] {
       --bg: #dbe6ff;
-      --surface: #fff;
+      --surface: #ffffff;
       --text: #0b1220;
       --muted: #3f527a;
       --ring: rgba(0, 0, 0, .12);
       --accent: #0d347e;
-      --btn-bg: #fff;
+      --btn-bg: #ffffff;
       --btn-text: #0b1220;
       --btn-border: #3260b3;
+      --bg-grad: none
     }
 
     :root[data-theme="lando"] {
@@ -47,45 +58,14 @@
       --muted: #e2e6ee;
       --ring: #2d2f33;
       --accent: #ff8000;
-      --btn-bg: #232325;
-      --btn-text: #f3f3f3;
+      --btn-bg: #2a2a2a;
+      --btn-text: #ffeede;
       --btn-border: #3a3a3d;
+      --bg-grad: none
     }
 
     * {
       box-sizing: border-box
-    }
-
-    ::selection {
-      background: color-mix(in oklab, var(--accent) 38%, #ffffff);
-      color: #0b2b20;
-      text-shadow: none;
-    }
-
-    html,
-    body {
-      height: 100%
-    }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      background-attachment: fixed;
-      background-repeat: no-repeat;
-      background-size: 140% 140%, 150% 150%, 120% 120%;
-      animation: aurora-float 18s ease-in-out infinite alternate;
-      color: var(--text);
-      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-    }
-
-    @keyframes aurora-float {
-      0% {
-        background-position: 0% 0%, 100% 0%, 50% 100%
-      }
-
-      100% {
-        background-position: 0% 22%, 100% -12%, 50% 78%
-      }
     }
 
     h1,
@@ -103,13 +83,9 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      background: rgba(255, 255, 255, 0.65);
+      background: color-mix(in oklab, var(--bg) 90%, transparent);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--ring)
-    }
-
-    :root[data-theme="lando"] header.site {
-      background: rgba(18, 18, 20, 0.65)
     }
 
     .site-inner {
@@ -131,14 +107,27 @@
       color: var(--text);
       font-weight: 700;
       text-decoration: none;
-      padding: 6px 10px;
-      border-radius: 10px
+      padding: 6px 12px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      position: relative
     }
 
-    .nav a:hover {
-      background: color-mix(in oklab, var(--accent) 18%, #ffffff);
-      color: #0b2b20;
-      transition: background .18s ease, color .18s ease
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 4px;
+      height: 2px;
+      background: color-mix(in oklab, var(--accent) 35%, transparent);
+      opacity: 0;
+      transition: opacity .2s;
+      border-radius: 2px
+    }
+
+    .nav a:hover::after {
+      opacity: 1
     }
 
     .avatar {
@@ -156,6 +145,8 @@
 
     .avatar-badge {
       position: absolute;
+      right: -5px;
+      bottom: -5px;
       width: 28px;
       height: 28px;
       border-radius: 50%;
@@ -167,37 +158,14 @@
       color: var(--accent)
     }
 
-    .avatar-badge.team {
-      right: -5px;
-      bottom: -5px
-    }
-
-    .avatar-badge.country {
-      left: -5px;
-      top: -5px;
-      border-color: var(--ring);
-      font-size: 14px
-    }
-
-    :root:not([data-theme]) .avatar-badge.team {
-      background: #fff url("assets/img/checkered.png") center/80% no-repeat;
-      font-size: 0;
-      border-color: #999
-    }
-
-    :root:not([data-theme]) .avatar-badge.country {
-      background: #fff;
-      color: #111
-    }
-
-    :root[data-theme="carlos"] .avatar-badge.team {
-      background: #fff url("assets/img/williams.png") center/80% no-repeat;
+    :root[data-theme="carlos"] .avatar-badge {
+      background: #fff url("assets/images/williams.png") center/90% no-repeat;
       font-size: 0;
       border-color: #0d347e
     }
 
-    :root[data-theme="lando"] .avatar-badge.team {
-      background: #fff url("assets/img/mclaren.png") center/80% no-repeat;
+    :root[data-theme="lando"] .avatar-badge {
+      background: #fff url("assets/images/mclaren.png") center/90% no-repeat;
       font-size: 0;
       border-color: #ff8000
     }
@@ -207,7 +175,7 @@
       place-items: center;
       text-align: center;
       padding: 40px 0 28px;
-      min-height: calc(100vh - 64px - 110px)
+      min-height: calc(100svh - 64px - 84px)
     }
 
     .hero h1 {
@@ -233,147 +201,247 @@
       border-radius: 12px;
       font-weight: 700;
       cursor: pointer;
-      transition: transform .12s ease
+      transition: transform .08s
+    }
+
+    .btn:active {
+      transform: translateY(1px)
     }
 
     .btn:hover {
       background: var(--accent);
       color: #fff;
-      border-color: transparent;
-      transform: translateY(-1px)
+      border-color: transparent
+    }
+
+    :root[data-theme="lando"] .btn {
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      border-color: var(--btn-border)
+    }
+
+    :root[data-theme="lando"] .btn:hover {
+      background: var(--accent);
+      color: #101010;
+      border-color: transparent
     }
 
     .hub {
       display: flex;
-      gap: 14px;
+      gap: 16px;
       flex-wrap: wrap;
       justify-content: center;
-      margin-top: 20px
+      margin-top: 22px
     }
 
-    .hub a {
-      padding: 14px 22px;
-      border-radius: 999px;
+    .cta {
+      --cut: 16px;
+      cursor: pointer;
+      font-weight: 800;
+      letter-spacing: .2px;
+      color: var(--text);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--surface, #fff) 96%, transparent), color-mix(in oklab, var(--surface, #fff) 88%, transparent));
+      border: 1px solid color-mix(in oklab, var(--accent) 30%, var(--ring));
+      padding: 14px 24px;
       font-size: 17px;
-      border: 1px solid var(--btn-border);
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.98));
-      box-shadow: 0 8px 18px rgba(0, 0, 0, .08), inset 0 1px 0 rgba(255, 255, 255, .4);
+      clip-path: polygon(0% 0%, calc(100% - var(--cut)) 0%, 100% 50%, calc(100% - var(--cut)) 100%, 0% 100%, var(--cut) 50%);
+      position: relative;
+      overflow: hidden;
+      transition: transform .12s, box-shadow .2s, border-color .2s;
+      box-shadow: 0 12px 28px rgba(12, 21, 33, .10), inset 0 0 0 1px color-mix(in oklab, var(--accent) 18%, #fff);
       text-decoration: none;
-      color: var(--btn-text)
+      display: inline-block
     }
 
-    .hub a:hover {
-      transform: translateY(-1px)
-    }
-
-    footer {
-      border-top: 1px solid var(--ring);
-      padding: 18px 0;
-      color: var(--muted);
-      text-align: center;
-      position: relative
-    }
-
-    .flag-cta {
+    .cta::before {
+      content: "";
       position: absolute;
-      right: 18px;
+      inset: -2px;
+      pointer-events: none;
+      background: linear-gradient(120deg, transparent 0 40%, color-mix(in oklab, var(--accent) 22%, transparent) 50%, transparent 60% 100%);
+      opacity: 0;
+      transition: opacity .25s
+    }
+
+    .cta::after {
+      content: "➤";
+      position: absolute;
+      right: 12px;
       top: 50%;
       transform: translateY(-50%);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      z-index: 11
+      font-size: 14px;
+      opacity: .45;
+      transition: transform .15s, opacity .15s
     }
 
-    .flag-cta .hint {
-      color: var(--muted);
-      font-weight: 700
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px rgba(12, 21, 33, .16)
     }
 
-    .flag-cta .flag-btn {
-      appearance: none;
-      border: 1px solid var(--ring);
-      background: #fff;
-      color: #111;
-      width: 48px;
-      height: 48px;
-      border-radius: 999px;
-      display: grid;
-      place-items: center;
-      font-size: 20px
+    .cta:hover::before {
+      opacity: 1
     }
 
-    :root[data-theme="lando"] .flag-cta .flag-btn {
-      background: #2a2a2a;
-      color: #fff;
-      border-color: #444
+    .cta:hover::after {
+      transform: translate(2px, -50%);
+      opacity: .8
     }
 
-    .seq-overlay {
+    .sequence-overlay {
       position: fixed;
       inset: 0;
       display: none;
       align-items: center;
       justify-content: center;
-      background: rgba(0, 0, 0, .45);
-      backdrop-filter: blur(8px);
-      z-index: 12
+      background: rgba(0, 0, 0, .58);
+      backdrop-filter: blur(10px) saturate(.9);
+      z-index: 50
     }
 
-    .seq-card {
-      width: min(920px, 92vw);
-      border-radius: 28px;
-      background: #fff;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, .45);
-      padding: 28px 26px 22px;
-      color: #0b1220;
-      transform: translateY(6vh)
+    .sequence {
+      display: grid;
+      gap: 16px;
+      justify-items: center
     }
 
-    .seq-tray {
-      margin: 0 auto 18px;
-      width: 100%;
-      background: #eee;
-      border: 2px solid #ddd;
-      border-radius: 64px;
-      padding: 18px 26px;
-      display: flex;
-      gap: 22px;
-      justify-content: center;
-      align-items: center
-    }
-
-    .seq-light {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: #333;
-      border: 2px solid rgba(0, 0, 0, .25)
-    }
-
-    .seq-light.on.red {
-      background: #c61b1b
-    }
-
-    .seq-light.on.green {
-      background: #56b157
+    .sequence-card {
+      background: color-mix(in oklab, var(--surface, #fff) 96%, transparent);
+      border: 1px solid color-mix(in oklab, var(--accent) 32%, var(--ring));
+      border-radius: 20px;
+      padding: 20px 24px;
+      box-shadow: 0 22px 48px rgba(12, 21, 33, .32)
     }
 
     .seq-title {
-      font: 700 28px/1.2 "Playfair Display", serif;
+      margin-top: 10px;
+      font: 700 clamp(16px, 2.6vw, 22px)/1.25 "Playfair Display", Georgia, serif;
+      color: var(--text);
       text-align: center;
-      margin: 4px 0 8px
+      text-shadow: 0 2px 10px rgba(0, 0, 0, .15)
+    }
+
+    .start-lights {
+      display: flex;
+      gap: 14px;
+      background: color-mix(in oklab, var(--bg) 86%, #fff);
+      padding: 14px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--ring);
+      box-shadow: 0 8px 24px rgba(12, 21, 33, .18) inset
+    }
+
+    .light {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #2b2b2b;
+      border: 1px solid rgba(0, 0, 0, .22)
+    }
+
+    .light.on.red {
+      background: #d10c0c
+    }
+
+    .light.on.green {
+      background: #14b314
+    }
+
+    .flag-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center
+    }
+
+    .flag-svg {
+      width: 72px;
+      height: 46px;
+      display: none
+    }
+
+    .flag-wave {
+      display: block;
+      animation: wave 1.8s ease-in-out 2
+    }
+
+    @keyframes wave {
+      0% {
+        transform: skewY(0) translateX(0)
+      }
+
+      25% {
+        transform: skewY(6deg) translateX(3px)
+      }
+
+      50% {
+        transform: skewY(-6deg) translateX(-2px)
+      }
+
+      75% {
+        transform: skewY(4deg) translateX(2px)
+      }
+
+      100% {
+        transform: skewY(0) translateX(0)
+      }
+    }
+
+    footer {
+      border-top: 1px solid var(--ring);
+      padding: 18px 0;
+      color: var(--muted)
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      position: relative
+    }
+
+    .footer-launch {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: absolute;
+      right: 0
+    }
+
+    .flag-label {
+      font-weight: 700
+    }
+
+    .flag-btn {
+      appearance: none;
+      border: 1px solid var(--ring);
+      background: #fff;
+      padding: 10px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 18px
+    }
+
+    :root[data-theme="lando"] .flag-btn {
+      background: #2a2a2a;
+      color: #fff;
+      border-color: #444
+    }
+
+    .seq-tray {
+      display: none
     }
 
     .seq-sub {
-      font-weight: 700;
       text-align: center;
+      font-weight: 700;
       color: #6b7280
     }
 
     .card-winner {
       margin: 16px auto 4px;
-      display: grid;
+      display: none;
       grid-template-columns: 96px 1fr auto;
       gap: 16px;
       align-items: center;
@@ -436,8 +504,7 @@
       <div class="brand">
         <div class="avatar-wrap">
           <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
-          <span class="avatar-badge team" id="badgeTeam">KC</span>
-          <span class="avatar-badge country" id="badgeCountry">🏁</span>
+          <span class="avatar-badge">KC</span>
         </div>
         <span>Katherine — Pole Position🏁</span>
       </div>
@@ -462,43 +529,62 @@
         <span>(themed confetti)</span>
       </div>
       <div class="hub">
-        <a href="projects.html">My Projects</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+        <a class="cta" href="projects.html">My Projects</a>
+        <a class="cta" href="about.html">About</a>
+        <a class="cta" href="contact.html">Contact</a>
       </div>
     </div>
   </section>
 
   <footer>
-    <div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages
-    </div>
-    <div class="flag-cta" aria-live="polite">
-      <div class="hint" id="flagHint">Tap 🏁 to run lights</div>
-      <button class="flag-btn" id="flagGo" title="Start lights sequence">🏁</button>
+    <div class="container footer-row">
+      <div>© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages</div>
+      <div class="footer-launch">
+        <span class="flag-label">Start the sequence →</span>
+        <button class="flag-btn" id="flagGo" title="Start lights + wave flag">🏁</button>
+      </div>
     </div>
   </footer>
 
-  <div class="seq-overlay" id="seqOverlay">
-    <div class="seq-card">
-      <div class="seq-tray" id="tray">
-        <span class="seq-light" id="L1"></span><span class="seq-light" id="L2"></span>
-        <span class="seq-light" id="L3"></span><span class="seq-light" id="L4"></span>
-        <span class="seq-light" id="L5"></span>
-      </div>
-      <div class="seq-title">Lights out and away we go!</div>
-      <div class="seq-sub" id="seqSub">Starting…</div>
-      <div class="card-winner" id="winnerCard" style="display:none">
-        <img id="winImg" alt="">
-        <div>
-          <div class="win-name" id="winName"></div>
-          <div class="win-tags">
-            <span class="tag" id="winNum"></span>
-            <span class="tag" id="winTeam"></span>
-            <span class="tag" id="winNat"></span>
-          </div>
-          <div class="seq-sub" id="winGP" style="text-align:left;margin-top:6px"></div>
+  <div class="sequence-overlay" id="seqOverlay">
+    <div class="sequence">
+      <div class="sequence-card">
+        <div class="start-lights" id="startLights">
+          <span class="light" id="L1"></span>
+          <span class="light" id="L2"></span>
+          <span class="light" id="L3"></span>
+          <span class="light" id="L4"></span>
+          <span class="light" id="L5"></span>
         </div>
-        <div class="badge-p1">P1</div>
+        <div class="seq-title" id="seqTitle">Lights out and away we go!</div>
+        <div class="seq-sub" id="seqSub">Tap again to replay</div>
+        <div class="card-winner" id="winnerCard">
+          <img id="winImg" alt="">
+          <div>
+            <div class="win-name" id="winName"></div>
+            <div class="win-tags">
+              <span class="tag" id="winNum"></span>
+              <span class="tag" id="winTeam"></span>
+              <span class="tag" id="winNat"></span>
+            </div>
+            <div class="seq-sub" id="winGP" style="text-align:left;margin-top:6px"></div>
+          </div>
+          <div class="badge-p1">P1</div>
+        </div>
+        <div class="flag-badge">
+          <svg class="flag-svg" id="flagSVG" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="checks" width="20" height="20" patternUnits="userSpaceOnUse">
+                <rect width="10" height="10" fill="#111" />
+                <rect x="10" width="10" height="10" fill="#eee" />
+                <rect y="10" width="10" height="10" fill="#eee" />
+                <rect x="10" y="10" width="10" height="10" fill="#111" />
+              </pattern>
+            </defs>
+            <rect x="18" y="8" width="96" height="56" rx="6" fill="url(#checks)" stroke="#888" />
+            <rect x="8" y="6" width="8" height="64" rx="4" fill="#bcbcbc" />
+          </svg>
+        </div>
       </div>
     </div>
   </div>
@@ -509,34 +595,11 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
     const root = document.documentElement;
-    const badgeCountry = document.getElementById('badgeCountry');
-
     const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved);
-    prepareConfetti();
-
-    function setBadgesFor(theme) {
-      if (theme === 'carlos') badgeCountry.textContent = '🇪🇸';
-      else if (theme === 'lando') badgeCountry.textContent = '🇬🇧';
-      else badgeCountry.textContent = '🏁';
-    }
-    
-    setBadgesFor(saved || null);
-
-    function setThemeAndConfetti(name) {
-      if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); setBadgesFor('carlos'); startThemedConfetti('carlos'); return; }
-      if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); setBadgesFor('lando'); startThemedConfetti('lando'); return; }
-    }
-    document.querySelectorAll('button[data-theme]').forEach(b => {
-      b.addEventListener('click', e => { e.stopPropagation(); setThemeAndConfetti(b.dataset.theme); }, { passive: true });
-    });
-    document.getElementById('resetTheme').addEventListener('click', e => {
-      e.stopPropagation();
-      root.removeAttribute('data-theme');
-      localStorage.removeItem('kc-theme');
-      void document.body.offsetHeight; 
-      setBadgesFor(null);
-      startEmojiConfetti();
-    }, { passive: true });
+    function setThemeAndConfetti(name) { if (name === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos') } if (name === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando') } }
+    document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
+    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti() });
+    document.getElementById('flagGo').addEventListener('click', runSequence);
   </script>
 </body>
 
