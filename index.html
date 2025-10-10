@@ -140,7 +140,7 @@
       grid-template-columns: 96px 1fr auto;
       gap: 16px;
       align-items: center;
-      width: min(780px, 92vw);
+      width: min(980px, 92vw);
       background: linear-gradient(180deg, #fff, rgba(240, 244, 255, .6));
       border: 1px solid #e6e7ea;
       border-radius: 18px;
@@ -155,7 +155,7 @@
     }
 
     .win-name {
-      font: 700 22px/1.2 Inter, system-ui
+      font: 700 28px/1.2 Inter, system-ui
     }
 
     .win-tags {
@@ -169,13 +169,13 @@
       border: 1px solid #e0e2e6;
       background: #f6f8fb;
       border-radius: 999px;
-      padding: 6px 10px;
+      padding: 8px 12px;
       font-weight: 700
     }
 
     .badge-p1 {
-      width: 54px;
-      height: 54px;
+      width: 60px;
+      height: 60px;
       border: 1px solid #e0e2e6;
       border-radius: 14px;
       display: grid;
@@ -191,7 +191,7 @@
       justify-content: center;
       gap: 16px;
       position: relative;
-      padding-right: 160px
+      padding-right: 120px
     }
 
     .footer-launch {
@@ -199,7 +199,7 @@
       align-items: center;
       gap: 10px;
       position: absolute;
-      right: 6px
+      right: 12px
     }
 
     .flag-btn {
@@ -210,6 +210,18 @@
       border-radius: 999px;
       cursor: pointer;
       font-size: 18px
+    }
+
+    :root[data-theme="lando"] .sequence-card {
+      background: #1c1c1f;
+      border-color: #3a3a3d;
+      color: #fff
+    }
+
+    :root[data-theme="lando"] .card-winner {
+      background: linear-gradient(180deg, #232325, #1a1a1c);
+      border-color: #3a3a3d;
+      color: #fffbf2
     }
 
     :root[data-theme="lando"] .tag {
@@ -304,7 +316,6 @@
   </div>
 
   <script src="assets/js/confetti.js"></script>
-  <script src="assets/js/driver-images.js"></script>
   <script src="assets/js/theme.js"></script>
   <script src="assets/js/index-sequence.js"></script>
   <script>

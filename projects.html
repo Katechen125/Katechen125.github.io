@@ -12,18 +12,6 @@
     rel="stylesheet">
   <link rel="stylesheet" href="assets/css/base.css">
   <style>
-    body {
-      background-attachment: fixed;
-      background-repeat: no-repeat;
-      background-size: 140% 140%, 150% 150%, 120% 120%
-    }
-
-    h1,
-    h2,
-    h3 {
-      font-family: "Playfair Display", Georgia, serif
-    }
-
     .page-hero {
       padding: 40px 0 18px;
       text-align: center
@@ -42,6 +30,23 @@
       flex-wrap: wrap;
       justify-content: center;
       color: var(--muted)
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid var(--btn-border);
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer
+    }
+
+    .btn:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: transparent
     }
 
     .card {
@@ -120,6 +125,13 @@
 
     :root[data-theme="lando"] a.video-link {
       color: #ffae42
+    }
+
+    footer {
+      border-top: 1px solid var(--ring);
+      padding: 18px 0;
+      color: var(--muted);
+      text-align: center
     }
 
     .space-top {
@@ -221,10 +233,8 @@
   <script src="assets/js/theme.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    const root = document.documentElement; const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved);
-    function setThemeAndConfetti(n) { if (n === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos') } if (n === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando') } }
     document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme')?.addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); startEmojiConfetti() });
+    document.getElementById('resetTheme')?.addEventListener('click', () => { resetTheme() });
   </script>
 </body>
 
