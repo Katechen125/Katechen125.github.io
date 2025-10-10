@@ -121,15 +121,12 @@ header.site {
     width: 46px;
     height: 46px;
     border-radius: 50%;
-    background: #fff;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 92%;
+    background: #fff url("../img/KC.svg") center/92% no-repeat;
     border: 1px solid var(--ring);
     display: grid;
     place-items: center;
     font: 800 16px/1 "Playfair Display", serif;
-    color: var(--accent)
+    color: transparent;
 }
 
 :root[data-theme="carlos"] .avatar-badge {

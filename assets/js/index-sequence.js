@@ -1,5 +1,3 @@
-let seqBusy = false;
-
 window.DRIVER_IMAGES = {
   "Max Verstappen": { number: "1", img: "assets/img/Max.jpg" },
   "Yuki Tsunoda": { number: "22", img: "assets/img/Yuki.jpg" },
@@ -23,11 +21,21 @@ window.DRIVER_IMAGES = {
   "Gabriel Bortoleto": { number: "5", img: "assets/img/Bortoleto.jpg" }
 };
 
-const FLAG_BY_NAME = {
-  "Max Verstappen": "🇳🇱", "Yuki Tsunoda": "🇯🇵", "Charles Leclerc": "🇲🇨", "Lewis Hamilton": "🇬🇧", "George Russell": "🇬🇧",
-  "Kimi Antonelli": "🇮🇹", "Lando Norris": "🇬🇧", "Oscar Piastri": "🇦🇺", "Liam Lawson": "🇳🇿", "Isack Hadjar": "🇫🇷",
-  "Fernando Alonso": "🇪🇸", "Lance Stroll": "🇨🇦", "Alexander Albon": "🇹🇭", "Carlos Sainz": "🇪🇸", "Pierre Gasly": "🇫🇷",
-  "Franco Colapinto": "🇦🇷", "Esteban Ocon": "🇫🇷", "Oliver Bearman": "🇬🇧", "Nico Hülkenberg": "🇩🇪", "Gabriel Bortoleto": "🇧🇷"
+window.FLAG_ASSETS = {
+  NL: { svg: "assets/img/NL.svg", emoji: "🇳🇱", country: "Netherlands" },
+  JP: { svg: "assets/img/JP.svg", emoji: "🇯🇵", country: "Japan" },
+  MC: { svg: "assets/img/MC.svg", emoji: "🇲🇨", country: "Monaco" },
+  GB: { svg: "assets/img/GB.svg", emoji: "🇬🇧", country: "United Kingdom" },
+  IT: { svg: "assets/img/IT.svg", emoji: "🇮🇹", country: "Italy" },
+  AUS: { svg: "assets/img/AUS.svg", emoji: "🇦🇺", country: "Australia" },
+  NZ: { svg: "assets/img/NZ.svg", emoji: "🇳🇿", country: "New Zealand" },
+  FR: { svg: "assets/img/FR.svg", emoji: "🇫🇷", country: "France" },
+  ES: { svg: "assets/img/ES.svg", emoji: "🇪🇸", country: "Spain" },
+  CA: { svg: "assets/img/CA.svg", emoji: "🇨🇦", country: "Canada" },
+  TH: { svg: "assets/img/TH.svg", emoji: "🇹🇭", country: "Thailand" },
+  AR: { svg: "assets/img/AR.svg", emoji: "🇦🇷", country: "Argentina" },
+  DE: { svg: "assets/img/DE.svg", emoji: "🇩🇪", country: "Germany" },
+  BR: { svg: "assets/img/BR.svg", emoji: "🇧🇷", country: "Brazil" }
 };
 
 const overlay = document.getElementById("seqOverlay");
@@ -40,101 +48,51 @@ const winTeam = document.getElementById("winTeam");
 const winNat = document.getElementById("winNat");
 const winGP = document.getElementById("winGP");
 
-function resetLights() { lights.forEach(l => l?.classList.remove("on", "red", "green")) }
-function animateLights() { resetLights(); let i = 0; return new Promise(res => { const t = setInterval(() => { if (i < 5) { lights[i].classList.add("on", "red"); i++ } else { clearInterval(t); setTimeout(res, 240) } }, 200) }) }
-function goGreen() { lights.forEach(l => { l.classList.remove("red"); l.classList.add("on", "green") }); setTimeout(() => lights.forEach(l => l.classList.remove("on", "green")), 900) }
+function resetLights() { lights.forEach(l => l?.classList.remove("on", "red", "green")); }
+function animateLights() { resetLights(); let i = 0; return new Promise(res => { const t = setInterval(() => { if (i < 5) { lights[i].classList.add("on", "red"); i++; } else { clearInterval(t); setTimeout(res, 240); } }, 200); }); }
+function goGreen() { lights.forEach(l => { l.classList.remove("red"); l.classList.add("on", "green"); }); setTimeout(() => lights.forEach(l => l.classList.remove("on", "green")), 900); }
 
-const TEAM_COLORS = {
-  "McLaren": ["#ff8000", "#141416", "#ffffff"],
-  "Williams": ["#0d347e", "#c9d7ff", "#ffffff"],
-  "Ferrari": ["#dc0000", "#ffd6d6", "#ffffff"],
-  "Mercedes": ["#00a19c", "#101112", "#dff7f5"],
-  "Red Bull": ["#00183f", "#ffdd00", "#f50100"],
-  "Aston Martin": ["#00665e", "#b7ffe6", "#ffffff"],
-  "RB": ["#2b2d83", "#ffffff", "#d7dcff"],
-  "Haas": ["#e8e8e8", "#181818", "#b30000"],
-  "Alpine": ["#0055ff", "#e6eeff", "#ffffff"]
-};
-
-function normTeam(t) {
-  const s = (t || "").toLowerCase();
-  if (s.includes("mclaren")) return "McLaren";
-  if (s.includes("williams")) return "Williams";
-  if (s.includes("ferrari")) return "Ferrari";
-  if (s.includes("mercedes")) return "Mercedes";
-  if (s.includes("red bull")) return "Red Bull";
-  if (s.includes("aston")) return "Aston Martin";
-  if (s === "rb" || s.includes("rb ")) return "RB";
-  if (s.includes("haas")) return "Haas";
-  if (s.includes("alpine")) return "Alpine";
-  return t || "";
-}
-function ccToFlag(cc) {
-  if (!cc || cc.length !== 2) return "";
-  const A = 0x1F1E6, a = "A".charCodeAt(0);
-  return String.fromCodePoint(A + (cc[0].toUpperCase().charCodeAt(0) - a), A + (cc[1].toUpperCase().charCodeAt(0) - a));
-}
-
-function originBase() {
-  const here = location.pathname.replace(/\/[^\/]*$/, '');
-  return location.origin + here;
-}
-
-const CANDIDATES = [
-  "data/latest.json",
-  originBase() + "/data/latest.json",
-  location.origin + "/data/latest.json",
-  "https://raw.githubusercontent.com/Katechen125/Katechen125.github.io/gh-pages/data/latest.json",
-  "https://raw.githubusercontent.com/Katechen125/Katechen125.github.io/dev/data/latest.json",
-  "https://raw.githubusercontent.com/Katechen125/Katechen125.github.io/main/data/latest.json"
-];
+const NAT_TO_CODE = { Dutch: "NL", Japanese: "JP", Monegasque: "MC", British: "GB", Italian: "IT", Australian: "AUS", "New Zealander": "NZ", French: "FR", Spanish: "ES", Canadian: "CA", Thai: "TH", Argentine: "AR", German: "DE", Brazilian: "BR" };
 
 async function getLatestWinner() {
-  for (const u of CANDIDATES) {
-    try {
-      const r = await fetch(`${u}?ts=${Date.now()}`, { cache: "no-store" });
-      if (!r.ok) continue;
-      const j = await r.json();
-      const name = j.name || j.winner || j.driver || "";
-      if (!name) continue;
-      const team = normTeam(j.team || j.constructor || j.entry || "");
-      const gp = j.gp || j.race || j.raceName || "";
-      const number = String(j.number || window.DRIVER_IMAGES[name]?.number || "");
-      const img = (window.DRIVER_IMAGES[name]?.img) || "";
-      const flag = j.flag || ccToFlag(j.flag_cc || j.countryCode || "") || FLAG_BY_NAME[name] || "";
-      return { name, team, gp, number, img, flag };
-    } catch (e) { }
-  }
-  return null;
-}
-
-function teamConfetti(team) {
-  const palette = TEAM_COLORS[team] || null;
-  if (palette && window.startCustomConfetti) startCustomConfetti({ colors: palette, count: 360 });
-  else if (window.startNormalConfetti) startNormalConfetti();
+  try {
+    const r = await fetch(`data/latest.json?ts=${Date.now()}`, { cache: "no-store" });
+    if (!r.ok) return null;
+    const j = await r.json();
+    if (!j || !j.name) return null;
+    const img = (window.DRIVER_IMAGES && window.DRIVER_IMAGES[j.name]?.img) || "";
+    let code = (j.flag_code || j.flagCode || j.flag_cc || j.flag || j.cc || j.nat || "").toString().toUpperCase();
+    if (!code && j.nationality) { const n = j.nationality.trim(); code = NAT_TO_CODE[n] || ""; }
+    const nat = window.FLAG_ASSETS && window.FLAG_ASSETS[code] ? window.FLAG_ASSETS[code] : null;
+    return { name: j.name, number: String(j.number || ""), team: j.team || "", gp: j.gp || "Grand Prix", code, nat, img };
+  } catch { return null; }
 }
 
 function showWinner(w) {
-  if (!w) { winCard.style.display = "none"; return }
+  if (!w) { winCard.style.display = "none"; return; }
   winCard.style.display = "grid";
   winName.textContent = w.name || "";
   winNum.textContent = w.number ? ("#" + w.number) : "#";
   winTeam.textContent = w.team || "";
-  winNat.textContent = w.flag || "";
+  if (w.nat) {
+    winNat.classList.add("flag");
+    winNat.innerHTML = `<img src="${w.nat.svg}" alt="${w.code}" style="width:18px;height:18px;vertical-align:-3px;margin-right:6px;border-radius:2px"> ${w.nat.emoji} ${w.code}`;
+  } else {
+    winNat.textContent = w.code || "";
+  }
   winGP.textContent = (w.gp || "") + (w.team ? " • " + w.team : "");
-  if (w.img) { winImg.src = w.img; winImg.alt = w.name }
+  if (w.img) { winImg.src = w.img; winImg.alt = w.name; }
 }
 
-async function runSequence() {
-  if (seqBusy) return;
-  seqBusy = true;
+function runSequence() {
   overlay.style.display = "flex";
-  await animateLights();
-  const w = await getLatestWinner();
-  goGreen();
-  if (w) teamConfetti(w.team || "");
-  showWinner(w);
-  setTimeout(() => { overlay.style.display = "none"; resetLights(); seqBusy = false }, 2600);
+  animateLights().then(async () => {
+    const w = await getLatestWinner();
+    goGreen();
+    if (window.startNormalConfetti) startNormalConfetti();
+    showWinner(w);
+    setTimeout(() => { overlay.style.display = "none"; resetLights(); }, 1500);
+  });
 }
 
 window.runSequence = runSequence;
