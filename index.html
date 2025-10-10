@@ -17,12 +17,12 @@
       place-items: center;
       text-align: center;
       padding: 40px 0 28px;
-      min-height: calc(100svh - 64px - 100px);
+      min-height: calc(100svh - 64px - 84px)
     }
 
     .hero h1 {
       margin: 0 0 10px;
-      font-size: clamp(28px, 5vw, 48px);
+      font-size: clamp(28px, 5vw, 48px)
     }
 
     .driver-bar {
@@ -31,7 +31,7 @@
       gap: 10px;
       flex-wrap: wrap;
       justify-content: center;
-      color: var(--muted);
+      color: var(--muted)
     }
 
     .hub {
@@ -39,7 +39,7 @@
       gap: 16px;
       flex-wrap: wrap;
       justify-content: center;
-      margin-top: 22px;
+      margin-top: 22px
     }
 
     .cta {
@@ -58,12 +58,12 @@
       transition: transform .12s, box-shadow .2s, border-color .2s;
       box-shadow: 0 12px 28px rgba(12, 21, 33, .10), inset 0 0 0 1px color-mix(in oklab, var(--accent) 18%, #fff);
       text-decoration: none;
-      display: inline-block;
+      display: inline-block
     }
 
     .cta:hover {
       transform: translateY(-2px);
-      box-shadow: 0 16px 36px rgba(12, 21, 33, .16);
+      box-shadow: 0 16px 36px rgba(12, 21, 33, .16)
     }
 
     .sequence-overlay {
@@ -74,13 +74,13 @@
       justify-content: center;
       background: rgba(0, 0, 0, .58);
       backdrop-filter: blur(10px) saturate(.9);
-      z-index: 50;
+      z-index: 50
     }
 
     .sequence {
       display: grid;
       gap: 16px;
-      justify-items: center;
+      justify-items: center
     }
 
     .sequence-card {
@@ -89,48 +89,49 @@
       border-radius: 20px;
       padding: 20px 24px;
       box-shadow: 0 22px 48px rgba(12, 21, 33, .32);
+      display: grid;
+      gap: 12px;
+      justify-items: center
     }
 
     .start-lights {
       display: flex;
-      align-items: center;
-      justify-content: center;
       gap: 14px;
       background: color-mix(in oklab, var(--bg) 86%, #fff);
-      padding: 16px 22px;
+      padding: 14px 18px;
       border-radius: 999px;
       border: 1px solid var(--ring);
       box-shadow: 0 8px 24px rgba(12, 21, 33, .18) inset;
+      margin: 0 auto
     }
 
     .light {
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: #2b2b2b;
-      border: 1px solid rgba(0, 0, 0, .22);
-      display: block;
+      border: 1px solid rgba(0, 0, 0, .22)
     }
 
     .light.on.red {
-      background: #d10c0c;
+      background: #d10c0c
     }
 
     .light.on.green {
-      background: #14b314;
+      background: #14b314
     }
 
     .seq-title {
-      margin-top: 10px;
+      margin-top: 4px;
       font: 700 clamp(16px, 2.6vw, 22px)/1.25 "Playfair Display", Georgia, serif;
       color: var(--text);
-      text-align: center;
+      text-align: center
     }
 
     .seq-sub {
       text-align: center;
       font-weight: 700;
-      color: #6b7280;
+      color: #6b7280
     }
 
     .card-winner {
@@ -143,25 +144,25 @@
       background: linear-gradient(180deg, #fff, rgba(240, 244, 255, .6));
       border: 1px solid #e6e7ea;
       border-radius: 18px;
-      padding: 14px 16px;
+      padding: 14px 16px
     }
 
     .card-winner img {
       width: 96px;
       height: 96px;
       border-radius: 16px;
-      object-fit: cover;
+      object-fit: cover
     }
 
     .win-name {
-      font: 700 22px/1.2 Inter, system-ui;
+      font: 700 22px/1.2 Inter, system-ui
     }
 
     .win-tags {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      margin-top: 6px;
+      margin-top: 6px
     }
 
     .tag {
@@ -169,7 +170,7 @@
       background: #f6f8fb;
       border-radius: 999px;
       padding: 6px 10px;
-      font-weight: 700;
+      font-weight: 700
     }
 
     .badge-p1 {
@@ -181,7 +182,7 @@
       place-items: center;
       font-weight: 800;
       color: #9aa0a6;
-      background: #fff;
+      background: #fff
     }
 
     .footer-row {
@@ -190,7 +191,7 @@
       justify-content: center;
       gap: 16px;
       position: relative;
-      min-height: 64px;
+      padding-right: 120px
     }
 
     .footer-launch {
@@ -198,7 +199,7 @@
       align-items: center;
       gap: 10px;
       position: absolute;
-      right: 12px;
+      right: 12px
     }
 
     .flag-btn {
@@ -208,19 +209,19 @@
       padding: 10px 12px;
       border-radius: 999px;
       cursor: pointer;
-      font-size: 18px;
+      font-size: 18px
     }
 
     :root[data-theme="lando"] .tag {
       background: #1f1f21;
       border-color: #34363a;
-      color: #ffedd9;
+      color: #ffedd9
     }
 
     :root[data-theme="lando"] .flag-btn {
       background: #2a2a2a;
       color: #fff;
-      border-color: #444;
+      border-color: #444
     }
   </style>
 </head>
