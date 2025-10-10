@@ -1,2 +1,2 @@
 # Katechen125.github.io
-My personal portfolio website CS degree
+My personal portfolio website 
