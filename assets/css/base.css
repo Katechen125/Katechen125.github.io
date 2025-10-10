@@ -17,7 +17,7 @@
 
 ::selection {
     background: color-mix(in oklab, var(--accent) 60%, transparent);
-    color: var(--text);
+    color: var(--text)
 }
 
 :root[data-theme="carlos"] {
@@ -131,19 +131,19 @@ header.site {
     color: var(--accent);
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 90% 90%;
+    background-size: 100% 100%;
 }
 
 :root[data-theme="carlos"] .avatar-badge {
-    background-image: url("assets/img/williams.png");
+    background-image: url("assets/img/Williams_logo.png");
     font-size: 0;
-    border-color: #0d347e
+    border-color: #0d347e;
 }
 
 :root[data-theme="lando"] .avatar-badge {
-    background-image: url("assets/img/mclaren.png");
+    background-image: url("assets/img/mclaren_logo.png");
     font-size: 0;
-    border-color: #ff8000
+    border-color: #ff8000;
 }
 
 .btn {
@@ -161,4 +161,8 @@ header.site {
     background: var(--accent);
     color: #fff;
     border-color: transparent
+}
+
+.emoji-text {
+    font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", "Twemoji Mozilla", sans-serif
 }
