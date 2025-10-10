@@ -10,48 +10,44 @@
     --btn-border: #d7dde5;
     --maxw: 1080px;
     --bg-grad:
-        radial-gradient(1200px 800px at 10% 15%, #f6fffb 0, transparent 50%),
-        radial-gradient(1200px 900px at 90% 20%, #fff7fb 0, transparent 55%),
-        radial-gradient(1000px 700px at 40% 90%, #f5f9ff 0, transparent 50%);
+        radial-gradient(1400px 900px at 10% 12%, #c8fff0 0, transparent 62%),
+        radial-gradient(1600px 1000px at 90% 20%, #ffdff1 0, transparent 64%),
+        radial-gradient(1400px 900px at 50% 92%, #dfeaff 0, transparent 66%)
 }
 
 ::selection {
     background: color-mix(in oklab, var(--accent) 60%, transparent);
-    color: var(--text);
+    color: var(--text)
 }
 
 :root[data-theme="carlos"] {
-    --bg: #0d1d46;
-    --surface: #112351;
-    --text: #eaf0ff;
-    --muted: #b7c4e6;
-    --ring: rgba(9, 20, 51, .35);
-    --accent: #1e4fb3;
-    --btn-bg: #152a63;
-    --btn-text: #eaf0ff;
-    --btn-border: #2f61c9;
-    --bg-grad:
-        radial-gradient(1200px 800px at 20% 10%, rgba(39, 77, 159, .55) 0, transparent 60%),
-        radial-gradient(1100px 780px at 80% 25%, rgba(13, 32, 80, .65) 0, transparent 60%);
+    --bg: #dbe6ff;
+    --surface: #ffffff;
+    --text: #0b1220;
+    --muted: #3f527a;
+    --ring: rgba(0, 0, 0, .12);
+    --accent: #0d347e;
+    --btn-bg: #ffffff;
+    --btn-text: #0b1220;
+    --btn-border: #3260b3;
+    --bg-grad: none
 }
 
 :root[data-theme="lando"] {
-    --bg: #0b0b0c;
-    --surface: #141416;
-    --text: #ffeede;
-    --muted: #ffd3ac;
+    --bg: #0f0f10;
+    --surface: #1b1b1d;
+    --text: #fffaf1;
+    --muted: #e6e6ea;
     --ring: #2d2f33;
     --accent: #ff8000;
-    --btn-bg: #1c1c1e;
-    --btn-text: #ffeede;
+    --btn-bg: #242426;
+    --btn-text: #fff3e4;
     --btn-border: #3a3a3d;
-    --bg-grad:
-        radial-gradient(1200px 820px at 12% 8%, rgba(255, 128, 0, .20) 0, transparent 55%),
-        radial-gradient(1200px 820px at 88% 18%, rgba(255, 179, 71, .18) 0, transparent 55%);
+    --bg-grad: none
 }
 
 * {
-    box-sizing: border-box;
+    box-sizing: border-box
 }
 
 body {
@@ -59,19 +55,19 @@ body {
     background: var(--bg);
     background-image: var(--bg-grad);
     color: var(--text);
-    font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif
 }
 
 h1,
 h2,
 h3 {
-    font-family: "Playfair Display", Georgia, serif;
+    font-family: "Playfair Display", Georgia, serif
 }
 
 .container {
     max-width: var(--maxw);
     margin: 0 auto;
-    padding: 0 22px;
+    padding: 0 22px
 }
 
 header.site {
@@ -80,28 +76,28 @@ header.site {
     z-index: 10;
     background: color-mix(in oklab, var(--bg) 90%, transparent);
     backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--ring);
+    border-bottom: 1px solid var(--ring)
 }
 
 .site-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 64px;
+    height: 64px
 }
 
 .brand {
     display: flex;
     gap: 12px;
     align-items: center;
-    font-weight: 800;
+    font-weight: 800
 }
 
 .nav a {
     margin-left: 14px;
     color: var(--text);
     font-weight: 700;
-    text-decoration: none;
+    text-decoration: none
 }
 
 .avatar {
@@ -109,12 +105,12 @@ header.site {
     height: 60px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff);
+    border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff)
 }
 
 .avatar-wrap {
     position: relative;
-    display: inline-block;
+    display: inline-block
 }
 
 .avatar-badge {
@@ -129,19 +125,19 @@ header.site {
     display: grid;
     place-items: center;
     font: 700 12px/1 "Playfair Display", serif;
-    color: var(--accent);
+    color: var(--accent)
 }
 
 :root[data-theme="carlos"] .avatar-badge {
     background: #fff url("assets/img/Williams_logo.png") center/90% no-repeat;
     font-size: 0;
-    border-color: #1e4fb3;
+    border-color: #0d347e
 }
 
 :root[data-theme="lando"] .avatar-badge {
     background: #fff url("assets/img/mclaren_logo.png") center/90% no-repeat;
     font-size: 0;
-    border-color: #ff8000;
+    border-color: #ff8000
 }
 
 .btn {
@@ -152,18 +148,30 @@ header.site {
     padding: 10px 14px;
     border-radius: 12px;
     font-weight: 700;
-    cursor: pointer;
+    cursor: pointer
 }
 
 .btn:hover {
     background: var(--accent);
-    color: #101010;
-    border-color: transparent;
+    color: #fff;
+    border-color: transparent
+}
+
+:root[data-theme="lando"] .btn {
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    border-color: var(--btn-border)
+}
+
+:root[data-theme="lando"] .btn:hover {
+    background: var(--accent);
+    color: #121212;
+    border-color: transparent
 }
 
 footer {
     border-top: 1px solid var(--ring);
-    padding: 20px 0;
+    padding: 18px 0;
     color: var(--muted);
-    text-align: center;
+    text-align: center
 }
