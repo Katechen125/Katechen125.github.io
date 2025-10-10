@@ -49,7 +49,7 @@
       letter-spacing: .2px;
       color: var(--text);
       background: linear-gradient(180deg, color-mix(in oklab, var(--surface, #fff) 96%, transparent), color-mix(in oklab, var(--surface, #fff) 88%, transparent));
-      border: 1px solid color-mix(in oklab, var(--accent) 30%, var(--ring));
+      border: 2px solid color-mix(in oklab, var(--accent) 60%, var(--ring));
       padding: 14px 24px;
       font-size: 17px;
       clip-path: polygon(0% 0%, calc(100% - var(--cut)) 0%, 100% 50%, calc(100% - var(--cut)) 100%, 0% 100%, var(--cut) 50%);
@@ -191,7 +191,7 @@
       justify-content: center;
       gap: 16px;
       position: relative;
-      padding-right: 150px
+      padding-right: 220px
     }
 
     .footer-launch {
@@ -199,7 +199,7 @@
       align-items: center;
       gap: 10px;
       position: absolute;
-      right: 0
+      right: 8px
     }
 
     .flag-btn {
@@ -305,7 +305,7 @@
             <div class="win-tags">
               <span class="tag" id="winNum"></span>
               <span class="tag" id="winTeam"></span>
-              <span class="tag" id="winNat"></span>
+              <span class="tag emoji-text" id="winNat"></span>
             </div>
             <div class="seq-sub" id="winGP" style="text-align:left;margin-top:6px"></div>
           </div>
