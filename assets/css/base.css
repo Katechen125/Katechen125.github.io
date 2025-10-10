@@ -102,8 +102,8 @@ header.site {
 }
 
 .avatar {
-    width: 104px;
-    height: 104px;
+    width: 110px;
+    height: 110px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff)
@@ -118,17 +118,17 @@ header.site {
     position: absolute;
     right: -10px;
     bottom: -10px;
-    width: 44px;
-    height: 44px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
     background: #fff;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 90%;
+    background-size: 92%;
     border: 1px solid var(--ring);
     display: grid;
     place-items: center;
-    font: 800 15px/1 "Playfair Display", serif;
+    font: 800 16px/1 "Playfair Display", serif;
     color: var(--accent)
 }
 
@@ -188,8 +188,14 @@ footer {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: clamp(-48px, -3vw, 0px);
+    right: calc((100vw - var(--maxw))/ -2 + 12px);
     display: flex;
     align-items: center;
     gap: 10px
+}
+
+@media (min-width:1400px) {
+    .footer-launch {
+        right: calc((100vw - var(--maxw))/ -2 + 20px)
+    }
 }

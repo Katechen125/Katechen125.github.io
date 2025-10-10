@@ -23,6 +23,13 @@ window.DRIVER_IMAGES = {
   "Gabriel Bortoleto": { number: "5", img: "assets/img/Bortoleto.jpg" }
 };
 
+const FLAG_BY_NAME = {
+  "Max Verstappen": "🇳🇱", "Yuki Tsunoda": "🇯🇵", "Charles Leclerc": "🇲🇨", "Lewis Hamilton": "🇬🇧", "George Russell": "🇬🇧",
+  "Kimi Antonelli": "🇮🇹", "Lando Norris": "🇬🇧", "Oscar Piastri": "🇦🇺", "Liam Lawson": "🇳🇿", "Isack Hadjar": "🇫🇷",
+  "Fernando Alonso": "🇪🇸", "Lance Stroll": "🇨🇦", "Alexander Albon": "🇹🇭", "Carlos Sainz": "🇪🇸", "Pierre Gasly": "🇫🇷",
+  "Franco Colapinto": "🇦🇷", "Esteban Ocon": "🇫🇷", "Oliver Bearman": "🇬🇧", "Nico Hülkenberg": "🇩🇪", "Gabriel Bortoleto": "🇧🇷"
+};
+
 const overlay = document.getElementById("seqOverlay");
 const lights = [1, 2, 3, 4, 5].map(i => document.getElementById("L" + i));
 const winCard = document.getElementById("winnerCard");
@@ -48,10 +55,39 @@ const TEAM_COLORS = {
   "Haas": ["#e8e8e8", "#181818", "#b30000"],
   "Alpine": ["#0055ff", "#e6eeff", "#ffffff"]
 };
-function normTeam(t) { const s = (t || "").toLowerCase(); if (s.includes("mclaren")) return "McLaren"; if (s.includes("williams")) return "Williams"; if (s.includes("ferrari")) return "Ferrari"; if (s.includes("mercedes")) return "Mercedes"; if (s.includes("red bull")) return "Red Bull"; if (s.includes("aston")) return "Aston Martin"; if (s === "rb" || s.includes("rb ")) return "RB"; if (s.includes("haas")) return "Haas"; if (s.includes("alpine")) return "Alpine"; return t || "" }
-function ccToFlag(cc) { if (!cc || cc.length !== 2) return ""; const A = 0x1F1E6, a = "A".charCodeAt(0); return String.fromCodePoint(A + (cc[0].toUpperCase().charCodeAt(0) - a), A + (cc[1].toUpperCase().charCodeAt(0) - a)) }
 
-const CANDIDATES = ["data/latest.json", "./data/latest.json", "/data/latest.json", "https://katechen125.github.io/data/latest.json"];
+function normTeam(t) {
+  const s = (t || "").toLowerCase();
+  if (s.includes("mclaren")) return "McLaren";
+  if (s.includes("williams")) return "Williams";
+  if (s.includes("ferrari")) return "Ferrari";
+  if (s.includes("mercedes")) return "Mercedes";
+  if (s.includes("red bull")) return "Red Bull";
+  if (s.includes("aston")) return "Aston Martin";
+  if (s === "rb" || s.includes("rb ")) return "RB";
+  if (s.includes("haas")) return "Haas";
+  if (s.includes("alpine")) return "Alpine";
+  return t || "";
+}
+function ccToFlag(cc) {
+  if (!cc || cc.length !== 2) return "";
+  const A = 0x1F1E6, a = "A".charCodeAt(0);
+  return String.fromCodePoint(A + (cc[0].toUpperCase().charCodeAt(0) - a), A + (cc[1].toUpperCase().charCodeAt(0) - a));
+}
+
+function originBase() {
+  const here = location.pathname.replace(/\/[^\/]*$/, '');
+  return location.origin + here;
+}
+
+const CANDIDATES = [
+  "data/latest.json",
+  originBase() + "/data/latest.json",
+  location.origin + "/data/latest.json",
+  "https://raw.githubusercontent.com/Katechen125/Katechen125.github.io/gh-pages/data/latest.json",
+  "https://raw.githubusercontent.com/Katechen125/Katechen125.github.io/dev/data/latest.json",
+  "https://raw.githubusercontent.com/Katechen125/Katechen125.github.io/main/data/latest.json"
+];
 
 async function getLatestWinner() {
   for (const u of CANDIDATES) {
@@ -62,22 +98,31 @@ async function getLatestWinner() {
       const name = j.name || j.winner || j.driver || "";
       if (!name) continue;
       const team = normTeam(j.team || j.constructor || j.entry || "");
-      const gp = j.gp || j.race || j.raceName || "Grand Prix";
+      const gp = j.gp || j.race || j.raceName || "";
       const number = String(j.number || window.DRIVER_IMAGES[name]?.number || "");
       const img = (window.DRIVER_IMAGES[name]?.img) || "";
-      const flag = j.flag || ccToFlag(j.flag_cc || j.countryCode || "");
+      const flag = j.flag || ccToFlag(j.flag_cc || j.countryCode || "") || FLAG_BY_NAME[name] || "";
       return { name, team, gp, number, img, flag };
     } catch (e) { }
   }
-  return { };
+  return null;
 }
 
-function teamConfetti(team) { const palette = TEAM_COLORS[team] || null; if (palette && window.startCustomConfetti) startCustomConfetti({ colors: palette, count: 360 }); else if (window.startNormalConfetti) startNormalConfetti() }
+function teamConfetti(team) {
+  const palette = TEAM_COLORS[team] || null;
+  if (palette && window.startCustomConfetti) startCustomConfetti({ colors: palette, count: 360 });
+  else if (window.startNormalConfetti) startNormalConfetti();
+}
 
 function showWinner(w) {
+  if (!w) { winCard.style.display = "none"; return }
   winCard.style.display = "grid";
-  winCard.style.opacity = "0";
-  requestAnimationFrame(() => { winName.textContent = w.name || ""; winNum.textContent = w.number ? ("#" + w.number) : "#"; winTeam.textContent = w.team || ""; winNat.textContent = w.flag || ""; winGP.textContent = (w.gp || "") + (w.team ? " • " + w.team : ""); if (w.img) { winImg.src = w.img; winImg.alt = w.name } winCard.style.transition = "opacity .25s ease"; winCard.style.opacity = "1" });
+  winName.textContent = w.name || "";
+  winNum.textContent = w.number ? ("#" + w.number) : "#";
+  winTeam.textContent = w.team || "";
+  winNat.textContent = w.flag || "";
+  winGP.textContent = (w.gp || "") + (w.team ? " • " + w.team : "");
+  if (w.img) { winImg.src = w.img; winImg.alt = w.name }
 }
 
 async function runSequence() {
@@ -87,8 +132,9 @@ async function runSequence() {
   await animateLights();
   const w = await getLatestWinner();
   goGreen();
-  teamConfetti(w.team || "");
+  if (w) teamConfetti(w.team || "");
   showWinner(w);
   setTimeout(() => { overlay.style.display = "none"; resetLights(); seqBusy = false }, 2600);
 }
+
 window.runSequence = runSequence;
