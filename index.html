@@ -42,30 +42,6 @@
       margin-top: 22px
     }
 
-    .cta {
-      --cut: 16px;
-      cursor: pointer;
-      font-weight: 800;
-      letter-spacing: .2px;
-      color: var(--text);
-      background: linear-gradient(180deg, color-mix(in oklab, var(--surface, #fff) 96%, transparent), color-mix(in oklab, var(--surface, #fff) 88%, transparent));
-      border: 2px solid color-mix(in oklab, var(--accent) 60%, var(--ring));
-      padding: 14px 24px;
-      font-size: 17px;
-      clip-path: polygon(0% 0%, calc(100% - var(--cut)) 0%, 100% 50%, calc(100% - var(--cut)) 100%, 0% 100%, var(--cut) 50%);
-      position: relative;
-      overflow: hidden;
-      transition: transform .12s, box-shadow .2s, border-color .2s;
-      box-shadow: 0 12px 28px rgba(12, 21, 33, .10), inset 0 0 0 1px color-mix(in oklab, var(--accent) 18%, #fff);
-      text-decoration: none;
-      display: inline-block
-    }
-
-    .cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 36px rgba(12, 21, 33, .16)
-    }
-
     .sequence-overlay {
       position: fixed;
       inset: 0;
@@ -186,20 +162,21 @@
     }
 
     .footer-row {
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 16px;
-      position: relative;
-      padding-right: 220px
+      gap: 16px
     }
 
     .footer-launch {
+      position: absolute;
+      right: max(8px, env(safe-area-inset-right) + 8px);
+      top: 50%;
+      transform: translateY(-50%);
       display: flex;
       align-items: center;
-      gap: 10px;
-      position: absolute;
-      right: 8px
+      gap: 10px
     }
 
     .flag-btn {
@@ -244,15 +221,15 @@
       <div class="brand">
         <div class="avatar-wrap">
           <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
-          <span class="avatar-badge">KC</span>
+          <span class="avatar-badge"></span>
         </div>
         <span>Katherine — Pole Position🏁</span>
       </div>
       <nav class="nav">
         <a href="index.html">Home</a>
-        <a href="projects.html">Projects</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+        <a class="cta" href="projects.html">Projects</a>
+        <a class="cta" href="about.html">About</a>
+        <a class="cta" href="contact.html">Contact</a>
       </nav>
     </div>
   </header>
@@ -290,11 +267,8 @@
     <div class="sequence">
       <div class="sequence-card">
         <div class="start-lights" id="startLights">
-          <span class="light" id="L1"></span>
-          <span class="light" id="L2"></span>
-          <span class="light" id="L3"></span>
-          <span class="light" id="L4"></span>
-          <span class="light" id="L5"></span>
+          <span class="light" id="L1"></span><span class="light" id="L2"></span><span class="light" id="L3"></span><span
+            class="light" id="L4"></span><span class="light" id="L5"></span>
         </div>
         <div class="seq-title" id="seqTitle">Lights out and away we go!</div>
         <div class="seq-sub" id="seqSub">Tap again to replay</div>
