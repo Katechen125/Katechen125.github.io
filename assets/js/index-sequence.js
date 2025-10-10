@@ -48,9 +48,9 @@ const TEAM_COLORS = {
   "Haas": ["#e8e8e8", "#181818", "#b30000"],
   "Alpine": ["#0055ff", "#e6eeff", "#ffffff"]
 };
+
 function normalizeTeam(t) {
   const s = (t || "").toLowerCase();
-  if (!s) return "";
   if (s.includes("mclaren")) return "McLaren";
   if (s.includes("williams")) return "Williams";
   if (s.includes("ferrari")) return "Ferrari";
@@ -60,7 +60,7 @@ function normalizeTeam(t) {
   if (s === "rb" || s.includes("rb ")) return "RB";
   if (s.includes("haas")) return "Haas";
   if (s.includes("alpine")) return "Alpine";
-  return t;
+  return t || "";
 }
 function ccToFlag(cc) {
   if (!cc || cc.length !== 2) return "";
@@ -90,7 +90,6 @@ async function getLatestWinner() {
 }
 
 function showWinner(w) {
-  if (!w) { winCard.style.display = "none"; return }
   winCard.style.display = "grid";
   winName.textContent = w.name || "";
   winNum.textContent = w.number ? ("#" + w.number) : "#";
@@ -100,7 +99,7 @@ function showWinner(w) {
   if (w.img) { winImg.src = w.img; winImg.alt = w.name }
 }
 
-function fireTeamConfetti(team) {
+function teamConfetti(team) {
   const palette = TEAM_COLORS[team] || null;
   if (palette && window.startCustomConfetti) startCustomConfetti({ colors: palette, count: 360 });
   else if (window.startNormalConfetti) startNormalConfetti();
@@ -111,11 +110,10 @@ async function runSequence() {
   seqBusy = true;
   overlay.style.display = "flex";
   await animateLights();
-  const w = await getLatestWinner();
+  let w = await getLatestWinner();
   goGreen();
-  fireTeamConfetti(w.team || "");
+  teamConfetti(w.team || "");
   showWinner(w);
   setTimeout(() => { overlay.style.display = "none"; resetLights(); seqBusy = false }, 2600);
 }
-
 window.runSequence = runSequence;

@@ -12,6 +12,31 @@
     rel="stylesheet">
   <link rel="stylesheet" href="assets/css/base.css">
   <style>
+    :root {
+      --bg:
+        radial-gradient(900px 600px at 8% 0%, #fff7fb 0%, #ffffff 42%),
+        radial-gradient(1200px 700px at 92% 8%, #f2f8ff 0%, #ffffff 48%),
+        radial-gradient(1200px 800px at 50% 96%, #f6fff7 0%, #ffffff 56%)
+    }
+
+    body {
+      background: var(--bg);
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: 140% 140%, 150% 150%, 120% 120%
+    }
+
+    .nav a {
+      padding: 0;
+      border: none;
+      background: none
+    }
+
+    .nav a:hover {
+      background: none;
+      color: var(--accent)
+    }
+
     .page {
       padding: 36px 0 28px
     }
@@ -44,11 +69,17 @@
     }
 
     .card {
-      background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 96%, transparent), color-mix(in oklab, var(--surface) 86%, transparent));
+      background: linear-gradient(180deg, rgba(255, 255, 255, .92), rgba(255, 255, 255, .76));
       border: 1px solid var(--ring);
       border-radius: 18px;
       padding: 20px 22px;
       box-shadow: 0 18px 38px rgba(12, 21, 33, .08), 0 2px 6px rgba(12, 21, 33, .05)
+    }
+
+    :root[data-theme="lando"] .card {
+      background: #1c1c1f;
+      border-color: #3a3a3d;
+      color: #fffbf2
     }
 
     .card h2 {
@@ -187,6 +218,11 @@
       box-shadow: 0 10px 20px rgba(12, 21, 33, .06)
     }
 
+    .linkcard img {
+      width: 24px;
+      height: 24px
+    }
+
     .links-small {
       margin-top: 8px;
       color: var(--muted);
@@ -194,9 +230,6 @@
     }
 
     footer {
-      border-top: 1px solid var(--ring);
-      padding: 18px 0;
-      color: var(--muted);
       text-align: center
     }
   </style>
@@ -208,21 +241,22 @@
       <div class="brand">
         <div class="avatar-wrap">
           <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
-          <span class="avatar-badge"></span>
+          <span class="avatar-badge">KC</span>
         </div>
         <span>Contact — Pole Position🏁</span>
       </div>
       <nav class="nav">
         <a href="index.html">Home</a>
-        <a href="projects.html" class="cta">Projects</a>
-        <a href="about.html" class="cta">About</a>
-        <a href="contact.html" class="cta">Contact</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
       </nav>
     </div>
   </header>
 
   <main class="page container">
     <h1>Let’s Build Something Great</h1>
+
     <div class="driver-bar">
       <span>Favorite drivers:</span>
       <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
@@ -281,6 +315,7 @@
             <strong>Template</strong> will pre-fill the subject and message.</div>
         </div>
       </article>
+
       <article class="card">
         <h2>Direct Links</h2>
         <div class="links-stack">
@@ -314,13 +349,11 @@
     document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
     document.getElementById('resetTheme').addEventListener('click', resetTheme);
     const topicWrap = document.getElementById('topicWrap'), subjectEl = document.getElementById('subject'), urgencyEl = document.getElementById('urgency'), msgEl = document.getElementById('message');
-    let topic = ""; topicWrap.addEventListener('click', (e) => { const b = e.target.closest('.chip'); if (!b) return;[...topicWrap.querySelectorAll('.chip')].forEach(c => c.classList.remove('active')); b.classList.add('active'); topic = b.dataset.topic; if (!subjectEl.value) { const urg = urgencyEl.value ? ` — ${urgencyEl.value}` : ""; subjectEl.value = `${topic}${urg}` } if (!msgEl.value) { msgEl.value = `Hi Katherine —\n\nI’m reaching out about ${topic.toLowerCase()}. My timeline is ${urgencyEl.value || "flexible"}.\n\nBest,\n[Your name]` } })
-    function updateSubjectForUrgency() { const urg = urgencyEl.value; if (!subjectEl.value || /^([A-Za-z ]+)( — .+)?$/.test(subjectEl.value)) { const base = topic || "Opportunity"; subjectEl.value = urg ? `${base} — ${urg}` : base } }
-    urgencyEl.addEventListener('change', updateSubjectForUrgency);
-    const templates = { intro: () => `Hi Katherine —\n\nQuick hello. Timeline: ${urgencyEl.value || "flexible"}.\n\nBest,\n[Your name]`, collab: () => `Hi Katherine —\n\nCollaboration idea around ${topic || "a feature"}.\nTimeline: ${urgencyEl.value || "flexible"}.\n\nThanks!\n[Your name]`, recruiter: () => `Hi Katherine —\n\nI think your background could match roles we have. Timeline: ${urgencyEl.value || "this month"}.\n\nBest,\n[Recruiter]`, feedback: () => `Hi Katherine —\n\nTried your project—feedback below.\nTimeline: ${urgencyEl.value || "whenever"}.\n\nCheers,\n[Your name]` };
-    document.getElementById('applyTemplate').addEventListener('click', () => { const k = (document.getElementById('template').value || "").toLowerCase(); if (!k) return; msgEl.value = templates[k]() || msgEl.value; if (!subjectEl.value) { const base = k === "collab" ? "Collaboration" : k === "recruiter" ? "Recruiting" : k === "feedback" ? "Feedback" : "Intro"; subjectEl.value = topic ? `${base}: ${topic}` : base } })
-    document.getElementById('buildMail').addEventListener('click', () => { const to = "katisabela125@gmail.com"; const subj = encodeURIComponent(subjectEl.value || "Hello from your site"); const body = encodeURIComponent(msgEl.value || "Hi Katherine —"); window.location.href = `mailto:${to}?subject=${subj}&body=${body}` })
-    document.getElementById('copyAll').addEventListener('click', async () => { const all = `To: katisabela125@gmail.com\nSubject: ${subjectEl.value || "(none)"}\n\n${msgEl.value || ""}`; try { await navigator.clipboard.writeText(all); alert("Copied to clipboard!") } catch { alert("Could not copy, sorry.") } })
+    let topic = ""; topicWrap.addEventListener('click', e => { const b = e.target.closest('.chip'); if (!b) return;[...topicWrap.querySelectorAll('.chip')].forEach(c => c.classList.remove('active')); b.classList.add('active'); topic = b.dataset.topic; if (!subjectEl.value) { const u = urgencyEl.value ? ` — ${urgencyEl.value}` : ""; subjectEl.value = `${topic}${u}` } if (!msgEl.value) { msgEl.value = `Hi Katherine —\n\nI’m reaching out about ${topic.toLowerCase()}. My timeline is ${urgencyEl.value || "flexible"}.\n\nBest,\n[Your name]` } }); function upd() { const u = urgencyEl.value; if (!subjectEl.value || /^([A-Za-z ]+)( — .+)?$/.test(subjectEl.value)) { const base = topic || "Opportunity"; subjectEl.value = u ? `${base} — ${u}` : base } } urgencyEl.addEventListener('change', upd);
+    const templates = { intro: `Hi Katherine —\n\nQuick hello. Timeline: ${urgencyEl.value || "flexible"}.\n\nBest,\n[Your name]`, collab: `Hi Katherine —\n\nCollaboration idea around ${topic || "a feature"}.\nTimeline: ${urgencyEl.value || "flexible"}.\n\nThanks!\n[Your name]`, recruiter: `Hi Katherine —\n\nI think your background could match roles we have. Timeline: ${urgencyEl.value || "this month"}.\n\nBest,\n[Recruiter]`, feedback: `Hi Katherine —\n\nTried your project—feedback below.\nTimeline: ${urgencyEl.value || "whenever"}.\n\nCheers,\n[Your name]` };
+    document.getElementById('applyTemplate').addEventListener('click', () => { const k = (document.getElementById('template').value || "").toLowerCase(); if (!k) return; msgEl.value = templates[k] || msgEl.value; if (!subjectEl.value) { const base = (k === "collab" ? "Collaboration" : k === "recruiter" ? "Recruiting" : k === "feedback" ? "Feedback" : "Intro"); subjectEl.value = topic ? `${base}: ${topic}` : base } });
+    document.getElementById('buildMail').addEventListener('click', () => { const to = "katisabela125@gmail.com"; const subj = encodeURIComponent(subjectEl.value || "Hello from your site"); const body = encodeURIComponent(msgEl.value || "Hi Katherine —"); window.location.href = `mailto:${to}?subject=${subj}&body=${body}` });
+    document.getElementById('copyAll').addEventListener('click', async () => { const all = `To: katisabela125@gmail.com\nSubject: ${subjectEl.value || "(none)"}\n\n${msgEl.value || ""}`; try { await navigator.clipboard.writeText(all); alert("Copied to clipboard!") } catch { alert("Could not copy, sorry.") } });
   </script>
 </body>
 

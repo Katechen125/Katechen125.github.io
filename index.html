@@ -198,17 +198,22 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 16px
     }
 
     .footer-launch {
       position: absolute;
-      right: 8px;
       top: 50%;
       transform: translateY(-50%);
+      right: calc(-16px + env(safe-area-inset-right));
       display: flex;
       align-items: center;
-      gap: 10px
+      gap: 10px;
+    }
+
+    @media (min-width:1280px) {
+      .footer-launch {
+        right: calc(-22px + env(safe-area-inset-right));
+      }
     }
 
     .flag-btn {
