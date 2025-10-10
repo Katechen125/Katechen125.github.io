@@ -10,6 +10,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap"
     rel="stylesheet">
+
   <style>
     :root {
       --bg:
@@ -24,15 +25,18 @@
       --btn-bg: #fff;
       --btn-text: #111;
       --btn-border: #d7dde5;
-      --maxw: 940px;
+      --maxw: 980px;
     }
 
     :root[data-theme="carlos"] {
-      --bg: #dbe6ff;
-      --surface: #fff;
+      --bg:
+        radial-gradient(900px 600px at 10% 0%, #d9e5ff 0%, #ffffff 45%),
+        radial-gradient(1200px 700px at 90% 12%, #d2e0ff 0%, #ffffff 55%),
+        radial-gradient(1200px 800px at 50% 98%, #e8f1ff 0%, #ffffff 62%);
+      --surface: #ffffff;
       --text: #0b1220;
       --muted: #3f527a;
-      --ring: rgba(0, 0, 0, .12);
+      --ring: rgba(13, 52, 126, .18);
       --accent: #0d347e;
       --btn-bg: #fff;
       --btn-text: #0b1220;
@@ -40,24 +44,34 @@
     }
 
     :root[data-theme="lando"] {
-      --bg: #0f0f10;
-      --surface: #1b1b1d;
-      --text: #f3f4f6;
-      --muted: #e2e6ee;
-      --ring: #2d2f33;
+      --bg:
+        radial-gradient(900px 600px at 8% 0%, #fff1e5 0%, #ffffff 44%),
+        radial-gradient(1200px 700px at 92% 10%, #ffe6c7 0%, #ffffff 54%),
+        radial-gradient(1200px 800px at 50% 96%, #fff3d6 0%, #ffffff 60%);
+      --surface: #ffffff;
+      --text: #1b1e22;
+      --muted: #6c5a3a;
+      --ring: rgba(255, 128, 0, .22);
       --accent: #ff8000;
-      --btn-bg: #232325;
-      --btn-text: #f3f3f3;
-      --btn-border: #3a3a3d;
+      --btn-bg: #fff3e6;
+      --btn-text: #3b2a10;
+      --btn-border: #ffd5a8;
+    }
+
+    :root[data-theme="carlos"] .avatar-badge {
+      background: #fff url("assets/img/Williams_logo.png") center/80% no-repeat;
+      font-size: 0;
+      border-color: #0d347e;
+    }
+
+    :root[data-theme="lando"] .avatar-badge {
+      background: #fff url("assets/img/mclaren_logo.png") center/80% no-repeat;
+      font-size: 0;
+      border-color: #ff8000;
     }
 
     * {
-      box-sizing: border-box
-    }
-
-    ::selection {
-      background: color-mix(in oklab, var(--accent) 38%, #ffffff);
-      color: #0b2b20;
+      box-sizing: border-box;
     }
 
     body {
@@ -73,61 +87,42 @@
 
     @keyframes aurora-float {
       0% {
-        background-position: 0% 0%, 100% 0%, 50% 100%
+        background-position: 0% 0%, 100% 0%, 50% 100%;
       }
 
       100% {
-        background-position: 0% 22%, 100% -12%, 50% 78%
+        background-position: 0% 22%, 100% -12%, 50% 78%;
       }
-    }
-
-    h1,
-    h2 {
-      font-family: "Playfair Display", Georgia, serif
-    }
-
-    .container {
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: 0 22px
     }
 
     header.site {
       position: sticky;
       top: 0;
-      z-index: 10;
       background: rgba(255, 255, 255, 0.65);
       backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--ring)
+      border-bottom: 1px solid var(--ring);
+      z-index: 10;
     }
 
     :root[data-theme="lando"] header.site {
-      background: rgba(18, 18, 20, 0.65)
+      background: rgba(18, 18, 20, 0.65);
     }
 
     .site-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 64px
+      height: 64px;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 22px;
     }
 
     .brand {
       display: flex;
       gap: 12px;
       align-items: center;
-      font-weight: 800
-    }
-
-    .nav a {
-      margin-left: 14px;
-      color: var(--text);
-      font-weight: 700;
-      text-decoration: none
-    }
-
-    .nav a:hover {
-      color: var(--accent)
+      font-weight: 800;
     }
 
     .avatar {
@@ -135,12 +130,12 @@
       height: 60px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff)
+      border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff);
     }
 
     .avatar-wrap {
       position: relative;
-      display: inline-block
+      display: inline-block;
     }
 
     .avatar-badge {
@@ -155,38 +150,27 @@
       display: grid;
       place-items: center;
       font: 700 12px/1 "Playfair Display", serif;
-      color: var(--accent)
+      color: var(--accent);
     }
 
-    :root[data-theme="carlos"] .avatar-badge {
-      background: #fff url("assets/img/williams.png") center/80% no-repeat;
-      font-size: 0;
-      border-color: #0d347e
+    main {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 40px 22px 60px;
     }
 
-    :root[data-theme="lando"] .avatar-badge {
-      background: #fff url("assets/img/mclaren.png") center/80% no-repeat;
-      font-size: 0;
-      border-color: #ff8000
-    }
-
-    .page {
-      padding: 36px 0 28px
-    }
-
-    .page h1 {
-      margin: 0 0 14px;
-      font-size: clamp(28px, 5vw, 46px);
-      text-align: center
+    h1 {
+      font-family: "Playfair Display", Georgia, serif;
+      text-align: center;
+      margin-bottom: 18px;
     }
 
     .driver-bar {
-      margin: 8px 0 20px;
+      margin: 10px 0 30px;
       display: flex;
       gap: 10px;
-      flex-wrap: wrap;
       justify-content: center;
-      color: var(--muted)
+      flex-wrap: wrap;
     }
 
     .btn {
@@ -197,200 +181,60 @@
       padding: 10px 14px;
       border-radius: 12px;
       font-weight: 700;
-      cursor: pointer
+      cursor: pointer;
+      transition: transform 0.1s ease;
     }
 
     .btn:hover {
       background: var(--accent);
       color: #fff;
-      border-color: transparent
+      border-color: transparent;
+      transform: translateY(-2px);
     }
 
-    .grid {
-      display: grid;
-      gap: 28px;
-      margin-top: 8px
-    }
-
-    @media(min-width:900px) {
-      .grid {
-        grid-template-columns: 1.15fr .85fr
-      }
-    }
-
-    .card {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.76));
+    form {
+      background: var(--surface);
       border: 1px solid var(--ring);
       border-radius: 18px;
-      padding: 20px 22px;
-      box-shadow: 0 18px 38px rgba(12, 21, 33, .08), 0 2px 6px rgba(12, 21, 33, .05)
+      padding: 24px;
+      box-shadow: 0 10px 28px rgba(12, 21, 33, .08);
     }
 
-    .card h2 {
-      margin: 0 0 8px;
-      font-size: clamp(20px, 3.4vw, 26px);
-      text-align: center
-    }
-
-    .email-shell {
-      display: grid;
-      gap: 12px;
-      margin-top: 8px
-    }
-
-    .row {
-      display: grid;
-      gap: 10px
-    }
-
-    @media(min-width:560px) {
-      .row {
-        grid-template-columns: 120px 1fr;
-        align-items: center
-      }
-    }
-
-    .label {
+    label {
       font-weight: 700;
-      color: var(--muted)
+      display: block;
+      margin-bottom: 6px;
     }
 
-    .input,
-    .select,
-    .textarea {
+    input,
+    textarea {
       width: 100%;
-      border: 1px solid var(--ring);
-      background: #fff;
-      color: #111;
-      border-radius: 12px;
-      padding: 12px 14px;
-      font: 15px/1.4 Inter, system-ui;
-      box-shadow: 0 1px 0 rgba(0, 0, 0, .03) inset
-    }
-
-    :root[data-theme="lando"] .input,
-    :root[data-theme="lando"] .select,
-    :root[data-theme="lando"] .textarea {
-      background: #121214;
-      color: #f1f1f1;
-      border-color: #2f3136
-    }
-
-    .to-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: color-mix(in oklab, var(--accent) 18%, #fff);
-      border: 1px solid var(--ring);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-weight: 700
-    }
-
-    :root[data-theme="lando"] .to-chip {
-      background: #232325;
-      color: #ffedd9;
-      border-color: #3a3a3d
-    }
-
-    .topic-wrap {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap
-    }
-
-    .chip {
+      padding: 10px 12px;
+      margin-bottom: 16px;
+      border-radius: 8px;
       border: 1px solid var(--btn-border);
-      background: var(--btn-bg);
-      color: var(--btn-text);
-      padding: 9px 13px;
-      border-radius: 999px;
-      font-weight: 700;
-      cursor: pointer
-    }
-
-    .chip.active {
-      background: var(--accent);
-      color: #fff;
-      border-color: transparent
-    }
-
-    .inline {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap
-    }
-
-    .small {
-      font-size: 12px;
-      color: var(--muted)
-    }
-
-    .textarea {
-      height: 180px;
-      resize: none
-    }
-
-    .actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      margin-top: 8px
-    }
-
-    .linkcard {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 16px;
-      border: 1px solid var(--ring);
-      border-radius: 16px;
-      background: color-mix(in oklab, var(--surface) 92%, transparent);
-      text-decoration: none;
-      color: inherit
-    }
-
-    .links-stack {
-      display: grid;
-      gap: 12px;
-      margin-top: 8px
-    }
-
-    .linkcard:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 20px rgba(12, 21, 33, .06)
-    }
-
-    .linkcard img {
-      width: 24px;
-      height: 24px
-    }
-
-    .links-small {
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: 13px
+      font: inherit;
+      resize: vertical;
     }
 
     footer {
       border-top: 1px solid var(--ring);
       padding: 18px 0;
       color: var(--muted);
-      text-align: center
+      text-align: center;
     }
   </style>
 </head>
 
 <body>
   <header class="site">
-    <div class="site-inner container">
+    <div class="site-inner">
       <div class="brand">
         <div class="avatar-wrap">
           <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
           <span class="avatar-badge">KC</span>
         </div>
-        <span>Contact — Pole Position🏁</span>
+        <span>Contact — Pole Position 🏁</span>
       </div>
       <nav class="nav">
         <a href="index.html">Home</a>
@@ -401,136 +245,62 @@
     </div>
   </header>
 
-  <main class="page container">
-    <h1>Let’s Build Something Great</h1>
-
+  <main>
+    <h1>Contact Me</h1>
     <div class="driver-bar">
-      <span>Favorite drivers:</span>
       <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
       <button class="btn" data-theme="lando">Lando Norris</button>
-      <button class="btn" id="resetTheme">Reset theme</button>
-      <span>(themed confetti)</span>
+      <button class="btn" id="resetTheme">Reset Theme</button>
     </div>
 
-    <section class="grid">
-      <article class="card">
-        <h2>Craft a Note</h2>
-        <div class="email-shell">
-          <div class="row">
-            <div class="label">To</div>
-            <div class="to-chip">Katherine &lt;katisabela125@gmail.com&gt;</div>
-          </div>
-          <div class="row">
-            <div class="label">Topic</div>
-            <div class="topic-wrap" id="topicWrap">
-              <button class="chip" data-topic="Collaboration">Collaboration</button>
-              <button class="chip" data-topic="Internship">Internship</button>
-              <button class="chip" data-topic="Feedback">Feedback</button>
-              <button class="chip" data-topic="Speaking">Speaking</button>
-              <button class="chip" data-topic="Other">Other</button>
-            </div>
-          </div>
-          <div class="row">
-            <div class="label">Urgency</div>
-            <div class="inline">
-              <select class="select" id="urgency">
-                <option value="">No rush</option>
-                <option value="ASAP">ASAP</option>
-                <option value="This week">This week</option>
-                <option value="1–2 weeks">1–2 weeks</option>
-                <option value="Next month">Next month</option>
-              </select>
-            </div>
-          </div>
-          <div class="row">
-            <div class="label">Subject</div><input class="input" id="subject"
-              placeholder="e.g., Collaboration idea: UX for Pathfinder" />
-          </div>
-          <div class="row">
-            <div class="label">Template</div>
-            <div class="inline">
-              <select class="select" id="template">
-                <option value="">Choose a starter…</option>
-                <option value="intro">Quick intro</option>
-                <option value="collab">Project collaboration</option>
-                <option value="recruiter">Recruiter outreach</option>
-                <option value="feedback">Product feedback</option>
-              </select>
-              <button class="btn" id="applyTemplate">Apply</button>
-            </div>
-          </div>
-          <div class="row">
-            <div class="label">Message</div>
-            <textarea class="textarea" id="message"
-              placeholder="Hi Katherine —&#10;&#10;I’m reaching out about [topic]. My timeline is [urgency]. Here’s the context…&#10;&#10;Best,&#10;[Your name]"></textarea>
-          </div>
-          <div class="actions"><button class="btn" id="buildMail">Open in Email ✉️</button><button class="btn"
-              id="copyAll">Copy All 📋</button></div>
-          <div class="small">Tip: selecting a <strong>Topic</strong>, an <strong>Urgency</strong>, and a
-            <strong>Template</strong> will pre-fill the subject and message.</div>
-        </div>
-      </article>
+    <form>
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" placeholder="Your name" required>
 
-      <article class="card">
-        <h2>Direct Links</h2>
-        <div class="links-stack">
-          <a class="linkcard" href="mailto:katisabela125@gmail.com"><img
-              src="https://img.icons8.com/fluency/48/filled-message.png" alt="">
-            <div><strong>Email:</strong> katisabela125@gmail.com</div>
-          </a>
-          <a class="linkcard" href="https://github.com/Katechen125" target="_blank"><img
-              src="https://img.icons8.com/ios-glyphs/30/github.png" alt="">
-            <div><strong>GitHub:</strong> @Katechen125</div>
-          </a>
-          <a class="linkcard" href="https://www.linkedin.com/in/katherine-hsiung-chen-22972830b" target="_blank"><img
-              src="https://img.icons8.com/color/48/linkedin.png" alt="">
-            <div><strong>LinkedIn:</strong> /in/katherine-hsiung-chen-22972830b</div>
-          </a>
-        </div>
-        <div class="links-small">Prefer X/Twitter or another platform? Mention it and I’ll reply there.</div>
-      </article>
-    </section>
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" placeholder="you@example.com" required>
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+
+      <button class="btn" type="submit">Send Message</button>
+    </form>
   </main>
 
   <footer>
-    <div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages
-    </div>
+    © <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages
   </footer>
 
   <script src="assets/js/confetti.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    const root = document.documentElement; const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved);
-    function setThemeAndConfetti(n) {
-      if (n === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
-      if (n === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
-    }
-    document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme').addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); void document.body.offsetHeight; startEmojiConfetti(); });
+    const root = document.documentElement;
+    const saved = localStorage.getItem('kc-theme');
+    if (saved) root.setAttribute('data-theme', saved);
 
-    const topicWrap = document.getElementById('topicWrap'), subjectEl = document.getElementById('subject'),
-      urgencyEl = document.getElementById('urgency'), msgEl = document.getElementById('message');
-    let topic = "";
-    topicWrap.addEventListener('click', (e) => {
-      const b = e.target.closest('.chip'); if (!b) return;[...topicWrap.querySelectorAll('.chip')].forEach(c => c.classList.remove('active'));
-      b.classList.add('active'); topic = b.dataset.topic;
-      if (!subjectEl.value) { const urg = urgencyEl.value ? ` — ${urgencyEl.value}` : ""; subjectEl.value = `${topic}${urg}`; }
-      if (!msgEl.value) { msgEl.value = `Hi Katherine —\n\nI’m reaching out about ${topic.toLowerCase()}. My timeline is ${urgencyEl.value || "flexible"}.\n\nBest,\n[Your name]`; }
+    function setTheme(name) {
+      if (name === 'carlos') {
+        root.setAttribute('data-theme', 'carlos');
+        localStorage.setItem('kc-theme', 'carlos');
+        startThemedConfetti('carlos');
+      }
+      if (name === 'lando') {
+        root.setAttribute('data-theme', 'lando');
+        localStorage.setItem('kc-theme', 'lando');
+        startThemedConfetti('lando');
+      }
+    }
+
+    document.querySelectorAll('button[data-theme]').forEach(b =>
+      b.addEventListener('click', () => setTheme(b.dataset.theme))
+    );
+
+    document.getElementById('resetTheme').addEventListener('click', () => {
+      root.removeAttribute('data-theme');
+      localStorage.removeItem('kc-theme');
+      void document.body.offsetHeight;
+      startEmojiConfetti();
     });
-    function updateSubjectForUrgency() { const urg = urgencyEl.value; if (!subjectEl.value || /^([A-Za-z ]+)( — .+)?$/.test(subjectEl.value)) { const base = topic || "Opportunity"; subjectEl.value = urg ? `${base} — ${urg}` : base; } }
-    urgencyEl.addEventListener('change', updateSubjectForUrgency);
-    const templates = {
-      intro: `Hi Katherine —\n\nQuick hello. Timeline: ${urgencyEl.value || "flexible"}.\n\nBest,\n[Your name]`,
-      collab: `Hi Katherine —\n\nCollaboration idea around ${topic || "a feature"}.\nTimeline: ${urgencyEl.value || "flexible"}.\n\nThanks!\n[Your name]`,
-      recruiter: `Hi Katherine —\n\nI think your background could match roles we have. Timeline: ${urgencyEl.value || "this month"}.\n\nBest,\n[Recruiter]`,
-      feedback: `Hi Katherine —\n\nTried your project—feedback below.\nTimeline: ${urgencyEl.value || "whenever"}.\n\nCheers,\n[Your name]`
-    };
-    document.getElementById('applyTemplate').addEventListener('click', () => {
-      const k = (document.getElementById('template').value || "").toLowerCase(); if (!k) return;
-      msgEl.value = templates[k] || msgEl.value; if (!subjectEl.value) { const base = (k === "collab" ? "Collaboration" : k === "recruiter" ? "Recruiting" : k === "feedback" ? "Feedback" : "Intro"); subjectEl.value = topic ? `${base}: ${topic}` : base; }
-    });
-    document.getElementById('buildMail').addEventListener('click', () => { const to = "katisabela125@gmail.com"; const subj = encodeURIComponent(subjectEl.value || "Hello from your site"); const body = encodeURIComponent(msgEl.value || "Hi Katherine —"); window.location.href = `mailto:${to}?subject=${subj}&body=${body}`; });
-    document.getElementById('copyAll').addEventListener('click', async () => { const all = `To: katisabela125@gmail.com\nSubject: ${subjectEl.value || "(none)"}\n\n${msgEl.value || ""}`; try { await navigator.clipboard.writeText(all); alert("Copied to clipboard!"); } catch { alert("Could not copy, sorry."); } });
   </script>
 </body>
 
