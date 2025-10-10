@@ -1,220 +1,55 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Katherine Isabela Hsiung Chen — Pole Position 🏁</title>
-  <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap"
-    rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/base.css">
   <style>
-    .hero {
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 40px 0 28px;
-      min-height: calc(100svh - 64px - 84px)
+    .hero{display:grid;place-items:center;text-align:center;padding:40px 0 28px;min-height:calc(100svh - 64px - 84px)}
+    .hero h1{margin:0 0 10px;font-size:clamp(28px,5vw,48px)}
+    .driver-bar{margin-top:8px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;color:var(--muted)}
+    .hub{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:22px}
+    .cta{
+      cursor:pointer;display:inline-block;text-decoration:none;font-weight:800;letter-spacing:.2px;color:var(--text);
+      background:linear-gradient(180deg,color-mix(in oklab,var(--surface,#fff) 96%,transparent),color-mix(in oklab,var(--surface,#fff) 88%,transparent));
+      border-style:solid;border-width:4px 1.5px;border-top-color:var(--accent);border-bottom-color:var(--accent);
+      border-left-color:color-mix(in oklab,var(--accent) 28%,var(--ring));border-right-color:color-mix(in oklab,var(--accent) 28%,var(--ring));
+      border-radius:12px;padding:14px 26px;transition:transform .12s,box-shadow .2s,border-color .2s,background .2s;
+      box-shadow:0 12px 28px rgba(12,21,33,.10),inset 0 0 0 1px color-mix(in oklab,var(--accent) 18%,#fff)
     }
-
-    .hero h1 {
-      margin: 0 0 10px;
-      font-size: clamp(28px, 5vw, 48px)
+    .cta:hover{
+      transform:translateY(-2px);
+      background:linear-gradient(180deg,color-mix(in oklab,var(--surface,#fff) 98%,transparent),color-mix(in oklab,var(--surface,#fff) 92%,transparent));
+      border-top-color:color-mix(in oklab,var(--accent) 85%,black);border-bottom-color:color-mix(in oklab,var(--accent) 85%,black)
     }
-
-    .driver-bar {
-      margin-top: 8px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-      color: var(--muted)
-    }
-
-    .hub {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 22px
-    }
-
-    .sequence-overlay {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, .58);
-      backdrop-filter: blur(10px) saturate(.9);
-      z-index: 50
-    }
-
-    .sequence {
-      display: grid;
-      gap: 16px;
-      justify-items: center
-    }
-
-    .sequence-card {
-      background: color-mix(in oklab, var(--surface, #fff) 96%, transparent);
-      border: 1px solid color-mix(in oklab, var(--accent) 32%, var(--ring));
-      border-radius: 20px;
-      padding: 20px 24px;
-      box-shadow: 0 22px 48px rgba(12, 21, 33, .32);
-      display: grid;
-      gap: 12px;
-      justify-items: center
-    }
-
-    .start-lights {
-      display: flex;
-      gap: 14px;
-      background: color-mix(in oklab, var(--bg) 86%, #fff);
-      padding: 14px 18px;
-      border-radius: 999px;
-      border: 1px solid var(--ring);
-      box-shadow: 0 8px 24px rgba(12, 21, 33, .18) inset;
-      margin: 0 auto
-    }
-
-    .light {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: #2b2b2b;
-      border: 1px solid rgba(0, 0, 0, .22)
-    }
-
-    .light.on.red {
-      background: #d10c0c
-    }
-
-    .light.on.green {
-      background: #14b314
-    }
-
-    .seq-title {
-      margin-top: 4px;
-      font: 700 clamp(16px, 2.6vw, 22px)/1.25 "Playfair Display", Georgia, serif;
-      color: var(--text);
-      text-align: center
-    }
-
-    .seq-sub {
-      text-align: center;
-      font-weight: 700;
-      color: #6b7280
-    }
-
-    .card-winner {
-      margin: 16px auto 4px;
-      display: none;
-      grid-template-columns: 96px 1fr auto;
-      gap: 16px;
-      align-items: center;
-      width: min(980px, 92vw);
-      background: linear-gradient(180deg, #fff, rgba(240, 244, 255, .6));
-      border: 1px solid #e6e7ea;
-      border-radius: 18px;
-      padding: 14px 16px
-    }
-
-    .card-winner img {
-      width: 96px;
-      height: 96px;
-      border-radius: 16px;
-      object-fit: cover
-    }
-
-    .win-name {
-      font: 700 28px/1.2 Inter, system-ui
-    }
-
-    .win-tags {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 6px
-    }
-
-    .tag {
-      border: 1px solid #e0e2e6;
-      background: #f6f8fb;
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-weight: 700
-    }
-
-    .badge-p1 {
-      width: 60px;
-      height: 60px;
-      border: 1px solid #e0e2e6;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      color: #9aa0a6;
-      background: #fff
-    }
-
-    .footer-row {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px
-    }
-
-    .footer-launch {
-      position: absolute;
-      right: max(8px, env(safe-area-inset-right) + 8px);
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      align-items: center;
-      gap: 10px
-    }
-
-    .flag-btn {
-      appearance: none;
-      border: 1px solid var(--ring);
-      background: #fff;
-      padding: 10px 12px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-size: 18px
-    }
-
-    :root[data-theme="lando"] .sequence-card {
-      background: #1c1c1f;
-      border-color: #3a3a3d;
-      color: #fff
-    }
-
-    :root[data-theme="lando"] .card-winner {
-      background: linear-gradient(180deg, #232325, #1a1a1c);
-      border-color: #3a3a3d;
-      color: #fffbf2
-    }
-
-    :root[data-theme="lando"] .tag {
-      background: #1f1f21;
-      border-color: #34363a;
-      color: #ffedd9
-    }
-
-    :root[data-theme="lando"] .flag-btn {
-      background: #2a2a2a;
-      color: #fff;
-      border-color: #444
-    }
+    :root[data-theme="lando"] .cta{border-top-color:#ff8000;border-bottom-color:#ff8000;border-left-color:#3a3a3d;border-right-color:#3a3a3d}
+    .sequence-overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.58);backdrop-filter:blur(10px) saturate(.9);z-index:50}
+    .sequence{display:grid;gap:16px;justify-items:center}
+    .sequence-card{background:color-mix(in oklab,var(--surface,#fff) 96%,transparent);border:1px solid color-mix(in oklab,var(--accent) 32%,var(--ring));border-radius:20px;padding:20px 24px;box-shadow:0 22px 48px rgba(12,21,33,.32);display:grid;gap:12px;justify-items:center}
+    .start-lights{display:flex;gap:14px;background:color-mix(in oklab,var(--bg) 86%,#fff);padding:14px 18px;border-radius:999px;border:1px solid var(--ring);box-shadow:0 8px 24px rgba(12,21,33,.18) inset;margin:0 auto}
+    .light{width:28px;height:28px;border-radius:50%;background:#2b2b2b;border:1px solid rgba(0,0,0,.22)}
+    .light.on.red{background:#d10c0c}
+    .light.on.green{background:#14b314}
+    .seq-title{margin-top:4px;font:700 clamp(16px,2.6vw,22px)/1.25 "Playfair Display",Georgia,serif;color:var(--text);text-align:center}
+    .seq-sub{text-align:center;font-weight:700;color:#6b7280}
+    .card-winner{margin:16px auto 4px;display:none;grid-template-columns:96px 1fr auto;gap:16px;align-items:center;width:min(980px,92vw);background:linear-gradient(180deg,#fff,rgba(240,244,255,.6));border:1px solid #e6e7ea;border-radius:18px;padding:14px 16px}
+    .card-winner img{width:96px;height:96px;border-radius:16px;object-fit:cover}
+    .win-name{font:700 28px/1.2 Inter,system-ui}
+    .win-tags{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+    .tag{border:1px solid #e0e2e6;background:#f6f8fb;border-radius:999px;padding:8px 12px;font-weight:700}
+    .badge-p1{width:60px;height:60px;border:1px solid #e0e2e6;border-radius:14px;display:grid;place-items:center;font-weight:800;color:#9aa0a6;background:#fff}
+    .footer-row{position:relative;display:flex;align-items:center;justify-content:center;gap:16px}
+    .footer-launch{position:absolute;right:max(4px, env(safe-area-inset-right) + 4px);top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:10px}
+    .flag-btn{appearance:none;border:1px solid var(--ring);background:#fff;padding:10px 12px;border-radius:999px;cursor:pointer;font-size:18px}
+    :root[data-theme="lando"] .sequence-card{background:#1c1c1f;border-color:#3a3a3d;color:#fff}
+    :root[data-theme="lando"] .card-winner{background:linear-gradient(180deg,#232325,#1a1a1c);border-color:#3a3a3d;color:#fffbf2}
+    :root[data-theme="lando"] .tag{background:#1f1f21;border-color:#34363a;color:#ffedd9}
+    :root[data-theme="lando"] .flag-btn{background:#2a2a2a;color:#fff;border-color:#444}
   </style>
 </head>
-
 <body>
   <header class="site">
     <div class="site-inner container">
@@ -236,8 +71,7 @@
 
   <section class="hero">
     <div class="container">
-      <h1>Hi, I’m Katherine — Computer Science student (soon Simulation Engineering) building playful-aesthetic code.
-      </h1>
+      <h1>Hi, I’m Katherine — Computer Science student (soon Simulation Engineering) building playful-aesthetic code.</h1>
       <div class="driver-bar" style="margin-top:10px">
         <span>Favorite drivers:</span>
         <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
@@ -267,8 +101,7 @@
     <div class="sequence">
       <div class="sequence-card">
         <div class="start-lights" id="startLights">
-          <span class="light" id="L1"></span><span class="light" id="L2"></span><span class="light" id="L3"></span><span
-            class="light" id="L4"></span><span class="light" id="L5"></span>
+          <span class="light" id="L1"></span><span class="light" id="L2"></span><span class="light" id="L3"></span><span class="light" id="L4"></span><span class="light" id="L5"></span>
         </div>
         <div class="seq-title" id="seqTitle">Lights out and away we go!</div>
         <div class="seq-sub" id="seqSub">Tap again to replay</div>
@@ -279,7 +112,7 @@
             <div class="win-tags">
               <span class="tag" id="winNum"></span>
               <span class="tag" id="winTeam"></span>
-              <span class="tag emoji-text" id="winNat"></span>
+              <span class="tag" id="winNat"></span>
             </div>
             <div class="seq-sub" id="winGP" style="text-align:left;margin-top:6px"></div>
           </div>
@@ -293,11 +126,13 @@
   <script src="assets/js/theme.js"></script>
   <script src="assets/js/index-sequence.js"></script>
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-    document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme').addEventListener('click', resetTheme);
-    document.getElementById('flagGo').addEventListener('click', runSequence);
+    document.getElementById('year').textContent=new Date().getFullYear();
+    document.addEventListener('DOMContentLoaded',function(){
+      document.querySelectorAll('button[data-theme]').forEach(b=>b.addEventListener('click',()=>setThemeAndConfetti(b.dataset.theme)));
+      document.getElementById('resetTheme').addEventListener('click',resetTheme);
+      if(window.prepareConfetti) prepareConfetti();
+      document.getElementById('flagGo').addEventListener('click',runSequence);
+    });
   </script>
 </body>
-
 </html>
