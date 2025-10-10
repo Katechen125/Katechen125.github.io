@@ -1,54 +1,65 @@
-import os, json, datetime as dt
-import pandas as pd
-import fastf1
+import json, sys, time, pathlib, requests
+from datetime import datetime, timezone
 
-os.makedirs(".fastf1cache", exist_ok=True)
-fastf1.Cache.enable_cache(".fastf1cache")
+OUT = pathlib.Path("data/latest.json")
+API = "https://ergast.com/api/f1/current/last/results.json"
 
-COUNTRY_TO_CC = {
-  "United Kingdom":"GB","Great Britain":"GB","UK":"GB","United States":"US","USA":"US","U.S.A.":"US",
-  "United Arab Emirates":"AE","Saudi Arabia":"SA","Bahrain":"BH","Qatar":"QA","Azerbaijan":"AZ",
-  "Brazil":"BR","Mexico":"MX","Canada":"CA","Spain":"ES","Italy":"IT","San Marino":"SM","Monaco":"MC",
-  "France":"FR","Belgium":"BE","Netherlands":"NL","Austria":"AT","Germany":"DE","Hungary":"HU","Czech Republic":"CZ",
-  "Singapore":"SG","Japan":"JP","China":"CN","Australia":"AU","Argentina":"AR"
-}
+def write_safe(payload):
+    OUT.parent.mkdir(parents=True, exist_ok=True)
+    with open(OUT, "w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=2)
 
-def cc_from_country(name:str) -> str:
-    return COUNTRY_TO_CC.get(name.strip(), "")
+def load_existing():
+    if OUT.exists():
+        with open(OUT, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {}
 
-now = dt.datetime.utcnow()
-year = now.year
-
-schedule = fastf1.get_event_schedule(year, include_testing=False)
-schedule = schedule[pd.notna(schedule["Session5DateUtc"])]
-schedule = schedule[schedule["Session5DateUtc"] < now]
-schedule = schedule.sort_values("Session5DateUtc")
-
-winner = None
-event_row = None
-for _, row in reversed(list(schedule.iterrows())):
+def main():
     try:
-        ses = fastf1.get_session(int(row["Year"]), row["EventName"], "R")
-        ses.load(laps=False, telemetry=False, weather=False, messages=False)
-        res = ses.results
-        if res is None or len(res) == 0:
-            continue
-        p1 = res.iloc[0]
-        name = f"{p1['FirstName']} {p1['LastName']}".strip()
-        num = int(p1["DriverNumber"])
-        team = p1["TeamName"]
-        gp = f"{row['EventName']} Grand Prix"
-        cc = cc_from_country(row.get("Country", "") or "")
-        winner = {"name": name, "number": num, "team": team, "gp": gp, "flag_cc": cc}
-        event_row = row
-        break
-    except Exception:
-        continue
+        r = requests.get(API, timeout=20)
+        r.raise_for_status()
+        j = r.json()
+        races = j.get("MRData", {}).get("RaceTable", {}).get("Races", [])
+        if not races:
+            prev = load_existing()
+            if prev:
+                print("no finished race with results; kept previous")
+                write_safe(prev)
+                return 0
+            print("no finished race with results; nothing to update")
+            write_safe({})
+            return 0
+        race = races[0]
+        results = race.get("Results", [])
+        if not results:
+            prev = load_existing()
+            write_safe(prev if prev else {})
+            print("no results array; kept previous")
+            return 0
+        p1 = results[0]
+        driver = p1.get("Driver", {})
+        constructor = p1.get("Constructor", {})
+        payload = {
+            "name": f"{driver.get('givenName','').strip()} {driver.get('familyName','').strip()}".strip(),
+            "number": driver.get("permanentNumber") or p1.get("number") or "",
+            "team": constructor.get("name",""),
+            "gp": race.get("raceName",""),
+            "flag_cc": driver.get("nationality","")[:2],
+            "generated_at": datetime.now(timezone.utc).isoformat()
+        }
+        write_safe(payload)
+        print("updated", payload.get("name",""))
+        return 0
+    except Exception as e:
+        prev = load_existing()
+        if prev:
+            write_safe(prev)
+            print("error; kept previous:", e)
+            return 0
+        print("error and no previous:", e)
+        write_safe({})
+        return 0
 
-if not winner:
-    raise SystemExit("no finished race with results")
-
-os.makedirs("data", exist_ok=True)
-with open("data/latest.json", "w", encoding="utf-8") as f:
-    json.dump(winner, f, ensure_ascii=False)
-print(winner)
+if __name__ == "__main__":
+    sys.exit(main())
