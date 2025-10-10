@@ -133,10 +133,6 @@
         width: 100%
       }
     }
-
-    footer {
-      text-align: center
-    }
   </style>
 </head>
 
@@ -205,10 +201,11 @@
   </footer>
 
   <script src="assets/js/confetti.js"></script>
+  <script src="assets/js/theme.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
     document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme').addEventListener('click', () => { document.documentElement.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); void document.body.offsetHeight; startEmojiConfetti() });
+    document.getElementById('resetTheme').addEventListener('click', resetTheme);
   </script>
 </body>
 
