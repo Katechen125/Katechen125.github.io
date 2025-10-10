@@ -10,9 +10,9 @@
     --btn-border: #d7dde5;
     --maxw: 1080px;
     --bg-grad:
-        radial-gradient(1200px 800px at 10% 15%, #f6fffb 0, transparent 50%),
-        radial-gradient(1200px 900px at 90% 20%, #fff7fb 0, transparent 55%),
-        radial-gradient(1000px 700px at 40% 90%, #f5f9ff 0, transparent 50%)
+        radial-gradient(1400px 900px at 8% 6%, #fff0f7 0, transparent 55%),
+        radial-gradient(1600px 1000px at 92% 12%, #eaf3ff 0, transparent 58%),
+        radial-gradient(1400px 900px at 50% 92%, #ecfff0 0, transparent 55%)
 }
 
 ::selection {
@@ -54,6 +54,7 @@ body {
     margin: 0;
     background: var(--bg);
     background-image: var(--bg-grad);
+    background-attachment: fixed;
     color: var(--text);
     font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif
 }
@@ -88,7 +89,7 @@ header.site {
 
 .brand {
     display: flex;
-    gap: 12px;
+    gap: 14px;
     align-items: center;
     font-weight: 800
 }
@@ -101,8 +102,8 @@ header.site {
 }
 
 .avatar {
-    width: 92px;
-    height: 92px;
+    width: 104px;
+    height: 104px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff)
@@ -115,16 +116,16 @@ header.site {
 
 .avatar-badge {
     position: absolute;
-    right: -8px;
-    bottom: -8px;
-    width: 40px;
-    height: 40px;
+    right: -10px;
+    bottom: -10px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     background: #fff;
     border: 1px solid var(--ring);
     display: grid;
     place-items: center;
-    font: 800 14px/1 "Playfair Display", serif;
+    font: 800 15px/1 "Playfair Display", serif;
     color: var(--accent)
 }
 
@@ -171,4 +172,21 @@ footer {
     border-top: 1px solid var(--ring);
     padding: 18px 0;
     color: var(--muted)
+}
+
+.footer-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.footer-launch {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: clamp(-26px, -2vw, 0px);
+    display: flex;
+    align-items: center;
+    gap: 10px
 }

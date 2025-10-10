@@ -197,17 +197,17 @@
       position: relative;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: center
     }
 
     .footer-launch {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      right: calc(-16px + env(safe-area-inset-right));
+      right: clamp(-34px, -3vw, 0px);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 10px
     }
 
     @media (min-width:1280px) {
