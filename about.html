@@ -43,17 +43,92 @@
     }
 
     .card {
-      background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 96%, transparent), color-mix(in oklab, var(--surface) 86%, transparent));
+      background: linear-gradient(180deg, rgba(255, 255, 255, .96), rgba(255, 255, 255, .86));
       border: 1px solid var(--ring);
       border-radius: 16px;
       padding: 18px 20px;
-      box-shadow: 0 12px 28px rgba(12, 21, 33, .08), 0 2px 6px rgba(12, 21, 33, .05)
+      box-shadow: 0 12px 28px rgba(12, 21, 33, .08), 0 2px 6px rgba(12, 21, 33, .05);
+      color: var(--text)
+    }
+
+    :root[data-theme="lando"] .card {
+      background: linear-gradient(180deg, #232325, #1a1a1c);
+      border-color: #3a3a3d;
+      color: #fffaf1
+    }
+
+    :root[data-theme="carlos"] .card {
+      background: linear-gradient(180deg, #ffffff, #eef3ff);
+      border-color: #b7c7f7;
+      color: #0b1220
+    }
+
+    .race-wrap {
+      margin: 6px auto 20px;
+      width: min(760px, 92%)
+    }
+
+    .race-line {
+      position: relative;
+      height: 28px;
+      margin: 10px auto 0;
+      width: 100%;
+      border-bottom: 3px dashed color-mix(in oklab, var(--text) 35%, transparent);
+      overflow: hidden
+    }
+
+    .race-flag {
+      position: absolute;
+      left: 2px;
+      top: -10px;
+      font-size: 22px;
+      line-height: 1
+    }
+
+    .race-car {
+      position: absolute;
+      top: -6px;
+      right: -40px;
+      left: auto;
+      font-size: 22px;
+      line-height: 1;
+      animation: car-move 10s linear infinite;
+      will-change: right
+    }
+
+    @keyframes car-move {
+      0% {
+        right: -40px
+      }
+
+      100% {
+        right: calc(100% - 24px)
+      }
+    }
+
+    .race-progress {
+      position: absolute;
+      bottom: -3px;
+      right: 0;
+      height: 6px;
+      width: 0%;
+      background: color-mix(in oklab, var(--accent) 55%, #243);
+      border-radius: 4px;
+      animation: prog-move 10s linear infinite;
+      will-change: width
+    }
+
+    @keyframes prog-move {
+      0% {
+        width: 0%
+      }
+
+      100% {
+        width: 100%
+      }
     }
 
     footer {
-      border-top: 1px solid var(--ring);
-      padding: 18px 0;
-      color: var(--muted);
       text-align: center
     }
   </style>
@@ -65,21 +140,27 @@
       <div class="brand">
         <div class="avatar-wrap">
           <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
-          <span class="avatar-badge"></span>
+          <span class="avatar-badge">KC</span>
         </div>
         <span>About — Pole Position🏁</span>
       </div>
       <nav class="nav">
         <a href="index.html">Home</a>
-        <a href="projects.html" class="cta">Projects</a>
-        <a href="about.html" class="cta">About</a>
-        <a href="contact.html" class="cta">Contact</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
       </nav>
     </div>
   </header>
 
   <main class="page container">
     <h1>About Me</h1>
+    <div class="race-wrap">
+      <div class="race-line"><span class="race-flag">🏁</span><span class="race-car">🏎️</span>
+        <div class="race-progress"></div>
+      </div>
+    </div>
+
     <div class="driver-bar">
       <span>Favorite drivers:</span>
       <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
@@ -87,6 +168,7 @@
       <button class="btn" id="resetTheme">Reset theme</button>
       <span>(themed confetti)</span>
     </div>
+
     <section class="grid">
       <article class="card">
         <h2>Where I’m headed</h2>

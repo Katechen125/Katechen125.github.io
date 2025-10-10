@@ -118,17 +118,17 @@ header.site {
 
 .avatar-badge {
     position: absolute;
-    right: -6px;
-    bottom: -6px;
-    width: 28px;
-    height: 28px;
+    right: -5px;
+    bottom: -5px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     background: #fff;
-    border: 2px solid var(--ring);
+    border: 1px solid var(--ring);
     display: block;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 100% 100%
+    background-size: 100% 100%;
 }
 
 :root[data-theme="carlos"] .avatar-badge {
