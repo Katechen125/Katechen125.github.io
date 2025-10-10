@@ -1,15 +1,9 @@
+# tools/f1_winner.py
 import json, sys, pathlib
 from datetime import datetime, timezone
 from fastf1.ergast import Ergast
 
 OUT = pathlib.Path("data/latest.json")
-
-NAME_TO_FLAG = {
-    "Max Verstappen":"🇳🇱","Yuki Tsunoda":"🇯🇵","Charles Leclerc":"🇲🇨","Lewis Hamilton":"🇬🇧","George Russell":"🇬🇧",
-    "Kimi Antonelli":"🇮🇹","Lando Norris":"🇬🇧","Oscar Piastri":"🇦🇺","Liam Lawson":"🇳🇿","Isack Hadjar":"🇫🇷",
-    "Fernando Alonso":"🇪🇸","Lance Stroll":"🇨🇦","Alexander Albon":"🇹🇭","Carlos Sainz":"🇪🇸","Pierre Gasly":"🇫🇷",
-    "Franco Colapinto":"🇦🇷","Esteban Ocon":"🇫🇷","Oliver Bearman":"🇬🇧","Nico Hülkenberg":"🇩🇪","Gabriel Bortoleto":"🇧🇷"
-}
 
 def write_safe(payload):
     OUT.parent.mkdir(parents=True, exist_ok=True)
@@ -18,52 +12,68 @@ def write_safe(payload):
 
 def load_existing():
     if OUT.exists():
-        with open(OUT, "r", encoding="utf-8") as f:
-            return json.load(f)
+        try:
+            return json.loads(OUT.read_text(encoding="utf-8"))
+        except Exception:
+            return {}
     return {}
+
+def _first(row, *keys):
+    for k in keys:
+        if k in row and str(row[k]).strip():
+            return str(row[k]).strip()
+    return ""
 
 def main():
     try:
         erg = Ergast()
         res = erg.get_race_results(season="current", round="last")
-        df = None if res is None else res.content
-        if df is None or df.empty:
+        if not res or res.content is None or res.content.empty:
             prev = load_existing()
             write_safe(prev if prev else {})
-            print("no finished race with results")
+            print("no results; kept previous")
             return 0
 
-        p1 = df.loc[df["position"] == 1].iloc[0]
-        name = f'{p1["Driver.givenName"]} {p1["Driver.familyName"]}'.strip()
-        team = str(p1["Constructor.name"])
-        number = str(p1.get("Driver.permanentNumber") or p1.get("number") or "")
+        df = res.content
+        row = df.iloc[0].to_dict()
 
-        rnd = int(p1["round"])
-        gp = ""
-        sch = erg.get_schedule(season="current")
-        sdf = None if sch is None else sch.content
-        if sdf is not None and not sdf.empty:
-            row = sdf.loc[sdf["round"] == rnd]
-            if not row.empty:
-                gp = str(row["raceName"].iloc[0])
+        # Try to get GP name from race info; fall back to row fields
+        gp_name = ""
+        try:
+            info = erg.get_race_info(season="current", round="last")
+            if info and info.content is not None and not info.content.empty:
+                gp_name = str(info.content.iloc[0].get("raceName") or "").strip()
+        except Exception:
+            pass
 
-        flag = NAME_TO_FLAG.get(name, "")
+        given = _first(row, "givenName", "Driver.givenName", "driverGivenName")
+        family = _first(row, "familyName", "Driver.familyName", "driverFamilyName")
+        name = (given + " " + family).strip()
+
+        number = _first(row, "permanentNumber", "Driver.permanentNumber", "number")
+        team = _first(row, "constructorName", "Constructor.name", "constructorRef", "team")
+        nationality = _first(row, "nationality", "Driver.nationality")
 
         payload = {
             "name": name,
             "number": number,
             "team": team,
-            "gp": gp,
-            "flag": flag,
+            "gp": gp_name or _first(row, "raceName", "GrandPrix"),
+            "nationality": nationality,
             "generated_at": datetime.now(timezone.utc).isoformat()
         }
         write_safe(payload)
-        print("updated", name)
+        print("updated", payload.get("name",""))
         return 0
-    except Exception:
+
+    except Exception as e:
         prev = load_existing()
-        write_safe(prev if prev else {})
-        print("error; kept previous")
+        if prev:
+            write_safe(prev)
+            print("error; kept previous:", e)
+            return 0
+        write_safe({})
+        print("error and no previous:", e)
         return 0
 
 if __name__ == "__main__":

@@ -116,28 +116,26 @@ header.site {
 
 .avatar-badge {
     position: absolute;
-    right: -6px;
-    bottom: -6px;
-    width: 24px;
-    height: 24px;
+    right: -3px;
+    bottom: -3px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
-    background: #fff url("assets/img/KC.svg") center/90% no-repeat;
+    background: #fff url("assets/img/KC.svg") center/88% no-repeat;
     border: 1px solid var(--ring);
-    display: grid;
-    place-items: center;
     font-size: 0;
-    color: var(--accent);
 }
 
 :root[data-theme="carlos"] .avatar-badge {
-    background: #fff url("assets/img/Williams_logo.png") center/90% no-repeat;
+    background: #fff url("assets/img/Williams_logo.png") center/88% no-repeat;
     border-color: #0d347e;
 }
 
 :root[data-theme="lando"] .avatar-badge {
-    background: #fff url("assets/img/mclaren_logo.png") center/90% no-repeat;
+    background: #fff url("assets/img/mclaren_logo.png") center/88% no-repeat;
     border-color: #ff8000;
 }
+
 
 .btn {
     appearance: none;
@@ -168,27 +166,29 @@ header.site {
     border-color: transparent
 }
 
-footer {
-    border-top: 1px solid var(--ring);
-    padding: 18px 0;
-    color: var(--muted)
-}
-
 .footer-row {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center
+    justify-content: center;
+    gap: 16px
 }
 
 .footer-launch {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: calc((100vw - var(--maxw))/ -2 + 12px);
+    right: 0;
+    transform: translateX(clamp(0px, calc((100vw - var(--maxw))/2), 280px));
     display: flex;
     align-items: center;
     gap: 10px
+}
+
+.flag-btn {
+    appearance: none;
+    border: 1px solid var(--ring);
+    background: #fff;
+    padding: 8px 10px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center
 }
 
 @media (min-width:1400px) {
