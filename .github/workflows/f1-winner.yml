@@ -1,28 +1,52 @@
 name: Update F1 Winner
+
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */12 * * *"
-  push:
-    paths:
-      - tools/f1_winner.py
+    - cron: "0 */12 * * *"  
+
+permissions:
+  contents: write
 
 jobs:
-  run:
+  update:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: python -m pip install --upgrade pip
-      - run: python -m pip install fastf1==3.4.5 pandas==2.2.2 numpy==1.26.4 requests-cache==1.2.0
-      - run: python tools/f1_winner.py
-      - run: |
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install requests==2.32.3
+
+      - name: Run updater
+        run: |
+          python tools/f1_winner.py
+          test -s data/latest.json || echo "{}" > data/latest.json
+
+      - name: Commit JSON to source branch
+        run: |
           git config user.name "github-actions"
           git config user.email "actions@users.noreply.github.com"
           git add data/latest.json
-          git commit -m "Update latest F1 winner" || true
+          git commit -m "chore: update latest F1 winner [skip ci]" || echo "nothing to commit"
           git push
+
+      - name: Publish JSON to gh-pages
+        run: |
+          git fetch origin gh-pages || true
+          git worktree add ghp gh-pages || git worktree add ghp origin/gh-pages
+          mkdir -p ghp/data
+          cp -f data/latest.json ghp/data/latest.json
+          cd ghp
+          git add data/latest.json
+          git commit -m "data: update latest.json" || echo "nothing to commit"
+          git push origin HEAD:gh-pages

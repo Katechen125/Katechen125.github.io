@@ -1,16 +1,13 @@
-# tools/f1_winner.py
-import json, sys, pathlib
+import json, pathlib, requests
 from datetime import datetime, timezone
-from fastf1.ergast import Ergast
 
 OUT = pathlib.Path("data/latest.json")
+API = "https://ergast.com/api/f1/current/last/results.json"
 
-def write_safe(payload):
+def _ensure_dir():
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    with open(OUT, "w", encoding="utf-8") as f:
-        json.dump(payload, f, ensure_ascii=False, indent=2)
 
-def load_existing():
+def _load_prev():
     if OUT.exists():
         try:
             return json.loads(OUT.read_text(encoding="utf-8"))
@@ -18,63 +15,50 @@ def load_existing():
             return {}
     return {}
 
-def _first(row, *keys):
-    for k in keys:
-        if k in row and str(row[k]).strip():
-            return str(row[k]).strip()
-    return ""
+def _write(payload):
+    _ensure_dir()
+    OUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
 def main():
+    prev = _load_prev()
     try:
-        erg = Ergast()
-        res = erg.get_race_results(season="current", round="last")
-        if not res or res.content is None or res.content.empty:
-            prev = load_existing()
-            write_safe(prev if prev else {})
+        r = requests.get(API, timeout=20)
+        r.raise_for_status()
+        j = r.json()
+        races = j.get("MRData", {}).get("RaceTable", {}).get("Races", [])
+        if not races:
+            _write(prev or {})
+            print("no races; kept previous")
+            return 0
+
+        race = races[0]
+        results = race.get("Results", [])
+        if not results:
+            _write(prev or {})
             print("no results; kept previous")
             return 0
 
-        df = res.content
-        row = df.iloc[0].to_dict()
-
-        # Try to get GP name from race info; fall back to row fields
-        gp_name = ""
-        try:
-            info = erg.get_race_info(season="current", round="last")
-            if info and info.content is not None and not info.content.empty:
-                gp_name = str(info.content.iloc[0].get("raceName") or "").strip()
-        except Exception:
-            pass
-
-        given = _first(row, "givenName", "Driver.givenName", "driverGivenName")
-        family = _first(row, "familyName", "Driver.familyName", "driverFamilyName")
-        name = (given + " " + family).strip()
-
-        number = _first(row, "permanentNumber", "Driver.permanentNumber", "number")
-        team = _first(row, "constructorName", "Constructor.name", "constructorRef", "team")
-        nationality = _first(row, "nationality", "Driver.nationality")
+        p1 = results[0]
+        driver = p1.get("Driver", {}) or {}
+        constructor = p1.get("Constructor", {}) or {}
 
         payload = {
-            "name": name,
-            "number": number,
-            "team": team,
-            "gp": gp_name or _first(row, "raceName", "GrandPrix"),
-            "nationality": nationality,
+            "name": f"{driver.get('givenName','').strip()} {driver.get('familyName','').strip()}".strip(),
+            "number": driver.get("permanentNumber") or p1.get("number") or "",
+            "team": constructor.get("name",""),
+            "gp": race.get("raceName",""),
+            "round": race.get("round",""),
+            "country": (race.get("Circuit",{}) or {}).get("Location",{}).get("country",""),
+            "flag_code": driver.get("nationality",""),
             "generated_at": datetime.now(timezone.utc).isoformat()
         }
-        write_safe(payload)
+        _write(payload)
         print("updated", payload.get("name",""))
         return 0
-
     except Exception as e:
-        prev = load_existing()
-        if prev:
-            write_safe(prev)
-            print("error; kept previous:", e)
-            return 0
-        write_safe({})
-        print("error and no previous:", e)
+        _write(prev or {})
+        print("error; kept previous:", e)
         return 0
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())
