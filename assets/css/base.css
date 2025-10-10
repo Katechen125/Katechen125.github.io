@@ -122,6 +122,9 @@ header.site {
     height: 44px;
     border-radius: 50%;
     background: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 90%;
     border: 1px solid var(--ring);
     display: grid;
     place-items: center;
@@ -130,12 +133,12 @@ header.site {
 }
 
 :root[data-theme="carlos"] .avatar-badge {
-    background: #fff url("assets/img/Williams_logo.png") center/90% no-repeat;
+    background-image: url("../img/Williams_logo.png");
     color: transparent
 }
 
 :root[data-theme="lando"] .avatar-badge {
-    background: #fff url("assets/img/mclaren_logo.png") center/90% no-repeat;
+    background-image: url("../img/mclaren_logo.png");
     color: transparent
 }
 
@@ -185,7 +188,7 @@ footer {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: clamp(-26px, -2vw, 0px);
+    right: clamp(-48px, -3vw, 0px);
     display: flex;
     align-items: center;
     gap: 10px

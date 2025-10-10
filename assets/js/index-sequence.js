@@ -69,7 +69,7 @@ async function getLatestWinner() {
       return { name, team, gp, number, img, flag };
     } catch (e) { }
   }
-  return { name: "George Russell", team: "Mercedes", gp: "Singapore Grand Prix", number: "63", img: window.DRIVER_IMAGES["George Russell"].img, flag: "🇬🇧" };
+  return { };
 }
 
 function teamConfetti(team) { const palette = TEAM_COLORS[team] || null; if (palette && window.startCustomConfetti) startCustomConfetti({ colors: palette, count: 360 }); else if (window.startNormalConfetti) startNormalConfetti() }
