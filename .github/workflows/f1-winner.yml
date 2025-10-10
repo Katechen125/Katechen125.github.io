@@ -3,7 +3,7 @@ name: Update F1 Winner
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */12 * * *"   
+    - cron: "0 */12 * * *"
 
 jobs:
   update:
@@ -24,14 +24,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install fastf1==3.4.5 requests-cache==1.2.0 pandas==2.2.2 numpy==1.26.4
 
-      - name: Run updater
-        run: python tools/f1_winner.py
+      - name: Run updater (primary Ergast)
+        env:
+          ERGAST_URL: https://ergast.com/api
+        run: |
+          set -e
+          python tools/f1_winner.py || \
+          (echo "::warning::Primary failed, retrying with mirror…" && \
+           ERGAST_URL="https://ergast.com/api" ERGAST_MIRROR="https://ergast-api.vercel.app/api" python tools/f1_winner.py)
 
       - name: Show JSON (debug)
         run: cat data/latest.json
 
-      - name: Commit JSON to the current branch
-        if: success()  # only push if updater succeeded
+      - name: Commit JSON to this branch
         run: |
           git config user.name "github-actions"
           git config user.email "actions@users.noreply.github.com"
