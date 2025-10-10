@@ -1,8 +1,15 @@
-import json, sys, time, pathlib, requests
+import json, sys, pathlib
 from datetime import datetime, timezone
+from fastf1.ergast import Ergast
 
 OUT = pathlib.Path("data/latest.json")
-API = "https://ergast.com/api/f1/current/last/results.json"
+
+NAME_TO_FLAG = {
+    "Max Verstappen":"🇳🇱","Yuki Tsunoda":"🇯🇵","Charles Leclerc":"🇲🇨","Lewis Hamilton":"🇬🇧","George Russell":"🇬🇧",
+    "Kimi Antonelli":"🇮🇹","Lando Norris":"🇬🇧","Oscar Piastri":"🇦🇺","Liam Lawson":"🇳🇿","Isack Hadjar":"🇫🇷",
+    "Fernando Alonso":"🇪🇸","Lance Stroll":"🇨🇦","Alexander Albon":"🇹🇭","Carlos Sainz":"🇪🇸","Pierre Gasly":"🇫🇷",
+    "Franco Colapinto":"🇦🇷","Esteban Ocon":"🇫🇷","Oliver Bearman":"🇬🇧","Nico Hülkenberg":"🇩🇪","Gabriel Bortoleto":"🇧🇷"
+}
 
 def write_safe(payload):
     OUT.parent.mkdir(parents=True, exist_ok=True)
@@ -17,48 +24,46 @@ def load_existing():
 
 def main():
     try:
-        r = requests.get(API, timeout=20)
-        r.raise_for_status()
-        j = r.json()
-        races = j.get("MRData", {}).get("RaceTable", {}).get("Races", [])
-        if not races:
-            prev = load_existing()
-            if prev:
-                print("no finished race with results; kept previous")
-                write_safe(prev)
-                return 0
-            print("no finished race with results; nothing to update")
-            write_safe({})
-            return 0
-        race = races[0]
-        results = race.get("Results", [])
-        if not results:
+        erg = Ergast()
+        res = erg.get_race_results(season="current", round="last")
+        df = None if res is None else res.content
+        if df is None or df.empty:
             prev = load_existing()
             write_safe(prev if prev else {})
-            print("no results array; kept previous")
+            print("no finished race with results")
             return 0
-        p1 = results[0]
-        driver = p1.get("Driver", {})
-        constructor = p1.get("Constructor", {})
+
+        p1 = df.loc[df["position"] == 1].iloc[0]
+        name = f'{p1["Driver.givenName"]} {p1["Driver.familyName"]}'.strip()
+        team = str(p1["Constructor.name"])
+        number = str(p1.get("Driver.permanentNumber") or p1.get("number") or "")
+
+        rnd = int(p1["round"])
+        gp = ""
+        sch = erg.get_schedule(season="current")
+        sdf = None if sch is None else sch.content
+        if sdf is not None and not sdf.empty:
+            row = sdf.loc[sdf["round"] == rnd]
+            if not row.empty:
+                gp = str(row["raceName"].iloc[0])
+
+        flag = NAME_TO_FLAG.get(name, "")
+
         payload = {
-            "name": f"{driver.get('givenName','').strip()} {driver.get('familyName','').strip()}".strip(),
-            "number": driver.get("permanentNumber") or p1.get("number") or "",
-            "team": constructor.get("name",""),
-            "gp": race.get("raceName",""),
-            "flag_cc": driver.get("nationality","")[:2],
+            "name": name,
+            "number": number,
+            "team": team,
+            "gp": gp,
+            "flag": flag,
             "generated_at": datetime.now(timezone.utc).isoformat()
         }
         write_safe(payload)
-        print("updated", payload.get("name",""))
+        print("updated", name)
         return 0
-    except Exception as e:
+    except Exception:
         prev = load_existing()
-        if prev:
-            write_safe(prev)
-            print("error; kept previous:", e)
-            return 0
-        print("error and no previous:", e)
-        write_safe({})
+        write_safe(prev if prev else {})
+        print("error; kept previous")
         return 0
 
 if __name__ == "__main__":
