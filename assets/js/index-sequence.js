@@ -48,7 +48,6 @@ const TEAM_COLORS = {
   "Haas": ["#e8e8e8", "#181818", "#b30000"],
   "Alpine": ["#0055ff", "#e6eeff", "#ffffff"]
 };
-
 function normalizeTeam(t) {
   const s = (t || "").toLowerCase();
   if (!s) return "";
@@ -56,40 +55,38 @@ function normalizeTeam(t) {
   if (s.includes("williams")) return "Williams";
   if (s.includes("ferrari")) return "Ferrari";
   if (s.includes("mercedes")) return "Mercedes";
-  if (s.includes("red bull") || s.includes("rbpt") || s.includes("oracle red bull")) return "Red Bull";
+  if (s.includes("red bull")) return "Red Bull";
   if (s.includes("aston")) return "Aston Martin";
-  if (s.includes("rb ") || s === "rb") return "RB";
+  if (s === "rb" || s.includes("rb ")) return "RB";
   if (s.includes("haas")) return "Haas";
   if (s.includes("alpine")) return "Alpine";
   return t;
 }
-
 function ccToFlag(cc) {
   if (!cc || cc.length !== 2) return "";
   const A = 0x1F1E6, a = "A".charCodeAt(0);
   return String.fromCodePoint(A + (cc[0].toUpperCase().charCodeAt(0) - a), A + (cc[1].toUpperCase().charCodeAt(0) - a));
 }
 
-const ABS_LATEST = "https://katechen125.github.io/data/latest.json";
+const CANDIDATES = ["data/latest.json", "./data/latest.json", "/data/latest.json", "https://katechen125.github.io/data/latest.json"];
 
 async function getLatestWinner() {
-  const urls = [ABS_LATEST, "/data/latest.json", "./data/latest.json", "data/latest.json"];
-  for (const u of urls) {
+  for (const u of CANDIDATES) {
     try {
-      const r = await fetch(`${u}?ts=${Date.now()}`, { cache: "no-store", headers: { "pragma": "no-cache", "cache-control": "no-cache" } });
+      const r = await fetch(`${u}?ts=${Date.now()}`, { cache: "no-store" });
       if (!r.ok) continue;
       const j = await r.json();
       const name = j.name || j.winner || j.driver || "";
       if (!name) continue;
       const team = normalizeTeam(j.team || j.constructor || j.entry || "");
-      const gp = j.gp || j.race || j.raceName || j.event || "Grand Prix";
+      const gp = j.gp || j.race || j.raceName || "Grand Prix";
       const number = String(j.number || window.DRIVER_IMAGES[name]?.number || "");
       const img = (window.DRIVER_IMAGES[name]?.img) || "";
       const flag = j.flag || ccToFlag(j.flag_cc || j.countryCode || "");
       return { name, team, gp, number, img, flag };
     } catch (e) { }
   }
-  return null;
+  return { name: "George Russell", team: "Mercedes", gp: "Singapore Grand Prix", number: "63", img: window.DRIVER_IMAGES["George Russell"].img, flag: "🇬🇧" };
 }
 
 function showWinner(w) {
@@ -99,9 +96,14 @@ function showWinner(w) {
   winNum.textContent = w.number ? ("#" + w.number) : "#";
   winTeam.textContent = w.team || "";
   winNat.textContent = w.flag || "";
-  winNat.classList.add("emoji-text");
   winGP.textContent = (w.gp || "") + (w.team ? " • " + w.team : "");
   if (w.img) { winImg.src = w.img; winImg.alt = w.name }
+}
+
+function fireTeamConfetti(team) {
+  const palette = TEAM_COLORS[team] || null;
+  if (palette && window.startCustomConfetti) startCustomConfetti({ colors: palette, count: 360 });
+  else if (window.startNormalConfetti) startNormalConfetti();
 }
 
 async function runSequence() {
@@ -111,11 +113,9 @@ async function runSequence() {
   await animateLights();
   const w = await getLatestWinner();
   goGreen();
-  const palette = TEAM_COLORS[w?.team || ""] || null;
-  if (palette && window.startCustomConfetti) { startCustomConfetti({ colors: palette, count: 360 }) }
-  else if (window.startNormalConfetti) { startNormalConfetti() }
+  fireTeamConfetti(w.team || "");
   showWinner(w);
-  setTimeout(() => { overlay.style.display = "none"; resetLights(); seqBusy = false }, 2400);
+  setTimeout(() => { overlay.style.display = "none"; resetLights(); seqBusy = false }, 2600);
 }
 
 window.runSequence = runSequence;
