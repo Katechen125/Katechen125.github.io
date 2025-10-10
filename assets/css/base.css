@@ -101,8 +101,8 @@ header.site {
 }
 
 .avatar {
-    width: 76px;
-    height: 76px;
+    width: 92px;
+    height: 92px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff)
@@ -115,21 +115,21 @@ header.site {
 
 .avatar-badge {
     position: absolute;
-    right: -6px;
-    bottom: -6px;
-    width: 34px;
-    height: 34px;
+    right: -8px;
+    bottom: -8px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: #fff;
     border: 1px solid var(--ring);
     display: grid;
     place-items: center;
-    font: 700 13px/1 "Playfair Display", serif;
+    font: 800 14px/1 "Playfair Display", serif;
     color: var(--accent)
 }
 
 :root[data-theme="carlos"] .avatar-badge {
-    background: #fff url("assets/img/williams_logo.png") center/90% no-repeat;
+    background: #fff url("assets/img/Williams_logo.png") center/90% no-repeat;
     color: transparent
 }
 
