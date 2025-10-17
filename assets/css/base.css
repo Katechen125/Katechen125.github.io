@@ -106,12 +106,12 @@ header.site {
     height: 115px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff);
+    border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff)
 }
 
 .avatar-wrap {
     position: relative;
-    display: inline-block;
+    display: inline-block
 }
 
 .avatar-badge {
@@ -121,20 +121,23 @@ header.site {
     width: 36.5px;
     height: 36.5px;
     border-radius: 50%;
-    background: #fff url("assets/img/KC.png") center/88% no-repeat;
     border: 1px solid var(--ring);
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 88%;
+    background-image: url("../img/KC.png")
 }
 
 :root[data-theme="carlos"] .avatar-badge {
-    background: #fff url("assets/img/Williams_logo.png") center/88% no-repeat;
-    border-color: #0d347e;
+    background-image: url("../img/confetti/Williams_logo.png");
+    border-color: #0d347e
 }
 
 :root[data-theme="lando"] .avatar-badge {
-    background: #fff url("assets/img/mclaren_logo.png") center/88% no-repeat;
-    border-color: #ff8000;
+    background-image: url("../img/confetti/mclaren_logo.png");
+    border-color: #ff8000
 }
-
 
 .btn {
     appearance: none;
@@ -166,32 +169,144 @@ header.site {
 }
 
 .footer-row {
-    position: relative;
-    justify-content: center;
-    gap: 16px
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    min-height: 60px;
+    gap: 12px
+}
+
+.footer-text {
+    grid-column: 2;
+    justify-self: center;
+    text-align: center;
+    white-space: nowrap
 }
 
 .footer-launch {
-    position: absolute;
-    right: 0;
-    transform: translateX(clamp(0px, calc((100vw - var(--maxw))/2), 280px));
+    grid-column: 3;
+    justify-self: end;
     display: flex;
     align-items: center;
-    gap: 10px
+    gap: 12px
 }
 
 .flag-btn {
     appearance: none;
     border: 1px solid var(--ring);
     background: #fff;
-    padding: 8px 10px;
+    width: 42px;
+    height: 42px;
     border-radius: 999px;
     display: grid;
     place-items: center
 }
 
-@media (min-width:1400px) {
-    .footer-launch {
-        right: calc((100vw - var(--maxw))/ -2 + 20px)
+@media (max-width: 980px) {
+    .flag-label {
+        display: none
     }
+}
+
+@media (max-width: 520px) {
+    .footer-text {
+        font-size: 14px
+    }
+}
+
+.png-hub {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 22px
+}
+
+.png-btn {
+    display: inline-block;
+    line-height: 0;
+    text-decoration: none
+}
+
+.png-stack img {
+    display: none;
+    width: clamp(128px, 14vw, 200px);
+    height: auto;
+    image-rendering: -webkit-optimize-contrast
+}
+
+:root:not([data-theme]) .png-stack img[data-theme="base"] {
+    display: block
+}
+
+:root[data-theme="carlos"] .png-stack img[data-theme="carlos"] {
+    display: block
+}
+
+:root[data-theme="lando"] .png-stack img[data-theme="lando"] {
+    display: block
+}
+
+.nav a {
+    margin-left: 14px;
+    color: var(--text);
+    font-weight: 700;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.nav a:hover {
+    color: var(--accent);
+}
+
+:root[data-theme="lando"] .nav a:hover {
+    color: #ff8000;
+}
+
+.footer-row {
+    position: relative;
+    min-height: 64px;
+}
+
+.footer-launch {
+    position: fixed;
+    bottom: clamp(10px, 1.6vw, 18px);
+    right: clamp(10px, 1.6vw, 18px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 20;
+}
+
+.flag-label {
+    white-space: nowrap;
+}
+
+@media (max-width: 980px) {
+    .flag-label {
+        display: none;
+    }
+}
+
+.flag-btn {
+    appearance: none;
+    border: 1px solid var(--ring);
+    background: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+}
+
+:root[data-theme="lando"] .card-winner {
+    background: linear-gradient(180deg, #1f1f21, #151517);
+    border: 1px solid #3a3a3d;
+    color: #fff;
+}
+
+:root[data-theme="lando"] .card-winner .tag {
+    background: #2a2a2a;
+    border-color: #3a3a3d;
+    color: #ffe5c2;
 }
