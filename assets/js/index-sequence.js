@@ -36,7 +36,7 @@ const DRIVER_POOL = [
   { name:"Oscar Piastri",    number:"81", team:"McLaren",       code:"AUS",img:"assets/img/drivers/Oscar.jpg",   gp:"Australia Grand Prix" },
   { name:"Liam Lawson",      number:"30", team:"RB",            code:"NZ", img:"assets/img/drivers/Liam.jpg",    gp:"Miami Grand Prix" },
   { name:"Isack Hadjar",     number:"6",  team:"RB",            code:"FR", img:"assets/img/drivers/Isack.jpg",   gp:"Las Vegas Grand Prix" },
-  { name:"Fernando Alonso",  number:"14", team:"Aston Martin",  code:"ES", img:"assets/img/drivers/Fernando.jpg",gp:"Hugary Grand Prix" },
+  { name:"Fernando Alonso",  number:"14", team:"Aston Martin",  code:"ES", img:"assets/img/drivers/Fernando.jpg",gp:"Hungary Grand Prix" },
   { name:"Lance Stroll",     number:"18", team:"Aston Martin",  code:"CA", img:"assets/img/drivers/Lance.jpg",   gp:"Canada Grand Prix" },
   { name:"Alexander Albon",  number:"23", team:"Williams",      code:"TH", img:"assets/img/drivers/ALex.jpg",    gp:"Singapore Grand Prix" },
   { name:"Carlos Sainz",     number:"55", team:"Williams",      code:"ES", img:"assets/img/drivers/Carlos.jpg",  gp:"Spain Grand Prix" },
