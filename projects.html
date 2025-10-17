@@ -5,172 +5,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Projects — Katherine</title>
-  <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap"
-    rel="stylesheet">
+   <link rel="icon" type="image/png" href="assets/img/KC.png?v=2">
+  <link rel="apple-touch-icon" href="assets/img/KC.png?v=2">
+  <link rel="stylesheet" href="assets/css/base.css">
   <style>
-    :root {
-      --bg:
-        radial-gradient(900px 600px at 8% 0%, #fff7fb 0%, #ffffff 42%),
-        radial-gradient(1200px 700px at 92% 8%, #f2f8ff 0%, #ffffff 48%),
-        radial-gradient(1200px 800px at 50% 96%, #f6fff7 0%, #ffffff 56%);
-      --surface: rgba(255, 255, 255, 0.78);
-      --text: #1b1e22;
-      --muted: #5b6471;
-      --ring: rgba(12, 21, 33, .12);
-      --accent: #6fa387;
-      --btn-bg: #fff;
-      --btn-text: #111;
-      --btn-border: #d7dde5;
-      --maxw: 1080px;
-    }
-
-    :root[data-theme="carlos"] {
-      --bg: #dbe6ff;
-      --surface: #fff;
-      --text: #0b1220;
-      --muted: #3f527a;
-      --ring: rgba(0, 0, 0, .12);
-      --accent: #0d347e;
-      --btn-bg: #fff;
-      --btn-text: #0b1220;
-      --btn-border: #3260b3;
-    }
-
-    :root[data-theme="lando"] {
-      --bg: #0f0f10;
-      --surface: #1b1b1d;
-      --text: #f3f4f6;
-      --muted: #e2e6ee;
-      --ring: #2d2f33;
-      --accent: #ff8000;
-      --btn-bg: #232325;
-      --btn-text: #f3f3f3;
-      --btn-border: #3a3a3d;
-    }
-
-    * {
-      box-sizing: border-box
-    }
-
-    ::selection {
-      background: color-mix(in oklab, var(--accent) 38%, #ffffff);
-      color: #0b2b20;
-    }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      background-attachment: fixed;
-      background-repeat: no-repeat;
-      background-size: 140% 140%, 150% 150%, 120% 120%;
-      animation: aurora-float 18s ease-in-out infinite alternate;
-      color: var(--text);
-      font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-    }
-
-    @keyframes aurora-float {
-      0% {
-        background-position: 0% 0%, 100% 0%, 50% 100%
-      }
-
-      100% {
-        background-position: 0% 22%, 100% -12%, 50% 78%
-      }
-    }
-
-    h1,
-    h2,
-    h3 {
-      font-family: "Playfair Display", Georgia, serif
-    }
-
-    .container {
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: 0 22px
-    }
-
-    header.site {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--ring)
-    }
-
-    :root[data-theme="lando"] header.site {
-      background: rgba(18, 18, 20, 0.65)
-    }
-
-    .site-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px
-    }
-
-    .brand {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      font-weight: 800
-    }
-
-    .nav a {
-      margin-left: 14px;
-      color: var(--text);
-      font-weight: 700;
-      text-decoration: none
-    }
-
-    .nav a:hover {
-      color: var(--accent)
-    }
-
-    .avatar {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff)
-    }
-
-    .avatar-wrap {
-      position: relative;
-      display: inline-block
-    }
-
-    .avatar-badge {
-      position: absolute;
-      right: -5px;
-      bottom: -5px;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: #fff;
-      border: 2px solid var(--ring);
-      display: grid;
-      place-items: center;
-      font: 700 12px/1 "Playfair Display", serif;
-      color: var(--accent)
-    }
-
-    :root[data-theme="carlos"] .avatar-badge {
-      background: #fff url("assets/img/williams.png") center/80% no-repeat;
-      font-size: 0;
-      border-color: #0d347e
-    }
-
-    :root[data-theme="lando"] .avatar-badge {
-      background: #fff url("assets/img/mclaren.png") center/80% no-repeat;
-      font-size: 0;
-      border-color: #ff8000
-    }
-
     .page-hero {
       padding: 40px 0 18px;
       text-align: center
@@ -305,7 +143,7 @@
       <div class="brand">
         <div class="avatar-wrap">
           <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
-          <span class="avatar-badge">KC</span>
+          <span class="avatar-badge"></span>
         </div>
         <span>Projects</span>
       </div>
@@ -389,15 +227,11 @@
   </footer>
 
   <script src="assets/js/confetti.js"></script>
+  <script src="assets/js/theme.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    const root = document.documentElement; const saved = localStorage.getItem('kc-theme'); if (saved) root.setAttribute('data-theme', saved);
-    function setThemeAndConfetti(n) {
-      if (n === 'carlos') { root.setAttribute('data-theme', 'carlos'); localStorage.setItem('kc-theme', 'carlos'); startThemedConfetti('carlos'); }
-      if (n === 'lando') { root.setAttribute('data-theme', 'lando'); localStorage.setItem('kc-theme', 'lando'); startThemedConfetti('lando'); }
-    }
     document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme')?.addEventListener('click', () => { root.removeAttribute('data-theme'); localStorage.removeItem('kc-theme'); void document.body.offsetHeight; startEmojiConfetti(); });
+    document.getElementById('resetTheme')?.addEventListener('click', () => { resetTheme() });
   </script>
 </body>
 

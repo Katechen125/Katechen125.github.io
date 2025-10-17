@@ -5,11 +5,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Katherine Isabela Hsiung Chen — Pole Position 🏁</title>
-  <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23ffffff' x='0' y='0' width='64' height='64' rx='12'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia, serif' font-size='36' font-weight='700' fill='%230d347e'%3EKC%3C/text%3E%3C/svg%3E">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap"
-    rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/img/KC.png?v=2">
+  <link rel="apple-touch-icon" href="assets/img/KC.png?v=2">
   <link rel="stylesheet" href="assets/css/base.css">
   <style>
     .hero {
@@ -34,38 +31,6 @@
       color: var(--muted)
     }
 
-    .hub {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 22px
-    }
-
-    .cta {
-      --cut: 16px;
-      cursor: pointer;
-      font-weight: 800;
-      letter-spacing: .2px;
-      color: var(--text);
-      background: linear-gradient(180deg, color-mix(in oklab, var(--surface, #fff) 96%, transparent), color-mix(in oklab, var(--surface, #fff) 88%, transparent));
-      border: 1px solid color-mix(in oklab, var(--accent) 30%, var(--ring));
-      padding: 14px 24px;
-      font-size: 17px;
-      clip-path: polygon(0% 0%, calc(100% - var(--cut)) 0%, 100% 50%, calc(100% - var(--cut)) 100%, 0% 100%, var(--cut) 50%);
-      position: relative;
-      overflow: hidden;
-      transition: transform .12s, box-shadow .2s, border-color .2s;
-      box-shadow: 0 12px 28px rgba(12, 21, 33, .10), inset 0 0 0 1px color-mix(in oklab, var(--accent) 18%, #fff);
-      text-decoration: none;
-      display: inline-block
-    }
-
-    .cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 36px rgba(12, 21, 33, .16)
-    }
-
     .sequence-overlay {
       position: fixed;
       inset: 0;
@@ -88,7 +53,10 @@
       border: 1px solid color-mix(in oklab, var(--accent) 32%, var(--ring));
       border-radius: 20px;
       padding: 20px 24px;
-      box-shadow: 0 22px 48px rgba(12, 21, 33, .32)
+      box-shadow: 0 22px 48px rgba(12, 21, 33, .32);
+      display: grid;
+      gap: 12px;
+      justify-items: center
     }
 
     .start-lights {
@@ -98,7 +66,8 @@
       padding: 14px 18px;
       border-radius: 999px;
       border: 1px solid var(--ring);
-      box-shadow: 0 8px 24px rgba(12, 21, 33, .18) inset
+      box-shadow: 0 8px 24px rgba(12, 21, 33, .18) inset;
+      margin: 0 auto
     }
 
     .light {
@@ -118,7 +87,7 @@
     }
 
     .seq-title {
-      margin-top: 10px;
+      margin-top: 4px;
       font: 700 clamp(16px, 2.6vw, 22px)/1.25 "Playfair Display", Georgia, serif;
       color: var(--text);
       text-align: center
@@ -136,7 +105,7 @@
       grid-template-columns: 96px 1fr auto;
       gap: 16px;
       align-items: center;
-      width: min(780px, 92vw);
+      width: min(980px, 92vw);
       background: linear-gradient(180deg, #fff, rgba(240, 244, 255, .6));
       border: 1px solid #e6e7ea;
       border-radius: 18px;
@@ -151,7 +120,7 @@
     }
 
     .win-name {
-      font: 700 22px/1.2 Inter, system-ui
+      font: 700 28px/1.2 Inter, system-ui
     }
 
     .win-tags {
@@ -165,13 +134,13 @@
       border: 1px solid #e0e2e6;
       background: #f6f8fb;
       border-radius: 999px;
-      padding: 6px 10px;
+      padding: 8px 12px;
       font-weight: 700
     }
 
     .badge-p1 {
-      width: 54px;
-      height: 54px;
+      width: 60px;
+      height: 60px;
       border: 1px solid #e0e2e6;
       border-radius: 14px;
       display: grid;
@@ -181,42 +150,17 @@
       background: #fff
     }
 
-    .footer-row {
-      display: flex;
+    .flag {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 16px;
-      position: relative
+      gap: 6px
     }
 
-    .footer-launch {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      position: absolute;
-      right: 0
-    }
-
-    .flag-btn {
-      appearance: none;
-      border: 1px solid var(--ring);
-      background: #fff;
-      padding: 10px 12px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-size: 18px
-    }
-
-    :root[data-theme="lando"] .tag {
-      background: #1f1f21;
-      border-color: #34363a;
-      color: #ffedd9
-    }
-
-    :root[data-theme="lando"] .flag-btn {
-      background: #2a2a2a;
-      color: #fff;
-      border-color: #444
+    .flag img {
+      width: 18px;
+      height: 18px;
+      border-radius: 2px;
+      vertical-align: -3px
     }
   </style>
 </head>
@@ -227,7 +171,7 @@
       <div class="brand">
         <div class="avatar-wrap">
           <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
-          <span class="avatar-badge">KC</span>
+          <span class="avatar-badge"></span>
         </div>
         <span>Katherine — Pole Position🏁</span>
       </div>
@@ -244,27 +188,49 @@
     <div class="container">
       <h1>Hi, I’m Katherine — Computer Science student (soon Simulation Engineering) building playful-aesthetic code.
       </h1>
-      <div class="driver-bar" style="margin-top:10px">
+      <div class="driver-bar">
         <span>Favorite drivers:</span>
         <button class="btn" data-theme="carlos">Carlos Sainz Jr.</button>
         <button class="btn" data-theme="lando">Lando Norris</button>
         <button class="btn" id="resetTheme">Reset theme</button>
         <span>(themed confetti)</span>
       </div>
-      <div class="hub">
-        <a class="cta" href="projects.html">My Projects</a>
-        <a class="cta" href="about.html">About</a>
-        <a class="cta" href="contact.html">Contact</a>
+      <div class="png-hub">
+        <a class="png-btn" href="projects.html">
+          <span class="png-stack">
+            <img data-theme="base" src="assets/img/pixels/btn-projects.png" alt="Projects">
+            <img data-theme="carlos" src="assets/img/pixels/btn-projects-carlos.png" alt="Projects">
+            <img data-theme="lando" src="assets/img/pixels/btn-projects-lando.png" alt="Projects">
+          </span>
+        </a>
+        <a class="png-btn" href="about.html">
+          <span class="png-stack">
+            <img data-theme="base" src="assets/img/pixels/btn-about.png" alt="About">
+            <img data-theme="carlos" src="assets/img/pixels/btn-about-carlos.png" alt="About">
+            <img data-theme="lando" src="assets/img/pixels/btn-about-lando.png" alt="About">
+          </span>
+        </a>
+        <a class="png-btn" href="contact.html">
+          <span class="png-stack">
+            <img data-theme="base" src="assets/img/pixels/btn-contact.png" alt="Contact">
+            <img data-theme="carlos" src="assets/img/pixels/btn-contact-carlos.png" alt="Contact">
+            <img data-theme="lando" src="assets/img/pixels/btn-contact-lando.png" alt="Contact">
+          </span>
+        </a>
       </div>
     </div>
   </section>
 
   <footer>
     <div class="container footer-row">
-      <div>© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages</div>
+      <div class="footer-spacer"></div>
+      <div class="footer-text">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub
+        Pages</div>
       <div class="footer-launch">
         <span class="flag-label">Start the sequence →</span>
-        <button class="flag-btn" id="flagGo" title="Start lights + wave flag">🏁</button>
+        <button class="flag-btn" id="flagGo" title="Start lights + wave flag">
+          <img src="assets/img/flags/Flag.svg" alt="" width="22" height="22">
+        </button>
       </div>
     </div>
   </footer>
@@ -288,7 +254,7 @@
             <div class="win-tags">
               <span class="tag" id="winNum"></span>
               <span class="tag" id="winTeam"></span>
-              <span class="tag" id="winNat"></span>
+              <span class="tag flag" id="winNat"></span>
             </div>
             <div class="seq-sub" id="winGP" style="text-align:left;margin-top:6px"></div>
           </div>
@@ -299,13 +265,13 @@
   </div>
 
   <script src="assets/js/confetti.js"></script>
-  <script src="assets/js/driver-images.js"></script>
   <script src="assets/js/theme.js"></script>
   <script src="assets/js/index-sequence.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
     document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
     document.getElementById('resetTheme').addEventListener('click', resetTheme);
+    if (window.prepareConfetti) prepareConfetti();
     document.getElementById('flagGo').addEventListener('click', runSequence);
   </script>
 </body>
