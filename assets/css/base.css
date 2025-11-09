@@ -34,7 +34,7 @@
 }
 
 :root[data-theme="lando"] {
-    --bg: #0f0f10;
+    --bg:#000000;
     --surface: #1b1b1d;
     --text: #f3f4f6;
     --muted: #e2e6ee;
@@ -306,7 +306,7 @@ header.site {
 }
 
 :root[data-theme="lando"] .card-winner .tag {
-    background: #2a2a2a;
+    background: #000000;
     border-color: #3a3a3d;
     color: #ffe5c2;
 }
