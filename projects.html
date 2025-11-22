@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Projects — Pole Position 🏁</title>
-   <link rel="icon" type="image/png" href="assets/img/KC.png?v=2">
+  <link rel="icon" type="image/png" href="assets/img/KC.png?v=2">
   <link rel="apple-touch-icon" href="assets/img/KC.png?v=2">
   <link rel="stylesheet" href="assets/css/base.css">
   <style>
@@ -168,7 +168,7 @@
   <section class="container">
     <div class="grid">
       <article class="card">
-        <h3>Calculator — Shunting-Yard</h3>
+        <h3>Calculator — Shunting-Yard Algorithm</h3>
         <p>C++ expression evaluator using shunting-yard; buttons via <strong>factory pattern</strong>, evaluation on a
           dedicated <strong>processor instance</strong>.</p>
         <div class="tags"><span class="tag">C++</span><span class="tag">Factory Pattern</span><span
@@ -184,7 +184,7 @@
         <div class="tags"><span class="tag">C++</span><span class="tag">wxWidgets</span><span class="tag">vcpkg</span>
         </div>
         <div class="linkrow"><a class="code-link"
-            href="https://github.com/Katechen125/conway-s-game-of-life-05-24-Katechen125" target="_blank">💻
+            href="https://github.com/Katechen125/Conway_Game_of_Life" target="_blank">💻
             Code</a><span class="sep">•</span><a class="video-link" href="YOUR_DEMO_LINK_GOL" target="_blank">🎥
             Demo</a></div>
       </article>
@@ -230,8 +230,22 @@
   <script src="assets/js/theme.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    document.querySelectorAll('button[data-theme]').forEach(b => b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme)));
-    document.getElementById('resetTheme')?.addEventListener('click', () => { resetTheme() });
+    document.querySelectorAll('button[data-theme]').forEach(b =>
+      b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme))
+    );
+    document.getElementById('resetTheme')?.addEventListener('click', () => {
+      resetTheme()
+    });
+
+    document.querySelectorAll('a.video-link').forEach(link => {
+      link.addEventListener('click', function (e) {
+        const href = this.getAttribute('href') || '';
+        if (href.startsWith('YOUR_DEMO_LINK')) {
+          e.preventDefault();
+          alert('Demo not available at the moment. Please check back soon 😊');
+        }
+      });
+    });
   </script>
 </body>
 
