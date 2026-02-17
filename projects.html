@@ -46,12 +46,24 @@
       border-color: transparent
     }
 
+    .btn[disabled] {
+      opacity: .45;
+      cursor: default;
+      pointer-events: none
+    }
+
     .card {
       background: var(--surface);
       border: 1px solid var(--ring);
       border-radius: 16px;
       padding: 18px;
       box-shadow: 0 10px 24px rgba(12, 21, 33, .06), 0 2px 6px rgba(12, 21, 33, .04)
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font: 800 18px/1.2 Inter, system-ui;
+      letter-spacing: .2px
     }
 
     .grid {
@@ -134,6 +146,123 @@
     .space-top {
       margin-top: 12px
     }
+
+    .switch-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 14px 0 14px
+    }
+
+    .switch-row h2 {
+      margin: 0;
+      font: 700 clamp(18px, 2.8vw, 26px)/1.2 "Playfair Display", Georgia, serif;
+      color: var(--text);
+      letter-spacing: .1px
+    }
+
+    .switch-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center
+    }
+
+    .carousel {
+      border: 1px solid var(--ring);
+      border-radius: 16px;
+      background: color-mix(in oklab, var(--surface) 96%, transparent);
+      overflow: hidden
+    }
+
+    .track {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 100%;
+      transform: translateX(0%);
+      transition: transform 320ms ease;
+      will-change: transform
+    }
+
+    .panel {
+      padding: 16px
+    }
+
+    .video-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, .58);
+      backdrop-filter: blur(10px) saturate(.9);
+      z-index: 70;
+      padding: 18px
+    }
+
+    .video-card {
+      width: min(860px, 92vw);
+      max-height: 86vh;
+      background: var(--surface);
+      border: 1px solid var(--ring);
+      border-radius: 16px;
+      box-shadow: 0 22px 48px rgba(12, 21, 33, .32);
+      overflow: hidden
+    }
+
+    .video-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--ring)
+    }
+
+    .video-title {
+      display: grid;
+      gap: 3px;
+      min-width: 0
+    }
+
+    .video-title strong {
+      font: 800 15px/1.2 Inter, system-ui
+    }
+
+    .video-title span {
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 13px
+    }
+
+    .video-body {
+      padding: 14px;
+      display: grid;
+      gap: 12px
+    }
+
+    .video-player {
+      width: 100%;
+      aspect-ratio: 16/9;
+      max-height: 60vh;
+      height: auto;
+      border-radius: 14px;
+      border: 1px solid var(--ring);
+      background: #0b0b0b;
+      display: block;
+      object-fit: contain
+    }
+
+    .video-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center
+    }
+
+    .video-nav[hidden] {
+      display: none
+    }
   </style>
 </head>
 
@@ -142,7 +271,10 @@
     <div class="site-inner container">
       <div class="brand">
         <div class="avatar-wrap">
-          <img class="avatar" src="assets/img/me.png" alt="Katherine Avatar">
+          <span class="avatar-stack" aria-label="Katherine profile image">
+            <img class="avatar avatar-a" src="assets/img/me.png" alt="Katherine avatar illustration">
+            <img class="avatar avatar-b" src="assets/img/photo_me.jpeg" alt="Katherine photo">
+          </span>
           <span class="avatar-badge"></span>
         </div>
         <span>Projects — Pole Position🏁</span>
@@ -166,58 +298,92 @@
   </section>
 
   <section class="container">
-    <div class="grid">
-      <article class="card">
-        <h3>Calculator — Shunting-Yard Algorithm</h3>
-        <p>C++ expression evaluator using shunting-yard; buttons via <strong>factory pattern</strong>, evaluation on a
-          dedicated <strong>processor instance</strong>.</p>
-        <div class="tags"><span class="tag">C++</span><span class="tag">Factory Pattern</span><span
-            class="tag">Algorithms</span></div>
-        <div class="linkrow"><a class="code-link" href="https://github.com/Katechen125/Calculator" target="_blank">💻
-            Code</a><span class="sep">•</span><a class="video-link" href="YOUR_DEMO_LINK_CALCULATOR" target="_blank">🎥
-            Demo</a></div>
-      </article>
+    <div class="switch-row">
+      <h2 id="panelTitle">Computer Science Projects</h2>
+      <div class="switch-controls">
+        <button class="btn" id="prevPanel" type="button" aria-label="Back to Computer Science">←</button>
+        <button class="btn" id="nextPanel" type="button" aria-label="Go to Simulation Engineering">→</button>
+      </div>
+    </div>
 
-      <article class="card">
-        <h3>Conway’s Game of Life</h3>
-        <p>C++ with updated <strong>wxWidgets</strong> UI via <strong>vcpkg</strong>. Pause/step + presets.</p>
-        <div class="tags"><span class="tag">C++</span><span class="tag">wxWidgets</span><span class="tag">vcpkg</span>
+    <div class="carousel">
+      <div class="track" id="projectTrack">
+
+        <div class="panel">
+          <div class="grid">
+            <article class="card">
+              <h3>Calculator - Shunting-Yard Algorithm</h3>
+              <p>C++ expression evaluator using shunting-yard; buttons via <strong>factory pattern</strong>, evaluation
+                on a dedicated <strong>processor instance</strong>.</p>
+              <div class="tags"><span class="tag">C++</span><span class="tag">Factory Pattern</span><span
+                  class="tag">Algorithms</span></div>
+              <div class="linkrow"><a class="code-link" href="https://github.com/Katechen125/Calculator"
+                  target="_blank">💻 Code</a><span class="sep">•</span><a class="video-link js-video"
+                  href="assets/videos/Calculator.mp4" data-title="Calculator - Shunting-Yard Algorithm">🎥 Demo Video</a>
+              </div> 
+            </article>
+
+            <article class="card">
+              <h3>Conway’s Game of Life</h3>
+              <p>C++ with updated <strong>wxWidgets</strong> UI via <strong>vcpkg</strong>. Pause/step + presets.</p>
+              <div class="tags"><span class="tag">C++</span><span class="tag">wxWidgets</span><span
+                  class="tag">vcpkg</span></div>
+              <div class="linkrow"><a class="code-link" href="https://github.com/Katechen125/Conway_Game_of_Life"
+                  target="_blank">💻 Code</a><span class="sep">•</span><a class="video-link js-video"
+                  href="assets/videos/Game%20of%20Life.mp4" data-title="Conway’s Game of Life">🎥 Demo Video</a></div>
+            </article>
+
+            <article class="card">
+              <h3>Pathfinder - Travel</h3>
+              <p>React Native app for attractions, bookings, flights, calendar, expenses, currency, and saved
+                places/maps.</p>
+              <div class="tags"><span class="tag">React Native</span><span class="tag">TypeScript</span><span
+                  class="tag">Google Cloud</span><span class="tag">Xcode (iOS)</span></div>
+              <div class="linkrow"><a class="code-link" href="https://github.com/Katechen125/Pathfinder"
+                  target="_blank">💻 Code</a><span class="sep">•</span><a class="video-link js-external"
+                  href="https://www.youtube.com/playlist?list=PLcprPtzWKe_yDr-mHER8Ew9LGg2TBSMJL" target="_blank">🎥
+                  Demo Video</a></div>
+            </article>
+
+            <article class="card">
+              <h3>TCP Server - Spaghetti Relay</h3>
+              <p><strong>C++</strong> TCP server that relays messages across clients with simple logging and graceful
+                shutdown.</p>
+              <div class="tags"><span class="tag">C++</span><span class="tag">TCP</span><span
+                  class="tag">Sockets</span><span class="tag">Networking</span></div>
+              <div class="linkrow"><a class="code-link" href="https://github.com/Katechen125/TCP-server"
+                  target="_blank">💻 Code</a><span class="sep">•</span><a class="video-link js-video"
+                  href="assets/videos/TCP.mp4" data-title="TCP Server - Spaghetti Relay">🎥 Demo Video</a></div>
+            </article>
+
+            <article class="card">
+              <h3>Proximity Video Panel (Collab)</h3>
+              <p><strong>UE5 - Blueprints.</strong> Proximity trigger: approach → panel reveals; step away → panel
+                hides.</p>
+              <div class="tags"><span class="tag">UE5</span><span class="tag">Blueprints</span><span
+                  class="tag">Prototype</span></div>
+            </article>
+          </div>
         </div>
-        <div class="linkrow"><a class="code-link"
-            href="https://github.com/Katechen125/Conway_Game_of_Life" target="_blank">💻
-            Code</a><span class="sep">•</span><a class="video-link" href="YOUR_DEMO_LINK_GOL" target="_blank">🎥
-            Demo</a></div>
-      </article>
 
-      <article class="card">
-        <h3>Pathfinder — Travel</h3>
-        <p>React Native app for attractions, bookings, flights, calendar, expenses, currency, and saved places/maps.
-          Built with <strong>TypeScript</strong>, <strong>Google Cloud</strong>, <strong>Xcode</strong> (iOS).</p>
-        <div class="tags"><span class="tag">React Native</span><span class="tag">TypeScript</span><span
-            class="tag">Google Cloud</span><span class="tag">Xcode (iOS)</span></div>
-        <div class="linkrow"><a class="code-link" href="https://github.com/Katechen125/Pathfinder" target="_blank">💻
-            Code</a><span class="sep">•</span><a class="video-link" href="YOUR_DEMO_LINK_PATHFINDER" target="_blank">🎥
-            Demo</a></div>
-      </article>
+        <div class="panel">
+          <div class="grid">
+            <article class="card">
+              <h3>Geneva Drive</h3>
+              <p>SolidWorks mechanism built with clean mates, then validated with a motion study to confirm indexing and
+                clearances.</p>
+              <div class="tags">
+                <span class="tag">SolidWorks</span>
+                <span class="tag">Motion Study</span>
+              </div>
+              <div class="linkrow">
+                <button class="btn" id="openGenevaVideos" type="button">🎥 Videos</button>
+              </div>
+            </article>
+          </div>
+        </div>
 
-      <article class="card">
-        <h3>TCP Server — Spaghetti Relay</h3>
-        <p><strong>C++</strong> TCP server that relays messages across clients with simple logging and graceful
-          shutdown.</p>
-        <div class="tags"><span class="tag">C++</span><span class="tag">TCP</span><span class="tag">Sockets</span><span
-            class="tag">Networking</span></div>
-        <div class="linkrow"><a class="code-link" href="https://github.com/Katechen125/TCP-server" target="_blank">💻
-            Code</a><span class="sep">•</span><a class="video-link" href="YOUR_DEMO_LINK_TCP" target="_blank">🎥
-            Demo</a></div>
-      </article>
-
-      <article class="card">
-        <h3>Proximity Video Panel (Collab)</h3>
-        <p><strong>UE5 — Blueprints.</strong> Proximity trigger: approach → panel reveals; step away → panel hides.</p>
-        <div class="tags"><span class="tag">UE5</span><span class="tag">Blueprints</span><span
-            class="tag">Prototype</span></div>
-        <div class="linkrow"><a class="video-link" href="YOUR_DEMO_LINK_COLLAB" target="_blank">🎥 Demo</a></div>
-      </article>
+      </div>
     </div>
   </section>
 
@@ -225,6 +391,27 @@
     <div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages
     </div>
   </footer>
+
+  <div class="video-overlay" id="videoOverlay" aria-hidden="true">
+    <div class="video-card" role="dialog" aria-modal="true" aria-label="Project demo video">
+      <div class="video-head">
+        <div class="video-title">
+          <strong id="videoTitle">Demo</strong>
+          <span id="videoMeta">Press Esc to close</span>
+        </div>
+        <button class="btn" id="closeVideos" type="button">Close</button>
+      </div>
+
+      <div class="video-body">
+        <video class="video-player" id="videoPlayer" controls playsinline></video>
+
+        <div class="video-nav" id="videoNav">
+          <button class="btn" id="prevVideo" type="button" aria-label="Previous video">← Video</button>
+          <button class="btn" id="nextVideo" type="button" aria-label="Next video">Video →</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="assets/js/confetti.js"></script>
   <script src="assets/js/theme.js"></script>
@@ -237,12 +424,139 @@
       resetTheme()
     });
 
-    document.querySelectorAll('a.video-link').forEach(link => {
-      link.addEventListener('click', function (e) {
-        const href = this.getAttribute('href') || '';
-        if (href.startsWith('YOUR_DEMO_LINK')) {
-          e.preventDefault();
-          alert('Demo not available at the moment. Please check back soon 😊');
+    const projectTrack = document.getElementById('projectTrack');
+    const panelTitle = document.getElementById('panelTitle');
+    const prevPanel = document.getElementById('prevPanel');
+    const nextPanel = document.getElementById('nextPanel');
+
+    const panelTitles = [
+      'Computer Science Projects',
+      'Simulation Engineering Projects'
+    ];
+
+    let panelIndex = 0;
+
+    function updatePanels() {
+      projectTrack.style.transform = `translateX(${-100 * panelIndex}%)`;
+      panelTitle.textContent = panelTitles[panelIndex];
+      prevPanel.disabled = panelIndex === 0;
+      nextPanel.disabled = panelIndex === panelTitles.length - 1;
+    }
+
+    prevPanel.addEventListener('click', () => {
+      panelIndex = Math.max(0, panelIndex - 1);
+      updatePanels();
+    });
+
+    nextPanel.addEventListener('click', () => {
+      panelIndex = Math.min(panelTitles.length - 1, panelIndex + 1);
+      updatePanels();
+    });
+
+    updatePanels();
+
+    const videoOverlay = document.getElementById('videoOverlay');
+    const videoPlayer = document.getElementById('videoPlayer');
+    const videoTitle = document.getElementById('videoTitle');
+    const videoMeta = document.getElementById('videoMeta');
+    const videoNav = document.getElementById('videoNav');
+
+    const openGenevaVideos = document.getElementById('openGenevaVideos');
+    const closeVideos = document.getElementById('closeVideos');
+    const prevVideo = document.getElementById('prevVideo');
+    const nextVideo = document.getElementById('nextVideo');
+
+    const genevaVideos = [
+      { src: 'assets/videos/Geneva%20Drive_Angle.mp4', label: 'Angle view' },
+      { src: 'assets/videos/Geneva%20Drive.mp4', label: 'Main view' }
+    ];
+
+    let playlist = [];
+    let videoIndex = 0;
+
+    function setVideo(i) {
+      if (!playlist.length) return;
+
+      videoIndex = (i + playlist.length) % playlist.length;
+
+      videoPlayer.pause();
+      videoPlayer.removeAttribute('src');
+      videoPlayer.load();
+
+      videoPlayer.src = playlist[videoIndex].src;
+      videoPlayer.load();
+
+      if (playlist.length > 1) {
+        videoMeta.textContent = `Video ${videoIndex + 1} of ${playlist.length} • ${playlist[videoIndex].label || ''}`.trim();
+      } else {
+        videoMeta.textContent = 'Press Esc to close';
+      }
+
+      videoNav.hidden = playlist.length <= 1;
+    }
+
+    function openPlaylist(list, titleText, startIndex = 0) {
+      playlist = list || [];
+      videoTitle.textContent = titleText || 'Demo';
+
+      videoOverlay.style.display = 'flex';
+      videoOverlay.setAttribute('aria-hidden', 'false');
+
+      setVideo(startIndex);
+    }
+
+    function closeVideoOverlay() {
+      videoPlayer.pause();
+      videoOverlay.style.display = 'none';
+      videoOverlay.setAttribute('aria-hidden', 'true');
+      playlist = [];
+      videoIndex = 0;
+    }
+
+    openGenevaVideos.addEventListener('click', () => {
+      openPlaylist(genevaVideos, 'Geneva Drive', 0);
+    });
+
+    document.querySelectorAll('a.js-video').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const src = link.getAttribute('href');
+        const titleText = link.getAttribute('data-title') || 'Demo';
+        openPlaylist([{ src, label: 'Demo' }], titleText, 0);
+      });
+    });
+
+    closeVideos.addEventListener('click', closeVideoOverlay);
+
+    prevVideo.addEventListener('click', () => {
+      if (playlist.length > 1) setVideo(videoIndex - 1);
+    });
+
+    nextVideo.addEventListener('click', () => {
+      if (playlist.length > 1) setVideo(videoIndex + 1);
+    });
+
+    videoOverlay.addEventListener('click', (e) => {
+      if (e.target === videoOverlay) closeVideoOverlay();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (videoOverlay.style.display === 'flex' && e.key === 'Escape') closeVideoOverlay();
+      if (videoOverlay.style.display === 'flex' && playlist.length > 1 && e.key === 'ArrowLeft') setVideo(videoIndex - 1);
+      if (videoOverlay.style.display === 'flex' && playlist.length > 1 && e.key === 'ArrowRight') setVideo(videoIndex + 1);
+    });
+
+    document.querySelectorAll('a.js-external').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href') || '';
+        const isYouTube = href.includes('youtube.com') || href.includes('youtu.be');
+        if (!isYouTube) return;
+
+        e.preventDefault();
+
+        const ok = confirm('This demo opens on YouTube in a new tab. Continue?');
+        if (ok) {
+          window.open(href, '_blank', 'noopener,noreferrer');
         }
       });
     });
