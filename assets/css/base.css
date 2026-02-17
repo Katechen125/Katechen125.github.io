@@ -310,3 +310,62 @@ header.site {
     border-color: #3a3a3d;
     color: #ffe5c2;
 }
+
+.avatar-stack{
+  position:relative;
+  display:block;
+  width:115px;
+  height:115px;
+}
+
+.avatar-stack .avatar{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  opacity:0;
+  will-change:opacity;
+  animation-duration:7s;
+  animation-iteration-count:infinite;
+  animation-timing-function:ease-in-out;
+}
+
+.avatar-stack .avatar-a{
+  opacity:1;
+  animation-name:avatarFadeA;
+}
+
+.avatar-stack .avatar-b{
+  animation-name:avatarFadeB;
+}
+
+@keyframes avatarFadeA{
+  0%, 44% { opacity:1; }
+  50%, 94% { opacity:0; }
+  100% { opacity:1; }
+}
+
+@keyframes avatarFadeB{
+  0%, 44% { opacity:0; }
+  50%, 94% { opacity:1; }
+  100% { opacity:0; }
+}
+
+.avatar-badge{
+  z-index:3;
+}
+
+.avatar-wrap:hover .avatar-a,
+.avatar-wrap:hover .avatar-b{
+  animation-play-state:paused;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .avatar-stack .avatar-a,
+  .avatar-stack .avatar-b{
+    animation:none;
+  }
+  .avatar-stack .avatar-b{
+    opacity:0;
+  }
+}
