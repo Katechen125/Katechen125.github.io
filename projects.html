@@ -319,8 +319,9 @@
                   class="tag">Algorithms</span></div>
               <div class="linkrow"><a class="code-link" href="https://github.com/Katechen125/Calculator"
                   target="_blank">💻 Code</a><span class="sep">•</span><a class="video-link js-video"
-                  href="assets/videos/Calculator.mp4" data-title="Calculator - Shunting-Yard Algorithm">🎥 Demo Video</a>
-              </div> 
+                  href="assets/videos/Calculator.mp4" data-title="Calculator - Shunting-Yard Algorithm">🎥 Demo
+                  Video</a>
+              </div>
             </article>
 
             <article class="card">
@@ -375,9 +376,10 @@
               <div class="tags">
                 <span class="tag">SolidWorks</span>
                 <span class="tag">Motion Study</span>
+                <span class="tag">Mates</span>
               </div>
               <div class="linkrow">
-                <button class="btn" id="openGenevaVideos" type="button">🎥 Videos</button>
+                <a class="video-link" href="#" id="openGenevaVideos">🎥 Demo Video</a>
               </div>
             </article>
           </div>
@@ -406,8 +408,8 @@
         <video class="video-player" id="videoPlayer" controls playsinline></video>
 
         <div class="video-nav" id="videoNav">
-          <button class="btn" id="prevVideo" type="button" aria-label="Previous video">← Video</button>
-          <button class="btn" id="nextVideo" type="button" aria-label="Next video">Video →</button>
+          <button class="btn" id="prevVideo" type="button" aria-label="Previous video">← Prev</button>
+          <button class="btn" id="nextVideo" type="button" aria-label="Next video">Next →</button>
         </div>
       </div>
     </div>
@@ -513,7 +515,8 @@
       videoIndex = 0;
     }
 
-    openGenevaVideos.addEventListener('click', () => {
+    openGenevaVideos.addEventListener('click', (e) => {
+      e.preventDefault();
       openPlaylist(genevaVideos, 'Geneva Drive', 0);
     });
 
