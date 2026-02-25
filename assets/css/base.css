@@ -34,7 +34,7 @@
 }
 
 :root[data-theme="lando"] {
-    --bg:#000000;
+    --bg: #000000;
     --surface: #1b1b1d;
     --text: #f3f4f6;
     --muted: #e2e6ee;
@@ -311,61 +311,290 @@ header.site {
     color: #ffe5c2;
 }
 
-.avatar-stack{
-  position:relative;
-  display:block;
-  width:115px;
-  height:115px;
+.avatar-stack {
+    position: relative;
+    display: block;
+    width: 115px;
+    height: 115px;
 }
 
-.avatar-stack .avatar{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  opacity:0;
-  will-change:opacity;
-  animation-duration:7s;
-  animation-iteration-count:infinite;
-  animation-timing-function:ease-in-out;
+.avatar-stack .avatar {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    will-change: opacity;
+    animation-duration: 7s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
 }
 
-.avatar-stack .avatar-a{
-  opacity:1;
-  animation-name:avatarFadeA;
+.avatar-stack .avatar-a {
+    opacity: 1;
+    animation-name: avatarFadeA;
 }
 
-.avatar-stack .avatar-b{
-  animation-name:avatarFadeB;
+.avatar-stack .avatar-b {
+    animation-name: avatarFadeB;
 }
 
-@keyframes avatarFadeA{
-  0%, 44% { opacity:1; }
-  50%, 94% { opacity:0; }
-  100% { opacity:1; }
+@keyframes avatarFadeA {
+
+    0%,
+    44% {
+        opacity: 1;
+    }
+
+    50%,
+    94% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
-@keyframes avatarFadeB{
-  0%, 44% { opacity:0; }
-  50%, 94% { opacity:1; }
-  100% { opacity:0; }
+@keyframes avatarFadeB {
+
+    0%,
+    44% {
+        opacity: 0;
+    }
+
+    50%,
+    94% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
-.avatar-badge{
-  z-index:3;
+.avatar-badge {
+    z-index: 3;
 }
 
 .avatar-wrap:hover .avatar-a,
-.avatar-wrap:hover .avatar-b{
-  animation-play-state:paused;
+.avatar-wrap:hover .avatar-b {
+    animation-play-state: paused;
 }
 
-@media (prefers-reduced-motion: reduce){
-  .avatar-stack .avatar-a,
-  .avatar-stack .avatar-b{
-    animation:none;
-  }
-  .avatar-stack .avatar-b{
-    opacity:0;
-  }
+@media (prefers-reduced-motion: reduce) {
+
+    .avatar-stack .avatar-a,
+    .avatar-stack .avatar-b {
+        animation: none;
+    }
+
+    .avatar-stack .avatar-b {
+        opacity: 0;
+    }
+}
+
+.brand {
+    min-width: 0;
+}
+
+.brand-title,
+.brand>span:last-child {
+    min-width: 0;
+    display: block;
+}
+
+/* Small laptop / narrow browser window */
+@media (max-width: 1180px) {
+    .site-inner {
+        height: auto;
+        min-height: 64px;
+        padding: 8px 0;
+        flex-wrap: wrap;
+        gap: 10px 14px;
+        align-items: center;
+    }
+
+    .brand {
+        flex: 1 1 520px;
+        gap: 12px;
+    }
+
+    .nav {
+        flex: 1 1 320px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        row-gap: 6px;
+    }
+
+    .nav a {
+        margin-left: 10px;
+    }
+
+    .avatar-stack {
+        width: 96px;
+        height: 96px;
+    }
+
+    .avatar {
+        width: 100%;
+        height: 100%;
+    }
+
+    .avatar-badge {
+        width: 30px;
+        height: 30px;
+        right: -2px;
+        bottom: -2px;
+    }
+
+    .brand-title,
+    .brand>span:last-child {
+        line-height: 1.15;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+}
+
+/* Tablet / foldables (unfolded) */
+@media (max-width: 900px) {
+    .site-inner {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        align-items: start;
+    }
+
+    .brand {
+        width: 100%;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .nav {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 8px;
+        justify-content: stretch;
+    }
+
+    .nav a {
+        margin-left: 0;
+        text-align: center;
+        padding: 8px 10px;
+        border-radius: 10px;
+        border: 1px solid var(--ring);
+        background: color-mix(in oklab, var(--surface) 92%, transparent);
+    }
+
+    .avatar-stack {
+        width: 78px;
+        height: 78px;
+        flex: 0 0 78px;
+    }
+
+    .avatar-badge {
+        width: 26px;
+        height: 26px;
+        right: -2px;
+        bottom: -2px;
+        background-size: 82%;
+    }
+
+    .brand-title,
+    .brand>span:last-child {
+        font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+        line-height: 1.15;
+    }
+}
+
+/* Phones */
+@media (max-width: 760px) {
+    .site-inner {
+        gap: 10px;
+        padding: 10px 0;
+    }
+
+    .brand {
+        width: 100%;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .avatar-stack {
+        width: 68px;
+        height: 68px;
+        flex: 0 0 68px;
+    }
+
+    .avatar-badge {
+        width: 24px;
+        height: 24px;
+        right: -2px;
+        bottom: -2px;
+        background-size: 80%;
+    }
+
+    .brand-title,
+    .brand>span:last-child {
+        font-size: clamp(0.92rem, 3.6vw, 1.02rem);
+        line-height: 1.12;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    .nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .nav a {
+        white-space: nowrap;
+        font-size: 0.95rem;
+        padding: 8px 8px;
+    }
+}
+
+/* Very narrow phones / folded foldables */
+@media (max-width: 390px) {
+    .site-inner {
+        gap: 8px;
+        padding: 8px 0;
+    }
+
+    .brand {
+        gap: 8px;
+    }
+
+    .avatar-stack {
+        width: 58px;
+        height: 58px;
+        flex: 0 0 58px;
+    }
+
+    .avatar-badge {
+        width: 20px;
+        height: 20px;
+        right: -1px;
+        bottom: -1px;
+        background-size: 78%;
+    }
+
+    .brand-title,
+    .brand>span:last-child {
+        font-size: 0.9rem;
+        line-height: 1.08;
+    }
+
+    .nav {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .nav a {
+        font-size: 0.92rem;
+        padding: 8px 10px;
+    }
 }
