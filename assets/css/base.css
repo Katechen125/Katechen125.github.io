@@ -12,12 +12,12 @@
     --bg-grad:
         radial-gradient(1400px 900px at 8% 6%, #fff0f7 0, transparent 55%),
         radial-gradient(1600px 1000px at 92% 12%, #eaf3ff 0, transparent 58%),
-        radial-gradient(1400px 900px at 50% 92%, #ecfff0 0, transparent 55%)
+        radial-gradient(1400px 900px at 50% 92%, #ecfff0 0, transparent 55%);
 }
 
 ::selection {
     background: color-mix(in oklab, var(--accent) 60%, transparent);
-    color: var(--text)
+    color: var(--text);
 }
 
 :root[data-theme="carlos"] {
@@ -30,7 +30,7 @@
     --btn-bg: #ffffff;
     --btn-text: #0b1220;
     --btn-border: #3260b3;
-    --bg-grad: none
+    --bg-grad: none;
 }
 
 :root[data-theme="lando"] {
@@ -43,11 +43,11 @@
     --btn-bg: #2a2a2a;
     --btn-text: #ffeede;
     --btn-border: #3a3a3d;
-    --bg-grad: none
+    --bg-grad: none;
 }
 
 * {
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
 body {
@@ -56,20 +56,22 @@ body {
     background-image: var(--bg-grad);
     background-attachment: fixed;
     color: var(--text);
-    font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif
+    font: 16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
 
 h1,
 h2,
 h3 {
-    font-family: "Playfair Display", Georgia, serif
+    font-family: "Playfair Display", Georgia, serif;
 }
 
 .container {
     max-width: var(--maxw);
     margin: 0 auto;
-    padding: 0 22px
+    padding: 0 22px;
 }
+
+/* header */
 
 header.site {
     position: sticky;
@@ -77,174 +79,28 @@ header.site {
     z-index: 10;
     background: color-mix(in oklab, var(--bg) 90%, transparent);
     backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--ring)
+    border-bottom: 1px solid var(--ring);
 }
 
 .site-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 64px
+    height: 64px;
 }
 
 .brand {
     display: flex;
     gap: 14px;
     align-items: center;
-    font-weight: 800
+    font-weight: 800;
+    min-width: 0;
 }
 
-.nav a {
-    margin-left: 14px;
-    color: var(--text);
-    font-weight: 700;
-    text-decoration: none
-}
-
-.avatar {
-    width: 115px;
-    height: 115px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff)
-}
-
-.avatar-wrap {
-    position: relative;
-    display: inline-block
-}
-
-.avatar-badge {
-    position: absolute;
-    right: -3px;
-    bottom: -3px;
-    width: 36.5px;
-    height: 36.5px;
-    border-radius: 50%;
-    border: 1px solid var(--ring);
-    background-color: #fff;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 88%;
-    background-image: url("../img/KC.png")
-}
-
-:root[data-theme="carlos"] .avatar-badge {
-    background-image: url("../img/confetti/Williams_logo.png");
-    border-color: #0d347e
-}
-
-:root[data-theme="lando"] .avatar-badge {
-    background-image: url("../img/confetti/mclaren_logo.png");
-    border-color: #ff8000
-}
-
-.btn {
-    appearance: none;
-    border: 1px solid var(--btn-border);
-    background: var(--btn-bg);
-    color: var(--btn-text);
-    padding: 10px 14px;
-    border-radius: 12px;
-    font-weight: 700;
-    cursor: pointer
-}
-
-.btn:hover {
-    background: var(--accent);
-    color: #fff;
-    border-color: transparent
-}
-
-:root[data-theme="lando"] .btn {
-    background: var(--btn-bg);
-    color: var(--btn-text);
-    border-color: var(--btn-border)
-}
-
-:root[data-theme="lando"] .btn:hover {
-    background: var(--accent);
-    color: #101010;
-    border-color: transparent
-}
-
-.footer-row {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    min-height: 60px;
-    gap: 12px
-}
-
-.footer-text {
-    grid-column: 2;
-    justify-self: center;
-    text-align: center;
-    white-space: nowrap
-}
-
-.footer-launch {
-    grid-column: 3;
-    justify-self: end;
-    display: flex;
-    align-items: center;
-    gap: 12px
-}
-
-.flag-btn {
-    appearance: none;
-    border: 1px solid var(--ring);
-    background: #fff;
-    width: 42px;
-    height: 42px;
-    border-radius: 999px;
-    display: grid;
-    place-items: center
-}
-
-@media (max-width: 980px) {
-    .flag-label {
-        display: none
-    }
-}
-
-@media (max-width: 520px) {
-    .footer-text {
-        font-size: 14px
-    }
-}
-
-.png-hub {
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 22px
-}
-
-.png-btn {
-    display: inline-block;
-    line-height: 0;
-    text-decoration: none
-}
-
-.png-stack img {
-    display: none;
-    width: clamp(128px, 14vw, 200px);
-    height: auto;
-    image-rendering: -webkit-optimize-contrast
-}
-
-:root:not([data-theme]) .png-stack img[data-theme="base"] {
-    display: block
-}
-
-:root[data-theme="carlos"] .png-stack img[data-theme="carlos"] {
-    display: block
-}
-
-:root[data-theme="lando"] .png-stack img[data-theme="lando"] {
-    display: block
+.brand-title,
+.brand>span:last-child {
+    min-width: 0;
+    display: block;
 }
 
 .nav a {
@@ -263,12 +119,106 @@ header.site {
     color: #ff8000;
 }
 
-.footer-row {
+/* avatar */
+
+.avatar {
+    width: 115px;
+    height: 115px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid color-mix(in oklab, var(--accent) 40%, #fff);
+}
+
+.avatar-wrap {
     position: relative;
+    display: inline-block;
+}
+
+.avatar-badge {
+    position: absolute;
+    right: -3px;
+    bottom: -3px;
+    width: 36.5px;
+    height: 36.5px;
+    border-radius: 50%;
+    border: 1px solid var(--ring);
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 88%;
+    background-image: url("../img/KC.png");
+    z-index: 3;
+}
+
+:root[data-theme="carlos"] .avatar-badge {
+    background-image: url("../img/confetti/Williams_logo.png");
+    border-color: #0d347e;
+}
+
+:root[data-theme="lando"] .avatar-badge {
+    background-image: url("../img/confetti/mclaren_logo.png");
+    border-color: #ff8000;
+}
+
+/* buttons */
+
+.btn {
+    appearance: none;
+    border: 1px solid var(--btn-border);
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: transparent;
+}
+
+:root[data-theme="lando"] .btn {
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    border-color: var(--btn-border);
+}
+
+:root[data-theme="lando"] .btn:hover {
+    background: var(--accent);
+    color: #101010;
+    border-color: transparent;
+}
+
+/* footer */
+
+.footer-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
     min-height: 64px;
+    gap: 12px;
+    position: relative;
+}
+
+.footer-text {
+    grid-column: 2;
+    justify-self: center;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 1.35;
+    max-width: 100%;
+}
+
+.footer-dot {
+    display: inline-block;
+    margin: 0 6px;
 }
 
 .footer-launch {
+    grid-column: 3;
+    justify-self: end;
     position: fixed;
     bottom: clamp(10px, 1.6vw, 18px);
     right: clamp(10px, 1.6vw, 18px);
@@ -282,12 +232,6 @@ header.site {
     white-space: nowrap;
 }
 
-@media (max-width: 980px) {
-    .flag-label {
-        display: none;
-    }
-}
-
 .flag-btn {
     appearance: none;
     border: 1px solid var(--ring);
@@ -298,6 +242,55 @@ header.site {
     display: grid;
     place-items: center;
 }
+
+@media (max-width: 980px) {
+    .flag-label {
+        display: none;
+    }
+}
+
+@media (max-width: 520px) {
+    .footer-text {
+        font-size: 14px;
+    }
+}
+
+/* png buttons */
+
+.png-hub {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 22px;
+}
+
+.png-btn {
+    display: inline-block;
+    line-height: 0;
+    text-decoration: none;
+}
+
+.png-stack img {
+    display: none;
+    width: clamp(128px, 14vw, 200px);
+    height: auto;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+:root:not([data-theme]) .png-stack img[data-theme="base"] {
+    display: block;
+}
+
+:root[data-theme="carlos"] .png-stack img[data-theme="carlos"] {
+    display: block;
+}
+
+:root[data-theme="lando"] .png-stack img[data-theme="lando"] {
+    display: block;
+}
+
+/* cards */
 
 :root[data-theme="lando"] .card-winner {
     background: linear-gradient(180deg, #1f1f21, #151517);
@@ -310,6 +303,8 @@ header.site {
     border-color: #3a3a3d;
     color: #ffe5c2;
 }
+
+/* avatar crossfade */
 
 .avatar-stack {
     position: relative;
@@ -373,10 +368,6 @@ header.site {
     }
 }
 
-.avatar-badge {
-    z-index: 3;
-}
-
 .avatar-wrap:hover .avatar-a,
 .avatar-wrap:hover .avatar-b {
     animation-play-state: paused;
@@ -394,17 +385,8 @@ header.site {
     }
 }
 
-.brand {
-    min-width: 0;
-}
+/* header layout on smaller screens */
 
-.brand-title,
-.brand>span:last-child {
-    min-width: 0;
-    display: block;
-}
-
-/* Small laptop / narrow browser window */
 @media (max-width: 1180px) {
     .site-inner {
         height: auto;
@@ -457,7 +439,6 @@ header.site {
     }
 }
 
-/* Tablet / foldables (unfolded) */
 @media (max-width: 900px) {
     .site-inner {
         display: grid;
@@ -510,7 +491,6 @@ header.site {
     }
 }
 
-/* Phones */
 @media (max-width: 760px) {
     .site-inner {
         gap: 10px;
@@ -557,7 +537,6 @@ header.site {
     }
 }
 
-/* Very narrow phones / folded foldables */
 @media (max-width: 390px) {
     .site-inner {
         gap: 8px;
@@ -598,3 +577,79 @@ header.site {
         padding: 8px 10px;
     }
 }
+
+/* footer layout on smaller screens */
+
+@media (max-width: 1100px) {
+    .footer-row {
+        min-height: auto;
+        padding-top: 10px;
+        padding-bottom: 74px;
+    }
+
+    .footer-text {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        padding-inline: 6px;
+    }
+}
+
+@media (max-width: 760px) {
+    .footer-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        min-height: auto;
+        padding-top: 10px;
+        padding-bottom: 78px;
+    }
+
+    .footer-text {
+        grid-column: 1;
+        justify-self: center;
+        text-align: center;
+        white-space: normal;
+        font-size: 14px;
+        line-height: 1.35;
+        max-width: 34ch;
+        margin: 0 auto;
+    }
+
+    .footer-launch {
+        right: 10px;
+        bottom: 10px;
+        gap: 8px;
+    }
+
+    .flag-btn {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 390px) {
+    .footer-row {
+        padding-bottom: 82px;
+    }
+
+    .footer-text {
+        max-width: 28ch;
+        font-size: 13px;
+        line-height: 1.3;
+    }
+
+    .footer-dot {
+        margin: 0 4px;
+    }
+
+    .footer-launch {
+        right: 8px;
+        bottom: 8px;
+    }
+
+    .flag-btn {
+        width: 38px;
+        height: 38px;
+    }
+}
+
+
