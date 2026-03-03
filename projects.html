@@ -402,7 +402,7 @@
                 <span class="tag">Collision Check</span>
               </div>
               <div class="linkrow">
-                <a class="video-link" href="#" id="openStewartViews">🎥 Demo Video Gallery</a>
+                <a class="video-link" href="#" id="openStewartVideos">🎥 Demo Video Gallery</a>
               </div>
             </article>
 
@@ -488,7 +488,7 @@
     const videoNav = document.getElementById('videoNav');
 
     const openGenevaVideos = document.getElementById('openGenevaVideos');
-    const openStewartViews = document.getElementById('openStewartViews');
+    const openStewartVideos = document.getElementById('openStewartVideos');
     const closeVideos = document.getElementById('closeVideos');
     const prevVideo = document.getElementById('prevVideo');
     const nextVideo = document.getElementById('nextVideo');
@@ -498,7 +498,7 @@
       { src: 'assets/videos/Geneva%20Drive.mp4', label: 'Main view' }
     ];
 
-    const stewartViews = [
+    const stewartVideos = [
       { type: 'video', src: 'assets/videos/SP_Assembly_Iso.mp4', label: 'Isometric view' },
       { type: 'video', src: 'assets/videos/SP_Assembly_Top.mp4', label: 'Top view' },
       { type: 'video', src: 'assets/videos/SP_Assembly_Front.mp4', label: 'Front view' }
@@ -549,6 +549,11 @@
     openGenevaVideos.addEventListener('click', (e) => {
       e.preventDefault();
       openPlaylist(genevaVideos, 'Geneva Drive', 0);
+    });
+
+    openStewartVideos.addEventListener('click', (e) => {
+      e.preventDefault();
+      openPlaylist(stewartVideos, 'Stewart Motion Platform', 0);
     });
 
     document.querySelectorAll('a.js-video').forEach(link => {
