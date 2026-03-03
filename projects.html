@@ -294,7 +294,7 @@
       </nav>
     </div>
   </header>
-  
+
   <section class="page-hero container">
     <h1>Projects</h1>
     <div class="driver-bar">
@@ -386,9 +386,26 @@
                 <span class="tag">Mates</span>
               </div>
               <div class="linkrow">
-                <a class="video-link" href="#" id="openGenevaVideos">🎥 Demo Video</a>
+                <a class="video-link" href="#" id="openGenevaVideos">🎥 Demo Video Gallery</a>
               </div>
             </article>
+
+            <article class="card">
+              <h3>Stewart Motion Platform</h3>
+              <p>Stewart Motion Platform designed in SolidWorks with 6 degrees of freedom. This project involved a
+                master sketch, detailed drawings, motion study, collision checking, and assembly refinement to evaluate
+                multi-axis movement and mechanical precision.</p>
+              <div class="tags">
+                <span class="tag">SolidWorks</span>
+                <span class="tag">6 DOF</span>
+                <span class="tag">Motion Study</span>
+                <span class="tag">Collision Check</span>
+              </div>
+              <div class="linkrow">
+                <a class="video-link" href="#" id="openStewartViews">🎥 Demo Video Gallery</a>
+              </div>
+            </article>
+
           </div>
         </div>
 
@@ -471,6 +488,7 @@
     const videoNav = document.getElementById('videoNav');
 
     const openGenevaVideos = document.getElementById('openGenevaVideos');
+    const openStewartViews = document.getElementById('openStewartViews');
     const closeVideos = document.getElementById('closeVideos');
     const prevVideo = document.getElementById('prevVideo');
     const nextVideo = document.getElementById('nextVideo');
@@ -478,6 +496,12 @@
     const genevaVideos = [
       { src: 'assets/videos/Geneva%20Drive_Angle.mp4', label: 'Angle view' },
       { src: 'assets/videos/Geneva%20Drive.mp4', label: 'Main view' }
+    ];
+
+    const stewartViews = [
+      { type: 'video', src: 'assets/videos/SP_Assembly_Iso.mp4', label: 'Isometric view' },
+      { type: 'video', src: 'assets/videos/SP_Assembly_Top.mp4', label: 'Top view' },
+      { type: 'video', src: 'assets/videos/SP_Assembly_Front.mp4', label: 'Front view' }
     ];
 
     let playlist = [];
