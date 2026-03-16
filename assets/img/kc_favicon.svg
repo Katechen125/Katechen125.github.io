@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+
+    <!-- Warm ivory background gradient -->
+    <radialGradient id="bg" cx="50%" cy="45%" r="55%">
+      <stop offset="0%"   stop-color="#FAF5EE"/>
+      <stop offset="100%" stop-color="#EAD8BE"/>
+    </radialGradient>
+
+    <!-- KC shimmer — bright highlight top, rich amber mid, deep bottom -->
+    <linearGradient id="kg" x1="0.2" y1="0" x2="0.1" y2="1">
+      <stop offset="0%"   stop-color="#FFF0DC"/>
+      <stop offset="18%"  stop-color="#F0A860"/>
+      <stop offset="52%"  stop-color="#C06830"/>
+      <stop offset="100%" stop-color="#6E2E08"/>
+    </linearGradient>
+
+    <!-- Ring gradient — goes from bright orange to deep amber -->
+    <linearGradient id="rg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#E8983A" stop-opacity="1"/>
+      <stop offset="50%"  stop-color="#D07828" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#B05010" stop-opacity="0.7"/>
+    </linearGradient>
+
+    <!-- Subtle glow filter -->
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="0.8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="15.8" fill="url(#bg)"/>
+
+  <!-- Outer ring — warm orange, elegant weight -->
+  <circle cx="16" cy="16" r="15.2" fill="none" stroke="url(#rg)" stroke-width="1.4"/>
+
+  <!-- Inner fine ring — very subtle -->
+  <circle cx="16" cy="16" r="13.8" fill="none" stroke="#D78238" stroke-width="0.4" opacity="0.35"/>
+
+  <!-- KC — large, italic, glowing gradient -->
+  <text x="16" y="21"
+    font-family="'Palatino Linotype','Book Antiqua',Palatino,Georgia,serif"
+    font-style="italic"
+    font-weight="bold"
+    font-size="14.5"
+    fill="url(#kg)"
+    text-anchor="middle"
+    filter="url(#glow)">KC</text>
+
+  <!-- Two tiny diamond accents at left and right -->
+  <polygon points="1.2,16 2.4,14.8 3.6,16 2.4,17.2" fill="#D78238" opacity="0.75"/>
+  <polygon points="28.4,16 29.6,14.8 30.8,16 29.6,17.2" fill="#D78238" opacity="0.75"/>
+
+</svg>

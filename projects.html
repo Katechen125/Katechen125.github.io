@@ -5,8 +5,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Projects — Pole Position 🏁</title>
-  <link rel="icon" type="image/png" href="assets/img/KC.png?v=2">
-  <link rel="apple-touch-icon" href="assets/img/KC.png?v=2">
+  <link rel="icon" type="image/png" href="assets/img/kc_favicon.svg?v=2">
+  <link rel="apple-touch-icon" href="assets/img/kc_favicon.svg?v=2">
   <link rel="stylesheet" href="assets/css/base.css">
   <style>
     .page-hero {
@@ -406,6 +406,22 @@
               </div>
             </article>
 
+            <article class="card">
+              <h3>DIY Project</h3>
+              <p>A smart door greeter that detects motion, reads room temperature and responds with NeoPixel light
+                animations and buzzer melodies depending on comfort level. Built with Arduino, featuring a doorbell,
+                mute toggle and arm/disarm switch.</p>
+              <div class="tags">
+                <span class="tag">Arduino</span>
+                <span class="tag">Breadboard</span>
+                <span class="tag">NeoPixel</span>
+                <span class="tag">Electronics</span>
+              </div>
+              <div class="linkrow">
+                <a class="video-link" href="#" id="openDIYVideos">🎥 Demo Video </a>
+              </div>
+            </article>
+
           </div>
         </div>
 
@@ -489,6 +505,7 @@
 
     const openGenevaVideos = document.getElementById('openGenevaVideos');
     const openStewartVideos = document.getElementById('openStewartVideos');
+    const openDIYVideos = document.getElementById('openDIYVideos');
     const closeVideos = document.getElementById('closeVideos');
     const prevVideo = document.getElementById('prevVideo');
     const nextVideo = document.getElementById('nextVideo');
@@ -502,6 +519,10 @@
       { type: 'video', src: 'assets/videos/SP_Assembly_Iso.mp4', label: 'Isometric view' },
       { type: 'video', src: 'assets/videos/SP_Assembly_Top.mp4', label: 'Top view' },
       { type: 'video', src: 'assets/videos/SP_Assembly_Front.mp4', label: 'Front view' }
+    ];
+
+     const DIYVideos = [
+      { type: 'video', src: 'assets/videos/DIY.mp4', label: 'Explanation' },
     ];
 
     let playlist = [];
@@ -554,6 +575,11 @@
     openStewartVideos.addEventListener('click', (e) => {
       e.preventDefault();
       openPlaylist(stewartVideos, 'Stewart Motion Platform', 0);
+    });
+
+     openDIYVideos.addEventListener('click', (e) => {
+      e.preventDefault();
+      openPlaylist(DIYVideos, 'DIY Project', 0);
     });
 
     document.querySelectorAll('a.js-video').forEach(link => {
