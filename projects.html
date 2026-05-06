@@ -66,6 +66,13 @@
       letter-spacing: .2px
     }
 
+    .card p {
+      margin: 0 0 4px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--muted)
+    }
+
     .grid {
       display: grid;
       gap: 16px
@@ -100,11 +107,23 @@
       color: #ffe5c2
     }
 
+    .tag.hw {
+      background: color-mix(in oklab, #fde8cb 40%, white);
+      color: #5c2d00
+    }
+
+    :root[data-theme="lando"] .tag.hw {
+      background: #3a2a1a;
+      border-color: #5a3a1d;
+      color: #ffcf96
+    }
+
     .linkrow {
       margin-top: 10px;
       display: flex;
       align-items: center;
-      gap: 8px
+      gap: 8px;
+      flex-wrap: wrap
     }
 
     .sep {
@@ -112,7 +131,8 @@
     }
 
     a.code-link,
-    a.video-link {
+    a.video-link,
+    a.photo-link {
       font-weight: 700;
       text-decoration: none;
       display: inline-flex;
@@ -124,7 +144,8 @@
       color: var(--accent)
     }
 
-    a.video-link {
+    a.video-link,
+    a.photo-link {
       color: var(--muted)
     }
 
@@ -132,7 +153,8 @@
       color: #ff8000
     }
 
-    :root[data-theme="lando"] a.video-link {
+    :root[data-theme="lando"] a.video-link,
+    :root[data-theme="lando"] a.photo-link {
       color: #ffae42
     }
 
@@ -141,10 +163,6 @@
       padding: 18px 0;
       color: var(--muted);
       text-align: center
-    }
-
-    .space-top {
-      margin-top: 12px
     }
 
     .switch-row {
@@ -188,6 +206,102 @@
       padding: 16px
     }
 
+    /* Hardware section */
+    .hardware-section {
+      margin-top: 40px
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px
+    }
+
+    .section-label h2 {
+      margin: 0;
+      font: 700 clamp(18px, 2.8vw, 26px)/1.2 "Playfair Display", Georgia, serif;
+      color: var(--text)
+    }
+
+    .hw-badge {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: color-mix(in oklab, #fde8cb 60%, white);
+      color: #5c2d00;
+      border: 1px solid color-mix(in oklab, #fde8cb 80%, #5c2d00 20%);
+      letter-spacing: .5px;
+      text-transform: uppercase
+    }
+
+    :root[data-theme="lando"] .hw-badge {
+      background: #3a2a1a;
+      color: #ffcf96;
+      border-color: #5a3a1d
+    }
+
+    .hw-grid {
+      display: grid;
+      gap: 16px
+    }
+
+    @media(min-width:780px) {
+      .hw-grid {
+        grid-template-columns: 1fr 1fr
+      }
+    }
+
+    .hw-card {
+      background: var(--surface);
+      border: 1px solid var(--ring);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(12, 21, 33, .06), 0 2px 6px rgba(12, 21, 33, .04)
+    }
+
+    .hw-card-body {
+      padding: 18px
+    }
+
+    .hw-card h3 {
+      margin: 0 0 6px;
+      font: 800 18px/1.2 Inter, system-ui;
+      letter-spacing: .2px
+    }
+
+    .hw-card p {
+      margin: 0 0 10px;
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--muted)
+    }
+
+    .hw-gallery {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 0 18px 14px;
+      scrollbar-width: thin
+    }
+
+    .hw-thumb {
+      flex-shrink: 0;
+      width: 100px;
+      height: 72px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1px solid var(--ring);
+      cursor: pointer;
+      transition: opacity 150ms
+    }
+
+    .hw-thumb:hover {
+      opacity: .8
+    }
+
+    /* Overlay */
     .video-overlay {
       position: fixed;
       inset: 0;
@@ -253,6 +367,15 @@
       object-fit: contain
     }
 
+    .photo-player {
+      width: 100%;
+      max-height: 60vh;
+      border-radius: 14px;
+      border: 1px solid var(--ring);
+      object-fit: contain;
+      display: block
+    }
+
     .video-nav {
       display: flex;
       justify-content: space-between;
@@ -277,15 +400,12 @@
           </span>
           <span class="avatar-badge"></span>
         </div>
-
         <div class="brand-copy">
           <span class="brand-page">Projects</span>
           <span class="brand-divider">—</span>
           <span class="brand-name">Pole Position🏁</span>
         </div>
       </div>
-
-
       <nav class="nav" aria-label="Primary">
         <a href="index.html">Home</a>
         <a href="projects.html" class="active">Projects</a>
@@ -304,18 +424,18 @@
     </div>
   </section>
 
+  <!-- CS + Simulation carousel -->
   <section class="container">
     <div class="switch-row">
       <h2 id="panelTitle">Computer Science Projects</h2>
       <div class="switch-controls">
-        <button class="btn" id="prevPanel" type="button" aria-label="Back to Computer Science">←</button>
-        <button class="btn" id="nextPanel" type="button" aria-label="Go to Simulation Engineering">→</button>
+        <button class="btn" id="prevPanel" type="button">←</button>
+        <button class="btn" id="nextPanel" type="button">→</button>
       </div>
     </div>
-
     <div class="carousel">
       <div class="track" id="projectTrack">
-
+        <!-- CS -->
         <div class="panel">
           <div class="grid">
             <article class="card">
@@ -327,20 +447,17 @@
               <div class="linkrow"><a class="code-link" href="https://github.com/Katechen125/Calculator"
                   target="_blank">💻 Code</a><span class="sep">•</span><a class="video-link js-video"
                   href="assets/videos/Calculator.mp4" data-title="Calculator - Shunting-Yard Algorithm">🎥 Demo
-                  Video</a>
-              </div>
+                  Video</a></div>
             </article>
-
             <article class="card">
-              <h3>Conway’s Game of Life</h3>
+              <h3>Conway's Game of Life</h3>
               <p>C++ with updated <strong>wxWidgets</strong> UI via <strong>vcpkg</strong>. Pause/step + presets.</p>
               <div class="tags"><span class="tag">C++</span><span class="tag">wxWidgets</span><span
                   class="tag">vcpkg</span></div>
               <div class="linkrow"><a class="code-link" href="https://github.com/Katechen125/Conway_Game_of_Life"
                   target="_blank">💻 Code</a><span class="sep">•</span><a class="video-link js-video"
-                  href="assets/videos/Game%20of%20Life.mp4" data-title="Conway’s Game of Life">🎥 Demo Video</a></div>
+                  href="assets/videos/Game%20of%20Life.mp4" data-title="Conway's Game of Life">🎥 Demo Video</a></div>
             </article>
-
             <article class="card">
               <h3>Pathfinder - Travel</h3>
               <p>React Native app for attractions, bookings, flights, calendar, expenses, currency, and saved
@@ -352,7 +469,6 @@
                   href="https://www.youtube.com/playlist?list=PLcprPtzWKe_yDr-mHER8Ew9LGg2TBSMJL" target="_blank">🎥
                   Demo Video</a></div>
             </article>
-
             <article class="card">
               <h3>TCP Server - Spaghetti Relay</h3>
               <p><strong>C++</strong> TCP server that relays messages across clients with simple logging and graceful
@@ -363,7 +479,6 @@
                   target="_blank">💻 Code</a><span class="sep">•</span><a class="video-link js-video"
                   href="assets/videos/TCP.mp4" data-title="TCP Server - Spaghetti Relay">🎥 Demo Video</a></div>
             </article>
-
             <article class="card">
               <h3>Proximity Video Panel (Collab)</h3>
               <p><strong>UE5 - Blueprints.</strong> Proximity trigger: approach → panel reveals; step away → panel
@@ -373,52 +488,95 @@
             </article>
           </div>
         </div>
-
+        <!-- Simulation -->
         <div class="panel">
           <div class="grid">
             <article class="card">
               <h3>Geneva Drive</h3>
               <p>SolidWorks mechanism built with clean mates, then validated with a motion study to confirm indexing and
                 clearances.</p>
+              <div class="tags"><span class="tag">SolidWorks</span><span class="tag">Motion Study</span><span
+                  class="tag">Mates</span></div>
+              <div class="linkrow"><a class="video-link" href="#" id="openGenevaVideos">🎥 Demo Video Gallery</a></div>
+            </article>
+            <article class="card">
+              <h3>Stewart Motion Platform — Digital</h3>
+              <p>6-DOF Stewart Platform in SolidWorks. Master sketch, detailed drawings, motion study, collision
+                checking, and assembly refinement to evaluate multi-axis movement and mechanical precision.</p>
+              <div class="tags"><span class="tag">SolidWorks</span><span class="tag">6 DOF</span><span
+                  class="tag">Motion Study</span><span class="tag">Collision Check</span></div>
+              <div class="linkrow"><a class="video-link" href="#" id="openStewartSimVideos">🎥 Demo Video Gallery</a>
+              </div>
+            </article>
+          </div>
+        </div>
+        <!-- Hardware -->
+        <div class="panel">
+          <div class="grid">
+
+            <article class="card">
+              <h3>Stewart Motion Platform — Physical Build</h3>
+              <p>The same 6-DOF platform designed in SolidWorks, fully fabricated by hand. Stratasys 3D printer, laser
+                cutter, lathe, drill, and grinding wheel. Custom PCB on Eagle PCB, milled on LPKF CNC, hand-soldered.
+                Programmed in C++ on an Adafruit ESP32 Feather.</p>
               <div class="tags">
-                <span class="tag">SolidWorks</span>
-                <span class="tag">Motion Study</span>
-                <span class="tag">Mates</span>
+                <span class="tag hw">SolidWorks</span><span class="tag hw">Eagle PCB</span><span class="tag hw">LPKF
+                  CNC</span>
+                <span class="tag hw">Stratasys 3D Print</span><span class="tag hw">Laser Cut</span><span
+                  class="tag hw">Lathe</span>
+                <span class="tag hw">Soldering</span><span class="tag hw">ESP32</span><span class="tag hw">C++</span>
               </div>
               <div class="linkrow">
-                <a class="video-link" href="#" id="openGenevaVideos">🎥 Demo Video Gallery</a>
+                <a class="video-link" href="#" data-open="stewartPhysical">🎥 Build Videos</a>
+                <span class="sep">•</span>
+                <a class="photo-link" href="#" data-open="stewartPhysicalPhotos">📷 Photos</a>
               </div>
             </article>
 
             <article class="card">
-              <h3>Stewart Motion Platform</h3>
-              <p>Stewart Motion Platform designed in SolidWorks with 6 degrees of freedom. This project involved a
-                master sketch, detailed drawings, motion study, collision checking, and assembly refinement to evaluate
-                multi-axis movement and mechanical precision.</p>
+              <h3>Simon Sense — Memory Game</h3>
+              <p>Simon Says memory game built entirely from scratch. Circuit designed in Eagle PCB, fabricated on an
+                LPKF CNC mill, and hand-soldered. Programmed in C++ on an Arduino Feather M0. Features selectable
+                difficulty levels.</p>
               <div class="tags">
-                <span class="tag">SolidWorks</span>
-                <span class="tag">6 DOF</span>
-                <span class="tag">Motion Study</span>
-                <span class="tag">Collision Check</span>
+                <span class="tag hw">Eagle PCB</span><span class="tag hw">LPKF CNC</span>
+                <span class="tag hw">Soldering</span><span class="tag hw">Arduino Feather M0</span><span
+                  class="tag hw">C++</span>
               </div>
               <div class="linkrow">
-                <a class="video-link" href="#" id="openStewartVideos">🎥 Demo Video Gallery</a>
+                <a class="video-link" href="#" data-open="simonVideos">🎥 Build Videos</a>
+                <span class="sep">•</span>
+                <a class="photo-link" href="#" data-open="simonPhotos">📷 Photos</a>
               </div>
             </article>
 
             <article class="card">
-              <h3>DIY Project</h3>
-              <p>A smart door greeter that detects motion, reads room temperature and responds with NeoPixel light
-                animations and buzzer melodies depending on comfort level. Built with Arduino, featuring a doorbell,
-                mute toggle and arm/disarm switch.</p>
+              <h3>Geocaching Device</h3>
+              <p>Handheld geocaching device with GPS module, SD card for coordinate logging, OLED display, joystick, and
+                buttons on a single custom PCB hand-soldered. Includes a Pong mini-game with difficulty levels.
+                Programmed in C++ on an Arduino M0.</p>
               <div class="tags">
-                <span class="tag">Arduino</span>
-                <span class="tag">Breadboard</span>
-                <span class="tag">NeoPixel</span>
-                <span class="tag">Electronics</span>
+                <span class="tag hw">Arduino M0</span><span class="tag hw">GPS</span><span class="tag hw">SD Card</span>
+                <span class="tag hw">OLED</span><span class="tag hw">Soldering</span><span class="tag hw">C++</span>
               </div>
               <div class="linkrow">
-                <a class="video-link" href="#" id="openDIYVideos">🎥 Demo Video </a>
+                <a class="photo-link" href="#" data-open="geocachePhotos">📷 Photos</a>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>Smart Door Greeter</h3>
+              <p>Motion-activated door greeter that reads room temperature and responds with NeoPixel animations and
+                buzzer melodies. Features doorbell, mute toggle, and arm/disarm switch. Built with Arduino and
+                programmed in C++.</p>
+              <div class="tags">
+                <span class="tag hw">Arduino</span><span class="tag hw">NeoPixel</span>
+                <span class="tag hw">C++</span><span class="tag hw">Electronics</span>
+              </div>
+              <div class="linkrow">
+                <a class="video-link" href="#" data-open="diyVideos">🎥 Demo Video</a>
+                <span class="sep">•</span>
+                <a class="photo-link" href="#" data-open="diyPhotos">📷 Photo</a>
               </div>
             </article>
 
@@ -434,8 +592,9 @@
     </div>
   </footer>
 
+  <!-- Overlay -->
   <div class="video-overlay" id="videoOverlay" aria-hidden="true">
-    <div class="video-card" role="dialog" aria-modal="true" aria-label="Project demo video">
+    <div class="video-card" role="dialog" aria-modal="true" aria-label="Media viewer">
       <div class="video-head">
         <div class="video-title">
           <strong id="videoTitle">Demo</strong>
@@ -443,13 +602,12 @@
         </div>
         <button class="btn" id="closeVideos" type="button">Close</button>
       </div>
-
       <div class="video-body">
-        <video class="video-player" id="videoPlayer" controls playsinline></video>
-
+        <video class="video-player" id="videoPlayer" controls playsinline style="display:none"></video>
+        <img class="photo-player" id="photoPlayer" alt="Project photo" style="display:none">
         <div class="video-nav" id="videoNav">
-          <button class="btn" id="prevVideo" type="button" aria-label="Previous video">← Prev</button>
-          <button class="btn" id="nextVideo" type="button" aria-label="Next video">Next →</button>
+          <button class="btn" id="prevVideo" type="button">← Prev</button>
+          <button class="btn" id="nextVideo" type="button">Next →</button>
         </div>
       </div>
     </div>
@@ -462,167 +620,161 @@
     document.querySelectorAll('button[data-theme]').forEach(b =>
       b.addEventListener('click', () => setThemeAndConfetti(b.dataset.theme))
     );
-    document.getElementById('resetTheme')?.addEventListener('click', () => {
-      resetTheme()
-    });
+    document.getElementById('resetTheme')?.addEventListener('click', () => resetTheme());
 
+    // Carousel
     const projectTrack = document.getElementById('projectTrack');
     const panelTitle = document.getElementById('panelTitle');
     const prevPanel = document.getElementById('prevPanel');
     const nextPanel = document.getElementById('nextPanel');
-
-    const panelTitles = [
-      'Computer Science Projects',
-      'Simulation Engineering Projects'
-    ];
-
+    const panelTitles = ['Computer Science Projects', 'Simulation Engineering Projects', 'Hardware Projects'];
     let panelIndex = 0;
-
     function updatePanels() {
       projectTrack.style.transform = `translateX(${-100 * panelIndex}%)`;
       panelTitle.textContent = panelTitles[panelIndex];
       prevPanel.disabled = panelIndex === 0;
       nextPanel.disabled = panelIndex === panelTitles.length - 1;
     }
-
-    prevPanel.addEventListener('click', () => {
-      panelIndex = Math.max(0, panelIndex - 1);
-      updatePanels();
-    });
-
-    nextPanel.addEventListener('click', () => {
-      panelIndex = Math.min(panelTitles.length - 1, panelIndex + 1);
-      updatePanels();
-    });
-
+    prevPanel.addEventListener('click', () => { panelIndex = Math.max(0, panelIndex - 1); updatePanels(); });
+    nextPanel.addEventListener('click', () => { panelIndex = Math.min(panelTitles.length - 1, panelIndex + 1); updatePanels(); });
     updatePanels();
 
-    const videoOverlay = document.getElementById('videoOverlay');
+    // Media playlists
+    const playlists = {
+      stewartPhysical: [
+        { type: 'video', src: 'assets/videos/stewart_6dof.mp4', label: '6DOF motion' },
+        { type: 'video', src: 'assets/videos/stewart_design_final.mp4', label: 'Final design' },
+        { type: 'video', src: 'assets/videos/stewart_lpkf_1.mp4', label: 'LPKF pass 1' },
+        { type: 'video', src: 'assets/videos/stewart_lpkf_2.mp4', label: 'LPKF pass 2' },
+        { type: 'video', src: 'assets/videos/stewart_lpkf_3.mp4', label: 'LPKF pass 3' },
+      ],
+      stewartPhysicalPhotos: [
+        { type: 'photo', src: 'assets/img/stewart_final.jpeg', label: 'Final build' },
+        { type: 'photo', src: 'assets/img/stewart_circuit_servos.jpeg', label: 'Circuit with servos' },
+        { type: 'photo', src: 'assets/img/stewart_circuit_lpkf.jpeg', label: 'LPKF circuit' },
+        { type: 'photo', src: 'assets/img/stewart_bottom.jpeg', label: 'Bottom platform' },
+        { type: 'photo', src: 'assets/img/stewart_top.jpeg', label: 'Top platform' },
+        { type: 'photo', src: 'assets/img/stewart_standoff_rod.jpeg', label: 'Standoff and rod' },
+        { type: 'photo', src: 'assets/img/stewart_calibration_plate.jpeg', label: 'Calibration plate' },
+      ],
+      stewartSimVideos: [
+        { type: 'video', src: 'assets/videos/SP_Assembly_Iso.mp4', label: 'Isometric view' },
+        { type: 'video', src: 'assets/videos/SP_Assembly_Top.mp4', label: 'Top view' },
+        { type: 'video', src: 'assets/videos/SP_Assembly_Front.mp4', label: 'Front view' },
+      ],
+      simonVideos: [
+        { type: 'video', src: 'assets/videos/simon_lpkf.mp4', label: 'LPKF milling' },
+        { type: 'video', src: 'assets/videos/simon_soldering.mp4', label: 'Soldering' },
+        { type: 'video', src: 'assets/videos/simon_game.mp4', label: 'Game demo' },
+      ],
+      simonPhotos: [
+        { type: 'photo', src: 'assets/img/simon_final.jpeg', label: 'Final device' },
+        { type: 'photo', src: 'assets/img/simon_pcb.jpeg', label: 'PCB circuit' },
+        { type: 'photo', src: 'assets/img/simon_lpkf_1.jpeg', label: 'LPKF process 1' },
+        { type: 'photo', src: 'assets/img/simon_lpkf_2.jpeg', label: 'LPKF process 2' },
+      ],
+      geocachePhotos: [
+        { type: 'photo', src: 'assets/img/geocache_final.jpeg', label: 'Geocache device' },
+        { type: 'photo', src: 'assets/img/geocache_map.png', label: 'Capture the flag map' },
+      ],
+      genevaVideos: [
+        { type: 'video', src: 'assets/videos/Geneva%20Drive_Angle.mp4', label: 'Angle view' },
+        { type: 'video', src: 'assets/videos/Geneva%20Drive.mp4', label: 'Main view' },
+      ],
+      diyVideos: [
+        { type: 'video', src: 'assets/videos/diy_demo.mp4', label: 'Demo' },
+      ],
+      diyPhotos: [
+        { type: 'photo', src: 'assets/img/diy_final.jpeg', label: 'Door greeter' },
+      ],
+    };
+
+    const overlay = document.getElementById('videoOverlay');
     const videoPlayer = document.getElementById('videoPlayer');
+    const photoPlayer = document.getElementById('photoPlayer');
     const videoTitle = document.getElementById('videoTitle');
     const videoMeta = document.getElementById('videoMeta');
     const videoNav = document.getElementById('videoNav');
+    let playlist = [], mediaIndex = 0;
 
-    const openGenevaVideos = document.getElementById('openGenevaVideos');
-    const openStewartVideos = document.getElementById('openStewartVideos');
-    const openDIYVideos = document.getElementById('openDIYVideos');
-    const closeVideos = document.getElementById('closeVideos');
-    const prevVideo = document.getElementById('prevVideo');
-    const nextVideo = document.getElementById('nextVideo');
-
-    const genevaVideos = [
-      { src: 'assets/videos/Geneva%20Drive_Angle.mp4', label: 'Angle view' },
-      { src: 'assets/videos/Geneva%20Drive.mp4', label: 'Main view' }
-    ];
-
-    const stewartVideos = [
-      { type: 'video', src: 'assets/videos/SP_Assembly_Iso.mp4', label: 'Isometric view' },
-      { type: 'video', src: 'assets/videos/SP_Assembly_Top.mp4', label: 'Top view' },
-      { type: 'video', src: 'assets/videos/SP_Assembly_Front.mp4', label: 'Front view' }
-    ];
-
-     const DIYVideos = [
-      { type: 'video', src: 'assets/videos/DIY.mp4', label: 'Explanation' },
-    ];
-
-    let playlist = [];
-    let videoIndex = 0;
-
-    function setVideo(i) {
+    function showMedia(i) {
       if (!playlist.length) return;
-
-      videoIndex = (i + playlist.length) % playlist.length;
-
-      videoPlayer.pause();
-      videoPlayer.removeAttribute('src');
-      videoPlayer.load();
-
-      videoPlayer.src = playlist[videoIndex].src;
-      videoPlayer.load();
-
-      if (playlist.length > 1) {
-        videoMeta.textContent = `Video ${videoIndex + 1} of ${playlist.length} • ${playlist[videoIndex].label || ''}`.trim();
+      mediaIndex = (i + playlist.length) % playlist.length;
+      const item = playlist[mediaIndex];
+      if (item.type === 'video') {
+        videoPlayer.style.display = 'block'; photoPlayer.style.display = 'none';
+        videoPlayer.pause(); videoPlayer.src = item.src; videoPlayer.load();
       } else {
-        videoMeta.textContent = 'Press Esc to close';
+        videoPlayer.style.display = 'none'; videoPlayer.pause();
+        photoPlayer.style.display = 'block'; photoPlayer.src = item.src; photoPlayer.alt = item.label || '';
       }
-
+      videoMeta.textContent = playlist.length > 1 ? `${mediaIndex + 1} of ${playlist.length} • ${item.label || ''}` : 'Press Esc to close';
       videoNav.hidden = playlist.length <= 1;
     }
 
-    function openPlaylist(list, titleText, startIndex = 0) {
-      playlist = list || [];
-      videoTitle.textContent = titleText || 'Demo';
+    const overlayTitles = {
+      stewartPhysical: 'Stewart Platform — Build Videos',
+      stewartPhysicalPhotos: 'Stewart Platform — Photos',
+      stewartSimVideos: 'Stewart Motion Platform — Simulation',
+      simonVideos: 'Simon Sense — Build Videos',
+      simonPhotos: 'Simon Sense — Photos',
+      geocachePhotos: 'Geocaching Device — Photos',
+      genevaVideos: 'Geneva Drive',
+      diyVideos: 'Smart Door Greeter — Demo',
+      diyPhotos: 'Smart Door Greeter — Photo',
+    };
 
-      videoOverlay.style.display = 'flex';
-      videoOverlay.setAttribute('aria-hidden', 'false');
-
-      setVideo(startIndex);
+    function openPlaylist(key, startIndex = 0) {
+      playlist = playlists[key] || [];
+      videoTitle.textContent = overlayTitles[key] || key;
+      overlay.style.display = 'flex'; overlay.setAttribute('aria-hidden', 'false');
+      showMedia(startIndex);
     }
 
-    function closeVideoOverlay() {
-      videoPlayer.pause();
-      videoOverlay.style.display = 'none';
-      videoOverlay.setAttribute('aria-hidden', 'true');
-      playlist = [];
-      videoIndex = 0;
+    function closeOverlay() {
+      videoPlayer.pause(); overlay.style.display = 'none'; overlay.setAttribute('aria-hidden', 'true');
+      playlist = []; mediaIndex = 0; videoPlayer.style.display = 'none'; photoPlayer.style.display = 'none';
     }
 
-    openGenevaVideos.addEventListener('click', (e) => {
-      e.preventDefault();
-      openPlaylist(genevaVideos, 'Geneva Drive', 0);
-    });
-
-    openStewartVideos.addEventListener('click', (e) => {
-      e.preventDefault();
-      openPlaylist(stewartVideos, 'Stewart Motion Platform', 0);
-    });
-
-     openDIYVideos.addEventListener('click', (e) => {
-      e.preventDefault();
-      openPlaylist(DIYVideos, 'DIY Project', 0);
-    });
-
-    document.querySelectorAll('a.js-video').forEach(link => {
-      link.addEventListener('click', (e) => {
+    document.querySelectorAll('[data-open]').forEach(el => {
+      el.addEventListener('click', e => {
         e.preventDefault();
-        const src = link.getAttribute('href');
-        const titleText = link.getAttribute('data-title') || 'Demo';
-        openPlaylist([{ src, label: 'Demo' }], titleText, 0);
+        openPlaylist(el.dataset.open, parseInt(el.dataset.index || '0', 10));
       });
     });
 
-    closeVideos.addEventListener('click', closeVideoOverlay);
+    document.getElementById('openGenevaVideos')?.addEventListener('click', e => { e.preventDefault(); openPlaylist('genevaVideos'); });
+    document.getElementById('openStewartSimVideos')?.addEventListener('click', e => { e.preventDefault(); openPlaylist('stewartSimVideos'); });
 
-    prevVideo.addEventListener('click', () => {
-      if (playlist.length > 1) setVideo(videoIndex - 1);
+    document.getElementById('closeVideos').addEventListener('click', closeOverlay);
+    document.getElementById('prevVideo').addEventListener('click', () => showMedia(mediaIndex - 1));
+    document.getElementById('nextVideo').addEventListener('click', () => showMedia(mediaIndex + 1));
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeOverlay(); });
+
+    window.addEventListener('keydown', e => {
+      if (overlay.style.display !== 'flex') return;
+      if (e.key === 'Escape') closeOverlay();
+      if (e.key === 'ArrowLeft') showMedia(mediaIndex - 1);
+      if (e.key === 'ArrowRight') showMedia(mediaIndex + 1);
     });
 
-    nextVideo.addEventListener('click', () => {
-      if (playlist.length > 1) setVideo(videoIndex + 1);
-    });
-
-    videoOverlay.addEventListener('click', (e) => {
-      if (e.target === videoOverlay) closeVideoOverlay();
-    });
-
-    window.addEventListener('keydown', (e) => {
-      if (videoOverlay.style.display === 'flex' && e.key === 'Escape') closeVideoOverlay();
-      if (videoOverlay.style.display === 'flex' && playlist.length > 1 && e.key === 'ArrowLeft') setVideo(videoIndex - 1);
-      if (videoOverlay.style.display === 'flex' && playlist.length > 1 && e.key === 'ArrowRight') setVideo(videoIndex + 1);
+    document.querySelectorAll('a.js-video').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        playlist = [{ type: 'video', src: link.getAttribute('href'), label: 'Demo' }];
+        videoTitle.textContent = link.getAttribute('data-title') || 'Demo';
+        overlay.style.display = 'flex'; overlay.setAttribute('aria-hidden', 'false');
+        showMedia(0);
+      });
     });
 
     document.querySelectorAll('a.js-external').forEach(link => {
-      link.addEventListener('click', (e) => {
+      link.addEventListener('click', e => {
         const href = link.getAttribute('href') || '';
-        const isYouTube = href.includes('youtube.com') || href.includes('youtu.be');
-        if (!isYouTube) return;
-
+        if (!href.includes('youtube.com') && !href.includes('youtu.be')) return;
         e.preventDefault();
-
-        const ok = confirm('This demo opens on YouTube in a new tab. Continue?');
-        if (ok) {
+        if (confirm('This demo opens on YouTube in a new tab. Continue?'))
           window.open(href, '_blank', 'noopener,noreferrer');
-        }
       });
     });
   </script>
