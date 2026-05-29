@@ -24,336 +24,84 @@
             background-size: 140% 140%, 150% 150%, 120% 120%;
         }
 
-        .page {
-            padding: 36px 0 28px;
-        }
+        .page { padding: 36px 0 28px; }
+        .page h1 { margin: 0 0 12px; font-size: clamp(30px, 5vw, 48px); text-align: center; }
+        .page-intro { max-width: 760px; margin: 0 auto 18px; text-align: center; color: var(--muted); font-size: 16px; }
 
-        .page h1 {
-            margin: 0 0 12px;
-            font-size: clamp(30px, 5vw, 48px);
-            text-align: center;
-        }
+        .driver-bar { margin: 10px 0 24px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; color: var(--muted); }
 
-        .page-intro {
-            max-width: 760px;
-            margin: 0 auto 18px;
-            text-align: center;
-            color: var(--muted);
-            font-size: 16px;
-        }
+        .grid { display: grid; gap: 28px; margin-top: 8px; }
+        @media (min-width: 900px) { .grid { grid-template-columns: 1.15fr .85fr; } }
 
-        .driver-bar {
-            margin: 10px 0 24px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            color: var(--muted);
-        }
-
-        .grid {
-            display: grid;
-            gap: 28px;
-            margin-top: 8px;
-        }
-
-        @media (min-width: 900px) {
-            .grid {
-                grid-template-columns: 1.15fr .85fr;
-            }
-        }
-
-        .stack {
-            display: grid;
-            gap: 28px;
-        }
+        .stack { display: grid; gap: 28px; }
 
         .card {
-            background: linear-gradient(180deg, rgba(255, 255, 255, .92), rgba(255, 255, 255, .76));
+            background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.76));
             border: 1px solid var(--ring);
             border-radius: 18px;
             padding: 20px 22px;
-            box-shadow: 0 18px 38px rgba(12, 21, 33, .08), 0 2px 6px rgba(12, 21, 33, .05);
+            box-shadow: 0 18px 38px rgba(12,21,33,.08), 0 2px 6px rgba(12,21,33,.05);
         }
+        :root[data-theme="lando"] .card { background: #1c1c1f; border-color: #3a3a3d; color: #fffbf2; }
 
-        :root[data-theme="lando"] .card {
-            background: #1c1c1f;
-            border-color: #3a3a3d;
-            color: #fffbf2;
-        }
+        .card h2 { margin: 0 0 10px; font-size: clamp(20px, 3.4vw, 26px); text-align: center; }
+        .section-note { margin: -2px 0 14px; color: var(--muted); text-align: center; font-size: 14px; }
 
-        .card h2 {
-            margin: 0 0 10px;
-            font-size: clamp(20px, 3.4vw, 26px);
-            text-align: center;
-        }
+        .hero-top { display: flex; gap: 16px; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; margin-bottom: 14px; }
+        .hero-copy { flex: 1 1 520px; }
+        .eyebrow { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+        .hero-copy h2 { text-align: left; margin: 0 0 8px; }
+        .hero-copy p { margin: 0; color: var(--muted); }
 
-        .section-note {
-            margin: -2px 0 14px;
-            color: var(--muted);
-            text-align: center;
-            font-size: 14px;
-        }
+        .focus-wrap { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+        .focus-chip { display: inline-flex; align-items: center; gap: 8px; background: color-mix(in oklab, var(--accent) 12%, #fff); border: 1px solid var(--ring); border-radius: 999px; padding: 8px 12px; font-weight: 700; font-size: 14px; }
+        :root[data-theme="lando"] .focus-chip { background: #232325; color: #ffedd9; border-color: #3a3a3d; }
 
-        .hero-top {
-            display: flex;
-            gap: 16px;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            margin-bottom: 14px;
-        }
+        .role-grid { display: grid; gap: 12px; margin-top: 8px; }
+        @media (min-width: 640px) { .role-grid { grid-template-columns: 1fr 1fr; } }
 
-        .hero-copy {
-            flex: 1 1 520px;
-        }
+        .role-box { border: 1px solid var(--ring); border-radius: 16px; padding: 14px 15px; background: color-mix(in oklab, var(--surface) 94%, transparent); }
+        .role-box h3 { margin: 0 0 6px; font-size: 16px; font-family: Inter, system-ui, sans-serif; }
+        .role-box p { margin: 0; color: var(--muted); }
 
-        .eyebrow {
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 10px;
-        }
+        .resume-item + .resume-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--ring); }
+        .resume-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap; margin-bottom: 6px; }
+        .resume-head strong { font-size: 17px; }
+        .resume-meta { color: var(--muted); font-weight: 700; font-size: 14px; }
+        .resume-sub { color: var(--muted); font-weight: 600; margin-bottom: 8px; font-size: 14px; }
+        .resume-bullets { margin: 0; padding-left: 18px; }
+        .resume-bullets li + li { margin-top: 7px; }
 
-        .hero-copy h2 {
-            text-align: left;
-            margin: 0 0 8px;
-        }
+        .project-grid { display: grid; gap: 12px; margin-top: 8px; }
+        @media (min-width: 640px) { .project-grid { grid-template-columns: 1fr 1fr; } }
 
-        .hero-copy p {
-            margin: 0;
-            color: var(--muted);
-        }
+        .project-mini { border: 1px solid var(--ring); border-radius: 16px; padding: 14px 15px; background: color-mix(in oklab, var(--surface) 94%, transparent); }
+        .project-mini h3 { margin: 0 0 4px; font-size: 16px; font-family: Inter, system-ui, sans-serif; }
+        .project-meta { margin: 0 0 8px; color: var(--muted); font-size: 13px; font-weight: 700; }
+        .project-mini p { margin: 0; }
 
-        .hero-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-        }
+        .hw-badge { display: inline-block; font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 999px; background: color-mix(in oklab, #fde8cb 60%, white); color: #5c2d00; border: 1px solid color-mix(in oklab, #fde8cb 80%, #5c2d00 20%); letter-spacing: .5px; text-transform: uppercase; margin-bottom: 10px; }
+        :root[data-theme="lando"] .hw-badge { background: #3a2a1a; color: #ffcf96; border-color: #5a3a1d; }
 
-        .focus-wrap {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
+        .mini-list { display: grid; gap: 10px; margin-top: 8px; }
+        .mini-row { border: 1px solid var(--ring); border-radius: 14px; padding: 12px 14px; background: color-mix(in oklab, var(--surface) 94%, transparent); }
+        .mini-row strong { display: block; margin-bottom: 4px; }
+        .mini-row span, .mini-row p { color: var(--muted); margin: 0; }
 
-        .focus-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: color-mix(in oklab, var(--accent) 12%, #fff);
-            border: 1px solid var(--ring);
-            border-radius: 999px;
-            padding: 8px 12px;
-            font-weight: 700;
-            font-size: 14px;
-        }
+        .skill-groups { display: grid; gap: 12px; margin-top: 8px; }
+        .skill-box { border: 1px solid var(--ring); border-radius: 14px; padding: 12px 14px; background: color-mix(in oklab, var(--surface) 94%, transparent); }
+        .skill-box h3 { margin: 0 0 6px; font-size: 15px; font-family: Inter, system-ui, sans-serif; }
+        .skill-box p { margin: 0; color: var(--muted); }
 
-        :root[data-theme="lando"] .focus-chip {
-            background: #232325;
-            color: #ffedd9;
-            border-color: #3a3a3d;
-        }
+        .links-stack { display: grid; gap: 12px; margin-top: 8px; }
+        .linkcard { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1px solid var(--ring); border-radius: 16px; background: color-mix(in oklab, var(--surface) 92%, transparent); text-decoration: none; color: inherit; }
+        .linkcard:hover { transform: translateY(-1px); box-shadow: 0 10px 20px rgba(12,21,33,.06); }
+        .linkcard img { width: 24px; height: 24px; }
 
-        .role-grid {
-            display: grid;
-            gap: 12px;
-            margin-top: 8px;
-        }
+        .resume-list { margin: 0; padding-left: 18px; }
+        .resume-list li + li { margin-top: 8px; }
 
-        @media (min-width: 640px) {
-            .role-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .role-box {
-            border: 1px solid var(--ring);
-            border-radius: 16px;
-            padding: 14px 15px;
-            background: color-mix(in oklab, var(--surface) 94%, transparent);
-        }
-
-        .role-box h3 {
-            margin: 0 0 6px;
-            font-size: 16px;
-            font-family: Inter, system-ui, sans-serif;
-        }
-
-        .role-box p {
-            margin: 0;
-            color: var(--muted);
-        }
-
-        .resume-item+.resume-item {
-            margin-top: 18px;
-            padding-top: 18px;
-            border-top: 1px solid var(--ring);
-        }
-
-        .resume-head {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            align-items: baseline;
-            flex-wrap: wrap;
-            margin-bottom: 6px;
-        }
-
-        .resume-head strong {
-            font-size: 17px;
-        }
-
-        .resume-meta {
-            color: var(--muted);
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-        .resume-sub {
-            color: var(--muted);
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .resume-bullets {
-            margin: 0;
-            padding-left: 18px;
-        }
-
-        .resume-bullets li+li {
-            margin-top: 7px;
-        }
-
-        .project-grid {
-            display: grid;
-            gap: 12px;
-            margin-top: 8px;
-        }
-
-        @media (min-width: 640px) {
-            .project-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .project-mini {
-            border: 1px solid var(--ring);
-            border-radius: 16px;
-            padding: 14px 15px;
-            background: color-mix(in oklab, var(--surface) 94%, transparent);
-        }
-
-        .project-mini h3 {
-            margin: 0 0 4px;
-            font-size: 16px;
-            font-family: Inter, system-ui, sans-serif;
-        }
-
-        .project-meta {
-            margin: 0 0 8px;
-            color: var(--muted);
-            font-size: 13px;
-            font-weight: 700;
-        }
-
-        .project-mini p {
-            margin: 0;
-        }
-
-        .mini-list {
-            display: grid;
-            gap: 10px;
-            margin-top: 8px;
-        }
-
-        .mini-row {
-            border: 1px solid var(--ring);
-            border-radius: 14px;
-            padding: 12px 14px;
-            background: color-mix(in oklab, var(--surface) 94%, transparent);
-        }
-
-        .mini-row strong {
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .mini-row span,
-        .mini-row p {
-            color: var(--muted);
-            margin: 0;
-        }
-
-        .skill-groups {
-            display: grid;
-            gap: 12px;
-            margin-top: 8px;
-        }
-
-        .skill-box {
-            border: 1px solid var(--ring);
-            border-radius: 14px;
-            padding: 12px 14px;
-            background: color-mix(in oklab, var(--surface) 94%, transparent);
-        }
-
-        .skill-box h3 {
-            margin: 0 0 6px;
-            font-size: 15px;
-            font-family: Inter, system-ui, sans-serif;
-        }
-
-        .skill-box p {
-            margin: 0;
-            color: var(--muted);
-        }
-
-        .links-stack {
-            display: grid;
-            gap: 12px;
-            margin-top: 8px;
-        }
-
-        .linkcard {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 16px;
-            border: 1px solid var(--ring);
-            border-radius: 16px;
-            background: color-mix(in oklab, var(--surface) 92%, transparent);
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .linkcard:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 10px 20px rgba(12, 21, 33, .06);
-        }
-
-        .linkcard img {
-            width: 24px;
-            height: 24px;
-        }
-
-        .resume-list {
-            margin: 0;
-            padding-left: 18px;
-        }
-
-        .resume-list li+li {
-            margin-top: 8px;
-        }
-
-        footer {
-            text-align: center;
-        }
+        footer { text-align: center; }
     </style>
 </head>
 
@@ -368,14 +116,12 @@
                     </span>
                     <span class="avatar-badge"></span>
                 </div>
-
                 <div class="brand-copy">
                     <span class="brand-page">Resume</span>
                     <span class="brand-divider">—</span>
                     <span class="brand-name">Pole Position🏁</span>
                 </div>
             </div>
-
             <nav class="nav" aria-label="Primary">
                 <a href="index.html">Home</a>
                 <a href="projects.html">Projects</a>
@@ -388,8 +134,8 @@
     <main class="page container">
         <h1>Technical Resume</h1>
         <p class="page-intro">
-            A recruiter-friendly snapshot of my background, experience, and the kind of engineering work I’m growing
-            into.
+            Hands-on hardware and simulation engineer with dual degrees in Computer Science and Simulation Engineering.
+            I design, build, and validate things from first principles — in SolidWorks, in Unity, and with my hands.
         </p>
 
         <div class="driver-bar">
@@ -402,46 +148,40 @@
 
         <section class="grid">
             <div class="stack">
+
                 <article class="card">
                     <div class="hero-top">
                         <div class="hero-copy">
                             <div class="eyebrow">Profile</div>
                             <h2>Katherine Isabela Hsiung Chen</h2>
                             <p>
-                                My background is in Computer Science, and I’m now building toward Simulation
-                                Engineering. I’m most interested in roles where coding and engineering come together,
-                                especially work that involves simulation, modeling, or technical problem-solving.
+                                I'm a Computer Science graduate completing a second degree in Simulation Engineering.
+                                My work spans the full product lifecycle — from mechanical design and CAD through
+                                physical fabrication, electronics, firmware, and simulation. I'm most interested in
+                                roles where engineering precision and hands-on building come together.
                             </p>
                         </div>
-
                     </div>
-
                     <div class="focus-wrap">
+                        <span class="focus-chip">Mechanical Design</span>
+                        <span class="focus-chip">Hardware Fabrication</span>
                         <span class="focus-chip">Simulation Engineering</span>
                         <span class="focus-chip">Software Development</span>
-                        <span class="focus-chip">Modeling + Code</span>
                     </div>
                 </article>
 
                 <article class="card">
-                    <h2>What I’m Targeting</h2>
+                    <h2>What I'm Targeting</h2>
                     <div class="role-grid">
                         <div class="role-box">
-                            <h3>Simulation-focused roles</h3>
-                            <p>
-                                Entry-level work in Simulation Engineering, Modeling and Simulation, engineering support
-                                tools, or
-                                technical product environments where systems thinking matters.
-                            </p>
+                            <h3>Design & fabrication roles</h3>
+                            <p>Graduate engineer positions in mechanical design, product development, or manufacturing
+                                engineering where SolidWorks, physical build experience, and attention to detail matter.</p>
                         </div>
-
                         <div class="role-box">
-                            <h3>Technical coding roles</h3>
-                            <p>
-                                Software roles that still stay close to engineering, especially where code supports
-                                systems, tools,
-                                interactivity, visualization, or product logic.
-                            </p>
+                            <h3>Simulation & software roles</h3>
+                            <p>Roles in simulation engineering, technical tools, or software development in high-performance
+                                engineering environments including motorsport and aerospace.</p>
                         </div>
                     </div>
                 </article>
@@ -456,13 +196,13 @@
                         </div>
                         <div class="resume-sub">Full Sail University · Winter Park, FL</div>
                         <ul class="resume-bullets">
-                            <li>Lead campus tours and guide prospective students and families through a fast-paced,
-                                public-facing experience.</li>
-                            <li>Explain programs, facilities, and university offerings clearly and confidently.</li>
-                            <li>Support event setup, flow, and logistics to help create polished visit experiences.</li>
+                            <li>Lead two-hour campus tours for prospective students and families, communicating complex
+                                program information clearly to diverse audiences.</li>
+                            <li>Coordinate event setup and logistics, managing multiple priorities simultaneously in a
+                                fast-paced environment.</li>
+                            <li>Foster a welcoming atmosphere that creates memorable experiences for hundreds of guests.</li>
                         </ul>
                     </div>
-
 
                     <div class="resume-item">
                         <div class="resume-head">
@@ -471,66 +211,99 @@
                         </div>
                         <div class="resume-sub">Echelon · Remote</div>
                         <ul class="resume-bullets">
-                            <li>Contributed to Echelon’s Reflect Touch Mirror project through a student collaboration
-                                program.</li>
-                            <li>Worked on frontend implementation using Kotlin and Jetpack Compose.</li>
-                            <li>Built responsive UI components while collaborating in a professional product
-                                environment.</li>
+                            <li>Contributed to Echelon's Reflect Touch Mirror project through a student collaboration
+                                program, building responsive UI components using Kotlin and Jetpack Compose.</li>
+                            <li>Delivered production-quality features within an Agile workflow, taking full ownership
+                                of scoped tasks from implementation through testing.</li>
                         </ul>
                     </div>
                 </article>
 
                 <article class="card">
-                    <h2>Selected Technical Work</h2>
-
-                    <div class="project-mini">
-                        <h3>Geneva Drive</h3>
-                        <p class="project-meta">SolidWorks · Mechanism Design</p>
-                        <p>
-                            Modeled and developed a Geneva Drive mechanism as part of my simulation engineering work,
-                            focusing on motion, mechanical behavior, and clear technical presentation.
-                        </p>
-                    </div>
+                    <h2>Hardware Projects</h2>
+                    <div class="hw-badge">Built by hand</div>
 
                     <div class="project-grid">
                         <div class="project-mini">
-                            <h3>Proximity Video Panel</h3>
-                            <p class="project-meta">Unreal Engine 5 · Blueprints</p>
-                            <p>Built an interaction where approaching a display reveals a video panel and walking away
-                                hides it.</p>
+                            <h3>Stewart Motion Platform</h3>
+                            <p class="project-meta">SolidWorks · Eagle PCB · LPKF · Stratasys · ESP32 · C#</p>
+                            <p>Designed in SolidWorks and fully fabricated by hand using a 3D printer, laser cutter,
+                                lathe, and CNC PCB mill. Custom circuit hand-soldered. Currently connected to a Unity
+                                racing simulation.</p>
                         </div>
-
                         <div class="project-mini">
-                            <h3>TCP Server</h3>
-                            <p class="project-meta">C++</p>
-                            <p>Developed a TCP server that accepts client connections and relays messages across
-                                clients.</p>
+                            <h3>Simon Sense</h3>
+                            <p class="project-meta">Eagle PCB · LPKF · Arduino Feather M0 · C++</p>
+                            <p>Simon Says memory game built from scratch. PCB designed in Eagle, fabricated on LPKF
+                                CNC mill, hand-soldered. Firmware written in C++.</p>
                         </div>
-
                         <div class="project-mini">
-                            <h3>Pathfinder</h3>
-                            <p class="project-meta">TypeScript · React Native</p>
-                            <p>Built a trip-planning app designed to support travel organization and user workflow.</p>
+                            <h3>Geocaching Device</h3>
+                            <p class="project-meta">Arduino M0 · GPS · SD Card · OLED · C++</p>
+                            <p>Handheld device with GPS logging, OLED display, joystick, and a Pong mini-game.
+                                Custom PCB hand-soldered.</p>
                         </div>
-
                         <div class="project-mini">
-                            <h3>Game of Life Simulation</h3>
-                            <p class="project-meta">C++</p>
-                            <p>Implemented Conway’s Game of Life with file input and output support for saved states.
-                            </p>
+                            <h3>Smart Door Greeter</h3>
+                            <p class="project-meta">Arduino · NeoPixel · C++</p>
+                            <p>Motion-activated greeter with temperature sensing, NeoPixel animations, and buzzer
+                                melodies. Doorbell, mute toggle, and arm/disarm switch.</p>
                         </div>
                     </div>
                 </article>
+
+                <article class="card">
+                    <h2>Simulation &amp; Software Projects</h2>
+                    <div class="project-grid">
+                        <div class="project-mini">
+                            <h3>F1 Racing Simulation</h3>
+                            <p class="project-meta">Unity · C# · Visual Studio 2022</p>
+                            <p>Real-time racing simulation connected to the physical Stewart Platform. The platform
+                                responds dynamically to driver inputs in Unity — the same principle as a Driver-in-the-Loop simulator.</p>
+                        </div>
+                        <div class="project-mini">
+                            <h3>Stewart Platform — Digital</h3>
+                            <p class="project-meta">SolidWorks · 6 DOF</p>
+                            <p>Full digital simulation with master sketch, engineering drawings, motion study,
+                                and collision checking prior to physical fabrication.</p>
+                        </div>
+                        <div class="project-mini">
+                            <h3>Geneva Drive</h3>
+                            <p class="project-meta">SolidWorks</p>
+                            <p>Mechanism designed with clean mates, validated via motion study to confirm indexing
+                                and clearances.</p>
+                        </div>
+                        <div class="project-mini">
+                            <h3>TCP Server</h3>
+                            <p class="project-meta">C++</p>
+                            <p>Multi-client TCP server with message relay, structured logging, and graceful shutdown.</p>
+                        </div>
+                        <div class="project-mini">
+                            <h3>Pathfinder</h3>
+                            <p class="project-meta">TypeScript · React Native</p>
+                            <p>Cross-platform travel planning app integrating Google Cloud APIs for flights, maps,
+                                currency, and expenses.</p>
+                        </div>
+                        <div class="project-mini">
+                            <h3>Game of Life Simulation</h3>
+                            <p class="project-meta">C++ · wxWidgets</p>
+                            <p>Conway's Game of Life with file I/O, pause/step controls, and a wxWidgets GUI.</p>
+                        </div>
+                    </div>
+                </article>
+
             </div>
 
             <div class="stack">
+
                 <article class="card">
                     <h2>Quick Snapshot</h2>
                     <ul class="resume-list">
-                        <li>Computer Science graduate</li>
-                        <li>Currently building toward Simulation Engineering work</li>
-                        <li>Comfortable with C++, Kotlin, TypeScript, and Python</li>
-                        <li>Interested in roles that connect engineering logic with software</li>
+                        <li>Computer Science graduate, GPA 3.93/4.0</li>
+                        <li>Simulation Engineering student, GPA 4.0/4.0</li>
+                        <li>Built a 6-DOF Stewart Platform from scratch, design to fabrication</li>
+                        <li>Comfortable with SolidWorks, Eagle PCB, LPKF, C++, C#, Unity</li>
+                        <li>Available from December 2026</li>
                     </ul>
                 </article>
 
@@ -538,19 +311,20 @@
                     <h2>Skills</h2>
                     <div class="skill-groups">
                         <div class="skill-box">
-                            <h3>Languages</h3>
-                            <p>C++, Kotlin, TypeScript, Python</p>
+                            <h3>Design</h3>
+                            <p>SolidWorks, Eagle PCB, Figma</p>
                         </div>
-
                         <div class="skill-box">
-                            <h3>Tools</h3>
-                            <p>Jetpack Compose, React Native, Unreal Engine Blueprints, Figma, Jira, wxWidgets,
-                                SOLIDWORKS</p>
+                            <h3>Fabrication</h3>
+                            <p>Stratasys 3D Printing, LPKF PCB Mill, Laser Cutter, Lathe, Drill, Grinding Wheel, Soldering</p>
                         </div>
-
                         <div class="skill-box">
-                            <h3>Working Style</h3>
-                            <p>Problem-solving, communication, collaboration, agile teamwork, technical design</p>
+                            <h3>Programming</h3>
+                            <p>C++, C#, Python, TypeScript, Kotlin, Arduino IDE</p>
+                        </div>
+                        <div class="skill-box">
+                            <h3>Tools & Frameworks</h3>
+                            <p>Unity, Visual Studio 2022, React Native, Jetpack Compose, wxWidgets, Git, Jira, Agile</p>
                         </div>
                     </div>
                 </article>
@@ -561,13 +335,12 @@
                         <div class="mini-row">
                             <strong>B.S. in Simulation Engineering</strong>
                             <span>Full Sail University</span>
-                            <p>Expected Nov 2026</p>
+                            <p>Expected Nov 2026 · GPA 4.0/4.0</p>
                         </div>
-
                         <div class="mini-row">
                             <strong>B.S. in Computer Science</strong>
                             <span>Full Sail University</span>
-                            <p>Dec 2025</p>
+                            <p>Dec 2025 · GPA 3.93/4.0</p>
                         </div>
                     </div>
                 </article>
@@ -575,31 +348,27 @@
                 <article class="card">
                     <h2>Direct Links</h2>
                     <div class="links-stack">
-                        <a class="linkcard" href="mailto:katisabela125@gmail.com">
+                        <a class="linkcard" href="mailto:katehsiungchen55@gmail.com">
                             <img src="https://img.icons8.com/fluency/48/filled-message.png" alt="">
-                            <div><strong>Email:</strong> katisabela125@gmail.com</div>
+                            <div><strong>Email:</strong> katehsiungchen55@gmail.com</div>
                         </a>
-
-                        <a class="linkcard" href="https://github.com/Katechen125" target="_blank"
-                            rel="noopener noreferrer">
+                        <a class="linkcard" href="https://github.com/Katechen125" target="_blank" rel="noopener noreferrer">
                             <img src="https://img.icons8.com/ios-glyphs/30/github.png" alt="">
                             <div><strong>GitHub:</strong> @Katechen125</div>
                         </a>
-
-                        <a class="linkcard" href="https://www.linkedin.com/in/katherine-hsiung-chen-22972830b"
-                            target="_blank" rel="noopener noreferrer">
+                        <a class="linkcard" href="https://www.linkedin.com/in/katherine-hsiung-chen-22972830b" target="_blank" rel="noopener noreferrer">
                             <img src="https://img.icons8.com/color/48/linkedin.png" alt="">
                             <div><strong>LinkedIn:</strong> Katherine Hsiung Chen</div>
                         </a>
                     </div>
                 </article>
+
             </div>
         </section>
     </main>
 
     <footer>
-        <div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub
-            Pages</div>
+        <div class="container">© <span id="year"></span> Katherine Chen • Built with HTML/CSS/JS • Deployed on GitHub Pages</div>
     </footer>
 
     <script src="assets/js/confetti.js"></script>
@@ -612,5 +381,4 @@
         document.getElementById('resetTheme').addEventListener('click', resetTheme);
     </script>
 </body>
-
 </html>
