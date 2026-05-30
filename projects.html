@@ -305,12 +305,7 @@
     // Media playlists
     const playlists = {
       racingSimVideos: [
-        { type: 'video', src: 'assets/videos/racing_sim_test_1.mp4', label: 'Test session 1' },
-        { type: 'video', src: 'assets/videos/racing_sim_test_2.mp4', label: 'Test session 2' },
-        { type: 'video', src: 'assets/videos/racing_sim_test_3.mp4', label: 'Test session 3' },
-        { type: 'video', src: 'assets/videos/racing_sim_test_4.mp4', label: 'Test session 4' },
-        { type: 'video', src: 'assets/videos/racing_sim_test_5.mp4', label: 'Test session 5' },
-        { type: 'video', src: 'assets/videos/racing_sim_test_6.mp4', label: 'Test session 6' },
+        { type: 'youtube', src: 'https://www.youtube.com/playlist?list=PLcprPtzWKe_xBE9AJaWOTxh4M4G-Mb8Gq', label: 'Test Sessions Playlist' },
       ],
       stewartPhysical: [
         { type: 'video', src: 'assets/videos/stewart_6dof.mp4', label: '6DOF motion' },
@@ -398,6 +393,11 @@
 
     function openPlaylist(key, startIndex = 0) {
       playlist = playlists[key] || [];
+      if (playlist.length === 1 && playlist[0].type === 'youtube') {
+        const ok = confirm('This opens on YouTube in a new tab. Continue?');
+        if (ok) window.open(playlist[0].src, '_blank', 'noopener,noreferrer');
+        return;
+      }
       videoTitle.textContent = overlayTitles[key] || key;
       overlay.style.display = 'flex'; overlay.setAttribute('aria-hidden', 'false');
       showMedia(startIndex);
